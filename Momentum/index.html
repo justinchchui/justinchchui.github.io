@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics of Momentum Simulator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        canvas {
+            background-color: transparent;
+            width: 100%;
+            height: auto;
+            touch-action: none;
+        }
+        /* Custom range slider styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 18px;
+            width: 18px;
+            border-radius: 50%;
+            cursor: pointer;
+            margin-top: -7px;
+        }
+        .slider-blue::-webkit-slider-thumb { background: #3b82f6; box-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
+        .slider-red::-webkit-slider-thumb { background: #ef4444; box-shadow: 0 0 10px rgba(239, 68, 68, 0.5); }
+        .slider-neutral::-webkit-slider-thumb { background: #94a3b8; box-shadow: 0 0 10px rgba(148, 163, 184, 0.5); }
+        
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #475569;
+            border-radius: 2px;
+        }
+        input[type=range]:focus {
+            outline: none;
+        }
+        input[disabled]::-webkit-slider-thumb {
+            background: #475569;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+        
+        .canvas-wrapper {
+            background-image: linear-gradient(to right, #1e293b 1px, transparent 1px), linear-gradient(to bottom, #1e293b 1px, transparent 1px);
+            background-size: 50px 50px;
+            background-color: #0f172a;
+        }
+
+        .tab-active {
+            background-color: #3b82f6;
+            color: white;
+            border-color: #2563eb;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center p-4 md:p-8">
+
+    <div class="max-w-6xl w-full">
+	<!-- Back Navigation -->
+        <div class="mb-2 md:mb-6">
+            <a href="../" class="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm font-bold bg-slate-800 py-2 px-4 rounded-lg border border-slate-700 shadow-md hover:bg-slate-700 w-max">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Back to Home
+            </a>
+        </div>
+
+        <header class="mb-6 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">Momentum & Collisions</h1>
+            <p class="text-slate-400 max-w-2xl mx-auto text-sm md:text-base">
+                Explore the Law of Conservation of Momentum on a frictionless track. Watch the <span class="text-amber-400 font-semibold">momentum vectors (arrows)</span> to see how momentum is transferred or conserved.
+            </p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            
+            <!-- Canvas & Readouts Area -->
+            <div class="lg:col-span-2 flex flex-col gap-4">
+                
+                <!-- Live Data Readouts -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-slate-800/80 p-3 rounded-lg border border-blue-500/30 text-center flex flex-col justify-center">
+                        <span class="block text-xs text-blue-400 uppercase font-bold tracking-wider mb-1">Object A</span>
+                        <div class="grid grid-cols-2 gap-2 mt-1">
+                            <div>
+                                <div class="text-[10px] text-slate-400 uppercase">Momentum</div>
+                                <div class="text-xl font-mono text-blue-400" id="pA-display">0.0</div>
+                            </div>
+                            <div>
+                                <div class="text-[10px] text-slate-400 uppercase">Kinetic Energy</div>
+                                <div class="text-xl font-mono text-blue-400" id="keA-display">0.0 J</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-800/80 p-3 rounded-lg border border-red-500/30 text-center flex flex-col justify-center">
+                        <span class="block text-xs text-red-400 uppercase font-bold tracking-wider mb-1">Object B</span>
+                        <div class="grid grid-cols-2 gap-2 mt-1">
+                            <div>
+                                <div class="text-[10px] text-slate-400 uppercase">Momentum</div>
+                                <div class="text-xl font-mono text-red-400" id="pB-display">0.0</div>
+                            </div>
+                            <div>
+                                <div class="text-[10px] text-slate-400 uppercase">Kinetic Energy</div>
+                                <div class="text-xl font-mono text-red-400" id="keB-display">0.0 J</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-900 p-3 rounded-lg border border-amber-500/50 text-center relative overflow-hidden shadow-[0_0_15px_rgba(245,158,11,0.2)] flex flex-col justify-center">
+                        <span class="block text-xs text-amber-400 uppercase font-bold tracking-wider mb-1">Total System</span>
+                        <div class="grid grid-cols-2 gap-2 mt-1">
+                            <div>
+                                <div class="text-[10px] text-amber-500/70 uppercase">Σ Momentum</div>
+                                <div class="text-2xl font-black font-mono text-amber-400" id="pTotal-display">0.0</div>
+                            </div>
+                            <div>
+                                <div class="text-[10px] text-amber-500/70 uppercase">Σ Kinetic Energy</div>
+                                <div class="text-2xl font-black font-mono text-amber-400" id="keTotal-display">0.0 J</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="canvas-wrapper relative w-full aspect-[21/9] rounded-xl overflow-hidden border-2 border-slate-600 shadow-2xl flex items-center justify-start">
+                    <!-- The Track Line -->
+                    <div class="absolute left-0 right-0 h-1 bg-slate-500 top-1/2 translate-y-8 z-0"></div>
+                    
+                    <canvas id="simCanvas" width="900" height="385" class="relative z-10"></canvas>
+                </div>
+                
+                <div class="flex gap-2 justify-center">
+                    <button id="playBtn" class="bg-emerald-600 hover:bg-emerald-500 text-white px-8 py-2 rounded-lg font-bold transition-colors shadow-lg shadow-emerald-600/20">
+                        Play
+                    </button>
+                    <button id="resetBtn" class="bg-slate-700 hover:bg-slate-600 text-white px-8 py-2 rounded-lg font-bold transition-colors">
+                        Reset Positions
+                    </button>
+                </div>
+            </div>
+
+            <!-- Controls Panel -->
+            <div class="bg-slate-800 rounded-xl p-6 border border-slate-700 shadow-xl flex flex-col gap-6">
+                
+                <!-- Modes -->
+                <div>
+                    <span class="text-sm font-bold text-slate-300 uppercase tracking-wider block mb-3">Collision Mode</span>
+                    <div class="flex flex-col gap-2">
+                        <button class="mode-btn tab-active border border-slate-600 py-2 rounded font-semibold text-sm transition-colors" data-mode="elastic">
+                            1. Elastic (Bouncy)
+                        </button>
+                        <button class="mode-btn bg-slate-700 text-slate-300 border border-slate-600 py-2 rounded font-semibold text-sm transition-colors hover:bg-slate-600" data-mode="inelastic">
+                            2. Inelastic (Partially Bouncy)
+                        </button>
+                        <button class="mode-btn bg-slate-700 text-slate-300 border border-slate-600 py-2 rounded font-semibold text-sm transition-colors hover:bg-slate-600" data-mode="perfectly_inelastic">
+                            3. Perfectly Inelastic (Sticky)
+                        </button>
+                    </div>
+                </div>
+
+                <hr class="border-slate-700">
+
+                <!-- Object Parameters -->
+                <div class="space-y-5">
+                    
+                    <!-- Mass Sliders -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <label class="text-xs font-bold text-blue-400">Mass A</label>
+                                <span class="text-xs text-slate-400 font-mono" id="massA-val">1 kg</span>
+                            </div>
+                            <input type="range" id="massA" class="slider-blue" min="1" max="5" value="1" step="0.5">
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <label class="text-xs font-bold text-red-400">Mass B</label>
+                                <span class="text-xs text-slate-400 font-mono" id="massB-val">1 kg</span>
+                            </div>
+                            <input type="range" id="massB" class="slider-red" min="1" max="5" value="1" step="0.5">
+                        </div>
+                    </div>
+
+                    <!-- Velocity Sliders -->
+                    <div class="grid grid-cols-2 gap-4" id="velocity-controls">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <label class="text-xs font-bold text-blue-400">Velocity A</label>
+                                <span class="text-xs text-slate-400 font-mono" id="velA-val">4 m/s</span>
+                            </div>
+                            <input type="range" id="velA" class="slider-blue" min="-10" max="10" value="4" step="1">
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <label class="text-xs font-bold text-red-400">Velocity B</label>
+                                <span class="text-xs text-slate-400 font-mono" id="velB-val">-4 m/s</span>
+                            </div>
+                            <input type="range" id="velB" class="slider-red" min="-10" max="10" value="-4" step="1">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Educational Mapping -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+            <div class="bg-slate-800/50 p-4 rounded-lg border border-slate-700/50">
+                <strong class="text-amber-300 block mb-1">Conservation of Momentum</strong>
+                <p class="text-slate-400">Watch the Σ Momentum readout. No matter the collision type, the total momentum before perfectly matches the total momentum after.</p>
+            </div>
+            <div class="bg-slate-800/50 p-4 rounded-lg border border-slate-700/50">
+                <strong class="text-blue-300 block mb-1">Kinetic Energy (KE)</strong>
+                <p class="text-slate-400">KE = ½mv². In Elastic collisions, Total KE is conserved. In Inelastic collisions, some KE is lost to heat/sound. In Perfectly Inelastic collisions, maximum KE is lost!</p>
+            </div>
+            <div class="bg-slate-800/50 p-4 rounded-lg border border-slate-700/50">
+                <strong class="text-red-300 block mb-1">Coefficient of Restitution</strong>
+                <p class="text-slate-400">This determines "bounciness" (e). Elastic has e=1 (perfect bounce). Inelastic here uses e=0.5. Perfectly Inelastic uses e=0 (they stick together).</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('simCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // UI Elements
+        const pADisplay = document.getElementById('pA-display');
+        const pBDisplay = document.getElementById('pB-display');
+        const pTotalDisplay = document.getElementById('pTotal-display');
+        const keADisplay = document.getElementById('keA-display');
+        const keBDisplay = document.getElementById('keB-display');
+        const keTotalDisplay = document.getElementById('keTotal-display');
+        
+        const massASlider = document.getElementById('massA');
+        const massBSlider = document.getElementById('massB');
+        const velASlider = document.getElementById('velA');
+        const velBSlider = document.getElementById('velB');
+        
+        const playBtn = document.getElementById('playBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const modeBtns = document.querySelectorAll('.mode-btn');
+        
+        const velocityControls = document.getElementById('velocity-controls');
+
+        // State
+        let currentMode = 'elastic'; // elastic, inelastic, perfectly_inelastic
+        let isRunning = false;
+        let hasCollided = false;
+        let animationFrameId;
+
+        // Constants & Scaling
+        const BASE_Y = canvas.height / 2;
+        const PIXEL_PER_METER = 10; // 1 m/s = 10 pixels per frame
+        const BASE_RADIUS = 20;
+
+        // Cart Objects
+        let cartA = { x: 0, y: BASE_Y, mass: 1, vx: 4, baseColor: '#3b82f6', radius: 25 };
+        let cartB = { x: 0, y: BASE_Y, mass: 1, vx: -4, baseColor: '#ef4444', radius: 25 };
+
+        // --- Core Physics & Logic ---
+
+        function initPositions() {
+            hasCollided = false;
+            
+            // Sync masses from sliders
+            cartA.mass = parseFloat(massASlider.value);
+            cartB.mass = parseFloat(massBSlider.value);
+            cartA.radius = BASE_RADIUS + (cartA.mass * 5);
+            cartB.radius = BASE_RADIUS + (cartB.mass * 5);
+
+            // Placed at opposite ends
+            cartA.x = 100;
+            cartB.x = canvas.width - 100;
+            cartA.vx = parseFloat(velASlider.value);
+            cartB.vx = parseFloat(velBSlider.value);
+
+            updateReadouts();
+            draw(); // Draw initial state immediately
+        }
+
+        function checkCollision() {
+            if (hasCollided) return;
+
+            // Simple 1D collision check based on X position and radii
+            const dist = Math.abs(cartB.x - cartA.x);
+            if (dist <= cartA.radius + cartB.radius) {
+                resolveCollision();
+                
+                // Visual pop effect
+                createCollisionSparks((cartA.x + cartB.x) / 2, BASE_Y);
+            }
+        }
+
+        function resolveCollision() {
+            hasCollided = true;
+            
+            const m1 = cartA.mass;
+            const m2 = cartB.mass;
+            const v1 = cartA.vx;
+            const v2 = cartB.vx;
+
+            // e is the Coefficient of Restitution
+            let e = 1; 
+            if (currentMode === 'elastic') e = 1;
+            else if (currentMode === 'inelastic') e = 0.5;
+            else if (currentMode === 'perfectly_inelastic') e = 0;
+
+            // General 1D collision formula using coefficient of restitution
+            cartA.vx = (m1 * v1 + m2 * v2 + m2 * e * (v2 - v1)) / (m1 + m2);
+            cartB.vx = (m1 * v1 + m2 * v2 + m1 * e * (v1 - v2)) / (m1 + m2);
+            
+            // Snap them perfectly together to avoid overlapping artifacts if perfectly inelastic
+            if (currentMode === 'perfectly_inelastic') {
+                if(cartA.x < cartB.x) {
+                    cartA.x = cartB.x - cartA.radius - cartB.radius;
+                } else {
+                    cartA.x = cartB.x + cartA.radius + cartB.radius;
+                }
+            }
+        }
+
+        // --- Drawing ---
+
+        let particles = [];
+        function createCollisionSparks(x, y, isExplosion = false) {
+            const count = isExplosion ? 30 : 15;
+            for(let i=0; i<count; i++) {
+                particles.push({
+                    x: x, y: y,
+                    vx: (Math.random() - 0.5) * 10,
+                    vy: (Math.random() - 0.5) * 10,
+                    life: 1.0,
+                    color: isExplosion ? '#f59e0b' : '#cbd5e1'
+                });
+            }
+        }
+
+        function drawVectorArrow(x, y, vx, mass, color) {
+            const momentum = vx * mass;
+            if (Math.abs(momentum) < 0.1) return; // Don't draw if ~0
+            
+            const scale = 5; // Pixels per momentum unit
+            const arrowLength = momentum * scale;
+            const arrowWidth = 10;
+            
+            ctx.fillStyle = '#fef08a'; // Yellow arrow
+            ctx.strokeStyle = '#a16207';
+            ctx.lineWidth = 1;
+
+            ctx.beginPath();
+            ctx.moveTo(x, y - 2);
+            ctx.lineTo(x + arrowLength - Math.sign(vx)*arrowWidth, y - 2);
+            ctx.lineTo(x + arrowLength - Math.sign(vx)*arrowWidth, y - 8);
+            ctx.lineTo(x + arrowLength, y); // Tip
+            ctx.lineTo(x + arrowLength - Math.sign(vx)*arrowWidth, y + 8);
+            ctx.lineTo(x + arrowLength - Math.sign(vx)*arrowWidth, y + 2);
+            ctx.lineTo(x, y + 2);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // Label
+            ctx.fillStyle = '#fef08a';
+            ctx.font = 'bold 14px monospace';
+            ctx.textAlign = 'center';
+            // Position label above the arrow
+            ctx.fillText(`p=${momentum.toFixed(1)}`, x + (arrowLength / 2), y - 12);
+        }
+
+        function drawCart(cart, label) {
+            // Draw wheels
+            ctx.fillStyle = '#475569';
+            ctx.beginPath(); ctx.arc(cart.x - cart.radius/2, cart.y + cart.radius + 5, 8, 0, Math.PI*2); ctx.fill();
+            ctx.beginPath(); ctx.arc(cart.x + cart.radius/2, cart.y + cart.radius + 5, 8, 0, Math.PI*2); ctx.fill();
+
+            // Draw body
+            ctx.fillStyle = cart.baseColor;
+            
+            // If perfectly inelastic and collided, blend colors slightly to show sticking
+            if (currentMode === 'perfectly_inelastic' && hasCollided) {
+                 ctx.fillStyle = '#8b5cf6'; // Purple-ish combined color
+            }
+
+            ctx.beginPath();
+            ctx.roundRect(cart.x - cart.radius, cart.y - cart.radius, cart.radius * 2, cart.radius * 2, 8);
+            ctx.fill();
+            
+            // Mass Text
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 16px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(`${cart.mass}kg`, cart.x, cart.y + 6);
+            ctx.font = '12px sans-serif';
+            ctx.fillText(label, cart.x, cart.y - 10);
+        }
+
+        function drawParticles() {
+            for (let i = particles.length - 1; i >= 0; i--) {
+                let p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.life -= 0.05;
+                
+                if (p.life <= 0) {
+                    particles.splice(i, 1);
+                } else {
+                    ctx.globalAlpha = p.life;
+                    ctx.fillStyle = p.color;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, 3, 0, Math.PI*2);
+                    ctx.fill();
+                    ctx.globalAlpha = 1.0;
+                }
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Update Positions if running
+            if (isRunning) {
+                cartA.x += cartA.vx * (PIXEL_PER_METER / 60) * 10; // * 10 just to speed up visuals
+                cartB.x += cartB.vx * (PIXEL_PER_METER / 60) * 10;
+                
+                checkCollision();
+                updateReadouts();
+            }
+
+            // Draw Elements
+            drawCart(cartA, "A");
+            drawCart(cartB, "B");
+            
+            // Draw Vectors
+            drawVectorArrow(cartA.x, cartA.y - cartA.radius - 20, cartA.vx, cartA.mass);
+            drawVectorArrow(cartB.x, cartB.y - cartB.radius - 20, cartB.vx, cartB.mass);
+            
+            drawParticles();
+
+            if (isRunning) {
+                animationFrameId = requestAnimationFrame(draw);
+            }
+        }
+
+        // --- Data Binding & UI Updates ---
+
+        function updateReadouts() {
+            const pA = cartA.mass * cartA.vx;
+            const pB = cartB.mass * cartB.vx;
+            const pTotal = pA + pB;
+
+            const keA = 0.5 * cartA.mass * Math.pow(cartA.vx, 2);
+            const keB = 0.5 * cartB.mass * Math.pow(cartB.vx, 2);
+            const keTotal = keA + keB;
+
+            // Format with + sign for clarity on vectors
+            const formatNum = (num) => (num > 0 ? '+' : '') + num.toFixed(1);
+
+            pADisplay.textContent = formatNum(pA);
+            pBDisplay.textContent = formatNum(pB);
+            
+            // Total should ideally never change, but JS floats might have tiny rounding errors. Clean it.
+            pTotalDisplay.textContent = (Math.round(pTotal * 10) / 10).toFixed(1);
+
+            keADisplay.textContent = keA.toFixed(1) + ' J';
+            keBDisplay.textContent = keB.toFixed(1) + ' J';
+            keTotalDisplay.textContent = keTotal.toFixed(1) + ' J';
+        }
+
+        // --- Event Listeners ---
+
+        modeBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                // Update styling
+                modeBtns.forEach(b => {
+                    b.classList.remove('tab-active');
+                    b.classList.add('bg-slate-700', 'text-slate-300');
+                });
+                e.target.classList.add('tab-active');
+                e.target.classList.remove('bg-slate-700', 'text-slate-300');
+
+                currentMode = e.target.dataset.mode;
+                
+                isRunning = false;
+                initPositions();
+            });
+        });
+
+        playBtn.addEventListener('click', () => {
+            isRunning = !isRunning;
+            playBtn.textContent = isRunning ? "Pause" : "Play Collision";
+            if (isRunning) draw();
+        });
+
+        resetBtn.addEventListener('click', () => {
+            isRunning = false;
+            playBtn.textContent = "Play Collision";
+            initPositions();
+        });
+
+        // Sliders Text Updates & Real-time adjustment if paused
+        const updateSliderVal = (sliderId, textId, unit) => {
+            document.getElementById(sliderId).addEventListener('input', (e) => {
+                document.getElementById(textId).textContent = e.target.value + ' ' + unit;
+                if (!isRunning) initPositions();
+            });
+        };
+
+        updateSliderVal('massA', 'massA-val', 'kg');
+        updateSliderVal('massB', 'massB-val', 'kg');
+        updateSliderVal('velA', 'velA-val', 'm/s');
+        updateSliderVal('velB', 'velB-val', 'm/s');
+        
+        // Boot
+        initPositions();
+
+    </script>
+	    <!-- Footer -->
+    <footer class="mt-20 text-center text-slate-500 text-sm">
+        <p>Built for interactive science education.</p>
+        <p>Generated by Gemini Pro 3.0 | Prepared By Justin Chui.</p>
+    </footer>
+</body>
+
+</html>
+

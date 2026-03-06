@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projectile Motion Lab</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+        canvas {
+            width: 100%;
+            height: auto;
+            touch-action: none;
+        }
+        
+        /* Optimal Background */
+        .bg-optimal {
+            background-color: #1e293b;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-position: center bottom;
+        }
+
+        /* Hunter Background */
+        .bg-hunter {
+            background-color: #0f172a;
+            background-image: linear-gradient(to right, #1e293b 1px, transparent 1px), linear-gradient(to bottom, #1e293b 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* Sliders */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 18px;
+            width: 18px;
+            border-radius: 50%;
+            background: #3b82f6;
+            cursor: pointer;
+            margin-top: -7px;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.6);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #475569;
+            border-radius: 2px;
+        }
+        input[type=range]:focus { outline: none; }
+        .slider-emerald::-webkit-slider-thumb { background: #10b981; box-shadow: 0 0 10px rgba(16, 185, 129, 0.6); }
+        .slider-purple::-webkit-slider-thumb { background: #a855f7; box-shadow: 0 0 10px rgba(168, 85, 247, 0.6); }
+
+        /* Custom Toggle Switch for Hunter */
+        .toggle-checkbox:checked { right: 0; border-color: #10b981; }
+        .toggle-checkbox:checked + .toggle-label { background-color: #10b981; }
+        .toggle-checkbox:checked + .toggle-label:after { transform: translateX(100%); border-color: white; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center p-4 md:p-8">
+
+    <div class="max-w-6xl w-full">
+	 <!-- Back Navigation -->
+        <div class="mb-2 md:mb-6">
+            <a href="../" class="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm font-bold bg-slate-800 py-2 px-4 rounded-lg border border-slate-700 shadow-md hover:bg-slate-700 w-max">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Back to Home
+            </a>
+        </div>
+
+        <header class="mb-6 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Projectile Motion Lab</h1>
+            
+            <!-- Mode Switcher -->
+            <div class="inline-flex bg-slate-800 p-1 rounded-lg shadow-lg border border-slate-700">
+                <button id="tab-optimal" class="px-6 py-2 rounded-md font-bold transition-colors text-sm md:text-base bg-blue-600 text-white shadow">
+                    1. Optimal Angle
+                </button>
+                <button id="tab-hunter" class="px-6 py-2 rounded-md font-bold transition-colors text-sm md:text-base text-slate-400 hover:text-white">
+                    2. Hunter & Monkey
+                </button>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            
+            <!-- Canvas Area -->
+            <div class="lg:col-span-2 flex flex-col gap-4">
+                <div id="canvas-wrapper" class="relative w-full aspect-[16/9] rounded-xl overflow-hidden border-2 border-slate-600 shadow-2xl flex items-center justify-start bg-optimal transition-colors duration-300">
+                    
+                    <!-- Hunter Ground Line -->
+                    <div id="hunter-ground" class="absolute bottom-0 left-0 right-0 h-8 bg-slate-800 border-t border-slate-600 z-0 hidden"></div>
+                    
+                    <canvas id="simCanvas" width="800" height="450" class="relative z-10"></canvas>
+                    
+                    <!-- Optimal HUD Overlay -->
+                    <div id="opt-hud" class="absolute top-4 right-4 bg-slate-900/80 p-3 rounded border border-slate-700 backdrop-blur-sm pointer-events-none z-20">
+                        <div class="text-xs text-slate-400 uppercase tracking-wider mb-1 font-bold">Predicted Landing</div>
+                        <div class="text-2xl font-mono text-blue-400 font-black" id="opt-hud-range">0.0 m</div>
+                    </div>
+
+                    <!-- Hunter Outcome Overlay -->
+                    <div id="hunt-outcome" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-slate-900/95 px-8 py-4 rounded-xl border border-slate-600 font-bold text-2xl hidden z-30 shadow-2xl backdrop-blur-sm text-center">
+                        Result
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <!-- Optimal Buttons -->
+                <div id="opt-actions" class="flex gap-2 justify-center">
+                    <button id="opt-fireBtn" class="bg-blue-600 hover:bg-blue-500 text-white px-8 py-3 rounded-lg font-bold transition-colors shadow-lg shadow-blue-600/20 text-lg flex items-center gap-2">
+                        <span>🚀</span> Fire Projectile
+                    </button>
+                    <button id="opt-clearBtn" class="bg-slate-700 hover:bg-slate-600 text-white px-8 py-3 rounded-lg font-bold transition-colors text-lg">
+                        Clear Trails
+                    </button>
+                </div>
+
+                <!-- Hunter Buttons -->
+                <div id="hunt-actions" class="flex gap-2 justify-center hidden">
+                    <button id="hunt-fireBtn" class="bg-blue-600 hover:bg-blue-500 text-white px-8 py-3 rounded-lg font-bold transition-colors shadow-lg shadow-blue-600/20 text-lg flex items-center gap-2">
+                        <span>🎯</span> Fire Dart!
+                    </button>
+                    <button id="hunt-resetBtn" class="bg-slate-700 hover:bg-slate-600 text-white px-8 py-3 rounded-lg font-bold transition-colors text-lg">
+                        Reset
+                    </button>
+                </div>
+            </div>
+
+            <!-- Controls Panel Area -->
+            <div class="bg-slate-800 rounded-xl p-6 border border-slate-700 shadow-xl flex flex-col gap-6 relative overflow-hidden">
+                
+                <!-- ================= OPTIMAL PANEL ================= -->
+                <div id="panel-optimal" class="flex flex-col gap-6 h-full w-full transition-opacity duration-300">
+                    <div>
+                        <h3 class="text-sm font-bold text-slate-300 uppercase tracking-wider mb-4 border-b border-slate-700 pb-2">Launch Parameters</h3>
+                        
+                        <div class="mb-6">
+                            <div class="flex justify-between mb-1">
+                                <label class="text-sm font-bold text-blue-400">Launch Angle (θ)</label>
+                                <span class="text-sm text-white font-mono font-bold" id="opt-angle-val">45°</span>
+                            </div>
+                            <input type="range" id="opt-angleSlider" min="0" max="90" value="45" step="1">
+                            <div class="flex justify-between text-[10px] text-slate-500 mt-1">
+                                <span>0° (Flat)</span>
+                                <span>45° (Optimal Level)</span>
+                                <span>90° (Up)</span>
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <div class="flex justify-between mb-1">
+                                <label class="text-sm font-bold text-emerald-400">Initial Velocity (v₀)</label>
+                                <span class="text-sm text-white font-mono" id="opt-vel-val">20 m/s</span>
+                            </div>
+                            <input type="range" id="opt-velSlider" class="slider-emerald" min="5" max="40" value="20" step="1">
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="flex justify-between mb-1">
+                                <label class="text-sm font-bold text-purple-400">Launch Height (h)</label>
+                                <span class="text-sm text-white font-mono" id="opt-height-val">0 m</span>
+                            </div>
+                            <input type="range" id="opt-heightSlider" class="slider-purple" min="0" max="30" value="0" step="1">
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 flex-1">
+                        <h3 class="text-sm font-bold text-slate-300 uppercase tracking-wider mb-2 border-b border-slate-700 pb-2">Calculations</h3>
+                        
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="bg-slate-900/80 p-2 rounded border border-slate-700">
+                                <span class="block text-[10px] text-slate-400 uppercase">Time of Flight (t)</span>
+                                <div class="text-lg font-mono text-slate-200" id="opt-timeDisplay">0.0 s</div>
+                            </div>
+                            <div class="bg-slate-900/80 p-2 rounded border border-slate-700">
+                                <span class="block text-[10px] text-slate-400 uppercase">Peak Height</span>
+                                <div class="text-lg font-mono text-slate-200" id="opt-peakDisplay">0.0 m</div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-emerald-900/20 p-3 rounded border border-emerald-800/50 mt-2">
+                            <span class="block text-[10px] text-emerald-400 uppercase font-bold tracking-wider mb-1">True Optimal Angle</span>
+                            <div class="flex items-end gap-2">
+                                <div class="text-2xl font-mono text-emerald-300 font-bold" id="opt-trueOptDisplay">45.0°</div>
+                                <button id="opt-setOptBtn" class="text-xs bg-emerald-700 hover:bg-emerald-600 text-white px-2 py-1 rounded transition-colors mb-1">Set Angle</button>
+                            </div>
+                            <p class="text-[10px] text-slate-400 mt-1 leading-tight">If height > 0, optimal shifts to < 45°.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= HUNTER PANEL ================= -->
+                <div id="panel-hunter" class="hidden flex-col gap-6 h-full w-full transition-opacity duration-300">
+                    <div>
+                        <h3 class="text-sm font-bold text-slate-300 uppercase tracking-wider mb-4 border-b border-slate-700 pb-2">Simulation Settings</h3>
+                        
+                        <div class="flex items-center justify-between mb-3 bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+                            <div>
+                                <strong class="text-emerald-400 block">Gravity</strong>
+                                <span class="text-xs text-slate-400">Pull objects downward?</span>
+                            </div>
+                            <div class="relative inline-block w-12 h-6 align-middle select-none transition duration-200 ease-in">
+                                <input type="checkbox" id="hunt-gravityToggle" checked class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 border-slate-600 appearance-none cursor-pointer z-10 top-0 left-0 transition-transform duration-200 ease-in-out"/>
+                                <label for="hunt-gravityToggle" class="toggle-label block overflow-hidden h-6 rounded-full bg-slate-600 cursor-pointer"></label>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between mb-6 bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+                            <div>
+                                <strong class="text-purple-400 block">Slow Motion</strong>
+                                <span class="text-xs text-slate-400">Watch the physics closely</span>
+                            </div>
+                            <div class="relative inline-block w-12 h-6 align-middle select-none transition duration-200 ease-in">
+                                <input type="checkbox" id="hunt-slowMoToggle" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 border-slate-600 appearance-none cursor-pointer z-10 top-0 left-0 transition-transform duration-200 ease-in-out"/>
+                                <label for="hunt-slowMoToggle" class="toggle-label block overflow-hidden h-6 rounded-full bg-slate-600 cursor-pointer"></label>
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <div class="flex justify-between mb-1">
+                                <label class="text-sm font-bold text-blue-400">Dart Firing Speed</label>
+                                <span class="text-sm text-slate-300 font-mono" id="hunt-vel-val">Fast</span>
+                            </div>
+                            <input type="range" id="hunt-velocitySlider" min="10" max="35" value="25" step="1">
+                            <p class="text-[10px] text-slate-400 mt-2">Slower speeds cause a highly curved trajectory.</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 flex-1 mt-4">
+                        <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-700">
+                            <span class="block text-[10px] text-slate-400 uppercase font-bold tracking-wider mb-1">Monkey Drop Distance</span>
+                            <div class="text-xl font-mono text-amber-400" id="hunt-monkeyDropDisplay">0.0 m</div>
+                        </div>
+                        <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-700">
+                            <span class="block text-[10px] text-slate-400 uppercase font-bold tracking-wider mb-1">Dart Fall from Aim Line</span>
+                            <div class="text-xl font-mono text-blue-400" id="hunt-dartDropDisplay">0.0 m</div>
+                        </div>
+                        <p class="text-xs text-emerald-300 mt-2 bg-emerald-900/20 p-2 rounded border border-emerald-800/50">
+                            The dart falls away from its straight aim-line at the exact rate the monkey falls!
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Core Elements & Mode Management ---
+        const canvas = document.getElementById('simCanvas');
+        const ctx = canvas.getContext('2d');
+        const canvasWrapper = document.getElementById('canvas-wrapper');
+        
+        // Tabs
+        const tabOpt = document.getElementById('tab-optimal');
+        const tabHunt = document.getElementById('tab-hunter');
+        
+        // Panels & UI Groups
+        const panelOpt = document.getElementById('panel-optimal');
+        const panelHunt = document.getElementById('panel-hunter');
+        const actsOpt = document.getElementById('opt-actions');
+        const actsHunt = document.getElementById('hunt-actions');
+        const optHud = document.getElementById('opt-hud');
+        const huntGround = document.getElementById('hunter-ground');
+        const huntOutcome = document.getElementById('hunt-outcome');
+
+        let currentMode = 'optimal'; // 'optimal' or 'hunter'
+        let globalAnimFrame = null;
+
+        // --- OPTIMAL MODULE ---
+        const opt = {
+            g: 9.81,
+            PPM: 5, // Pixels Per Meter
+            originX: 40,
+            originY: canvas.height - 40,
+            angle: 45, vel: 20, height: 0,
+            projectiles: [],
+            
+            // DOM
+            sliderAngle: document.getElementById('opt-angleSlider'),
+            sliderVel: document.getElementById('opt-velSlider'),
+            sliderHeight: document.getElementById('opt-heightSlider'),
+            valAngle: document.getElementById('opt-angle-val'),
+            valVel: document.getElementById('opt-vel-val'),
+            valHeight: document.getElementById('opt-height-val'),
+            dispRange: document.getElementById('opt-hud-range'),
+            dispTime: document.getElementById('opt-timeDisplay'),
+            dispPeak: document.getElementById('opt-peakDisplay'),
+            dispTrueOpt: document.getElementById('opt-trueOptDisplay'),
+            btnFire: document.getElementById('opt-fireBtn'),
+            btnClear: document.getElementById('opt-clearBtn'),
+            btnSetOpt: document.getElementById('opt-setOptBtn'),
+            colors: ['#f87171', '#fbbf24', '#34d399', '#60a5fa', '#a78bfa', '#f472b6'],
+            cIndex: 0
+        };
+
+        // --- HUNTER MODULE ---
+        const hunt = {
+            g_on: 0.4,
+            g: 0.4,
+            isRunning: false,
+            hasHit: false,
+            slowMo: false,
+            trailCounter: 0,
+            groundY: canvas.height - 32,
+            cannon: { x: 50, y: (canvas.height - 32) - 40 },
+            monkeyStart: { x: 700, y: 80 },
+            monkey: { x: 700, y: 80, vy: 0, radius: 20 },
+            dart: { x: 50, y: (canvas.height - 32) - 40, vx: 0, vy: 0, radius: 6, active: false },
+            aimAngle: 0,
+            dartTrail: [], monkeyTrail: [], sparks: [],
+            
+            // DOM
+            sliderVel: document.getElementById('hunt-velocitySlider'),
+            valVel: document.getElementById('hunt-vel-val'),
+            togGravity: document.getElementById('hunt-gravityToggle'),
+            togSlowMo: document.getElementById('hunt-slowMoToggle'),
+            dispMonkeyDrop: document.getElementById('hunt-monkeyDropDisplay'),
+            dispDartDrop: document.getElementById('hunt-dartDropDisplay'),
+            btnFire: document.getElementById('hunt-fireBtn'),
+            btnReset: document.getElementById('hunt-resetBtn')
+        };
+        hunt.aimAngle = Math.atan2(hunt.monkeyStart.y - hunt.cannon.y, hunt.monkeyStart.x - hunt.cannon.x);
+
+
+        // ==========================================
+        //         OPTIMAL MODE LOGIC
+        // ==========================================
+
+        function opt_calcTrajectory(v0, thetaDeg, h) {
+            const thetaRad = thetaDeg * (Math.PI / 180);
+            const vx0 = v0 * Math.cos(thetaRad);
+            const vy0 = v0 * Math.sin(thetaRad);
+            const timeOfFlight = (vy0 + Math.sqrt(Math.pow(vy0, 2) + 2 * opt.g * h)) / opt.g;
+            const range = vx0 * timeOfFlight;
+            const tPeak = vy0 / opt.g;
+            const peakHeight = h + (vy0 * tPeak) - (0.5 * opt.g * Math.pow(tPeak, 2));
+            return { vx0, vy0, timeOfFlight, range, peakHeight, thetaRad };
+        }
+
+        function opt_getTrueOptAngle(v0, h) {
+            const rad = Math.atan(v0 / Math.sqrt(Math.pow(v0, 2) + 2 * opt.g * h));
+            return rad * (180 / Math.PI);
+        }
+
+        function opt_getPos(v0, thetaRad, h, t) {
+            const x = (v0 * Math.cos(thetaRad)) * t;
+            const y = h + (v0 * Math.sin(thetaRad) * t) - (0.5 * opt.g * Math.pow(t, 2));
+            return { x, y };
+        }
+
+        function opt_drawGround() {
+            ctx.fillStyle = '#1e293b';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Grass
+            ctx.fillStyle = '#064e3b';
+            ctx.fillRect(0, opt.originY, canvas.width, canvas.height - opt.originY);
+            ctx.strokeStyle = '#10b981';
+            ctx.lineWidth = 2;
+            ctx.beginPath(); ctx.moveTo(0, opt.originY); ctx.lineTo(canvas.width, opt.originY); ctx.stroke();
+
+            // Platform
+            const pxHeight = opt.height * opt.PPM;
+            if (opt.height > 0) {
+                ctx.fillStyle = '#475569';
+                ctx.fillRect(opt.originX - 20, opt.originY - pxHeight, 40, pxHeight);
+                ctx.fillStyle = '#a855f7';
+                ctx.fillRect(opt.originX - 20, opt.originY - pxHeight, 40, 5);
+            }
+            
+            // Cannon
+            ctx.save();
+            ctx.translate(opt.originX, opt.originY - pxHeight);
+            ctx.rotate(-opt.angle * (Math.PI/180));
+            ctx.fillStyle = '#94a3b8';
+            ctx.fillRect(0, -5, 25, 10);
+            ctx.restore();
+            
+            ctx.fillStyle = '#334155';
+            ctx.beginPath(); ctx.arc(opt.originX, opt.originY - pxHeight, 10, 0, Math.PI*2); ctx.fill();
+        }
+
+        function opt_drawPredictedArc() {
+            const data = opt_calcTrajectory(opt.vel, opt.angle, opt.height);
+            ctx.beginPath();
+            ctx.setLineDash([5, 5]);
+            ctx.strokeStyle = 'rgba(59, 130, 246, 0.6)';
+            ctx.lineWidth = 2;
+            
+            const pxHeight = opt.height * opt.PPM;
+            ctx.moveTo(opt.originX, opt.originY - pxHeight);
+
+            const steps = 50;
+            const dt = data.timeOfFlight / steps;
+            
+            for (let i = 1; i <= steps; i++) {
+                const pos = opt_getPos(opt.vel, data.thetaRad, opt.height, i * dt);
+                ctx.lineTo(opt.originX + (pos.x * opt.PPM), opt.originY - (pos.y * opt.PPM));
+            }
+            ctx.stroke();
+            ctx.setLineDash([]); 
+
+            // Target marker
+            const landingX = opt.originX + (data.range * opt.PPM);
+            ctx.fillStyle = 'rgba(59, 130, 246, 0.8)';
+            ctx.beginPath(); ctx.arc(landingX, opt.originY, 6, 0, Math.PI*2); ctx.fill();
+        }
+
+        function opt_drawProjectiles() {
+            opt.projectiles.forEach(p => {
+                if (p.path.length > 1) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = p.color;
+                    ctx.lineWidth = 3;
+                    ctx.globalAlpha = 0.6;
+                    ctx.moveTo(opt.originX + p.path[0].x * opt.PPM, opt.originY - p.path[0].y * opt.PPM);
+                    for (let i = 1; i < p.path.length; i++) {
+                        ctx.lineTo(opt.originX + p.path[i].x * opt.PPM, opt.originY - p.path[i].y * opt.PPM);
+                    }
+                    ctx.stroke();
+                    ctx.globalAlpha = 1.0;
+                }
+                const cPos = p.path[p.path.length - 1];
+                const cX = opt.originX + (cPos.x * opt.PPM);
+                const cY = opt.originY - (cPos.y * opt.PPM);
+                
+                ctx.fillStyle = p.color;
+                ctx.beginPath(); ctx.arc(cX, cY, 5, 0, Math.PI*2); ctx.fill();
+                
+                if (!p.active) {
+                    ctx.font = '10px monospace';
+                    ctx.fillText(`${p.data.range.toFixed(1)}m`, cX - 10, cY - 10);
+                }
+            });
+        }
+
+        function opt_updateUI() {
+            opt.angle = parseFloat(opt.sliderAngle.value);
+            opt.vel = parseFloat(opt.sliderVel.value);
+            opt.height = parseFloat(opt.sliderHeight.value);
+
+            opt.valAngle.textContent = opt.angle + '°';
+            opt.valVel.textContent = opt.vel + ' m/s';
+            opt.valHeight.textContent = opt.height + ' m';
+
+            const data = opt_calcTrajectory(opt.vel, opt.angle, opt.height);
+            const trueOpt = opt_getTrueOptAngle(opt.vel, opt.height);
+
+            opt.dispRange.textContent = data.range.toFixed(1) + ' m';
+            opt.dispTime.textContent = data.timeOfFlight.toFixed(2) + ' s';
+            opt.dispPeak.textContent = data.peakHeight.toFixed(1) + ' m';
+            opt.dispTrueOpt.textContent = trueOpt.toFixed(1) + '°';
+            
+            if (Math.abs(opt.angle - trueOpt) < 0.5) {
+                opt.valAngle.classList.add('text-emerald-400'); opt.valAngle.classList.remove('text-white');
+            } else {
+                opt.valAngle.classList.remove('text-emerald-400'); opt.valAngle.classList.add('text-white');
+            }
+
+            if(currentMode === 'optimal' && !globalAnimFrame) opt_triggerRender();
+        }
+
+        function opt_triggerRender() {
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            opt_drawGround();
+            opt_drawPredictedArc();
+            opt_drawProjectiles();
+        }
+
+        function opt_loop() {
+            let activeCount = 0;
+            opt.projectiles.forEach(p => {
+                if (!p.active) return;
+                activeCount++;
+                p.t += 0.03; 
+                if (p.t >= p.data.timeOfFlight) {
+                    p.t = p.data.timeOfFlight; 
+                    p.active = false;
+                }
+                p.path.push(opt_getPos(p.v0, p.data.thetaRad, p.h, p.t));
+            });
+
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            opt_drawGround();
+            if (!activeCount) opt_drawPredictedArc(); 
+            opt_drawProjectiles();
+
+            if (activeCount > 0 && currentMode === 'optimal') {
+                globalAnimFrame = requestAnimationFrame(opt_loop);
+            } else {
+                globalAnimFrame = null;
+            }
+        }
+
+
+        // ==========================================
+        //         HUNTER MODE LOGIC
+        // ==========================================
+
+        function hunt_initSim() {
+            if(globalAnimFrame) { cancelAnimationFrame(globalAnimFrame); globalAnimFrame = null; }
+            hunt.isRunning = false;
+            hunt.hasHit = false;
+            huntOutcome.classList.add('hidden');
+            
+            hunt.monkey.y = hunt.monkeyStart.y;
+            hunt.monkey.vy = 0;
+            hunt.dart.x = hunt.cannon.x;
+            hunt.dart.y = hunt.cannon.y;
+            hunt.dart.vx = 0;
+            hunt.dart.vy = 0;
+            hunt.dart.active = false;
+            hunt.dartTrail = [];
+            hunt.monkeyTrail = [];
+            hunt.sparks = [];
+            hunt.trailCounter = 0;
+            
+            hunt_updateReadouts();
+            if(currentMode === 'hunter') hunt_draw();
+        }
+
+        function hunt_fire() {
+            if (hunt.isRunning) return;
+            hunt_initSim();
+            const v0 = parseFloat(hunt.sliderVel.value);
+            hunt.dart.vx = Math.cos(hunt.aimAngle) * v0;
+            hunt.dart.vy = Math.sin(hunt.aimAngle) * v0;
+            hunt.dart.active = true;
+            hunt.isRunning = true;
+            hunt_loop();
+        }
+
+        function hunt_loop() {
+            if (!hunt.isRunning || currentMode !== 'hunter') return;
+
+            // Physics Update
+            if (hunt.dart.y >= hunt.groundY || hunt.monkey.y >= hunt.groundY) {
+                hunt.isRunning = false;
+                if (!hunt.hasHit) hunt_showOutcome("Missed! Hit the ground.", "text-red-400");
+            } else {
+                const dt = hunt.slowMo ? 0.25 : 1.0;
+                hunt.trailCounter += dt;
+                if (hunt.trailCounter >= 3) {
+                    hunt.dartTrail.push({x: hunt.dart.x, y: hunt.dart.y});
+                    hunt.monkeyTrail.push({x: hunt.monkey.x, y: hunt.monkey.y});
+                    hunt.trailCounter = 0;
+                }
+                hunt.dart.vy += hunt.g * dt;
+                hunt.monkey.vy += hunt.g * dt;
+                hunt.dart.x += hunt.dart.vx * dt;
+                hunt.dart.y += hunt.dart.vy * dt;
+                hunt.monkey.y += hunt.monkey.vy * dt;
+
+                // Collision
+                const dist = Math.hypot(hunt.dart.x - hunt.monkey.x, hunt.dart.y - hunt.monkey.y);
+                if (dist < hunt.dart.radius + hunt.monkey.radius) {
+                    hunt.hasHit = true; hunt.isRunning = false;
+                    hunt_showOutcome("Gotcha! Direct Hit 🎯", "text-emerald-400");
+                    for(let i=0; i<20; i++) {
+                        hunt.sparks.push({
+                            x: hunt.dart.x, y: hunt.dart.y,
+                            vx: (Math.random() - 0.5) * 8, vy: (Math.random() - 0.5) * 8,
+                            life: 1.0
+                        });
+                    }
+                }
+            }
+
+            hunt_draw();
+            hunt_updateReadouts();
+
+            // Continue loop or handle sparks
+            if (hunt.isRunning) {
+                globalAnimFrame = requestAnimationFrame(hunt_loop);
+            } else if (hunt.sparks.length > 0) {
+                globalAnimFrame = requestAnimationFrame(hunt_sparkLoop);
+            } else {
+                globalAnimFrame = null;
+            }
+        }
+
+        function hunt_sparkLoop() {
+            if(currentMode !== 'hunter') return;
+            hunt_draw(); // Draw static scene
+            // Update and draw sparks
+            let alive = false;
+            const dt = hunt.slowMo ? 0.25 : 1.0;
+            for (let i = hunt.sparks.length - 1; i >= 0; i--) {
+                let s = hunt.sparks[i];
+                s.x += s.vx * dt; s.y += s.vy * dt; s.life -= 0.05 * dt;
+                if (s.life <= 0) hunt.sparks.splice(i, 1);
+                else {
+                    alive = true;
+                    ctx.globalAlpha = s.life; ctx.fillStyle = '#fbbf24';
+                    ctx.beginPath(); ctx.arc(s.x, s.y, 3, 0, Math.PI*2); ctx.fill();
+                    ctx.globalAlpha = 1.0;
+                }
+            }
+            if(alive) globalAnimFrame = requestAnimationFrame(hunt_sparkLoop);
+            else globalAnimFrame = null;
+        }
+
+        function hunt_draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Aim Line
+            ctx.beginPath();
+            ctx.setLineDash([10, 10]);
+            ctx.strokeStyle = 'rgba(148, 163, 184, 0.3)';
+            ctx.lineWidth = 2;
+            ctx.moveTo(hunt.cannon.x, hunt.cannon.y);
+            const lEndX = canvas.width;
+            const lEndY = hunt.cannon.y + Math.tan(hunt.aimAngle) * (canvas.width - hunt.cannon.x);
+            ctx.lineTo(lEndX, lEndY);
+            ctx.stroke(); ctx.setLineDash([]);
+
+            // Trails
+            ctx.fillStyle = 'rgba(59, 130, 246, 0.5)';
+            hunt.dartTrail.forEach(p => { ctx.beginPath(); ctx.arc(p.x, p.y, 2, 0, Math.PI*2); ctx.fill(); });
+            ctx.fillStyle = 'rgba(245, 158, 11, 0.5)';
+            hunt.monkeyTrail.forEach(p => { ctx.beginPath(); ctx.arc(p.x, p.y, 2, 0, Math.PI*2); ctx.fill(); });
+
+            // Cannon
+            ctx.fillStyle = '#64748b';
+            ctx.beginPath(); ctx.arc(hunt.cannon.x, hunt.cannon.y, 15, 0, Math.PI*2); ctx.fill();
+            ctx.save();
+            ctx.translate(hunt.cannon.x, hunt.cannon.y);
+            ctx.rotate(hunt.aimAngle);
+            ctx.fillStyle = '#94a3b8'; ctx.fillRect(0, -5, 30, 10);
+            ctx.restore();
+
+            // Monkey
+            ctx.fillStyle = '#78350f'; ctx.fillRect(hunt.monkeyStart.x - 30, hunt.monkeyStart.y - 40, 60, 10);
+            ctx.font = '30px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText('🐒', hunt.monkey.x, hunt.monkey.y);
+            
+            // Drop measure line
+            if (hunt.dart.active) {
+                const theorY = hunt.cannon.y + Math.tan(hunt.aimAngle) * (hunt.dart.x - hunt.cannon.x);
+                ctx.beginPath(); ctx.strokeStyle = 'rgba(56, 189, 248, 0.5)'; ctx.lineWidth = 1;
+                ctx.moveTo(hunt.dart.x, theorY); ctx.lineTo(hunt.dart.x, hunt.dart.y); ctx.stroke();
+            }
+
+            // Dart
+            if (hunt.dart.active) {
+                ctx.fillStyle = '#60a5fa'; ctx.beginPath(); ctx.arc(hunt.dart.x, hunt.dart.y, hunt.dart.radius, 0, Math.PI*2); ctx.fill();
+                ctx.shadowBlur = 10; ctx.shadowColor = '#60a5fa'; ctx.fill(); ctx.shadowBlur = 0;
+            }
+        }
+
+        function hunt_updateReadouts() {
+            const mDrop = (hunt.monkey.y - hunt.monkeyStart.y) / 10;
+            const theorY = hunt.cannon.y + Math.tan(hunt.aimAngle) * (hunt.dart.x - hunt.cannon.x);
+            let dDrop = (hunt.dart.y - theorY) / 10;
+            if (!hunt.dart.active) dDrop = 0;
+
+            hunt.dispMonkeyDrop.textContent = mDrop.toFixed(2) + ' m';
+            hunt.dispDartDrop.textContent = dDrop.toFixed(2) + ' m';
+        }
+
+        function hunt_showOutcome(msg, colClass) {
+            huntOutcome.textContent = msg;
+            huntOutcome.className = `absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-slate-900/95 px-8 py-4 rounded-xl border border-slate-600 font-bold text-2xl z-30 shadow-2xl backdrop-blur-sm ${colClass}`;
+        }
+
+
+        // ==========================================
+        //         TAB SWITCHING & BINDING
+        // ==========================================
+
+        function setMode(mode) {
+            currentMode = mode;
+            if(globalAnimFrame) { cancelAnimationFrame(globalAnimFrame); globalAnimFrame = null; }
+            
+            if (mode === 'optimal') {
+                // UI Toggles
+                tabOpt.className = "px-6 py-2 rounded-md font-bold transition-colors text-sm md:text-base bg-blue-600 text-white shadow";
+                tabHunt.className = "px-6 py-2 rounded-md font-bold transition-colors text-sm md:text-base text-slate-400 hover:text-white";
+                
+                panelOpt.classList.remove('hidden'); panelOpt.classList.add('flex');
+                panelHunt.classList.add('hidden'); panelHunt.classList.remove('flex');
+                actsOpt.classList.remove('hidden'); actsOpt.classList.add('flex');
+                actsHunt.classList.add('hidden'); actsHunt.classList.remove('flex');
+                
+                optHud.classList.remove('hidden');
+                huntGround.classList.add('hidden');
+                huntOutcome.classList.add('hidden');
+                
+                canvasWrapper.classList.remove('bg-hunter'); canvasWrapper.classList.add('bg-optimal');
+                
+                // Init
+                opt_updateUI();
+                opt_triggerRender();
+
+            } else {
+                // UI Toggles
+                tabHunt.className = "px-6 py-2 rounded-md font-bold transition-colors text-sm md:text-base bg-blue-600 text-white shadow";
+                tabOpt.className = "px-6 py-2 rounded-md font-bold transition-colors text-sm md:text-base text-slate-400 hover:text-white";
+                
+                panelHunt.classList.remove('hidden'); panelHunt.classList.add('flex');
+                panelOpt.classList.add('hidden'); panelOpt.classList.remove('flex');
+                actsHunt.classList.remove('hidden'); actsHunt.classList.add('flex');
+                actsOpt.classList.add('hidden'); actsOpt.classList.remove('flex');
+                
+                optHud.classList.add('hidden');
+                huntGround.classList.remove('hidden');
+                
+                canvasWrapper.classList.remove('bg-optimal'); canvasWrapper.classList.add('bg-hunter');
+
+                // Init
+                hunt_initSim();
+            }
+        }
+
+        // Tab Listeners
+        tabOpt.addEventListener('click', () => setMode('optimal'));
+        tabHunt.addEventListener('click', () => setMode('hunter'));
+
+        // Optimal Bindings
+        opt.sliderAngle.addEventListener('input', opt_updateUI);
+        opt.sliderVel.addEventListener('input', opt_updateUI);
+        opt.sliderHeight.addEventListener('input', opt_updateUI);
+        opt.btnFire.addEventListener('click', () => {
+            if(globalAnimFrame) cancelAnimationFrame(globalAnimFrame);
+            const data = opt_calcTrajectory(opt.vel, opt.angle, opt.height);
+            opt.projectiles.push({
+                v0: opt.vel, angle: opt.angle, h: opt.height, data: data, t: 0,
+                path: [{x: 0, y: opt.height}], active: true,
+                color: opt.colors[opt.cIndex++ % opt.colors.length]
+            });
+            opt_loop();
+        });
+        opt.btnClear.addEventListener('click', () => { opt.projectiles = []; opt_triggerRender(); });
+        opt.btnSetOpt.addEventListener('click', () => {
+            opt.sliderAngle.value = Math.round(opt_getTrueOptAngle(opt.vel, opt.height));
+            opt_updateUI();
+        });
+
+        // Hunter Bindings
+        hunt.sliderVel.addEventListener('input', (e) => {
+            const val = parseInt(e.target.value);
+            let speedText = "Medium";
+            if (val <= 15) speedText = "Very Slow (High Arc)";
+            else if (val <= 20) speedText = "Slow";
+            else if (val >= 30) speedText = "Very Fast (Flat)";
+            hunt.valVel.textContent = speedText;
+        });
+        hunt.togGravity.addEventListener('change', (e) => {
+            hunt.g = e.target.checked ? hunt.g_on : 0;
+            hunt_initSim();
+        });
+        hunt.togSlowMo.addEventListener('change', (e) => {
+            hunt.slowMo = e.target.checked;
+        });
+        hunt.btnFire.addEventListener('click', hunt_fire);
+        hunt.btnReset.addEventListener('click', hunt_initSim);
+
+        // Boot
+        setMode('optimal');
+
+    </script>
+	    <!-- Footer -->
+    <footer class="mt-20 text-center text-slate-500 text-sm">
+        <p>Built for interactive science education.</p>
+        <p>Generated by Gemini Pro 3.0 | Prepared By Justin Chui.</p>
+    </footer>
+</body>
+
+</html>
+

@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lens Optics: Convex vs Concave</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        canvas {
+            background-color: #1e293b;
+            border-radius: 0.5rem;
+            box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+            width: 100%;
+            height: auto;
+        }
+        /* Custom range slider styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #3b82f6;
+            cursor: pointer;
+            margin-top: -8px;
+            transition: background 0.2s;
+        }
+        input[type=range]::-webkit-slider-thumb:hover {
+            background: #60a5fa;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #475569;
+            border-radius: 2px;
+        }
+        input[type=range]:focus {
+            outline: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center p-4 md:p-8">
+
+    <div class="max-w-6xl w-full">
+        <!-- Back Navigation -->
+        <div class="mb-4 md:mb-6">
+            <a href="../" class="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm font-bold bg-slate-800 py-2 px-4 rounded-lg border border-slate-700 shadow-md hover:bg-slate-700 w-max">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Back to Home
+            </a>
+        </div>
+
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">Lens Optics Simulator</h1>
+            <p class="text-slate-400 max-w-2xl mx-auto">
+                Observe how light rays interact with a <span class="text-blue-400 font-semibold">Converging (Convex)</span> lens and a <span class="text-purple-400 font-semibold">Diverging (Concave)</span> lens to form real or virtual images.
+            </p>
+        </header>
+
+        <div class="bg-slate-800 rounded-xl p-6 shadow-xl mb-8 border border-slate-700">
+            <!-- Controls -->
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
+                <div class="flex items-center gap-4 w-full md:w-2/3">
+                    <button id="toggleAutoBtn" class="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-2 rounded-lg font-bold transition-colors shadow-lg shadow-emerald-500/30 w-36 shrink-0">
+                        Auto-Move: OFF
+                    </button>
+                    <div class="flex-1 grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Set Distance</label>
+                            <div class="flex gap-2">
+                                <button id="btnInf" class="flex-1 bg-slate-700 hover:bg-slate-500 text-xs font-bold text-white py-1.5 rounded transition-colors">&infin;</button>
+                                <button id="btn2F" class="flex-1 bg-slate-700 hover:bg-slate-500 text-xs font-bold text-white py-1.5 rounded transition-colors">2F</button>
+                                <button id="btnF" class="flex-1 bg-slate-700 hover:bg-slate-500 text-xs font-bold text-white py-1.5 rounded transition-colors">F</button>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="objHeight" class="block text-xs text-slate-400 mb-1">Object Height</label>
+                            <input type="range" id="objHeight" min="10" max="120" value="60">
+                        </div>
+                        <div>
+                            <label for="focalLengthSlider" class="block text-xs text-slate-400 mb-1">Focal Length</label>
+                            <input type="range" id="focalLengthSlider" min="50" max="250" value="100">
+                        </div>
+                    </div>
+                </div>
+                <button id="resetBtn" class="bg-slate-600 hover:bg-slate-500 text-white px-6 py-2 rounded-lg font-bold transition-colors w-full md:w-auto shrink-0">
+                    Reset
+                </button>
+            </div>
+
+            <!-- Lens Selector -->
+            <div class="flex justify-center mb-8">
+                <div class="inline-flex bg-slate-900 p-1.5 rounded-xl border border-slate-700">
+                    <button id="selectConvex" class="px-6 py-2.5 rounded-lg bg-blue-600 text-white font-bold transition-all shadow-md">Convex (Converging)</button>
+                    <button id="selectConcave" class="px-6 py-2.5 rounded-lg text-slate-400 hover:text-white font-medium transition-all">Concave (Diverging)</button>
+                </div>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                
+                <p class="text-sm text-amber-400 font-semibold mb-4 text-center animate-pulse">👉 Drag the red object left and right on the canvas to move it.</p>
+
+                <!-- Stats Display -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+                    <div class="bg-slate-900/50 p-3 rounded-lg border border-slate-700 flex flex-col items-center shadow-inner">
+                        <span class="text-slate-400 text-xs font-medium mb-1 flex items-center gap-1"><div class="w-2 h-2 rounded-full bg-red-500"></div> Obj Height <i class="text-slate-500">(h)</i></span>
+                        <span id="displayObjHeight" class="text-red-400 font-bold text-lg">60</span>
+                    </div>
+                    <div class="bg-slate-900/50 p-3 rounded-lg border border-slate-700 flex flex-col items-center shadow-inner">
+                        <span class="text-slate-400 text-xs font-medium mb-1 flex items-center gap-1"><div class="w-2 h-2 rounded-full bg-red-500"></div> Obj Dist <i class="text-slate-500">(d<sub>o</sub>)</i></span>
+                        <span id="displayObjDist" class="text-red-400 font-bold text-lg">150</span>
+                    </div>
+                    <div class="bg-slate-900/50 p-3 rounded-lg border border-slate-700 flex flex-col items-center shadow-inner">
+                        <span class="text-slate-400 text-xs font-medium mb-1 flex items-center gap-1"><div class="w-2 h-2 rounded-full bg-blue-500"></div> Img Height <i class="text-slate-500">(h')</i></span>
+                        <span id="displayImgHeight" class="text-blue-400 font-bold text-lg">--</span>
+                    </div>
+                    <div class="bg-slate-900/50 p-3 rounded-lg border border-slate-700 flex flex-col items-center shadow-inner">
+                        <span class="text-slate-400 text-xs font-medium mb-1 flex items-center gap-1"><div class="w-2 h-2 rounded-full bg-blue-500"></div> Img Dist <i class="text-slate-500">(d<sub>i</sub>)</i></span>
+                        <span id="displayImgDist" class="text-blue-400 font-bold text-lg">--</span>
+                    </div>
+                </div>
+
+                <!-- Convex Lens Container -->
+                <div id="containerConvex" class="flex flex-col">
+                    <h2 class="text-xl font-bold text-blue-300 mb-2 flex items-center justify-center gap-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                        Convex Lens (Converging)
+                    </h2>
+                    <p class="text-sm text-slate-400 mb-4 h-10 text-center">Bends parallel light rays inwards to a focal point. Can form both real (inverted) and virtual (upright) images.</p>
+                    <div class="relative w-full aspect-[2/1] rounded-lg overflow-hidden border-2 border-slate-600">
+                        <canvas id="canvasConvex" width="800" height="400"></canvas>
+                    </div>
+                </div>
+
+                <!-- Concave Lens Container -->
+                <div id="containerConcave" class="flex flex-col hidden">
+                    <h2 class="text-xl font-bold text-purple-300 mb-2 flex items-center justify-center gap-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                        Concave Lens (Diverging)
+                    </h2>
+                    <p class="text-sm text-slate-400 mb-4 h-10 text-center">Spreads parallel light rays outwards. Always forms a virtual, upright, and smaller image.</p>
+                    <div class="relative w-full aspect-[2/1] rounded-lg overflow-hidden border-2 border-slate-600">
+                        <canvas id="canvasConcave" width="800" height="400"></canvas>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Footer / Legend -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-slate-300">
+            <div class="bg-slate-800/50 p-4 rounded-lg border border-slate-700/50">
+                <strong class="text-white block mb-2">Diagram Legend</strong>
+                <div class="flex items-center mb-1"><span class="w-4 h-4 rounded bg-red-500 mr-2"></span> Object</div>
+                <div class="flex items-center mb-1"><span class="w-4 h-4 rounded bg-blue-500 mr-2"></span> Real Image</div>
+                <div class="flex items-center mb-1"><span class="w-4 h-4 rounded border-2 border-dashed border-blue-500 mr-2"></span> Virtual Image</div>
+                <div class="flex items-center mb-1"><span class="w-4 h-1 rounded bg-yellow-400 mr-2"></span> Real Light Ray</div>
+                <div class="flex items-center"><span class="w-4 h-1 rounded bg-slate-400 border border-dashed border-slate-800 mr-2"></span> Virtual Ray Extension</div>
+            </div>
+            <div class="bg-slate-800/50 p-4 rounded-lg border border-slate-700/50 md:col-span-2">
+                <strong class="text-white block mb-1">What's happening?</strong>
+                <p class="mb-2">We find the image by drawing two primary rays from the tip of the object:</p>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li><strong>Parallel Ray (Top):</strong> Travels horizontally to the lens. A convex lens bends it <em>through</em> the far focal point. A concave lens bends it <em>away</em> from the near focal point.</li>
+                    <li><strong>Central Ray (Middle):</strong> Passes straight through the optical center (0,0) of the lens without bending.</li>
+                </ul>
+                <p class="mt-2 text-slate-400">Where these rays (or their virtual dashed extensions) intersect is where the tip of the image is formed. If the image forms on the side light is traveling to, it is <strong>Real</strong>. If traced backward, it is <strong>Virtual</strong>.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Simulation State ---
+        let objDist = 150;
+        let objHeight = 60;
+        let focalLength = 100; // Absolute focal length (now adjustable)
+        let activeLens = 'convex'; // New state for selected lens
+        
+        // Auto move state
+        let isAutoMoving = false;
+        let autoDir = 1;
+        let autoSpeed = 1.2;
+
+        // UI Elements
+        const displayObjHeight = document.getElementById('displayObjHeight');
+        const displayObjDist = document.getElementById('displayObjDist');
+        const displayImgHeight = document.getElementById('displayImgHeight');
+        const displayImgDist = document.getElementById('displayImgDist');
+        const btnInf = document.getElementById('btnInf');
+        const btn2F = document.getElementById('btn2F');
+        const btnF = document.getElementById('btnF');
+        const objHeightSlider = document.getElementById('objHeight');
+        const focalLengthSlider = document.getElementById('focalLengthSlider');
+        const toggleAutoBtn = document.getElementById('toggleAutoBtn');
+        const resetBtn = document.getElementById('resetBtn');
+
+        // Lens Selectors
+        const selectConvex = document.getElementById('selectConvex');
+        const selectConcave = document.getElementById('selectConcave');
+        const containerConvex = document.getElementById('containerConvex');
+        const containerConcave = document.getElementById('containerConcave');
+
+        // Canvases
+        const canvasConvex = document.getElementById('canvasConvex');
+        const ctxConvex = canvasConvex.getContext('2d');
+        const canvasConcave = document.getElementById('canvasConcave');
+        const ctxConcave = canvasConcave.getContext('2d');
+
+        // Helper: Draw Arrow
+        function drawArrow(ctx, startX, startY, endX, endY, color, isDashed = false) {
+            ctx.beginPath();
+            ctx.moveTo(startX, startY);
+            ctx.lineTo(endX, endY);
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 2;
+            if (isDashed) ctx.setLineDash([5, 5]);
+            else ctx.setLineDash([]);
+            ctx.stroke();
+
+            // Arrow head
+            if (!isDashed) {
+                const angle = Math.atan2(endY - startY, endX - startX);
+                const headlen = 10;
+                ctx.beginPath();
+                ctx.moveTo(endX, endY);
+                ctx.lineTo(endX - headlen * Math.cos(angle - Math.PI / 6), endY - headlen * Math.sin(angle - Math.PI / 6));
+                ctx.lineTo(endX - headlen * Math.cos(angle + Math.PI / 6), endY - headlen * Math.sin(angle + Math.PI / 6));
+                ctx.lineTo(endX, endY);
+                ctx.fillStyle = color;
+                ctx.fill();
+            }
+            ctx.setLineDash([]); // Reset
+        }
+
+        // Helper: Draw Object/Image marker
+        function drawVerticalArrow(ctx, x, y, isUp, color, isVirtual = false) {
+            const headlen = 8;
+            ctx.beginPath();
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, y);
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 4;
+            if (isVirtual) {
+                ctx.setLineDash([6, 6]);
+            }
+            ctx.stroke();
+            ctx.setLineDash([]); // Reset for the head
+
+            // Triangle head
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            if (isUp) {
+                ctx.lineTo(x - headlen, y + headlen*1.5);
+                ctx.lineTo(x + headlen, y + headlen*1.5);
+            } else {
+                ctx.lineTo(x - headlen, y - headlen*1.5);
+                ctx.lineTo(x + headlen, y - headlen*1.5);
+            }
+            ctx.closePath();
+            
+            if (isVirtual) {
+                ctx.fillStyle = '#1e293b'; // Match canvas background for hollow look
+                ctx.fill();
+                ctx.lineWidth = 3;
+                ctx.stroke();
+            } else {
+                ctx.fillStyle = color;
+                ctx.fill();
+            }
+        }
+
+        // Core Drawing Function
+        function drawSimulation(ctx, isConvex) {
+            const width = ctx.canvas.width;
+            const height = ctx.canvas.height;
+            const cx = width / 2;
+            const cy = height / 2;
+
+            // Clear
+            ctx.clearRect(0, 0, width, height);
+
+            // Shift origin to center
+            ctx.save();
+            ctx.translate(cx, cy);
+
+            // 1. Draw Principal Axis
+            ctx.beginPath();
+            ctx.moveTo(-cx, 0);
+            ctx.lineTo(cx, 0);
+            ctx.strokeStyle = '#475569';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            // 2. Draw Lens Representation
+            ctx.fillStyle = 'rgba(148, 163, 184, 0.2)';
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            if (isConvex) {
+                // Convex shape ()
+                ctx.moveTo(0, -120);
+                ctx.quadraticCurveTo(30, 0, 0, 120);
+                ctx.quadraticCurveTo(-30, 0, 0, -120);
+            } else {
+                // Concave shape ][
+                ctx.moveTo(-15, -120);
+                ctx.lineTo(15, -120);
+                ctx.quadraticCurveTo(0, 0, 15, 120);
+                ctx.lineTo(-15, 120);
+                ctx.quadraticCurveTo(0, 0, -15, -120);
+            }
+            ctx.fill();
+            ctx.stroke();
+
+            // 3. Draw Focal Points (F and 2F) and Optical Center (O)
+            ctx.fillStyle = '#cbd5e1';
+            ctx.font = '12px Arial';
+            ctx.textAlign = 'center';
+
+            // Draw Optical Center (O)
+            ctx.beginPath();
+            ctx.arc(0, 0, 3, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillText('O', -12, 18);
+
+            const fMarks = [-focalLength * 2, -focalLength, focalLength, focalLength * 2];
+            const fLabels = ['2F', 'F', 'F', '2F'];
+            for (let i = 0; i < fMarks.length; i++) {
+                ctx.beginPath();
+                ctx.arc(fMarks[i], 0, 3, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillText(fLabels[i], fMarks[i], 15);
+            }
+
+            // Calculations
+            // Object is at -objDist. Canvas Y is inverted, so up is -Y.
+            let x_o = -objDist;
+            let y_o = -objHeight; // tip of object
+
+            let f = isConvex ? focalLength : -focalLength;
+            
+            // Lens Equation: 1/f = 1/do + 1/di  => di = (do * f) / (do - f)
+            let di;
+            if (objDist === focalLength && isConvex) {
+                di = 10000; // Infinity approximation
+            } else {
+                di = (objDist * f) / (objDist - f);
+            }
+
+            // Magnification: m = -di / do
+            let m = -di / objDist;
+            let y_i = y_o * m; // Tip of image
+
+            // Ray colors
+            const rayColor = 'rgba(250, 204, 21, 0.7)'; // Yellow
+            const virtualColor = 'rgba(148, 163, 184, 0.6)'; // Slate
+
+            // --- Draw Rays ---
+            // Ray 1: Parallel to Principal Axis
+            drawArrow(ctx, x_o, y_o, 0, y_o, rayColor); // To lens
+            
+            if (isConvex) {
+                if (objDist === focalLength) {
+                    // Parallel output
+                    drawArrow(ctx, 0, y_o, cx, y_o + cx * (y_o/focalLength), rayColor);
+                } else if (objDist > focalLength) {
+                    // Real image: Refracts through far focal point
+                    drawArrow(ctx, 0, y_o, cx, y_o + cx * (-y_o / focalLength), rayColor);
+                } else {
+                    // Virtual image: Refracts through far f, trace back to di
+                    drawArrow(ctx, 0, y_o, cx, y_o + cx * (-y_o / focalLength), rayColor);
+                    drawArrow(ctx, 0, y_o, di, y_i, virtualColor, true); // virtual backwards
+                }
+            } else {
+                // Concave: Diverges from near focal point
+                // Ray goes from (0, yo) away from (-focalLength, 0)
+                let slope = y_o / focalLength;
+                drawArrow(ctx, 0, y_o, cx, y_o + cx * slope, rayColor);
+                drawArrow(ctx, 0, y_o, di, y_i, virtualColor, true); // virtual trace to focal
+            }
+
+            // Ray 2: Through Optical Center
+            if (objDist === focalLength && isConvex) {
+                // Parallel output
+                drawArrow(ctx, x_o, y_o, cx, y_o + (cx - x_o) * (-y_o / x_o), rayColor);
+            } else {
+                let endX = objDist < focalLength && isConvex ? cx : Math.max(cx, di + 50);
+                let slopeCenter = y_o / x_o;
+                
+                if (isConvex && objDist < focalLength) {
+                    // Draw forwards
+                    drawArrow(ctx, 0, 0, cx, cx * slopeCenter, rayColor);
+                    // Draw backwards virtual
+                    drawArrow(ctx, 0, 0, di, y_i, virtualColor, true);
+                } else if (!isConvex) {
+                    drawArrow(ctx, x_o, y_o, cx, cx * slopeCenter, rayColor);
+                    drawArrow(ctx, 0, 0, di, y_i, virtualColor, true);
+                } else {
+                    // Simple real image center ray
+                    drawArrow(ctx, x_o, y_o, cx, cx * slopeCenter, rayColor);
+                }
+            }
+
+            // 4. Draw Object
+            drawVerticalArrow(ctx, x_o, y_o, true, '#ef4444'); // Red
+            
+            // Update UI
+            displayObjHeight.textContent = Math.round(objHeight);
+            displayObjDist.textContent = Math.round(objDist);
+
+            // 5. Draw Image
+            if (Math.abs(di) < 2000) { // Don't draw if near infinity
+                let isUpright = (y_i < 0);
+                let isVirtual = di < 0; // Virtual images are formed on the same side as the object (negative di)
+                drawVerticalArrow(ctx, di, y_i, isUpright, '#3b82f6', isVirtual); // Blue
+                
+                displayImgHeight.textContent = Math.round(Math.abs(y_i));
+                displayImgDist.textContent = Math.round(Math.abs(di));
+            } else {
+                // Text for infinity
+                ctx.fillStyle = '#3b82f6';
+                ctx.fillText("Image at Infinity", cx - 50, -50);
+                displayImgHeight.textContent = "∞";
+                displayImgDist.textContent = "∞";
+            }
+
+            ctx.restore();
+        }
+
+        // Update Loop
+        function update() {
+            if (isAutoMoving) {
+                objDist += autoDir * autoSpeed;
+                if (objDist >= 280) {
+                    objDist = 280;
+                    autoDir = -1;
+                } else if (objDist <= 30) {
+                    objDist = 30;
+                    autoDir = 1;
+                }
+            }
+
+            if (activeLens === 'convex') {
+                drawSimulation(ctxConvex, true);
+            } else {
+                drawSimulation(ctxConcave, false);
+            }
+            
+            requestAnimationFrame(update);
+        }
+
+        // Event Listeners
+        function stopAutoMove() {
+            if(isAutoMoving) toggleAutoBtn.click();
+        }
+
+        btnInf.addEventListener('click', () => { objDist = 2000; stopAutoMove(); });
+        btn2F.addEventListener('click', () => { objDist = focalLength * 2; stopAutoMove(); });
+        btnF.addEventListener('click', () => { objDist = focalLength; stopAutoMove(); });
+
+        objHeightSlider.addEventListener('input', (e) => {
+            objHeight = parseFloat(e.target.value);
+        });
+
+        focalLengthSlider.addEventListener('input', (e) => {
+            focalLength = parseFloat(e.target.value);
+        });
+
+        toggleAutoBtn.addEventListener('click', () => {
+            isAutoMoving = !isAutoMoving;
+            if (isAutoMoving) {
+                toggleAutoBtn.textContent = 'Auto-Move: ON';
+                toggleAutoBtn.classList.remove('bg-emerald-600', 'hover:bg-emerald-500');
+                toggleAutoBtn.classList.add('bg-orange-500', 'hover:bg-orange-400');
+            } else {
+                toggleAutoBtn.textContent = 'Auto-Move: OFF';
+                toggleAutoBtn.classList.remove('bg-orange-500', 'hover:bg-orange-400');
+                toggleAutoBtn.classList.add('bg-emerald-600', 'hover:bg-emerald-500');
+            }
+        });
+
+        resetBtn.addEventListener('click', () => {
+            objDist = 150;
+            objHeight = 60;
+            focalLength = 100;
+            objHeightSlider.value = objHeight;
+            focalLengthSlider.value = focalLength;
+            if (isAutoMoving) {
+                toggleAutoBtn.click();
+            }
+        });
+
+        // --- Drag and Drop Logic ---
+        let isDragging = false;
+        
+        function handlePointerDown(e, canvas) {
+            const rect = canvas.getBoundingClientRect();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const scaleX = canvas.width / rect.width;
+            const x = (clientX - rect.left) * scaleX - (canvas.width / 2);
+            
+            if (Math.abs(x - (-objDist)) < 40) { // 40px hit area around the object
+                isDragging = true;
+                stopAutoMove();
+            }
+        }
+        
+        function handlePointerMove(e, canvas) {
+            const rect = canvas.getBoundingClientRect();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const scaleX = canvas.width / rect.width;
+            const x = (clientX - rect.left) * scaleX - (canvas.width / 2);
+            
+            if (Math.abs(x - (-objDist)) < 40 || isDragging) {
+                canvas.style.cursor = 'ew-resize';
+            } else {
+                canvas.style.cursor = 'default';
+            }
+
+            if (isDragging) {
+                objDist = Math.max(10, -x); // Min distance 10
+                objDist = Math.min(2000, objDist); // Max distance 2000
+            }
+        }
+        
+        function handlePointerUp() {
+            isDragging = false;
+        }
+
+        [canvasConvex, canvasConcave].forEach(canvas => {
+            canvas.addEventListener('mousedown', (e) => handlePointerDown(e, canvas));
+            canvas.addEventListener('mousemove', (e) => handlePointerMove(e, canvas));
+            
+            canvas.addEventListener('touchstart', (e) => { 
+                const rect = canvas.getBoundingClientRect();
+                const x = (e.touches[0].clientX - rect.left) * (canvas.width / rect.width) - (canvas.width / 2);
+                if (Math.abs(x - (-objDist)) < 40) {
+                    e.preventDefault(); 
+                    handlePointerDown(e, canvas);
+                }
+            }, {passive: false});
+            canvas.addEventListener('touchmove', (e) => { 
+                if (isDragging) {
+                    e.preventDefault(); 
+                    handlePointerMove(e, canvas);
+                } else {
+                    handlePointerMove(e, canvas);
+                }
+            }, {passive: false});
+        });
+        
+        window.addEventListener('mouseup', handlePointerUp);
+        window.addEventListener('touchend', handlePointerUp);
+
+        // Lens Selection Listeners
+        selectConvex.addEventListener('click', () => {
+            if (activeLens === 'convex') return;
+            activeLens = 'convex';
+            selectConvex.classList.add('bg-blue-600', 'text-white', 'font-bold', 'shadow-md');
+            selectConvex.classList.remove('text-slate-400', 'hover:text-white', 'font-medium');
+            selectConcave.classList.remove('bg-purple-600', 'text-white', 'font-bold', 'shadow-md');
+            selectConcave.classList.add('text-slate-400', 'hover:text-white', 'font-medium');
+            containerConvex.classList.remove('hidden');
+            containerConcave.classList.add('hidden');
+        });
+
+        selectConcave.addEventListener('click', () => {
+            if (activeLens === 'concave') return;
+            activeLens = 'concave';
+            selectConcave.classList.add('bg-purple-600', 'text-white', 'font-bold', 'shadow-md');
+            selectConcave.classList.remove('text-slate-400', 'hover:text-white', 'font-medium');
+            selectConvex.classList.remove('bg-blue-600', 'text-white', 'font-bold', 'shadow-md');
+            selectConvex.classList.add('text-slate-400', 'hover:text-white', 'font-medium');
+            containerConcave.classList.remove('hidden');
+            containerConvex.classList.add('hidden');
+        });
+
+        // Start
+        window.onload = () => {
+            update();
+        };
+
+    </script>
+</body>
+</html>

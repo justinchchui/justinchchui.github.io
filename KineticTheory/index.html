@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kinetic Theory of Ideal Gases</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        canvas {
+            background-color: #000000;
+            border-radius: 0.5rem;
+            width: 100%;
+            height: auto;
+            touch-action: none;
+        }
+        /* Custom range slider styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 18px;
+            width: 18px;
+            border-radius: 50%;
+            background: #38bdf8;
+            cursor: pointer;
+            margin-top: -7px;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #475569;
+            border-radius: 2px;
+        }
+        input[type=range]:focus {
+            outline: none;
+        }
+        
+        .temp-slider::-webkit-slider-thumb { background: #ef4444; box-shadow: 0 0 10px rgba(239, 68, 68, 0.5); }
+        .vol-slider::-webkit-slider-thumb { background: #10b981; box-shadow: 0 0 10px rgba(16, 185, 129, 0.5); }
+        
+        /* Dashed container background pattern */
+        .canvas-wrapper {
+            background-image: radial-gradient(#334155 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-color: #1e293b;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center p-4 md:p-8">
+
+    <div class="max-w-6xl w-full">
+	<!-- Back Navigation -->
+        <div class="mb-2 md:mb-6">
+            <a href="../" class="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm font-bold bg-slate-800 py-2 px-4 rounded-lg border border-slate-700 shadow-md hover:bg-slate-700 w-max">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Back to Home
+            </a>
+        </div>
+
+        <header class="mb-6 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">Ideal Gas Simulator</h1>
+            <p class="text-slate-400 max-w-2xl mx-auto text-sm md:text-base">
+                Observe how the microscopic behavior of particles creates the macroscopic properties we measure: <span class="text-red-400 font-semibold">Temperature</span>, <span class="text-emerald-400 font-semibold">Volume</span>, and <span class="text-amber-400 font-semibold">Pressure</span>.
+            </p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            
+            <!-- Canvas Area (Takes up 2/3 width on large screens) -->
+            <div class="lg:col-span-2 flex flex-col">
+                <div class="canvas-wrapper relative w-full aspect-[4/3] md:aspect-[16/9] rounded-xl overflow-hidden border-2 border-slate-600 shadow-2xl flex items-center justify-start">
+                    <canvas id="gasCanvas" width="800" height="450"></canvas>
+                    
+                    <!-- Virtual Piston Visual -->
+                    <div id="piston" class="absolute top-0 bottom-0 right-0 bg-slate-700/80 border-l-4 border-slate-500 backdrop-blur-sm pointer-events-none transition-all duration-75" style="width: 0%;">
+                        <div class="absolute inset-y-0 left-[-10px] w-4 flex flex-col justify-center gap-2 items-center opacity-50">
+                            <div class="w-1 h-8 bg-slate-300 rounded-full"></div>
+                            <div class="w-1 h-8 bg-slate-300 rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-xs text-slate-500 mt-2 text-center">Particles are colored by their individual speed: <span class="text-blue-400">Slow</span> → <span class="text-yellow-400">Medium</span> → <span class="text-red-500">Fast</span></p>
+            </div>
+
+            <!-- Controls and Readouts -->
+            <div class="bg-slate-800 rounded-xl p-6 border border-slate-700 shadow-xl flex flex-col gap-6">
+                
+                <!-- Pressure Readout -->
+                <div class="bg-slate-900 rounded-lg p-4 border border-slate-700 text-center relative overflow-hidden">
+                    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-amber-400 via-transparent to-transparent"></div>
+                    <span class="block text-slate-400 text-sm font-bold uppercase tracking-wider mb-1 relative z-10">Real-Time Pressure</span>
+                    <div class="text-4xl font-black text-amber-400 tabular-nums relative z-10 font-mono tracking-tight" id="pressureReadout">
+                        0.0
+                    </div>
+                    <span class="block text-xs text-slate-500 mt-1 relative z-10">Calculated from wall collision impacts</span>
+                </div>
+
+                <hr class="border-slate-700">
+
+                <!-- Controls -->
+                <div class="space-y-6">
+                    <!-- Temperature Slider -->
+                    <div>
+                        <div class="flex justify-between items-end mb-2">
+                            <label class="text-sm font-bold text-red-400 flex items-center gap-1">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                                Temperature (Kinetic Energy)
+                            </label>
+                            <span class="text-xs text-slate-400 tabular-nums w-12 text-right" id="tempDisplay">300 K</span>
+                        </div>
+                        <input type="range" id="tempSlider" class="temp-slider" min="50" max="1000" value="300" step="10">
+                    </div>
+
+                    <!-- Volume Slider -->
+                    <div>
+                        <div class="flex justify-between items-end mb-2">
+                            <label class="text-sm font-bold text-emerald-400 flex items-center gap-1">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
+                                Volume (Container Size)
+                            </label>
+                            <span class="text-xs text-slate-400 tabular-nums w-12 text-right" id="volDisplay">100%</span>
+                        </div>
+                        <input type="range" id="volSlider" class="vol-slider" min="30" max="100" value="100" step="1">
+                    </div>
+
+                    <!-- Particles Slider -->
+                    <div>
+                        <div class="flex justify-between items-end mb-2">
+                            <label class="text-sm font-bold text-sky-400 flex items-center gap-1">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                                Number of Particles
+                            </label>
+                            <span class="text-xs text-slate-400 tabular-nums w-12 text-right" id="numDisplay">150</span>
+                        </div>
+                        <input type="range" id="numSlider" min="10" max="400" value="150" step="10">
+                    </div>
+                </div>
+
+                <div class="mt-auto pt-4 flex gap-2">
+                    <button id="pauseBtn" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white py-2 rounded font-semibold transition-colors text-sm">
+                        Pause
+                    </button>
+                    <button id="resetBtn" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white py-2 rounded font-semibold transition-colors text-sm">
+                        Reset
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Educational Mapping -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+            <div class="bg-slate-800/50 p-4 rounded-lg border border-slate-700/50">
+                <strong class="text-sky-300 block mb-1">1. Constant Random Motion</strong>
+                <p class="text-slate-400">Notice how particles move in perfectly straight lines until they hit a wall or another particle, creating an endless, chaotic dance.</p>
+            </div>
+            <div class="bg-slate-800/50 p-4 rounded-lg border border-slate-700/50">
+                <strong class="text-amber-300 block mb-1">2. What is Pressure?</strong>
+                <p class="text-slate-400">Pressure isn't a magical force; it's the combined physical impact of millions of tiny collisions against the container walls.</p>
+            </div>
+            <div class="bg-slate-800/50 p-4 rounded-lg border border-slate-700/50">
+                <strong class="text-red-300 block mb-1">3. Temperature = Speed</strong>
+                <p class="text-slate-400">Increase the temperature. The particles don't grow; they just move much faster. Higher Kinetic Energy directly equals higher Temperature.</p>
+            </div>
+            <div class="bg-slate-800/50 p-4 rounded-lg border border-slate-700/50">
+                <strong class="text-emerald-300 block mb-1">4. Boyle's & Charles's Laws</strong>
+                <p class="text-slate-400">Shrink the volume (Boyle's Law) or raise the temp (Gay-Lussac's Law). Watch the pressure gauge spike as wall hits become more frequent/violent.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Simulation State & Constants ---
+        const canvas = document.getElementById('gasCanvas');
+        const ctx = canvas.getContext('2d');
+        const piston = document.getElementById('piston');
+        
+        // Physics constants
+        const PARTICLE_RADIUS = 3;
+        const BASE_SPEED_MULTIPLIER = 0.2; // Adjusts how "fast" the sim runs globally
+        const COLLISION_DAMPING = 1.0; // 1.0 = perfectly elastic
+
+        let width = canvas.width;
+        let height = canvas.height;
+        let containerWidth = width; // Can be changed by volume slider
+
+        let particles = [];
+        let isPaused = false;
+        
+        // Rolling average for pressure to make the gauge readable
+        let instantaneousPressure = 0;
+        let smoothedPressure = 0;
+        let frameCount = 0;
+
+        // UI Elements
+        const tempSlider = document.getElementById('tempSlider');
+        const volSlider = document.getElementById('volSlider');
+        const numSlider = document.getElementById('numSlider');
+        
+        const tempDisplay = document.getElementById('tempDisplay');
+        const volDisplay = document.getElementById('volDisplay');
+        const numDisplay = document.getElementById('numDisplay');
+        const pressureReadout = document.getElementById('pressureReadout');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const resetBtn = document.getElementById('resetBtn');
+
+        // State variables driven by UI
+        let currentTemp = parseInt(tempSlider.value);
+        let targetParticleCount = parseInt(numSlider.value);
+
+        // --- Particle Class ---
+        class Particle {
+            constructor(x, y, v) {
+                this.x = x;
+                this.y = y;
+                this.radius = PARTICLE_RADIUS;
+                this.mass = 1; // Assuming identical particles for ideal gas
+                
+                // Random direction, speed based on temperature
+                const angle = Math.random() * Math.PI * 2;
+                this.vx = Math.cos(angle) * v;
+                this.vy = Math.sin(angle) * v;
+            }
+
+            // Calculate current speed
+            get speed() {
+                return Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                let impulse = 0;
+
+                // Wall Collisions
+                // Left wall
+                if (this.x - this.radius < 0) {
+                    this.x = this.radius;
+                    this.vx *= -1;
+                    impulse += Math.abs(this.vx * this.mass) * 2; // Change in momentum: mv - (-mv) = 2mv
+                }
+                // Right wall (Piston/Container Edge)
+                else if (this.x + this.radius > containerWidth) {
+                    this.x = containerWidth - this.radius;
+                    this.vx *= -1;
+                    impulse += Math.abs(this.vx * this.mass) * 2;
+                }
+
+                // Top wall
+                if (this.y - this.radius < 0) {
+                    this.y = this.radius;
+                    this.vy *= -1;
+                    impulse += Math.abs(this.vy * this.mass) * 2;
+                }
+                // Bottom wall
+                else if (this.y + this.radius > height) {
+                    this.y = height - this.radius;
+                    this.vy *= -1;
+                    impulse += Math.abs(this.vy * this.mass) * 2;
+                }
+
+                return impulse; // Return the force exerted on walls this frame
+            }
+
+            draw() {
+                // Color based on speed (Maxwell-Boltzmann visual)
+                // Map speed to a hue. Let's say speed ranges roughly from 0 to 10.
+                // Hue 240 (Blue) -> 60 (Yellow) -> 0 (Red)
+                const s = this.speed;
+                // Normalize speed for coloring (calibrated so avg speed at 300K looks yellowish/green)
+                const normalizedSpeed = Math.min(s / (Math.sqrt(300) * BASE_SPEED_MULTIPLIER * 1.5), 1.5); 
+                
+                let hue;
+                if (normalizedSpeed < 0.5) {
+                    // Blue to Cyan/Green
+                    hue = 240 - (normalizedSpeed * 2) * 120; // 240 to 120
+                } else if (normalizedSpeed < 1.0) {
+                    // Green to Yellow
+                    hue = 120 - ((normalizedSpeed - 0.5) * 2) * 60; // 120 to 60
+                } else {
+                    // Yellow to Red
+                    hue = 60 - Math.min((normalizedSpeed - 1.0) * 2, 1) * 60; // 60 to 0
+                }
+
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `hsl(${hue}, 100%, 60%)`;
+                ctx.fill();
+            }
+        }
+
+        // --- Physics Engine ---
+
+        // Resolve perfectly elastic collisions between two particles (Postulate 4)
+        function resolveCollisions() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const p1 = particles[i];
+                    const p2 = particles[j];
+
+                    const dx = p1.x - p2.x;
+                    const dy = p1.y - p2.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    const minDistance = p1.radius + p2.radius;
+
+                    if (distance < minDistance) {
+                        // Normalize collision vector
+                        const nx = dx / distance;
+                        const ny = dy / distance;
+
+                        // Relative velocity
+                        const kx = p1.vx - p2.vx;
+                        const ky = p1.vy - p2.vy;
+
+                        // Impulse scalar
+                        const p = 2 * (nx * kx + ny * ky) / (p1.mass + p2.mass);
+
+                        // Apply impulse
+                        p1.vx -= p * p2.mass * nx * COLLISION_DAMPING;
+                        p1.vy -= p * p2.mass * ny * COLLISION_DAMPING;
+                        p2.vx += p * p1.mass * nx * COLLISION_DAMPING;
+                        p2.vy += p * p1.mass * ny * COLLISION_DAMPING;
+
+                        // Separate to avoid getting stuck (penetration resolution)
+                        const overlap = 0.5 * (minDistance - distance + 0.1);
+                        p1.x += overlap * nx;
+                        p1.y += overlap * ny;
+                        p2.x -= overlap * nx;
+                        p2.y -= overlap * ny;
+                    }
+                }
+            }
+        }
+
+        // Convert Temperature to a base velocity (v proportional to sqrt(T))
+        function getSpeedForTemp(temp) {
+            return Math.sqrt(temp) * BASE_SPEED_MULTIPLIER;
+        }
+
+        // Initialize or re-initialize simulation
+        function initSimulation() {
+            particles = [];
+            currentTemp = parseInt(tempSlider.value);
+            containerWidth = width * (parseInt(volSlider.value) / 100);
+            updatePistonVisual();
+            
+            const v = getSpeedForTemp(currentTemp);
+            targetParticleCount = parseInt(numSlider.value);
+
+            for (let i = 0; i < targetParticleCount; i++) {
+                // Spawn randomly within the current container boundaries
+                const x = Math.random() * (containerWidth - PARTICLE_RADIUS * 2) + PARTICLE_RADIUS;
+                const y = Math.random() * (height - PARTICLE_RADIUS * 2) + PARTICLE_RADIUS;
+                particles.push(new Particle(x, y, v));
+            }
+            smoothedPressure = 0;
+        }
+
+        function updatePistonVisual() {
+            const percentageOff = 100 - parseInt(volSlider.value);
+            piston.style.width = `${percentageOff}%`;
+        }
+
+        // --- Game Loop ---
+        function animate() {
+            if (!isPaused) {
+                // Background clear
+                ctx.clearRect(0, 0, width, height);
+
+                // Draw container boundary
+                ctx.strokeStyle = '#475569';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(0, 0, containerWidth, height);
+
+                let frameImpulse = 0;
+
+                // Manage particle count dynamically based on slider
+                while (particles.length < targetParticleCount) {
+                    const x = Math.random() * (containerWidth / 2) + PARTICLE_RADIUS; // spawn on left side to be safe
+                    const y = Math.random() * (height - PARTICLE_RADIUS * 2) + PARTICLE_RADIUS;
+                    particles.push(new Particle(x, y, getSpeedForTemp(currentTemp)));
+                }
+                while (particles.length > targetParticleCount) {
+                    particles.pop();
+                }
+
+                // Update and draw particles
+                for (let p of particles) {
+                    frameImpulse += p.update();
+                }
+
+                // Handle particle-particle collisions
+                resolveCollisions();
+
+                for (let p of particles) {
+                    p.draw();
+                }
+
+                // Calculate Pressure
+                instantaneousPressure += frameImpulse;
+                frameCount++;
+
+                // Update UI pressure every 10 frames to keep it readable
+                if (frameCount >= 10) {
+                    // Average impulse over frames
+                    let avgImpulse = instantaneousPressure / 10;
+                    
+                    // Smooth it out further (Exponential moving average)
+                    smoothedPressure = 0.8 * smoothedPressure + 0.2 * avgImpulse;
+                    
+                    // Scale it to a nice readable number (Arbitrary scaling factor for display)
+                    const displayPressure = (smoothedPressure * 0.5).toFixed(1);
+                    pressureReadout.textContent = displayPressure;
+                    
+                    // Visual pulse effect if pressure is high
+                    if (displayPressure > 100) {
+                         pressureReadout.classList.add('text-red-500');
+                         pressureReadout.classList.remove('text-amber-400');
+                    } else {
+                         pressureReadout.classList.add('text-amber-400');
+                         pressureReadout.classList.remove('text-red-500');
+                    }
+
+                    instantaneousPressure = 0;
+                    frameCount = 0;
+                }
+            }
+            
+            requestAnimationFrame(animate);
+        }
+
+        // --- Event Listeners ---
+        
+        // Temperature Change (Gay-Lussac's Law)
+        tempSlider.addEventListener('input', (e) => {
+            const newTemp = parseInt(e.target.value);
+            tempDisplay.textContent = `${newTemp} K`;
+            
+            // Adjust speeds of existing particles proportionally
+            // KE1/KE2 = T1/T2  =>  v1^2/v2^2 = T1/T2  =>  v2 = v1 * sqrt(T2/T1)
+            const speedRatio = Math.sqrt(newTemp / currentTemp);
+            
+            for (let p of particles) {
+                p.vx *= speedRatio;
+                p.vy *= speedRatio;
+            }
+            
+            currentTemp = newTemp;
+        });
+
+        // Volume Change (Boyle's Law)
+        volSlider.addEventListener('input', (e) => {
+            const volPercent = parseInt(e.target.value);
+            volDisplay.textContent = `${volPercent}%`;
+            
+            const newWidth = width * (volPercent / 100);
+            
+            // If shrinking volume, push particles that are left outside inwards
+            if (newWidth < containerWidth) {
+                for (let p of particles) {
+                    if (p.x + p.radius > newWidth) {
+                        p.x = newWidth - p.radius - Math.random() * 5; // Push them slightly inside
+                        // Add some energy (work done by piston compressing gas)
+                        if (p.vx > 0) p.vx *= -1.1; 
+                    }
+                }
+            }
+            
+            containerWidth = newWidth;
+            updatePistonVisual();
+        });
+
+        // Number of Particles Change
+        numSlider.addEventListener('input', (e) => {
+            targetParticleCount = parseInt(e.target.value);
+            numDisplay.textContent = targetParticleCount;
+        });
+
+        // Controls
+        pauseBtn.addEventListener('click', () => {
+            isPaused = !isPaused;
+            pauseBtn.textContent = isPaused ? 'Resume' : 'Pause';
+            pauseBtn.classList.toggle('bg-amber-600');
+            pauseBtn.classList.toggle('bg-slate-700');
+        });
+
+        resetBtn.addEventListener('click', () => {
+            tempSlider.value = 300;
+            volSlider.value = 100;
+            numSlider.value = 150;
+            
+            tempDisplay.textContent = '300 K';
+            volDisplay.textContent = '100%';
+            numDisplay.textContent = '150';
+            
+            isPaused = false;
+            pauseBtn.textContent = 'Pause';
+            pauseBtn.classList.remove('bg-amber-600');
+            pauseBtn.classList.add('bg-slate-700');
+            
+            initSimulation();
+        });
+
+        // Handle window resize cleanly
+        window.addEventListener('resize', () => {
+            // Keep internal canvas resolution fixed but scale via CSS
+            // Recalculate container bounds if needed, but flexbox handles most of it
+        });
+
+        // Start
+        initSimulation();
+        animate();
+
+    </script>
+	    <!-- Footer -->
+    <footer class="mt-20 text-center text-slate-500 text-sm">
+        <p>Built for interactive science education.</p>
+        <p>Generated by Gemini Pro 3.0 | Prepared By Justin Chui.</p>
+    </footer>
+</body>
+
+</html>
+

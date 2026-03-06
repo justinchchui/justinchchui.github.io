@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heat Conduction: Metals vs Non-Metals</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        canvas {
+            background-color: #1e293b;
+            border-radius: 0.5rem;
+            box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+            width: 100%;
+            height: auto;
+            image-rendering: pixelated; /* for crisp edges if needed */
+        }
+        /* Custom range slider styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #ef4444;
+            cursor: pointer;
+            margin-top: -8px;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #475569;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center p-4 md:p-8">
+
+    <div class="max-w-6xl w-full">
+        <!-- Back Navigation -->
+        <div class="mb-2 md:mb-6">
+            <a href="../" class="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm font-bold bg-slate-800 py-2 px-4 rounded-lg border border-slate-700 shadow-md hover:bg-slate-700 w-max">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Back to Home
+            </a>
+        </div>
+
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">Atomic Heat Conduction Simulator</h1>
+            <p class="text-slate-400 max-w-2xl mx-auto">
+                Observe the difference between heat transfer via <span class="text-blue-400 font-semibold">lattice vibrations</span> (non-metals) and the rapid transfer enabled by a <span class="text-yellow-400 font-semibold">"sea of free electrons"</span> (metals).
+            </p>
+        </header>
+
+        <div class="bg-slate-800 rounded-xl p-6 shadow-xl mb-8 border border-slate-700">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
+                <div class="flex items-center gap-4 w-full md:w-1/2">
+                    <button id="toggleHeatBtn" class="bg-red-600 hover:bg-red-500 text-white px-6 py-2 rounded-lg font-bold transition-colors shadow-lg shadow-red-500/30 w-32 shrink-0">
+                        Heat: OFF
+                    </button>
+                    <div class="flex-1">
+                        <label for="heatIntensity" class="block text-xs text-slate-400 mb-1">Heat Intensity</label>
+                        <input type="range" id="heatIntensity" min="10" max="100" value="50">
+                    </div>
+                </div>
+                <button id="resetBtn" class="bg-slate-600 hover:bg-slate-500 text-white px-6 py-2 rounded-lg font-bold transition-colors w-full md:w-auto">
+                    Reset Simulation
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Non-Metal Container -->
+                <div class="flex flex-col">
+                    <h2 class="text-xl font-bold text-blue-300 mb-2 flex items-center gap-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                        Non-Metal
+                    </h2>
+                    <p class="text-sm text-slate-400 mb-4 h-10">Heat moves slowly. Atoms vibrate and pass energy only to their immediate neighbors.</p>
+                    <div class="relative w-full aspect-[2/1] rounded-lg overflow-hidden border-2 border-slate-600">
+                        <canvas id="canvasNonMetal" width="600" height="300"></canvas>
+                        <!-- Heat Source Indicator overlay -->
+                        <div id="heatSourceIndicator1" class="absolute left-0 top-0 bottom-0 w-4 bg-gradient-to-r from-red-500 to-transparent opacity-0 transition-opacity duration-300"></div>
+                    </div>
+                </div>
+
+                <!-- Metal Container -->
+                <div class="flex flex-col">
+                    <h2 class="text-xl font-bold text-yellow-300 mb-2 flex items-center gap-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        Metal
+                    </h2>
+                    <p class="text-sm text-slate-400 mb-4 h-10">Heat moves rapidly. Fast-moving free electrons carry thermal energy directly across the material.</p>
+                    <div class="relative w-full aspect-[2/1] rounded-lg overflow-hidden border-2 border-slate-600">
+                        <canvas id="canvasMetal" width="600" height="300"></canvas>
+                        <div id="heatSourceIndicator2" class="absolute left-0 top-0 bottom-0 w-4 bg-gradient-to-r from-red-500 to-transparent opacity-0 transition-opacity duration-300"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-slate-300">
+            <div class="bg-slate-800/50 p-4 rounded-lg border border-slate-700/50">
+                <strong class="text-white block mb-1">Color Legend</strong>
+                <span class="inline-block w-3 h-3 rounded-full bg-blue-500 mr-2"></span> Cold (Low Energy)<br>
+                <span class="inline-block w-3 h-3 rounded-full bg-yellow-400 mr-2 mt-2"></span> Warm<br>
+                <span class="inline-block w-3 h-3 rounded-full bg-red-500 mr-2 mt-2"></span> Hot (High Energy)
+            </div>
+            <div class="bg-slate-800/50 p-4 rounded-lg border border-slate-700/50 md:col-span-2">
+                <strong class="text-white block mb-1">What's happening?</strong>
+                When you apply heat to the left edge, the leftmost atoms start to vibrate heavily (turning red). 
+                In the <strong>non-metal</strong>, they can only pass this energy by bumping into their fixed neighbors—a slow process. 
+                In the <strong>metal</strong>, notice the tiny yellow/red sparks (free electrons). They collide with the hot atoms, absorb the heat energy, and instantly bounce across the lattice, colliding with cold atoms on the far side and heating them up almost immediately!
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Simulation Configuration ---
+        const GRID_COLS = 15;
+        const GRID_ROWS = 7;
+        const ATOM_SPACING = 35;
+        const ATOM_RADIUS = 10;
+        const MAX_TEMP = 100;
+        
+        // Physics tuning
+        const LATTICE_TRANSFER_RATE = 0.015; // How fast atoms share heat with neighbors
+        const ELECTRON_TRANSFER_RATE = 0.08;  // How fast electrons exchange heat with atoms
+        const COOLING_RATE = 0.001;          // Ambient cooling
+        const ELECTRON_BASE_SPEED = 1.5;
+        const ELECTRON_HEAT_SPEED_MULT = 0.08;
+
+        // State
+        let isHeating = false;
+        let heatPower = 50;
+
+        // UI Elements
+        const toggleHeatBtn = document.getElementById('toggleHeatBtn');
+        const heatIntensity = document.getElementById('heatIntensity');
+        const resetBtn = document.getElementById('resetBtn');
+        const indicators = [
+            document.getElementById('heatSourceIndicator1'),
+            document.getElementById('heatSourceIndicator2')
+        ];
+
+        // Helper: Get color based on temperature (0 to MAX_TEMP)
+        function getTemperatureColor(temp, isElectron = false) {
+            // Clamp temp
+            let t = Math.max(0, Math.min(MAX_TEMP, temp)) / MAX_TEMP;
+            
+            // Color map: Blue (0) -> Yellow (0.5) -> Red (1)
+            let r, g, b;
+            if (t < 0.5) {
+                // Blue to Yellow
+                let normalizedT = t * 2; // 0 to 1
+                r = Math.floor(59 + (234 - 59) * normalizedT);
+                g = Math.floor(130 + (179 - 130) * normalizedT);
+                b = Math.floor(246 + (8 - 246) * normalizedT);
+            } else {
+                // Yellow to Red
+                let normalizedT = (t - 0.5) * 2; // 0 to 1
+                r = Math.floor(234 + (239 - 234) * normalizedT);
+                g = Math.floor(179 + (68 - 179) * normalizedT);
+                b = Math.floor(8 + (68 - 8) * normalizedT);
+            }
+            
+            if (isElectron && t < 0.1) {
+                return `rgba(255, 255, 255, 0.4)`; // cold electrons are dim
+            }
+            
+            return `rgb(${r}, ${g}, ${b})`;
+        }
+
+        // Classes
+        class Atom {
+            constructor(c, r, startX, startY) {
+                this.col = c;
+                this.row = r;
+                this.baseX = startX;
+                this.baseY = startY;
+                this.x = startX;
+                this.y = startY;
+                this.temp = 0;
+            }
+
+            update(neighbors) {
+                // Transfer heat to/from neighbors
+                let tempDiff = 0;
+                for (let n of neighbors) {
+                    tempDiff += (n.temp - this.temp);
+                }
+                this.temp += tempDiff * LATTICE_TRANSFER_RATE;
+                
+                // Ambient cooling
+                if (this.temp > 0) this.temp -= COOLING_RATE;
+                if (this.temp < 0) this.temp = 0;
+
+                // Vibration based on temp
+                let vibrationAmount = (this.temp / MAX_TEMP) * 4;
+                this.x = this.baseX + (Math.random() - 0.5) * vibrationAmount;
+                this.y = this.baseY + (Math.random() - 0.5) * vibrationAmount;
+            }
+
+            draw(ctx) {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, ATOM_RADIUS, 0, Math.PI * 2);
+                ctx.fillStyle = getTemperatureColor(this.temp);
+                ctx.fill();
+                
+                // Highlight
+                ctx.beginPath();
+                ctx.arc(this.x - 3, this.y - 3, ATOM_RADIUS * 0.3, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255,255,255,0.3)';
+                ctx.fill();
+            }
+        }
+
+        class Electron {
+            constructor(width, height) {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.angle = Math.random() * Math.PI * 2;
+                this.temp = 0;
+                this.width = width;
+                this.height = height;
+            }
+
+            update(atoms) {
+                // Speed depends on temperature
+                let speed = ELECTRON_BASE_SPEED + (this.temp * ELECTRON_HEAT_SPEED_MULT);
+                
+                this.x += Math.cos(this.angle) * speed;
+                this.y += Math.sin(this.angle) * speed;
+
+                // Bounce off walls
+                if (this.x < 0 || this.x > this.width) {
+                    this.angle = Math.PI - this.angle;
+                    this.x = Math.max(0, Math.min(this.width, this.x));
+                }
+                if (this.y < 0 || this.y > this.height) {
+                    this.angle = -this.angle;
+                    this.y = Math.max(0, Math.min(this.height, this.y));
+                }
+
+                // Random slight trajectory changes for "gas" effect
+                this.angle += (Math.random() - 0.5) * 0.5;
+
+                // Interact with nearby atoms (Heat transfer)
+                // Find nearest atom (optimized grid lookup would be better, but small grid is fine)
+                let nearestAtom = null;
+                let minDist = 30; // Interaction radius
+                
+                for(let atom of atoms) {
+                    let dx = atom.x - this.x;
+                    let dy = atom.y - this.y;
+                    let dist = Math.sqrt(dx*dx + dy*dy);
+                    if (dist < minDist) {
+                        minDist = dist;
+                        nearestAtom = atom;
+                    }
+                }
+
+                if (nearestAtom) {
+                    // Average out temperatures
+                    let avgTemp = (this.temp + nearestAtom.temp) / 2;
+                    // Move temps towards average based on transfer rate
+                    let transfer = (nearestAtom.temp - this.temp) * ELECTRON_TRANSFER_RATE;
+                    this.temp += transfer;
+                    nearestAtom.temp -= transfer;
+                }
+                
+                // Ambient cooling
+                if (this.temp > 0) this.temp -= COOLING_RATE;
+            }
+
+            draw(ctx) {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 2.5, 0, Math.PI * 2);
+                ctx.fillStyle = getTemperatureColor(this.temp, true);
+                
+                // Glow effect for hot electrons
+                if (this.temp > 20) {
+                    ctx.shadowBlur = 5;
+                    ctx.shadowColor = ctx.fillStyle;
+                } else {
+                    ctx.shadowBlur = 0;
+                }
+                
+                ctx.fill();
+                ctx.shadowBlur = 0; // reset
+            }
+        }
+
+        class Simulation {
+            constructor(canvasId, isMetal) {
+                this.canvas = document.getElementById(canvasId);
+                this.ctx = this.canvas.getContext('2d');
+                this.isMetal = isMetal;
+                this.width = this.canvas.width;
+                this.height = this.canvas.height;
+                
+                this.atoms = [];
+                this.electrons = [];
+                
+                this.init();
+            }
+
+            init() {
+                this.atoms = [];
+                this.electrons = [];
+                
+                // Calculate grid offsets to center it
+                const gridWidth = (GRID_COLS - 1) * ATOM_SPACING;
+                const gridHeight = (GRID_ROWS - 1) * ATOM_SPACING;
+                const offsetX = (this.width - gridWidth) / 2 + 10; // Shift slightly right to make room for heat source
+                const offsetY = (this.height - gridHeight) / 2;
+
+                // Create Atoms
+                for (let r = 0; r < GRID_ROWS; r++) {
+                    for (let c = 0; c < GRID_COLS; c++) {
+                        let x = offsetX + c * ATOM_SPACING;
+                        let y = offsetY + r * ATOM_SPACING;
+                        this.atoms.push(new Atom(c, r, x, y));
+                    }
+                }
+
+                // Add neighbors to atoms (up, down, left, right)
+                for (let atom of this.atoms) {
+                    atom.neighbors = this.atoms.filter(a => 
+                        (Math.abs(a.col - atom.col) === 1 && a.row === atom.row) ||
+                        (Math.abs(a.row - atom.row) === 1 && a.col === atom.col)
+                    );
+                }
+
+                // Create Electrons if Metal
+                if (this.isMetal) {
+                    const numElectrons = 75;
+                    for (let i = 0; i < numElectrons; i++) {
+                        this.electrons.push(new Electron(this.width, this.height));
+                    }
+                }
+            }
+
+            applyHeat(intensity) {
+                // Apply heat to the leftmost column of atoms
+                for (let atom of this.atoms) {
+                    if (atom.col === 0) {
+                        atom.temp += intensity * 0.5;
+                        if (atom.temp > MAX_TEMP) atom.temp = MAX_TEMP;
+                    }
+                }
+            }
+
+            update() {
+                if (isHeating) {
+                    this.applyHeat(heatPower);
+                }
+
+                // Update atoms
+                for (let atom of this.atoms) {
+                    atom.update(atom.neighbors);
+                }
+
+                // Update electrons
+                for (let electron of this.electrons) {
+                    electron.update(this.atoms);
+                }
+            }
+
+            draw() {
+                this.ctx.clearRect(0, 0, this.width, this.height);
+
+                // Draw lattice bonds (optional, helps visualize solid structure)
+                this.ctx.strokeStyle = 'rgba(100, 116, 139, 0.3)';
+                this.ctx.lineWidth = 2;
+                for (let atom of this.atoms) {
+                    for (let n of atom.neighbors) {
+                        // Only draw right and down to avoid double drawing
+                        if (n.col > atom.col || n.row > atom.row) {
+                            this.ctx.beginPath();
+                            this.ctx.moveTo(atom.baseX, atom.baseY);
+                            this.ctx.lineTo(n.baseX, n.baseY);
+                            this.ctx.stroke();
+                        }
+                    }
+                }
+
+                // Draw Atoms
+                for (let atom of this.atoms) {
+                    atom.draw(this.ctx);
+                }
+
+                // Draw Electrons
+                for (let electron of this.electrons) {
+                    electron.draw(this.ctx);
+                }
+            }
+        }
+
+        // Initialize Simulations
+        const simNonMetal = new Simulation('canvasNonMetal', false);
+        const simMetal = new Simulation('canvasMetal', true);
+
+        // Animation Loop
+        function animate() {
+            simNonMetal.update();
+            simNonMetal.draw();
+            
+            simMetal.update();
+            simMetal.draw();
+            
+            requestAnimationFrame(animate);
+        }
+
+        // Event Listeners
+        toggleHeatBtn.addEventListener('click', () => {
+            isHeating = !isHeating;
+            if (isHeating) {
+                toggleHeatBtn.textContent = 'Heat: ON';
+                toggleHeatBtn.classList.remove('bg-red-600', 'hover:bg-red-500');
+                toggleHeatBtn.classList.add('bg-orange-500', 'hover:bg-orange-400');
+                indicators.forEach(ind => ind.classList.remove('opacity-0'));
+            } else {
+                toggleHeatBtn.textContent = 'Heat: OFF';
+                toggleHeatBtn.classList.remove('bg-orange-500', 'hover:bg-orange-400');
+                toggleHeatBtn.classList.add('bg-red-600', 'hover:bg-red-500');
+                indicators.forEach(ind => ind.classList.add('opacity-0'));
+            }
+        });
+
+        heatIntensity.addEventListener('input', (e) => {
+            heatPower = parseInt(e.target.value);
+        });
+
+        resetBtn.addEventListener('click', () => {
+            simNonMetal.init();
+            simMetal.init();
+            if (isHeating) {
+                toggleHeatBtn.click(); // turn off heat on reset
+            }
+        });
+
+        // Start animation
+        window.onload = () => {
+            animate();
+        };
+
+    </script>
+        <!-- Footer -->
+    <footer class="mt-20 text-center text-slate-500 text-sm">
+        <p>Built for interactive science education.</p>
+        <p>Generated by Gemini Pro 3.0 | Prepared By Justin Chui.</p>
+    </footer>
+</body>
+</html>
+
+

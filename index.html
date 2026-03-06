@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Physics Laboratory</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a; /* slate-900 */
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(168, 85, 247, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.1) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(245, 158, 11, 0.1) 0px, transparent 50%);
+            background-attachment: fixed;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        .sim-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sim-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+        }
+
+        .icon-container {
+            transition: transform 0.3s ease;
+        }
+
+        .sim-card:hover .icon-container {
+            transform: scale(1.1) rotate(5deg);
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-200 flex flex-col items-center pt-16 pb-12 px-4 sm:px-6 lg:px-8">
+
+    <!-- Header Section -->
+    <header class="text-center max-w-4xl mx-auto mb-16">
+        <h1 class="text-5xl md:text-6xl font-extrabold text-white tracking-tight mb-6">
+            Virtual Physics <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400">Laboratory</span>
+        </h1>
+        <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
+            Physics Resources
+        </p>
+    </header>
+
+    <!-- Simulation Grid -->
+    <main class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl w-full mx-auto">
+
+        <!-- 1. Heat Conduction -->
+        <a href="./HeatConduction/" class="sim-card relative group block w-full rounded-2xl bg-slate-800 border border-slate-700 overflow-hidden flex flex-col h-full focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-slate-900">
+            <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div class="p-8 flex-1 flex flex-col relative z-10">
+                <div class="w-16 h-16 rounded-2xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-3xl mb-6 icon-container text-red-400 shadow-inner">
+                    🌡️
+                </div>
+                <h2 class="text-2xl font-bold text-white mb-3">Heat Conduction</h2>
+                <p class="text-slate-400 leading-relaxed mb-8 flex-1">
+                    Visualize thermal energy transfer across different materials. Observe how temperature gradients form and reach equilibrium over time.
+                </p>
+                <div class="inline-flex items-center text-red-400 font-semibold mt-auto group-hover:text-red-300 transition-colors">
+                    Launch Simulator 
+                    <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </div>
+            </div>
+        </a>
+
+        <!-- 2. Kinetic Gas Simulator -->
+        <a href="./KineticTheory/" class="sim-card relative group block w-full rounded-2xl bg-slate-800 border border-slate-700 overflow-hidden flex flex-col h-full focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-slate-900">
+            <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div class="p-8 flex-1 flex flex-col relative z-10">
+                <div class="w-16 h-16 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-3xl mb-6 icon-container text-emerald-400 shadow-inner">
+                    🌀
+                </div>
+                <h2 class="text-2xl font-bold text-white mb-3">Kinetic Gas Theory</h2>
+                <p class="text-slate-400 leading-relaxed mb-8 flex-1">
+                    Observe the microscopic behavior of gas particles. Change temperature, volume, and particle count to see the macroscopic effects on pressure.
+                </p>
+                <div class="inline-flex items-center text-emerald-400 font-semibold mt-auto group-hover:text-emerald-300 transition-colors">
+                    Launch Simulator 
+                    <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </div>
+            </div>
+        </a>
+
+        <!-- 3. Projectile Motion Simulator -->
+        <a href="./ProjectileMotion/" class="sim-card relative group block w-full rounded-2xl bg-slate-800 border border-slate-700 overflow-hidden flex flex-col h-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-900">
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div class="p-8 flex-1 flex flex-col relative z-10">
+                <div class="w-16 h-16 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-3xl mb-6 icon-container text-blue-400 shadow-inner">
+                    🏹
+                </div>
+                <h2 class="text-2xl font-bold text-white mb-3">Projectile Motion</h2>
+                <p class="text-slate-400 leading-relaxed mb-8 flex-1">
+                    Experiment with 2D kinematics. Adjust launch angles, initial velocities, and heights to understand trajectories and find the optimal range.
+                </p>
+                <div class="inline-flex items-center text-blue-400 font-semibold mt-auto group-hover:text-blue-300 transition-colors">
+                    Launch Simulator 
+                    <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </div>
+            </div>
+        </a>
+
+        <!-- 4. Momentum Simulator -->
+        <a href="./Momentum/" class="sim-card relative group block w-full rounded-2xl bg-slate-800 border border-slate-700 overflow-hidden flex flex-col h-full focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-slate-900">
+            <div class="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div class="p-8 flex-1 flex flex-col relative z-10">
+                <div class="w-16 h-16 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-3xl mb-6 icon-container text-purple-400 shadow-inner">
+                    🎱
+                </div>
+                <h2 class="text-2xl font-bold text-white mb-3">Momentum & Collisions</h2>
+                <p class="text-slate-400 leading-relaxed mb-8 flex-1">
+                    Investigate the conservation of momentum. Setup elastic and inelastic collisions between objects of varying masses and velocities.
+                </p>
+                <div class="inline-flex items-center text-purple-400 font-semibold mt-auto group-hover:text-purple-300 transition-colors">
+                    Launch Simulator 
+                    <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </div>
+            </div>
+        </a>
+
+        <!-- 5. Electric Field Simulator -->
+        <a href="./ElectricField/" class="sim-card relative group block w-full rounded-2xl bg-slate-800 border border-slate-700 overflow-hidden flex flex-col h-full focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-slate-900">
+            <div class="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div class="p-8 flex-1 flex flex-col relative z-10">
+                <div class="w-16 h-16 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-3xl mb-6 icon-container text-purple-400 shadow-inner">
+                    ⚡
+                </div>
+                <h2 class="text-2xl font-bold text-white mb-3">Electric Field</h2>
+                <p class="text-slate-400 leading-relaxed mb-8 flex-1">
+                    Study E-field due to charges
+                </p>
+                <div class="inline-flex items-center text-purple-400 font-semibold mt-auto group-hover:text-purple-300 transition-colors">
+                    Launch Simulator 
+                    <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </div>
+            </div>
+        </a>
+
+        <!-- 6. Ripple Tank -->
+        <a href="./RippleTank" class="sim-card relative group block w-full rounded-2xl bg-slate-800 border border-slate-700 overflow-hidden flex flex-col h-full focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-slate-900">
+            <div class="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div class="p-8 flex-1 flex flex-col relative z-10">
+                <div class="w-16 h-16 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-3xl mb-6 icon-container text-purple-400 shadow-inner">
+                    ♒
+                </div>
+                <h2 class="text-2xl font-bold text-white mb-3">Ripple Tank</h2>
+                <p class="text-slate-400 leading-relaxed mb-8 flex-1">
+                    Ripple Tank Simulator
+                </p>
+                <div class="inline-flex items-center text-purple-400 font-semibold mt-auto group-hover:text-purple-300 transition-colors">
+                    Launch Simulator 
+                    <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </div>
+            </div>
+        </a>
+
+        <!-- 7. Lens -->
+        <a href="./Lens/" class="sim-card relative group block w-full rounded-2xl bg-slate-800 border border-slate-700 overflow-hidden flex flex-col h-full focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-slate-900">
+            <div class="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div class="p-8 flex-1 flex flex-col relative z-10">
+                <div class="w-16 h-16 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-3xl mb-6 icon-container text-purple-400 shadow-inner">
+                    🔍
+                </div>
+                <h2 class="text-2xl font-bold text-white mb-3">Lens Simulator</h2>
+                <p class="text-slate-400 leading-relaxed mb-8 flex-1">
+                    Invesitgate convex and convave lenses
+                </p>
+                <div class="inline-flex items-center text-purple-400 font-semibold mt-auto group-hover:text-purple-300 transition-colors">
+                    Launch Simulator 
+                    <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </div>
+            </div>
+        </a>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-20 text-center text-slate-500 text-sm">
+        <p>Built for interactive science education.</p>
+        <p>Generated by Gemini Pro 3.0 | Prepared By Justin Chui.</p>
+    </footer>
+
+</body>
+
+</html>
+
+
+
+
+
+

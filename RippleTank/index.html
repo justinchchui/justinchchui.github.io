@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ripple Tank Simulator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #0f172a; color: #f8fafc; font-family: 'Inter', sans-serif; }
+        canvas { 
+            image-rendering: pixelated; 
+            box-shadow: 0 10px 40px -5px rgba(0, 0, 0, 0.8);
+            border-radius: 8px;
+            cursor: crosshair;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+    </style>
+</head>
+<body class="flex flex-col h-screen">
+
+    <!-- Header -->
+    <header class="bg-slate-900 border-b border-slate-800 p-4 flex items-center justify-between shrink-0 shadow-md relative z-10">
+        <div class="flex items-center gap-4">
+            <a href="../" class="flex items-center gap-2 text-slate-400 hover:text-white hover:bg-slate-800 px-3 py-2 rounded-md transition-all duration-200">
+                <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                <span class="font-medium text-sm">Back to Home</span>
+            </a>
+            <div class="h-6 w-px bg-slate-700"></div>
+            <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-500 flex items-center gap-2">
+                <i data-lucide="waves" class="w-6 h-6 text-cyan-400"></i>
+                Ripple Tank Simulator
+            </h1>
+        </div>
+        <div class="flex items-center gap-3 text-sm text-slate-400">
+            <span id="fps-counter" class="font-mono bg-slate-800 px-2 py-1 rounded">60 FPS</span>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex overflow-hidden">
+        
+        <!-- Controls Sidebar -->
+        <aside class="w-80 bg-slate-800 border-r border-slate-700 p-5 flex flex-col gap-6 overflow-y-auto shrink-0 z-10">
+            
+            <button id="btn-pause" onclick="togglePause()" class="w-full py-3 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg shadow-lg shadow-cyan-900/20 transition-all text-sm font-bold flex items-center justify-center gap-2">
+                <span id="pause-icon-wrapper"><i data-lucide="pause" class="w-5 h-5"></i></span>
+                <span id="pause-text">Pause Simulation</span>
+            </button>
+
+            <!-- Scenarios -->
+            <section class="space-y-3">
+                <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Demonstrations</h2>
+                <div class="grid grid-cols-1 gap-2">
+                    <button data-type="single" onclick="setScenario('single')" class="scenario-btn w-full text-left px-4 py-3 rounded-lg bg-slate-700 hover:bg-cyan-900/50 hover:text-cyan-300 border border-transparent hover:border-cyan-500/30 transition-all text-sm font-medium flex items-center justify-between">
+                        Point Source <i data-lucide="circle-dot" class="w-4 h-4 opacity-50"></i>
+                    </button>
+                    <button data-type="plane" onclick="setScenario('plane')" class="scenario-btn w-full text-left px-4 py-3 rounded-lg bg-slate-700 hover:bg-cyan-900/50 hover:text-cyan-300 border border-transparent hover:border-cyan-500/30 transition-all text-sm font-medium flex items-center justify-between">
+                        Plane Wave <i data-lucide="align-justify" class="w-4 h-4 opacity-50"></i>
+                    </button>
+                    <button data-type="interference" onclick="setScenario('interference')" class="scenario-btn w-full text-left px-4 py-3 rounded-lg bg-slate-700 hover:bg-cyan-900/50 hover:text-cyan-300 border border-transparent hover:border-cyan-500/30 transition-all text-sm font-medium flex items-center justify-between">
+                        Interference <i data-lucide="git-merge" class="w-4 h-4 opacity-50"></i>
+                    </button>
+                    <button data-type="single-slit" onclick="setScenario('single-slit')" class="scenario-btn w-full text-left px-4 py-3 rounded-lg bg-slate-700 hover:bg-cyan-900/50 hover:text-cyan-300 border border-transparent hover:border-cyan-500/30 transition-all text-sm font-medium flex items-center justify-between">
+                        Diffraction (Single Slit) <i data-lucide="square-split-vertical" class="w-4 h-4 opacity-50"></i>
+                    </button>
+                    <button data-type="double-slit" onclick="setScenario('double-slit')" class="scenario-btn w-full text-left px-4 py-3 rounded-lg bg-slate-700 hover:bg-cyan-900/50 hover:text-cyan-300 border border-transparent hover:border-cyan-500/30 transition-all text-sm font-medium flex items-center justify-between">
+                        Young's Double Slit <i data-lucide="columns" class="w-4 h-4 opacity-50"></i>
+                    </button>
+                    <button data-type="refraction" onclick="setScenario('refraction')" class="scenario-btn w-full text-left px-4 py-3 rounded-lg bg-slate-700 hover:bg-cyan-900/50 hover:text-cyan-300 border border-transparent hover:border-cyan-500/30 transition-all text-sm font-medium flex items-center justify-between">
+                        Refraction (Lens) <i data-lucide="minimize-2" class="w-4 h-4 opacity-50"></i>
+                    </button>
+                </div>
+            </section>
+
+            <hr class="border-slate-700">
+
+            <!-- Wave Properties -->
+            <section class="space-y-4">
+                <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Properties</h2>
+                
+                <div class="space-y-1">
+                    <div class="flex justify-between text-sm">
+                        <label for="freq" class="text-slate-300">Frequency</label>
+                        <span id="freq-val" class="text-cyan-400 font-mono">0.15</span>
+                    </div>
+                    <input type="range" id="freq" min="0.02" max="0.5" step="0.01" value="0.15" class="w-full accent-cyan-500">
+                </div>
+
+                <div class="space-y-1">
+                    <div class="flex justify-between text-sm">
+                        <label for="amp" class="text-slate-300">Amplitude</label>
+                        <span id="amp-val" class="text-cyan-400 font-mono">1.0</span>
+                    </div>
+                    <input type="range" id="amp" min="0.1" max="3.0" step="0.1" value="1.0" class="w-full accent-cyan-500">
+                </div>
+
+                <div class="space-y-1">
+                    <div class="flex justify-between text-sm">
+                        <label for="speed" class="text-slate-300">Simulation Speed</label>
+                        <span id="speed-val" class="text-cyan-400 font-mono">2x</span>
+                    </div>
+                    <input type="range" id="speed" min="1" max="5" step="1" value="2" class="w-full accent-cyan-500">
+                </div>
+
+                <div id="slit-width-container" class="space-y-1 hidden pt-2 border-t border-slate-700/50">
+                    <div class="flex justify-between text-sm">
+                        <label for="slit-width" class="text-slate-300">Slit Width</label>
+                        <span id="slit-width-val" class="text-cyan-400 font-mono">30</span>
+                    </div>
+                    <input type="range" id="slit-width" min="4" max="120" step="2" value="30" class="w-full accent-cyan-500">
+                </div>
+            </section>
+
+            <hr class="border-slate-700">
+
+            <section class="space-y-3">
+                <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Tank Settings</h2>
+                <button id="btn-reflection" onclick="toggleReflection()" class="w-full py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded transition-colors text-sm font-medium flex items-center justify-center gap-2 border border-transparent">
+                    <span id="reflection-icon-wrapper" class="flex items-center"><i data-lucide="border-none" class="w-4 h-4"></i></span>
+                    <span id="reflection-text">Reflection: OFF</span>
+                </button>
+                <button onclick="clearTank()" class="w-full py-2 bg-slate-700 hover:bg-rose-900/50 text-slate-200 hover:text-rose-400 rounded transition-colors text-sm font-medium flex items-center justify-center gap-2 border border-transparent">
+                    <i data-lucide="trash-2" class="w-4 h-4"></i> Clear Tank
+                </button>
+            </section>
+
+        </aside>
+
+        <!-- Canvas Area -->
+        <section class="flex-1 bg-slate-950 flex items-center justify-center p-8 relative" id="canvas-wrapper">
+            <div class="absolute inset-0 opacity-20 pointer-events-none" style="background-image: radial-gradient(#334155 1px, transparent 1px); background-size: 20px 20px;"></div>
+            <canvas id="sim-canvas" width="300" height="300" class="w-full max-w-[600px] aspect-square bg-slate-900"></canvas>
+        </section>
+
+    </main>
+
+    <footer class="mt-2 text-center text-slate-500 text-sm">
+        <p>Built for interactive science education.</p>
+        <p>Generated by Gemini Pro 3.0 | Prepared By Justin Chui.</p>
+    </footer>
+
+    <!-- Custom Message Box -->
+    <div id="msg-box" class="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-slate-800 text-white px-5 py-3 rounded-full shadow-2xl border border-slate-700 transition-all duration-300 translate-y-20 opacity-0 z-50 pointer-events-none flex items-center gap-2">
+        <i data-lucide="info" class="w-4 h-4 text-cyan-400"></i>
+        <span id="msg-text" class="text-sm font-medium"></span>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // -------------------------------------------------------------
+        // Core Architecture: The "Mathematical Paradox" setup
+        // -------------------------------------------------------------
+        // To achieve 100% hard visual boundaries with absolutely zero reflection:
+        // 1. External Borders: A massive 150-pixel Perfectly Matched Layer (PML) void.
+        // 2. Internal Walls: We calculate the Sommerfeld Radiation Condition exactly 
+        //    at the 1-pixel surface of the geometric obstacles. This acts as a mathematical
+        //    black hole, sucking the wave out of the grid with no phase bounce.
+        // -------------------------------------------------------------
+        const SIM_SIZE = 300;     // Visible canvas
+        const PML = 150;          // Massive invisible outer void
+        const PHYS_SIZE = SIM_SIZE + PML * 2; // Total grid: 600x600
+
+        const canvas = document.getElementById('sim-canvas');
+        const ctx = canvas.getContext('2d', { willReadFrequently: true });
+        canvas.width = SIM_SIZE;
+        canvas.height = SIM_SIZE;
+
+        // Pointer-swapped physics grids to eliminate garbage collection stutters
+        let u = new Float32Array(PHYS_SIZE * PHYS_SIZE); 
+        let v = new Float32Array(PHYS_SIZE * PHYS_SIZE); 
+        let u_next = new Float32Array(PHYS_SIZE * PHYS_SIZE); 
+
+        // Environment grids
+        let walls = new Uint8Array(PHYS_SIZE * PHYS_SIZE); 
+        let refractionMap = new Float32Array(PHYS_SIZE * PHYS_SIZE); 
+        let gamma = new Float32Array(PHYS_SIZE * PHYS_SIZE); // Internal friction
+
+        const imageData = ctx.createImageData(SIM_SIZE, SIM_SIZE);
+        const data = imageData.data;
+
+        // State
+        let frequency = 0.15;
+        let amplitude = 1.0;
+        let simSpeed = 2; 
+        let time = 0;
+        let currentScenario = 'single';
+        let isMouseDown = false;
+        let mouseX = 0, mouseY = 0;
+        let borderReflection = false;
+        let isPaused = false;
+        let slitWidth = 30;
+
+        function initArrays() {
+            for (let i = 0; i < PHYS_SIZE * PHYS_SIZE; i++) {
+                u[i] = 0; v[i] = 0; u_next[i] = 0;
+            }
+        }
+
+        // Draws crisp geometric objects
+        function buildScenarioEnvironment() {
+            for (let i = 0; i < PHYS_SIZE * PHYS_SIZE; i++) {
+                walls[i] = 0;
+                refractionMap[i] = 1.0;
+            }
+
+            let cy = PML + SIM_SIZE / 2;
+            let wallThickness = 10; 
+
+            if (currentScenario === 'single-slit') {
+                let halfWidth = Math.floor(slitWidth / 2);
+                let center = PML + SIM_SIZE / 2;
+                for (let x = 0; x < PHYS_SIZE; x++) {
+                    if (x < center - halfWidth || x > center + halfWidth) {
+                        for(let w = -wallThickness; w <= wallThickness; w++) walls[(cy+w) * PHYS_SIZE + x] = 1;
+                    }
+                }
+            } 
+            else if (currentScenario === 'double-slit') {
+                let center = PML + SIM_SIZE / 2;
+                for (let x = 0; x < PHYS_SIZE; x++) {
+                    let gap1 = (x > center - 30 && x < center - 10);
+                    let gap2 = (x > center + 10 && x < center + 30);
+                    if (!gap1 && !gap2) {
+                        for(let w = -wallThickness; w <= wallThickness; w++) walls[(cy+w) * PHYS_SIZE + x] = 1;
+                    }
+                }
+            }
+            else if (currentScenario === 'refraction') {
+                let lensCy = cy + 20;
+                let lensCx = PML + SIM_SIZE / 2;
+                let radius = 60;
+                for (let y = 0; y < PHYS_SIZE; y++) {
+                    for (let x = 0; x < PHYS_SIZE; x++) {
+                        let dx = x - lensCx;
+                        let dy = y - lensCy;
+                        if (dx*dx + dy*dy < radius*radius && y > lensCy - 30 && y < lensCy + 30) {
+                             refractionMap[y * PHYS_SIZE + x] = 0.5;
+                        }
+                    }
+                }
+            }
+        }
+
+        // Builds the massive 150px outer sponge layer
+        function updatePML() {
+            for (let y = 0; y < PHYS_SIZE; y++) {
+                for (let x = 0; x < PHYS_SIZE; x++) {
+                    // If hard reflections are ON, we disable the outer void absorbers
+                    if (borderReflection) {
+                        gamma[y * PHYS_SIZE + x] = 0;
+                        continue;
+                    }
+
+                    // Calculate distance deep into the invisible 150px borders
+                    let dx = 0, dy = 0;
+                    if (x < PML) dx = PML - x;
+                    else if (x >= PHYS_SIZE - PML) dx = x - (PHYS_SIZE - PML - 1);
+                    if (y < PML) dy = PML - y;
+                    else if (y >= PHYS_SIZE - PML) dy = y - (PHYS_SIZE - PML - 1);
+                    
+                    let dist = Math.max(dx, dy);
+                    
+                    if (dist > 0) {
+                        // Impedance-matched cubic ramp guarantees waves vanish 
+                        // entirely before reaching the mathematical array boundary.
+                        gamma[y * PHYS_SIZE + x] = 0.4 * Math.pow(dist / PML, 3);
+                    } else {
+                        // The visible 300x300 canvas remains 100% pristine and untouched.
+                        gamma[y * PHYS_SIZE + x] = 0;
+                    }
+                }
+            }
+        }
+
+        function togglePause() {
+            isPaused = !isPaused;
+            const btn = document.getElementById('btn-pause');
+            const text = document.getElementById('pause-text');
+            const iconWrapper = document.getElementById('pause-icon-wrapper');
+
+            if (isPaused) {
+                btn.classList.replace('bg-cyan-600', 'bg-emerald-600');
+                btn.classList.replace('hover:bg-cyan-500', 'hover:bg-emerald-500');
+                btn.classList.replace('shadow-cyan-900/20', 'shadow-emerald-900/20');
+                text.textContent = 'Resume Simulation';
+                iconWrapper.innerHTML = '<i data-lucide="play" class="w-5 h-5"></i>';
+            } else {
+                btn.classList.replace('bg-emerald-600', 'bg-cyan-600');
+                btn.classList.replace('hover:bg-emerald-500', 'hover:bg-cyan-500');
+                btn.classList.replace('shadow-emerald-900/20', 'shadow-cyan-900/20');
+                text.textContent = 'Pause Simulation';
+                iconWrapper.innerHTML = '<i data-lucide="pause" class="w-5 h-5"></i>';
+            }
+            lucide.createIcons();
+        }
+
+        function toggleReflection() {
+            borderReflection = !borderReflection;
+            const btn = document.getElementById('btn-reflection');
+            const text = document.getElementById('reflection-text');
+            const iconWrapper = document.getElementById('reflection-icon-wrapper');
+            
+            if (borderReflection) {
+                btn.classList.add('bg-cyan-900/50', 'text-cyan-300', 'border-cyan-500/30');
+                btn.classList.remove('bg-slate-700', 'text-slate-200');
+                text.textContent = 'Reflection: ON';
+                iconWrapper.innerHTML = '<i data-lucide="border-all" class="w-4 h-4"></i>';
+            } else {
+                btn.classList.remove('bg-cyan-900/50', 'text-cyan-300', 'border-cyan-500/30');
+                btn.classList.add('bg-slate-700', 'text-slate-200');
+                text.textContent = 'Reflection: OFF';
+                iconWrapper.innerHTML = '<i data-lucide="border-none" class="w-4 h-4"></i>';
+            }
+            
+            lucide.createIcons();
+            updatePML(); 
+        }
+
+        function applySources() {
+            let cx = PML + SIM_SIZE / 2;
+            let cy = PML + SIM_SIZE / 2;
+            let osc = Math.sin(time * frequency) * amplitude;
+
+            if (currentScenario === 'single') {
+                u[cy * PHYS_SIZE + cx] = osc;
+            } 
+            else if (currentScenario === 'interference') {
+                u[cy * PHYS_SIZE + (cx - 30)] = osc;
+                u[cy * PHYS_SIZE + (cx + 30)] = osc;
+            }
+            else if (currentScenario === 'plane' || currentScenario === 'single-slit' || currentScenario === 'double-slit' || currentScenario === 'refraction') {
+                let yLine = PML + 30;
+                for (let x = PML + 10; x < PML + SIM_SIZE - 10; x++) {
+                    u[yLine * PHYS_SIZE + x] = osc;
+                }
+            }
+        }
+
+        function applyMouseRipples() {
+            if (isMouseDown) {
+                let r = 3;
+                for(let dy = -r; dy <= r; dy++) {
+                    for(let dx = -r; dx <= r; dx++) {
+                        let phys_x = mouseX + PML + dx;
+                        let phys_y = mouseY + PML + dy;
+                        let idx = phys_y * PHYS_SIZE + phys_x;
+                        
+                        if(idx >= 0 && idx < u.length && walls[idx] === 0) {
+                            u[idx] = Math.random() * 2 - 1; 
+                        }
+                    }
+                }
+            }
+        }
+
+        function setScenario(type) {
+            currentScenario = type;
+            initArrays(); 
+            time = 0;
+
+            if (isPaused) togglePause(); 
+
+            document.querySelectorAll('.scenario-btn').forEach(btn => {
+                btn.classList.remove('ring-1', 'ring-cyan-500', 'bg-slate-700/50');
+                if (btn.dataset.type === type) {
+                    btn.classList.add('ring-1', 'ring-cyan-500', 'bg-slate-700/50');
+                }
+            });
+
+            const slitContainer = document.getElementById('slit-width-container');
+            if (type === 'single-slit') slitContainer.classList.remove('hidden');
+            else slitContainer.classList.add('hidden');
+
+            buildScenarioEnvironment();
+            updatePML();
+        }
+
+        // -------------------------------------------------------------
+        // The Damped Wave Equation with Sommerfeld Radiation Condition
+        // -------------------------------------------------------------
+        function stepPhysics() {
+            for (let y = 1; y < PHYS_SIZE - 1; y++) {
+                for (let x = 1; x < PHYS_SIZE - 1; x++) {
+                    let i = y * PHYS_SIZE + x;
+
+                    // If Reflection is ON, we act as a hard Dirichlet wall at the visible boundaries.
+                    if (borderReflection && (x < PML || x >= PHYS_SIZE - PML || y < PML || y >= PHYS_SIZE - PML)) {
+                        u_next[i] = 0;
+                        continue;
+                    }
+
+                    // Ensure geometric shapes stay completely dead inside
+                    if (walls[i] === 1) {
+                        u_next[i] = 0;
+                        continue;
+                    }
+
+                    let u_center = u[i];
+                    let v_center = v[i];
+                    
+                    let u_left = u[i - 1];
+                    let u_right = u[i + 1];
+                    let u_up = u[i - PHYS_SIZE];
+                    let u_down = u[i + PHYS_SIZE];
+
+                    let local_c = 0.5 * refractionMap[i];
+                    let local_c2 = local_c * local_c;
+                    
+                    // The core magic for Zero Reflection from geometric walls.
+                    // We dynamically alter the Laplacian to emulate the 1st Order 
+                    // Sommerfeld Radiation Boundary Condition right at the wall's surface.
+                    // This creates a mathematical black hole exactly 1-pixel wide.
+                    if (!borderReflection) {
+                        let local_invC = 1.0 / local_c; // Effectively 2.0
+                        let rad = u_center - local_invC * (u_center - v_center);
+                        
+                        if (walls[i - 1] === 1) u_left = rad;
+                        if (walls[i + 1] === 1) u_right = rad;
+                        if (walls[i - PHYS_SIZE] === 1) u_up = rad;
+                        if (walls[i + PHYS_SIZE] === 1) u_down = rad;
+                    } else {
+                        // Standard hard-bounce reflection
+                        if (walls[i - 1] === 1) u_left = 0;
+                        if (walls[i + 1] === 1) u_right = 0;
+                        if (walls[i - PHYS_SIZE] === 1) u_up = 0;
+                        if (walls[i + PHYS_SIZE] === 1) u_down = 0;
+                    }
+
+                    let laplacian = u_left + u_right + u_up + u_down - 4 * u_center;
+                    let g = gamma[i]; // Used by the invisible 150px outer screen void
+                    
+                    // Impedance-matched damped formulation to prevent index mismatch reflection
+                    u_next[i] = (2 * u_center - v_center * (1 - g) + local_c2 * laplacian) / (1 + g);
+                }
+            }
+
+            // High-performance pointer swapping (zero garbage collection)
+            let temp = v;
+            v = u;
+            u = u_next;
+            u_next = temp;
+
+            applySources();
+            applyMouseRipples();
+            time++;
+        }
+
+        // Renders exclusively the 300x300 visible canvas
+        function render() {
+            for (let y = 0; y < SIM_SIZE; y++) {
+                for (let x = 0; x < SIM_SIZE; x++) {
+                    let phys_x = x + PML;
+                    let phys_y = y + PML;
+                    let i = phys_y * PHYS_SIZE + phys_x;
+                    let ptr = (y * SIM_SIZE + x) * 4;
+                    
+                    if (walls[i] === 1) {
+                        // Crisp geometric lines
+                        data[ptr] = 200;
+                        data[ptr + 1] = 180;
+                        data[ptr + 2] = 50;
+                        data[ptr + 3] = 255;
+                    } else if (refractionMap[i] < 1.0) {
+                        let val = u[i] * 1.5;
+                        let c = Math.max(0, Math.min(255, (val + 1) * 127));
+                        data[ptr] = c * 0.4;     
+                        data[ptr + 1] = c * 0.8 + 20; 
+                        data[ptr + 2] = c + 40;  
+                        data[ptr + 3] = 255;
+                    } else {
+                        // Boosted wave visibility
+                        let val = u[i] * 1.5;
+                        let c = Math.max(0, Math.min(255, (val + 1) * 127));
+                        data[ptr] = c * 0.3;     
+                        data[ptr + 1] = c * 0.8; 
+                        data[ptr + 2] = Math.min(255, c + 50); 
+                        data[ptr + 3] = 255;     
+                    }
+                }
+            }
+            ctx.putImageData(imageData, 0, 0);
+        }
+
+        let lastTime = performance.now();
+        let frames = 0;
+        let fpsDisplay = document.getElementById('fps-counter');
+
+        function animate() {
+            if (!isPaused) {
+                for(let s = 0; s < simSpeed; s++) stepPhysics();
+            } else {
+                applyMouseRipples();
+            }
+
+            render();
+
+            frames++;
+            let now = performance.now();
+            if (now - lastTime >= 1000) {
+                fpsDisplay.textContent = frames + " FPS";
+                frames = 0;
+                lastTime = now;
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        document.getElementById('freq').addEventListener('input', (e) => {
+            frequency = parseFloat(e.target.value);
+            document.getElementById('freq-val').textContent = frequency.toFixed(2);
+        });
+
+        document.getElementById('amp').addEventListener('input', (e) => {
+            amplitude = parseFloat(e.target.value);
+            document.getElementById('amp-val').textContent = amplitude.toFixed(1);
+        });
+
+        document.getElementById('speed').addEventListener('input', (e) => {
+            simSpeed = parseInt(e.target.value);
+            document.getElementById('speed-val').textContent = simSpeed + 'x';
+        });
+
+        document.getElementById('slit-width').addEventListener('input', (e) => {
+            slitWidth = parseInt(e.target.value);
+            document.getElementById('slit-width-val').textContent = slitWidth;
+            if (currentScenario === 'single-slit') {
+                buildScenarioEnvironment();
+                updatePML();
+            }
+        });
+
+        canvas.addEventListener('mousedown', (e) => {
+            isMouseDown = true;
+            updateMousePos(e);
+        });
+        canvas.addEventListener('mousemove', (e) => {
+            if(isMouseDown) updateMousePos(e);
+        });
+        window.addEventListener('mouseup', () => isMouseDown = false);
+        canvas.addEventListener('mouseleave', () => isMouseDown = false);
+
+        function updateMousePos(e) {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            mouseX = Math.floor((e.clientX - rect.left) * scaleX);
+            mouseY = Math.floor((e.clientY - rect.top) * scaleY);
+            
+            mouseX = Math.max(0, Math.min(SIM_SIZE - 1, mouseX));
+            mouseY = Math.max(0, Math.min(SIM_SIZE - 1, mouseY));
+        }
+
+        function clearTank() {
+            initArrays();
+            time = 0;
+        }
+
+        let msgTimeout;
+        function showMessage(text) {
+            const box = document.getElementById('msg-box');
+            document.getElementById('msg-text').textContent = text;
+            box.style.opacity = '1';
+            box.style.transform = 'translate(-50%, 0)';
+            clearTimeout(msgTimeout);
+            msgTimeout = setTimeout(() => {
+                box.style.opacity = '0';
+                box.style.transform = 'translate(-50%, 20px)';
+            }, 3000);
+        }
+
+        function goHome() {
+            showMessage("Navigation is disabled in this standalone simulation demo.");
+        }
+
+        setScenario('single'); 
+        animate();
+
+    </script>
+</body>
+
+</html>
+
+
