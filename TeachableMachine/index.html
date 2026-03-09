@@ -1,486 +1,627 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Camera, Plus, Trash2, X, Play, Brain, Loader2 } from 'lucide-react';
-
-const COLORS = [
-  { bg: 'bg-orange-400', border: 'border-orange-400' },
-  { bg: 'bg-purple-400', border: 'border-purple-400' },
-  { bg: 'bg-emerald-400', border: 'border-emerald-400' },
-  { bg: 'bg-blue-400', border: 'border-blue-400' },
-  { bg: 'bg-pink-400', border: 'border-pink-400' },
-  { bg: 'bg-cyan-400', border: 'border-cyan-400' },
-];
-
-export default function App() {
-  const [isModelLoaded, setIsModelLoaded] = useState(false);
-  const [isWebcamReady, setIsWebcamReady] = useState(false);
-  const [webcamError, setWebcamError] = useState(null);
-  const [classes, setClasses] = useState([
-    { id: '1', name: 'Class 1', samples: 0, thumbnails: [], ...COLORS[0] },
-    { id: '2', name: 'Class 2', samples: 0, thumbnails: [], ...COLORS[1] },
-  ]);
-  const [activeRecordingId, setActiveRecordingId] = useState(null);
-  const [isTraining, setIsTraining] = useState(false);
-  const [trainingProgress, setTrainingProgress] = useState(0);
-  const [isTrained, setIsTrained] = useState(false);
-  const [predictions, setPredictions] = useState([]);
-
-  // Mutable Refs for performance loops
-  const webcamRef = useRef(null);
-  const embedderRef = useRef(null);
-  const datasetRef = useRef([]); // Stores { classId, embedding }
-  const classesRef = useRef(classes);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teachable Machine Clone</title>
   
-  // Control Refs
-  const isRecordingRef = useRef(false);
-  const recordingClassRef = useRef(null);
-  const isLoopingRef = useRef(false);
-  const lastCaptureTimeRef = useRef(0);
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
   
-  const isPredictingRef = useRef(false);
-  const isPredictLoopingRef = useRef(false);
-  const lastPredictTimeRef = useRef(0);
+  <!-- React & ReactDOM (Production Versions) -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  
+  <!-- Babel for in-browser JSX translation -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-  // Sync classes to ref for loops
-  useEffect(() => {
-    classesRef.current = classes;
-  }, [classes]);
+  <style>
+    body { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
 
-  // Initialization: MediaPipe & Webcam
-  useEffect(() => {
-    const initialize = async () => {
-      // 1. Load MediaPipe Model First
-      try {
-        const vision = await import("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/vision_bundle.mjs");
-        const resolver = await vision.FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm");
-        embedderRef.current = await vision.ImageEmbedder.createFromOptions(resolver, {
-          baseOptions: {
-            modelAssetPath: "https://storage.googleapis.com/mediapipe-models/image_embedder/mobilenet_v3_small/float32/1/mobilenet_v3_small.tflite"
-          },
-          runningMode: "VIDEO"
-        });
-        setIsModelLoaded(true);
-      } catch (err) {
-        console.error("Model initialization error:", err);
-      }
+  <!-- Note: type="text/babel" tells Babel to compile this script -->
+  <script type="text/babel">
+    const { useState, useEffect, useRef, useCallback } = React;
 
-      // 2. Request Webcam Independently so UI doesn't lock up if missing
-      try {
-        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-          throw new Error("Camera API not supported in this browser.");
-        }
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        if (webcamRef.current) {
-          webcamRef.current.srcObject = stream;
-        }
-      } catch (err) {
-        console.error("Webcam initialization error:", err);
-        setWebcamError(err.message || "Requested device not found");
-      }
-    };
-    initialize();
-  }, []);
+    // --- Inline SVG Icons (Replaces lucide-react dependency) ---
+    const Camera = ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>;
+    const Plus = ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" x2="12" y1="5" y2="19"/><line x1="5" x2="19" y1="12" y2="12"/></svg>;
+    const Trash2 = ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>;
+    const XIcon = ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>;
+    const ArrowLeft = ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>;
+    const Play = ({ className, fill }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill={fill || "none"} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>;
+    const Brain = ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/></svg>;
+    const Loader2 = ({ className }) => <svg className={`animate-spin ${className}`} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>;
+    const Upload = ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>;
 
-  // --- Helper Math: Cosine Similarity ---
-  const calculateCosineSimilarity = (vecA, vecB) => {
-    let dotProduct = 0, normA = 0, normB = 0;
-    for (let i = 0; i < vecA.length; i++) {
-      dotProduct += vecA[i] * vecB[i];
-      normA += vecA[i] * vecA[i];
-      normB += vecB[i] * vecB[i];
-    }
-    if (normA === 0 || normB === 0) return 0;
-    return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
-  };
+    const COLORS = [
+      { bg: 'bg-orange-400', border: 'border-orange-400' },
+      { bg: 'bg-purple-400', border: 'border-purple-400' },
+      { bg: 'bg-emerald-400', border: 'border-emerald-400' },
+      { bg: 'bg-blue-400', border: 'border-blue-400' },
+      { bg: 'bg-pink-400', border: 'border-pink-400' },
+      { bg: 'bg-cyan-400', border: 'border-cyan-400' },
+    ];
 
-  // --- Helper Math: K-Nearest Neighbors Classifier ---
-  const runKNN = (currentEmbedding) => {
-    const distances = datasetRef.current.map(item => ({
-      classId: item.classId,
-      similarity: calculateCosineSimilarity(currentEmbedding, item.embedding)
-    }));
+    function App() {
+      const [isModelLoaded, setIsModelLoaded] = useState(false);
+      const [isWebcamReady, setIsWebcamReady] = useState(false);
+      const [webcamError, setWebcamError] = useState(null);
+      const [classes, setClasses] = useState([
+        { id: '1', name: 'Class 1', samples: 0, thumbnails: [], ...COLORS[0] },
+        { id: '2', name: 'Class 2', samples: 0, thumbnails: [], ...COLORS[1] },
+      ]);
+      const [activeRecordingId, setActiveRecordingId] = useState(null);
+      const [isTraining, setIsTraining] = useState(false);
+      const [trainingProgress, setTrainingProgress] = useState(0);
+      const [isTrained, setIsTrained] = useState(false);
+      const [predictions, setPredictions] = useState([]);
+      const [testImageSrc, setTestImageSrc] = useState(null);
 
-    // Sort descending by similarity
-    distances.sort((a, b) => b.similarity - a.similarity);
-    const topK = distances.slice(0, 15); // Look at top 15 matches
+      const webcamRef = useRef(null);
+      const embedderRef = useRef(null);
+      const datasetRef = useRef([]);
+      const classesRef = useRef(classes);
+      
+      const isRecordingRef = useRef(false);
+      const recordingClassRef = useRef(null);
+      const isLoopingRef = useRef(false);
+      const lastCaptureTimeRef = useRef(0);
+      
+      const isPredictingRef = useRef(false);
+      const isPredictLoopingRef = useRef(false);
+      const lastPredictTimeRef = useRef(0);
+      const isTrainedRef = useRef(false);
 
-    const classWeights = {};
-    classesRef.current.forEach(c => classWeights[c.id] = 0);
+      useEffect(() => {
+        classesRef.current = classes;
+      }, [classes]);
 
-    // Apply Softmax-like Inverse Distance Weighting
-    if (topK.length > 0) {
-      const maxSim = Math.max(...topK.map(t => t.similarity));
-      let totalWeight = 0;
-      topK.forEach(item => {
-        // Exaggerate confidence on closer matches (numerical stability trick used)
-        const weight = Math.exp((item.similarity - maxSim) * 10);
-        if (classWeights[item.classId] !== undefined) {
-          classWeights[item.classId] += weight;
-          totalWeight += weight;
-        }
-      });
+      useEffect(() => {
+        isTrainedRef.current = isTrained;
+      }, [isTrained]);
 
-      return classesRef.current.map(c => ({
-        id: c.id,
-        probability: totalWeight > 0 ? classWeights[c.id] / totalWeight : 0
-      }));
-    }
-    return [];
-  };
-
-  // --- Prediction Loop ---
-  const predictFrame = useCallback(() => {
-    if (!isPredictingRef.current) {
-      isPredictLoopingRef.current = false;
-      return;
-    }
-    isPredictLoopingRef.current = true;
-
-    const now = performance.now();
-    // Throttle prediction to ~20 FPS
-    if (now - lastPredictTimeRef.current > 50) {
-      if (webcamRef.current && webcamRef.current.readyState >= 2 && embedderRef.current) {
-        try {
-          const result = embedderRef.current.embedForVideo(webcamRef.current, now);
-          if (result.embeddings && result.embeddings.length > 0 && datasetRef.current.length > 0) {
-            const currentEmbedding = result.embeddings[0].floatEmbedding;
-            const newPredictions = runKNN(currentEmbedding);
-            setPredictions(newPredictions);
-          }
-        } catch (e) {
-          console.warn("Prediction frame skipped", e);
-        }
-      }
-      lastPredictTimeRef.current = now;
-    }
-    requestAnimationFrame(predictFrame);
-  }, []);
-
-  // --- Recording Loop ---
-  const captureThumbnail = () => {
-    const video = webcamRef.current;
-    const canvas = document.createElement('canvas');
-    canvas.width = 64; canvas.height = 64;
-    const ctx = canvas.getContext('2d');
-    const minDim = Math.min(video.videoWidth, video.videoHeight);
-    const startX = (video.videoWidth - minDim) / 2;
-    const startY = (video.videoHeight - minDim) / 2;
-    // Mirrored draw to match UX
-    ctx.translate(64, 0); ctx.scale(-1, 1);
-    ctx.drawImage(video, startX, startY, minDim, minDim, 0, 0, 64, 64);
-    return canvas.toDataURL('image/jpeg', 0.5);
-  };
-
-  const recordFrame = useCallback(() => {
-    if (!isRecordingRef.current) {
-      isLoopingRef.current = false;
-      return;
-    }
-    isLoopingRef.current = true;
-
-    const now = performance.now();
-    // Throttle capture to ~10 FPS
-    if (now - lastCaptureTimeRef.current > 100) {
-      if (webcamRef.current && webcamRef.current.readyState >= 2 && embedderRef.current) {
-        try {
-          const result = embedderRef.current.embedForVideo(webcamRef.current, now);
-          if (result.embeddings && result.embeddings.length > 0) {
-            const embedding = result.embeddings[0].floatEmbedding;
-            const thumb = captureThumbnail();
+      useEffect(() => {
+        const initialize = async () => {
+          // 1. Load MediaPipe Model First
+          try {
+            // Using a new Function trick to prevent Babel standalone from attempting to compile dynamic imports
+            const loadVision = new Function('return import("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/vision_bundle.mjs")');
+            const vision = await loadVision();
+            const resolver = await vision.FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm");
             
-            datasetRef.current.push({ classId: recordingClassRef.current, embedding });
-
-            setClasses(prev => prev.map(c => {
-              if (c.id === recordingClassRef.current) {
-                return {
-                  ...c,
-                  samples: c.samples + 1,
-                  thumbnails: [thumb, ...c.thumbnails].slice(0, 24)
-                };
-              }
-              return c;
-            }));
+            embedderRef.current = await vision.ImageEmbedder.createFromOptions(resolver, {
+              baseOptions: {
+                modelAssetPath: "https://storage.googleapis.com/mediapipe-models/image_embedder/mobilenet_v3_small/float32/1/mobilenet_v3_small.tflite"
+              },
+              runningMode: "VIDEO"
+            });
+            setIsModelLoaded(true);
+          } catch (err) {
+            console.error("Model initialization error:", err);
           }
-        } catch (e) {
-          console.error("Frame capture error:", e);
+
+          // 2. Request Webcam Independently
+          try {
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+              throw new Error("Camera API not supported in this browser.");
+            }
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            if (webcamRef.current) {
+              webcamRef.current.srcObject = stream;
+            }
+          } catch (err) {
+            console.warn("Webcam initialization failed. Enabling image upload fallback.", err);
+            setWebcamError(err.message || "Requested device not found");
+          }
+        };
+        initialize();
+      }, []);
+
+      const calculateCosineSimilarity = (vecA, vecB) => {
+        let dotProduct = 0, normA = 0, normB = 0;
+        for (let i = 0; i < vecA.length; i++) {
+          dotProduct += vecA[i] * vecB[i];
+          normA += vecA[i] * vecA[i];
+          normB += vecB[i] * vecB[i];
         }
-      }
-      lastCaptureTimeRef.current = now;
-    }
-    requestAnimationFrame(recordFrame);
-  }, []);
+        if (normA === 0 || normB === 0) return 0;
+        return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
+      };
 
-  // --- Event Handlers ---
-  const startRecording = (id) => {
-    if (!isModelLoaded || webcamError || !isWebcamReady) return;
-    setActiveRecordingId(id);
-    isRecordingRef.current = true;
-    recordingClassRef.current = id;
-    if (!isLoopingRef.current) recordFrame();
-  };
+      const runKNN = (currentEmbedding) => {
+        const distances = datasetRef.current.map(item => ({
+          classId: item.classId,
+          similarity: calculateCosineSimilarity(currentEmbedding, item.embedding)
+        }));
 
-  const stopRecording = () => {
-    setActiveRecordingId(null);
-    isRecordingRef.current = false;
-    recordingClassRef.current = null;
-  };
+        distances.sort((a, b) => b.similarity - a.similarity);
+        const topK = distances.slice(0, 15);
 
-  const trainModel = () => {
-    setIsTraining(true);
-    setIsTrained(false);
-    isPredictingRef.current = false;
-    setTrainingProgress(0);
+        const classWeights = {};
+        classesRef.current.forEach(c => classWeights[c.id] = 0);
 
-    // Simulate training time for UX (Since KNN is instantaneous)
-    let progress = 0;
-    const interval = setInterval(() => {
-      progress += 25;
-      setTrainingProgress(progress);
-      if (progress >= 100) {
-        clearInterval(interval);
-        setIsTraining(false);
-        setIsTrained(true);
-        isPredictingRef.current = true;
-        if (!isPredictLoopingRef.current) {
-          predictFrame();
+        if (topK.length > 0) {
+          const maxSim = Math.max(...topK.map(t => t.similarity));
+          let totalWeight = 0;
+          topK.forEach(item => {
+            const weight = Math.exp((item.similarity - maxSim) * 10);
+            if (classWeights[item.classId] !== undefined) {
+              classWeights[item.classId] += weight;
+              totalWeight += weight;
+            }
+          });
+
+          return classesRef.current.map(c => ({
+            id: c.id,
+            probability: totalWeight > 0 ? classWeights[c.id] / totalWeight : 0
+          }));
         }
-      }
-    }, 250);
-  };
+        return [];
+      };
 
-  const addClass = () => {
-    const newId = Date.now().toString();
-    const colorIndex = classes.length % COLORS.length;
-    setClasses(prev => [...prev, {
-      id: newId,
-      name: `Class ${classes.length + 1}`,
-      samples: 0,
-      thumbnails: [],
-      ...COLORS[colorIndex]
-    }]);
-  };
+      const predictSingleImage = useCallback((imgElement) => {
+        if (imgElement && embedderRef.current && datasetRef.current.length > 0) {
+          try {
+            const result = embedderRef.current.embed(imgElement);
+            if (result.embeddings && result.embeddings.length > 0) {
+              const currentEmbedding = result.embeddings[0].floatEmbedding;
+              const newPredictions = runKNN(currentEmbedding);
+              setPredictions(newPredictions);
+            }
+          } catch (e) {
+            console.warn("Prediction on image failed", e);
+          }
+        }
+      }, []);
 
-  const deleteClass = (id) => {
-    setClasses(prev => prev.filter(c => c.id !== id));
-    datasetRef.current = datasetRef.current.filter(d => d.classId !== id);
-    if (classesRef.current.filter(c => c.id !== id && c.samples > 0).length < 2) {
-      setIsTrained(false);
-      isPredictingRef.current = false;
-      setPredictions([]);
-    }
-  };
+      const processUploadedImages = async (e, classId) => {
+        const files = Array.from(e.target.files);
+        if (!files.length || !embedderRef.current) return;
 
-  const clearSamples = (id) => {
-    setClasses(prev => prev.map(c => c.id === id ? { ...c, samples: 0, thumbnails: [] } : c));
-    datasetRef.current = datasetRef.current.filter(d => d.classId !== id);
-  };
-
-  const updateClassName = (id, newName) => {
-    setClasses(prev => prev.map(c => c.id === id ? { ...c, name: newName } : c));
-  };
-
-  const canTrain = classes.filter(c => c.samples > 0).length >= 2;
-
-  return (
-    <div className="min-h-screen bg-[#f3f4f6] text-gray-900 font-sans pb-12">
-      {/* Global Loading Overlay */}
-      {!isModelLoaded && (
-        <div className="fixed inset-0 bg-white/80 backdrop-blur-sm z-50 flex flex-col items-center justify-center">
-          <Loader2 className="w-12 h-12 animate-spin text-blue-600 mb-4" />
-          <h2 className="text-2xl font-bold text-gray-800">Loading MediaPipe Models</h2>
-          <p className="text-gray-500 mt-2 font-medium">Preparing image embedding model...</p>
-        </div>
-      )}
-
-      {/* Header */}
-      <div className="bg-white shadow-sm border-b border-gray-200 px-6 py-4 flex items-center justify-between sticky top-0 z-40">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-md bg-blue-600 flex items-center justify-center text-white font-bold text-sm">TM</div>
-          <h1 className="font-bold text-xl tracking-tight text-gray-800 hidden sm:block">Teachable Machine Clone</h1>
-        </div>
-        <div className="text-sm font-semibold text-blue-600 bg-blue-50 px-4 py-1.5 rounded-full border border-blue-100">
-          Image Classification
-        </div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 mt-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        const newThumbs = [];
+        for (const file of files) {
+          const url = URL.createObjectURL(file);
+          const img = new Image();
+          img.crossOrigin = "anonymous";
+          await new Promise(res => {
+            img.onload = res;
+            img.src = url;
+          });
           
-          {/* LEFT: Classes Column */}
-          <div className="lg:col-span-5 flex flex-col gap-6">
-            {classes.map(c => (
-              <div key={c.id} className={`bg-white rounded-2xl shadow-sm border-t-8 border-x border-b border-gray-100 overflow-hidden ${c.border}`}>
-                <div className="p-4 border-b border-gray-50 flex justify-between items-center">
-                  <input
-                    type="text"
-                    value={c.name}
-                    onChange={(e) => updateClassName(c.id, e.target.value)}
-                    className="font-bold text-lg bg-transparent border-none outline-none focus:ring-0 text-gray-800 placeholder-gray-300 w-2/3"
-                  />
-                  <div className="flex items-center gap-1">
-                    {c.samples > 0 && (
-                      <button onClick={() => clearSamples(c.id)} className="p-2 text-gray-400 hover:text-orange-500 hover:bg-orange-50 rounded-lg transition-colors" title="Clear samples">
-                        <Trash2 className="w-4 h-4" />
-                      </button>
-                    )}
-                    {classes.length > 1 && (
-                      <button onClick={() => deleteClass(c.id)} className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors" title="Delete class">
-                        <X className="w-5 h-5" />
-                      </button>
-                    )}
-                  </div>
-                </div>
+          try {
+            const result = embedderRef.current.embed(img);
+            if (result.embeddings && result.embeddings.length > 0) {
+              const embedding = result.embeddings[0].floatEmbedding;
+              
+              const canvas = document.createElement('canvas');
+              canvas.width = 64; canvas.height = 64;
+              const ctx = canvas.getContext('2d');
+              const minDim = Math.min(img.width, img.height);
+              const startX = (img.width - minDim) / 2;
+              const startY = (img.height - minDim) / 2;
+              ctx.drawImage(img, startX, startY, minDim, minDim, 0, 0, 64, 64);
+              const thumb = canvas.toDataURL('image/jpeg', 0.5);
+              
+              datasetRef.current.push({ classId, embedding });
+              newThumbs.push(thumb);
+            }
+          } catch (err) {
+            console.error("Error processing uploaded image:", err);
+          }
+        }
 
-                <div className="p-5 flex flex-col sm:flex-row gap-4">
-                  <div className="w-full sm:w-1/3 flex flex-col items-center justify-center">
-                    <button
-                      onMouseDown={() => startRecording(c.id)}
-                      onMouseUp={stopRecording}
-                      onMouseLeave={stopRecording}
-                      onTouchStart={(e) => { e.preventDefault(); startRecording(c.id); }}
-                      onTouchEnd={(e) => { e.preventDefault(); stopRecording(); }}
-                      disabled={!isModelLoaded || !!webcamError || !isWebcamReady}
-                      className={`w-full h-24 sm:h-full py-4 rounded-xl flex flex-col items-center justify-center gap-2 text-white font-medium select-none transition-all
-                        ${activeRecordingId === c.id ? 'scale-95 brightness-90 shadow-inner' : 'hover:brightness-105 shadow-md hover:shadow-lg'} 
-                        ${c.bg} disabled:opacity-50 disabled:cursor-not-allowed`}
-                    >
-                      {activeRecordingId === c.id ? <Loader2 className="w-6 h-6 animate-spin" /> : <Camera className="w-6 h-6" />}
-                      <span className="text-sm px-2 text-center">Hold to Record</span>
-                    </button>
-                  </div>
-                  
-                  <div className="w-full sm:w-2/3 border border-gray-100 rounded-xl bg-gray-50 p-3 min-h-[100px] flex flex-col">
-                    <div className="text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wide">
-                      {c.samples} Image Samples
+        setClasses(prev => prev.map(c => {
+          if (c.id === classId) {
+            return {
+              ...c,
+              samples: c.samples + newThumbs.length,
+              thumbnails: [...newThumbs, ...c.thumbnails].slice(0, 24)
+            };
+          }
+          return c;
+        }));
+      };
+
+      const handleTestImageUpload = (e) => {
+        const file = e.target.files[0];
+        if (!file || !embedderRef.current) return;
+        const url = URL.createObjectURL(file);
+        setTestImageSrc(url);
+        
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.onload = () => {
+          if (isTrainedRef.current) {
+            predictSingleImage(img);
+          }
+        };
+        img.src = url;
+      };
+
+      const predictFrame = useCallback(() => {
+        if (!isPredictingRef.current) {
+          isPredictLoopingRef.current = false;
+          return;
+        }
+        isPredictLoopingRef.current = true;
+
+        const now = performance.now();
+        if (now - lastPredictTimeRef.current > 50) {
+          if (webcamRef.current && webcamRef.current.readyState >= 2 && embedderRef.current) {
+            try {
+              const result = embedderRef.current.embedForVideo(webcamRef.current, now);
+              if (result.embeddings && result.embeddings.length > 0 && datasetRef.current.length > 0) {
+                const currentEmbedding = result.embeddings[0].floatEmbedding;
+                const newPredictions = runKNN(currentEmbedding);
+                setPredictions(newPredictions);
+              }
+            } catch (e) {
+              console.warn("Prediction frame skipped", e);
+            }
+          }
+          lastPredictTimeRef.current = now;
+        }
+        requestAnimationFrame(predictFrame);
+      }, []);
+
+      const captureThumbnail = () => {
+        const video = webcamRef.current;
+        const canvas = document.createElement('canvas');
+        canvas.width = 64; canvas.height = 64;
+        const ctx = canvas.getContext('2d');
+        const minDim = Math.min(video.videoWidth, video.videoHeight);
+        const startX = (video.videoWidth - minDim) / 2;
+        const startY = (video.videoHeight - minDim) / 2;
+        ctx.translate(64, 0); ctx.scale(-1, 1);
+        ctx.drawImage(video, startX, startY, minDim, minDim, 0, 0, 64, 64);
+        return canvas.toDataURL('image/jpeg', 0.5);
+      };
+
+      const recordFrame = useCallback(() => {
+        if (!isRecordingRef.current) {
+          isLoopingRef.current = false;
+          return;
+        }
+        isLoopingRef.current = true;
+
+        const now = performance.now();
+        if (now - lastCaptureTimeRef.current > 100) {
+          if (webcamRef.current && webcamRef.current.readyState >= 2 && embedderRef.current) {
+            try {
+              const result = embedderRef.current.embedForVideo(webcamRef.current, now);
+              if (result.embeddings && result.embeddings.length > 0) {
+                const embedding = result.embeddings[0].floatEmbedding;
+                const thumb = captureThumbnail();
+                
+                datasetRef.current.push({ classId: recordingClassRef.current, embedding });
+
+                setClasses(prev => prev.map(c => {
+                  if (c.id === recordingClassRef.current) {
+                    return {
+                      ...c,
+                      samples: c.samples + 1,
+                      thumbnails: [thumb, ...c.thumbnails].slice(0, 24)
+                    };
+                  }
+                  return c;
+                }));
+              }
+            } catch (e) {
+              console.error("Frame capture error:", e);
+            }
+          }
+          lastCaptureTimeRef.current = now;
+        }
+        requestAnimationFrame(recordFrame);
+      }, []);
+
+      const startRecording = (id) => {
+        if (!isModelLoaded || webcamError || !isWebcamReady) return;
+        setActiveRecordingId(id);
+        isRecordingRef.current = true;
+        recordingClassRef.current = id;
+        if (!isLoopingRef.current) recordFrame();
+      };
+
+      const stopRecording = () => {
+        setActiveRecordingId(null);
+        isRecordingRef.current = false;
+        recordingClassRef.current = null;
+      };
+
+      const trainModel = () => {
+        setIsTraining(true);
+        setIsTrained(false);
+        isPredictingRef.current = false;
+        setTrainingProgress(0);
+
+        let progress = 0;
+        const interval = setInterval(() => {
+          progress += 25;
+          setTrainingProgress(progress);
+          if (progress >= 100) {
+            clearInterval(interval);
+            setIsTraining(false);
+            setIsTrained(true);
+            isPredictingRef.current = true;
+            if (!webcamError) {
+              if (!isPredictLoopingRef.current) {
+                predictFrame();
+              }
+            } else {
+              const imgElement = document.getElementById('test-image-element');
+              if (imgElement) predictSingleImage(imgElement);
+            }
+          }
+        }, 250);
+      };
+
+      const addClass = () => {
+        const newId = Date.now().toString();
+        const colorIndex = classes.length % COLORS.length;
+        setClasses(prev => [...prev, {
+          id: newId,
+          name: `Class ${classes.length + 1}`,
+          samples: 0,
+          thumbnails: [],
+          ...COLORS[colorIndex]
+        }]);
+      };
+
+      const deleteClass = (id) => {
+        setClasses(prev => prev.filter(c => c.id !== id));
+        datasetRef.current = datasetRef.current.filter(d => d.classId !== id);
+        if (classesRef.current.filter(c => c.id !== id && c.samples > 0).length < 2) {
+          setIsTrained(false);
+          isPredictingRef.current = false;
+          setPredictions([]);
+        }
+      };
+
+      const clearSamples = (id) => {
+        setClasses(prev => prev.map(c => c.id === id ? { ...c, samples: 0, thumbnails: [] } : c));
+        datasetRef.current = datasetRef.current.filter(d => d.classId !== id);
+      };
+
+      const updateClassName = (id, newName) => {
+        setClasses(prev => prev.map(c => c.id === id ? { ...c, name: newName } : c));
+      };
+
+      const canTrain = classes.filter(c => c.samples > 0).length >= 2;
+
+      return (
+        <div className="min-h-screen bg-[#f3f4f6] text-gray-900 font-sans pb-12">
+          {!isModelLoaded && (
+            <div className="fixed inset-0 bg-white/80 backdrop-blur-sm z-50 flex flex-col items-center justify-center">
+              <Loader2 className="w-12 h-12 animate-spin text-blue-600 mb-4" />
+              <h2 className="text-2xl font-bold text-gray-800">Loading MediaPipe Models</h2>
+              <p className="text-gray-500 mt-2 font-medium">Preparing image embedding model...</p>
+            </div>
+          )}
+
+          <div className="bg-white shadow-sm border-b border-gray-200 px-6 py-4 flex items-center justify-between sticky top-0 z-40">
+            <div className="flex items-center gap-3">
+              <a href="../" className="p-2 -ml-2 text-gray-500 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors flex items-center gap-2" title="Back to Home">
+                <ArrowLeft className="w-5 h-5" />
+                <span className="hidden sm:block text-sm font-medium">Home</span>
+              </a>
+              <div className="w-px h-6 bg-gray-200 mx-1 hidden sm:block"></div>
+              <div className="w-8 h-8 rounded-md bg-blue-600 flex items-center justify-center text-white font-bold text-sm shrink-0">TM</div>
+              <h1 className="font-bold text-xl tracking-tight text-gray-800 hidden md:block whitespace-nowrap">Teachable Machine Clone</h1>
+            </div>
+            <div className="text-sm font-semibold text-blue-600 bg-blue-50 px-4 py-1.5 rounded-full border border-blue-100">
+              Image Classification
+            </div>
+          </div>
+
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 mt-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+              
+              <div className="lg:col-span-5 flex flex-col gap-6">
+                {classes.map(c => (
+                  <div key={c.id} className={`bg-white rounded-2xl shadow-sm border-t-8 border-x border-b border-gray-100 overflow-hidden ${c.border}`}>
+                    <div className="p-4 border-b border-gray-50 flex justify-between items-center">
+                      <input
+                        type="text"
+                        value={c.name}
+                        onChange={(e) => updateClassName(c.id, e.target.value)}
+                        className="font-bold text-lg bg-transparent border-none outline-none focus:ring-0 text-gray-800 placeholder-gray-300 w-2/3"
+                      />
+                      <div className="flex items-center gap-1">
+                        {c.samples > 0 && (
+                          <button onClick={() => clearSamples(c.id)} className="p-2 text-gray-400 hover:text-orange-500 hover:bg-orange-50 rounded-lg transition-colors" title="Clear samples">
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        )}
+                        {classes.length > 1 && (
+                          <button onClick={() => deleteClass(c.id)} className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors" title="Delete class">
+                            <XIcon className="w-5 h-5" />
+                          </button>
+                        )}
+                      </div>
                     </div>
-                    {c.samples > 0 ? (
-                      <div className="flex flex-wrap gap-1 mt-auto">
-                        {c.thumbnails.map((t, i) => (
-                          <img key={i} src={t} alt="sample" className="w-8 h-8 object-cover rounded shadow-sm opacity-90" />
-                        ))}
-                        {c.samples > 24 && (
-                          <div className="w-8 h-8 rounded bg-white border border-gray-200 flex items-center justify-center text-[10px] text-gray-500 font-bold">
-                            +{c.samples - 24}
+
+                    <div className="p-5 flex flex-col sm:flex-row gap-4">
+                      <div className="w-full sm:w-1/3 flex flex-col items-center justify-center">
+                        {webcamError ? (
+                          <label className={`w-full h-24 sm:h-full py-4 rounded-xl flex flex-col items-center justify-center gap-2 text-white font-medium cursor-pointer transition-all hover:brightness-105 shadow-md hover:shadow-lg ${c.bg}`}>
+                            <Upload className="w-6 h-6" />
+                            <span className="text-sm px-2 text-center">Upload Images</span>
+                            <input type="file" multiple accept="image/*" className="hidden" onClick={(e) => e.target.value = null} onChange={(e) => processUploadedImages(e, c.id)} />
+                          </label>
+                        ) : (
+                          <button
+                            onMouseDown={() => startRecording(c.id)}
+                            onMouseUp={stopRecording}
+                            onMouseLeave={stopRecording}
+                            onTouchStart={(e) => { e.preventDefault(); startRecording(c.id); }}
+                            onTouchEnd={(e) => { e.preventDefault(); stopRecording(); }}
+                            disabled={!isModelLoaded || !isWebcamReady}
+                            className={`w-full h-24 sm:h-full py-4 rounded-xl flex flex-col items-center justify-center gap-2 text-white font-medium select-none transition-all
+                              ${activeRecordingId === c.id ? 'scale-95 brightness-90 shadow-inner' : 'hover:brightness-105 shadow-md hover:shadow-lg'} 
+                              ${c.bg} disabled:opacity-50 disabled:cursor-not-allowed`}
+                          >
+                            {activeRecordingId === c.id ? <Loader2 className="w-6 h-6 animate-spin" /> : <Camera className="w-6 h-6" />}
+                            <span className="text-sm px-2 text-center">Hold to Record</span>
+                          </button>
+                        )}
+                      </div>
+                      
+                      <div className="w-full sm:w-2/3 border border-gray-100 rounded-xl bg-gray-50 p-3 min-h-[100px] flex flex-col">
+                        <div className="text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wide">
+                          {c.samples} Image Samples
+                        </div>
+                        {c.samples > 0 ? (
+                          <div className="flex flex-wrap gap-1 mt-auto">
+                            {c.thumbnails.map((t, i) => (
+                              <img key={i} src={t} alt="sample" className="w-8 h-8 object-cover rounded shadow-sm opacity-90" />
+                            ))}
+                            {c.samples > 24 && (
+                              <div className="w-8 h-8 rounded bg-white border border-gray-200 flex items-center justify-center text-[10px] text-gray-500 font-bold">
+                                +{c.samples - 24}
+                              </div>
+                            )}
+                          </div>
+                        ) : (
+                          <div className="flex-1 flex items-center justify-center text-xs text-gray-400 italic">
+                            Add image samples...
                           </div>
                         )}
                       </div>
+                    </div>
+                  </div>
+                ))}
+
+                <button
+                  onClick={addClass}
+                  className="w-full py-4 rounded-2xl border-2 border-dashed border-gray-300 bg-gray-50 text-gray-500 font-semibold hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50 transition-colors flex items-center justify-center gap-2"
+                >
+                  <Plus className="w-5 h-5" />
+                  Add a Class
+                </button>
+              </div>
+
+              <div className="lg:col-span-2 flex flex-col items-center justify-center lg:pt-8 order-last lg:order-none">
+                <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center w-full sticky top-24">
+                  <h3 className="font-bold text-gray-800 mb-4 text-lg">Training</h3>
+                  <button
+                    onClick={trainModel}
+                    disabled={!canTrain || isTraining}
+                    className={`w-full py-4 rounded-xl font-bold text-base transition-all flex flex-col items-center justify-center gap-2 border-b-4 active:border-b-0 active:translate-y-[4px]
+                      ${!canTrain ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed'
+                      : isTraining ? 'bg-blue-50 text-blue-600 border-blue-200'
+                      : 'bg-blue-600 text-white border-blue-800 hover:bg-blue-500'}`}
+                  >
+                    {isTraining ? (
+                      <><Loader2 className="w-6 h-6 animate-spin" /> Training...</>
+                    ) : isTrained ? (
+                      <><Brain className="w-6 h-6" /> Train Again</>
                     ) : (
-                      <div className="flex-1 flex items-center justify-center text-xs text-gray-400 italic">
-                        Add image samples...
-                      </div>
+                      <><Play className="w-6 h-6" fill="currentColor" /> Train Model</>
                     )}
+                  </button>
+                  
+                  {isTraining && (
+                    <div className="w-full bg-gray-100 rounded-full h-2 mt-4 overflow-hidden">
+                      <div className="bg-blue-600 h-2 rounded-full transition-all duration-200" style={{ width: `${trainingProgress}%` }}></div>
+                    </div>
+                  )}
+
+                  {!canTrain && (
+                    <p className="text-xs text-center text-gray-400 mt-4 leading-relaxed font-medium">
+                      Add samples to at least 2 classes to enable training.
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <div className="lg:col-span-5">
+                <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden sticky top-24">
+                  <div className="p-4 border-b border-gray-50 bg-gray-50/50">
+                    <h3 className="font-bold text-gray-800">Preview</h3>
+                  </div>
+                  <div className="p-5">
+                    <div className="relative aspect-[4/3] bg-gray-900 rounded-xl overflow-hidden shadow-inner flex items-center justify-center">
+                      {!webcamError && (
+                        <video 
+                          ref={webcamRef} 
+                          onLoadedData={() => setIsWebcamReady(true)}
+                          className={`w-full h-full object-cover transform -scale-x-100 transition-opacity duration-300 ${isWebcamReady ? 'opacity-100' : 'opacity-0'}`}
+                          autoPlay muted playsInline 
+                        />
+                      )}
+                      
+                      {webcamError ? (
+                        <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-gray-900 z-10">
+                          {testImageSrc ? (
+                            <img src={testImageSrc} className="w-full h-full object-cover absolute inset-0 z-0" id="test-image-element" crossOrigin="anonymous" alt="Test" />
+                          ) : (
+                            <div className="text-gray-400 flex flex-col items-center gap-3 z-10">
+                              <Upload className="w-10 h-10 opacity-60" />
+                              <p className="font-bold">No Camera Detected</p>
+                              <p className="text-sm">Upload an image to test</p>
+                            </div>
+                          )}
+                          <label className="absolute bottom-4 z-20 px-4 py-2 bg-blue-600/90 hover:bg-blue-500 text-white rounded-lg cursor-pointer text-sm font-semibold transition-colors shadow-lg backdrop-blur-sm border border-blue-400/30">
+                            {testImageSrc ? 'Change Image' : 'Choose Image'}
+                            <input type="file" accept="image/*" className="hidden" onClick={(e) => e.target.value = null} onChange={handleTestImageUpload} />
+                          </label>
+                        </div>
+                      ) : !isWebcamReady && (
+                        <div className="absolute inset-0 flex flex-col items-center justify-center text-gray-400 text-sm gap-2">
+                          <Camera className="w-8 h-8 opacity-50" />
+                          Waiting for webcam...
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="mt-6">
+                      <h4 className="text-xs font-bold text-gray-400 mb-4 uppercase tracking-wider">Output</h4>
+                      {isTrained ? (
+                        <div className="space-y-4">
+                          {classes.map(c => {
+                            const pred = predictions.find(p => p.id === c.id);
+                            const prob = pred ? pred.probability : 0;
+                            const percentage = Math.round(prob * 100);
+                            return (
+                              <div key={c.id} className="relative">
+                                <div className="flex justify-between text-sm font-bold text-gray-700 mb-1.5">
+                                  <span>{c.name}</span>
+                                  <span className="tabular-nums">{percentage}%</span>
+                                </div>
+                                <div className="w-full bg-gray-100 rounded-full h-4 overflow-hidden shadow-inner relative">
+                                  <div
+                                    className={`absolute left-0 top-0 h-full transition-all duration-150 ease-out ${c.bg}`}
+                                    style={{ width: `${percentage}%` }}
+                                  ></div>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      ) : (
+                        <div className="text-center text-gray-400 text-sm py-6 border-2 border-dashed border-gray-100 rounded-xl bg-gray-50 font-medium">
+                          Train the model to see live predictions.
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
-            ))}
 
-            <button
-              onClick={addClass}
-              className="w-full py-4 rounded-2xl border-2 border-dashed border-gray-300 bg-gray-50 text-gray-500 font-semibold hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50 transition-colors flex items-center justify-center gap-2"
-            >
-              <Plus className="w-5 h-5" />
-              Add a Class
-            </button>
-          </div>
-
-          {/* MIDDLE: Training Column */}
-          <div className="lg:col-span-2 flex flex-col items-center justify-center lg:pt-8 order-last lg:order-none">
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center w-full sticky top-24">
-              <h3 className="font-bold text-gray-800 mb-4 text-lg">Training</h3>
-              <button
-                onClick={trainModel}
-                disabled={!canTrain || isTraining}
-                className={`w-full py-4 rounded-xl font-bold text-base transition-all flex flex-col items-center justify-center gap-2 border-b-4 active:border-b-0 active:translate-y-[4px]
-                  ${!canTrain ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed'
-                  : isTraining ? 'bg-blue-50 text-blue-600 border-blue-200'
-                  : 'bg-blue-600 text-white border-blue-800 hover:bg-blue-500'}`}
-              >
-                {isTraining ? (
-                  <><Loader2 className="w-6 h-6 animate-spin" /> Training...</>
-                ) : isTrained ? (
-                  <><Brain className="w-6 h-6" /> Train Again</>
-                ) : (
-                  <><Play className="w-6 h-6" fill="currentColor" /> Train Model</>
-                )}
-              </button>
-              
-              {isTraining && (
-                <div className="w-full bg-gray-100 rounded-full h-2 mt-4 overflow-hidden">
-                  <div className="bg-blue-600 h-2 rounded-full transition-all duration-200" style={{ width: `${trainingProgress}%` }}></div>
-                </div>
-              )}
-
-              {!canTrain && (
-                <p className="text-xs text-center text-gray-400 mt-4 leading-relaxed font-medium">
-                  Add samples to at least 2 classes to enable training.
-                </p>
-              )}
             </div>
           </div>
-
-          {/* RIGHT: Preview Column */}
-          <div className="lg:col-span-5">
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden sticky top-24">
-              <div className="p-4 border-b border-gray-50 bg-gray-50/50">
-                <h3 className="font-bold text-gray-800">Preview</h3>
-              </div>
-              <div className="p-5">
-                <div className="relative aspect-[4/3] bg-gray-900 rounded-xl overflow-hidden shadow-inner flex items-center justify-center">
-                  <video 
-                    ref={webcamRef} 
-                    onLoadedData={() => setIsWebcamReady(true)}
-                    className={`w-full h-full object-cover transform -scale-x-100 transition-opacity duration-300 ${isWebcamReady && !webcamError ? 'opacity-100' : 'opacity-0'}`}
-                    autoPlay muted playsInline 
-                  />
-                  {webcamError ? (
-                    <div className="absolute inset-0 flex flex-col items-center justify-center text-red-400 text-sm gap-3 p-6 text-center bg-gray-900 z-10">
-                      <Camera className="w-10 h-10 opacity-60" />
-                      <p className="font-bold">Camera Error</p>
-                      <p>{webcamError}</p>
-                    </div>
-                  ) : !isWebcamReady && (
-                    <div className="absolute inset-0 flex flex-col items-center justify-center text-gray-400 text-sm gap-2">
-                      <Camera className="w-8 h-8 opacity-50" />
-                      Waiting for webcam...
-                    </div>
-                  )}
-                </div>
-
-                <div className="mt-6">
-                  <h4 className="text-xs font-bold text-gray-400 mb-4 uppercase tracking-wider">Output</h4>
-                  {isTrained ? (
-                    <div className="space-y-4">
-                      {classes.map(c => {
-                        const pred = predictions.find(p => p.id === c.id);
-                        const prob = pred ? pred.probability : 0;
-                        const percentage = Math.round(prob * 100);
-                        return (
-                          <div key={c.id} className="relative">
-                            <div className="flex justify-between text-sm font-bold text-gray-700 mb-1.5">
-                              <span>{c.name}</span>
-                              <span className="tabular-nums">{percentage}%</span>
-                            </div>
-                            <div className="w-full bg-gray-100 rounded-full h-4 overflow-hidden shadow-inner relative">
-                              <div
-                                className={`absolute left-0 top-0 h-full transition-all duration-150 ease-out ${c.bg}`}
-                                style={{ width: `${percentage}%` }}
-                              ></div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  ) : (
-                    <div className="text-center text-gray-400 text-sm py-6 border-2 border-dashed border-gray-100 rounded-xl bg-gray-50 font-medium">
-                      Train the model to see live predictions.
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
-      </div>
-    </div>
-  );
-}
+      );
+    }
+
+    // Render the App
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
