@@ -12,10 +12,17 @@
             tex: {
                 inlineMath: [['$', '$'], ['\\(', '\\)']],
                 displayMath: [['$$', '$$'], ['\\[', '\\]']],
-                processEscapes: true
+                processEscapes: true,
+                packages: {'[+]': ['base', 'ams', 'noerrors', 'noundefined']}
             },
             options: {
-                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            startup: {
+                pageReady: () => {
+                    return MathJax.startup.defaultPageReady();
+                }
             }
         };
     </script>
@@ -70,6 +77,10 @@
         }
         option {
             background-color: #1e293b;
+        }
+        /* Ensure math doesn't overflow buttons */
+        .mjx-chtml {
+            white-space: normal;
         }
     </style>
 </head>
@@ -133,13 +144,13 @@
         <div id="quiz-view" class="w-full max-w-2xl hidden">
             <div id="question-card" class="glass-card rounded-xl p-6 mb-6">
                 <div id="q-meta" class="text-xs font-bold text-blue-400 uppercase tracking-widest mb-2">Topic</div>
-                <div id="q-text" class="text-xl font-medium mb-6 leading-relaxed"></div>
-                <div id="q-statements" class="space-y-2 mb-6 hidden"></div>
-                <div id="q-options" class="grid grid-cols-1 gap-3"></div>
+                <div id="q-text" class="text-xl font-medium mb-6 leading-relaxed tex2jax_process"></div>
+                <div id="q-statements" class="space-y-2 mb-6 hidden tex2jax_process"></div>
+                <div id="q-options" class="grid grid-cols-1 gap-3 tex2jax_process"></div>
             </div>
             <div class="flex justify-between items-center h-12">
                 <div id="feedback" class="font-bold text-lg"></div>
-                <button id="next-btn" class="hidden bg-blue-600 hover:bg-blue-500 px-6 py-2 rounded-lg font-medium transition">Next</button>
+                <button id="next-btn" class="hidden bg-blue-600 hover:bg-blue-500 px-6 py-2 rounded-lg font-medium transition">Next Question</button>
             </div>
         </div>
 
@@ -266,9 +277,7 @@
                 return matchS && matchF && matchT;
             });
 
-            // Randomize question order
             filteredQuestions.sort(() => Math.random() - 0.5);
-
             countPreview.textContent = `${filteredQuestions.length} questions matching criteria`;
             startBtn.disabled = filteredQuestions.length === 0;
         }
@@ -307,7 +316,8 @@
                 oCont.appendChild(btn);
             });
 
-            if (window.MathJax) {
+            // Trigger MathJax re-render for the new content
+            if (window.MathJax && window.MathJax.typesetPromise) {
                 MathJax.typesetPromise().catch((err) => console.log('MathJax error: ', err.message));
             }
         }
