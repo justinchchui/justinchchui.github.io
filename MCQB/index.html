@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics Revision Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- MathJax for LaTeX Support -->
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .glass-card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+        .option-btn {
+            transition: all 0.2s ease;
+            text-align: left;
+            display: flex;
+            align-items: flex-start;
+        }
+        .option-btn:hover:not(:disabled) {
+            background-color: #334155;
+            border-color: #64748b;
+        }
+        .correct {
+            background-color: #059669 !important;
+            border-color: #10b981 !important;
+            color: white;
+        }
+        .wrong {
+            background-color: #dc2626 !important;
+            border-color: #ef4444 !important;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navigation -->
+    <nav class="p-4 bg-slate-900 border-b border-slate-800 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto flex justify-between items-center px-4">
+            <a href="../" class="flex items-center text-blue-400 hover:text-blue-300 font-medium transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Back to Home
+            </a>
+            <h1 class="text-xl font-bold text-white hidden sm:block">Physics Quiz System</h1>
+            <div id="quiz-progress" class="text-sm font-mono text-slate-400">Initializing...</div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 py-8 flex flex-col items-center">
+        
+        <!-- Welcome View -->
+        <div id="setup-view" class="w-full max-w-2xl glass-card rounded-xl p-8 text-center">
+            <h2 class="text-3xl font-bold mb-4">Physics Revision</h2>
+            <p class="text-slate-400 mb-8">Test your knowledge with questions loaded from our central database.</p>
+            <div id="loading-spinner" class="mb-4">
+                <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
+            </div>
+            <button id="start-btn" disabled class="bg-blue-600 hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed text-white px-8 py-3 rounded-lg font-bold text-lg transition-all transform hover:scale-105">
+                Start Quiz
+            </button>
+            
+            <!-- Debugging Log Panel -->
+            <div id="error-log" class="mt-8 text-left bg-black/40 p-4 rounded border border-slate-700 font-mono text-xs hidden">
+                <div class="text-blue-400 mb-2 border-b border-slate-700 pb-1 uppercase font-bold tracking-tighter text-center">System Debug Log</div>
+            </div>
+        </div>
+
+        <!-- Quiz View -->
+        <div id="quiz-view" class="w-full max-w-2xl hidden">
+            <div id="question-card" class="glass-card rounded-xl p-6 mb-6">
+                <div id="q-meta" class="text-xs font-bold text-blue-400 uppercase tracking-widest mb-2">Topic</div>
+                <div id="q-text" class="text-xl font-medium mb-6 leading-relaxed"></div>
+                
+                <div id="q-statements" class="space-y-2 mb-6 hidden"></div>
+
+                <div id="q-options" class="grid grid-cols-1 gap-3"></div>
+            </div>
+
+            <div class="flex justify-between items-center h-12">
+                <div id="feedback" class="font-bold text-lg"></div>
+                <button id="next-btn" class="hidden bg-blue-600 hover:bg-blue-500 px-6 py-2 rounded-lg font-medium transition">
+                    Next Question
+                </button>
+            </div>
+        </div>
+
+        <!-- Result View -->
+        <div id="result-view" class="w-full max-w-2xl glass-card rounded-xl p-8 text-center hidden">
+            <h2 class="text-3xl font-bold mb-2">Quiz Completed!</h2>
+            <div id="score-display" class="text-6xl font-extrabold text-blue-500 my-6">0 / 0</div>
+            <p id="result-text" class="text-slate-400 mb-8"></p>
+            <button onclick="location.reload()" class="bg-slate-700 hover:bg-slate-600 text-white px-8 py-3 rounded-lg font-bold transition">
+                Restart Quiz
+            </button>
+        </div>
+
+    </main>
+
+    <script>
+        // Standard relative path
+        const CSV_FILE = 'QB/index.csv';
+        
+        let questions = [];
+        let currentIndex = 0;
+        let score = 0;
+        let canAnswer = true;
+
+        const setupView = document.getElementById('setup-view');
+        const quizView = document.getElementById('quiz-view');
+        const resultView = document.getElementById('result-view');
+        const qText = document.getElementById('q-text');
+        const qMeta = document.getElementById('q-meta');
+        const qStatements = document.getElementById('q-statements');
+        const qOptions = document.getElementById('q-options');
+        const qProgress = document.getElementById('quiz-progress');
+        const feedback = document.getElementById('feedback');
+        const nextBtn = document.getElementById('next-btn');
+        const startBtn = document.getElementById('start-btn');
+        const loadingSpinner = document.getElementById('loading-spinner');
+        const errorLog = document.getElementById('error-log');
+
+        function log(msg, color = "text-slate-400") {
+            errorLog.classList.remove('hidden');
+            const entry = document.createElement('div');
+            entry.className = `py-0.5 px-2 ${color}`;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+            errorLog.appendChild(entry);
+        }
+
+        async function loadQuizData() {
+            log("Attempting fetch: " + CSV_FILE);
+            
+            // 1. Try Fetch with Cache Busting
+            try {
+                const response = await fetch(`${CSV_FILE}?v=${Math.random()}`);
+                if (response.ok) {
+                    const text = await response.text();
+                    processData(text);
+                    return;
+                } else {
+                    log("Fetch failed (HTTP " + response.status + ")");
+                }
+            } catch (e) {
+                log("Fetch Error: " + e.message);
+            }
+
+            // 2. Fallback attempt for local servers (using standard relative path)
+            log("Trying fallback path: ./QB/index.csv");
+            try {
+                const response = await fetch(`./QB/index.csv?v=${Math.random()}`);
+                if (response.ok) {
+                    const text = await response.text();
+                    processData(text);
+                    return;
+                }
+            } catch (e) {
+                log("Fallback Fetch Error: " + e.message);
+            }
+
+            handleFailure();
+        }
+
+        function processData(text) {
+            if (!text || text.trim().length === 0) {
+                log("Error: File is empty", "text-red-500");
+                handleFailure();
+                return;
+            }
+
+            log("Data received (" + text.length + " bytes)");
+            questions = parseCSV(text);
+            
+            if (questions.length > 0) {
+                log("Successfully parsed " + questions.length + " questions.", "text-emerald-400");
+                loadingSpinner.classList.add('hidden');
+                startBtn.disabled = false;
+                qProgress.textContent = questions.length + " Questions Ready";
+            } else {
+                log("CSV Parse Error: No valid rows found.", "text-red-500");
+                handleFailure();
+            }
+        }
+
+        function handleFailure() {
+            loadingSpinner.classList.add('hidden');
+            qProgress.textContent = "Load Error";
+            document.querySelector('#setup-view p').innerHTML = 
+                `<span class="text-red-400 font-bold">Question Database Load Failed</span><br>
+                <span class="text-sm">Current Path Attempted: <b>./QB/index.csv</b><br>Please check the Debug Log below.</span>`;
+        }
+
+        function parseCSV(csvText) {
+            // Split by line (handling both Windows and Unix endings)
+            const lines = csvText.split(/\r?\n/).filter(line => line.trim() !== '');
+            if (lines.length < 2) return [];
+
+            const parseLine = (line) => {
+                const result = [];
+                let current = '';
+                let inQuotes = false;
+                for (let i = 0; i < line.length; i++) {
+                    let char = line[i];
+                    if (char === '"') {
+                        if (inQuotes && line[i+1] === '"') {
+                            current += '"'; i++; // Escaped quote
+                        } else {
+                            inQuotes = !inQuotes;
+                        }
+                    } else if (char === ',' && !inQuotes) {
+                        result.push(current.trim());
+                        current = '';
+                    } else {
+                        current += char;
+                    }
+                }
+                result.push(current.trim());
+                return result;
+            };
+
+            const parsedData = [];
+            // Skip the header row
+            for (let i = 1; i < lines.length; i++) {
+                const row = parseLine(lines[i]);
+                // Map based on index.csv columns provided in previous file context
+                // Subject(0), Form(1), Topic(2), Subtopic(3), Qtype(4), Image(5), Question(6), 
+                // Statement1(7), Statement2(8), Statement3(9), Option1(10), Option2(11), Option3(12), Option4(13), Correct(14)
+                if (row.length >= 15 && row[6]) {
+                    parsedData.push({
+                        topic: row[2] || "Physics",
+                        subtopic: row[3] || "",
+                        type: row[4] || "1",
+                        question: row[6],
+                        statements: [row[7], row[8], row[9]].filter(s => s && s.trim().length > 0),
+                        options: [row[10], row[11], row[12], row[13]],
+                        correct: (row[14] || "Option1").trim()
+                    });
+                }
+            }
+            return parsedData;
+        }
+
+        function showQuestion() {
+            canAnswer = true;
+            feedback.textContent = '';
+            nextBtn.classList.add('hidden');
+            const q = questions[currentIndex];
+            
+            qMeta.textContent = `${q.topic} • ${q.subtopic}`;
+            qText.innerHTML = q.question;
+            qProgress.textContent = `Question ${currentIndex + 1} of ${questions.length}`;
+
+            qStatements.innerHTML = '';
+            if (q.type == "2" && q.statements.length > 0) {
+                qStatements.classList.remove('hidden');
+                q.statements.forEach((s, i) => {
+                    const div = document.createElement('div');
+                    div.className = 'text-sm bg-slate-800/50 p-3 rounded border border-slate-700';
+                    div.innerHTML = `<span class="text-blue-400 font-bold">(${i+1})</span> ${s}`;
+                    qStatements.appendChild(div);
+                });
+            } else {
+                qStatements.classList.add('hidden');
+            }
+
+            qOptions.innerHTML = '';
+            q.options.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn p-4 rounded-lg border border-slate-700 bg-slate-800/30 font-medium w-full';
+                btn.innerHTML = `<span class="text-slate-500 font-mono mr-3">${String.fromCharCode(65 + i)}.</span> <span>${opt}</span>`;
+                btn.onclick = () => checkAnswer(i + 1, btn);
+                qOptions.appendChild(btn);
+            });
+
+            if (window.MathJax) MathJax.typesetPromise();
+        }
+
+        function checkAnswer(selected, btn) {
+            if (!canAnswer) return;
+            canAnswer = false;
+
+            const q = questions[currentIndex];
+            // Normalize "OptionX" or just "X"
+            let correctStr = q.correct.replace(/\s/g, '');
+            let correctIdx = 1;
+            
+            if (correctStr.toLowerCase().includes('option')) {
+                correctIdx = parseInt(correctStr.replace(/option/i, '')) || 1;
+            } else {
+                correctIdx = parseInt(correctStr) || 1;
+            }
+
+            const buttons = qOptions.querySelectorAll('button');
+            
+            if (selected === correctIdx) {
+                btn.classList.add('correct');
+                feedback.innerHTML = '<span class="text-emerald-400 font-bold">✓ Correct!</span>';
+                score++;
+            } else {
+                btn.classList.add('wrong');
+                if (buttons[correctIdx - 1]) buttons[correctIdx - 1].classList.add('correct');
+                feedback.innerHTML = '<span class="text-red-400 font-bold">✗ Incorrect</span>';
+            }
+
+            buttons.forEach(b => b.disabled = true);
+            nextBtn.classList.remove('hidden');
+            nextBtn.textContent = (currentIndex === questions.length - 1) ? 'See Results' : 'Next Question';
+        }
+
+        nextBtn.onclick = () => {
+            if (currentIndex < questions.length - 1) {
+                currentIndex++;
+                showQuestion();
+            } else {
+                showResults();
+            }
+        };
+
+        function showResults() {
+            quizView.classList.add('hidden');
+            resultView.classList.remove('hidden');
+            document.getElementById('score-display').textContent = `${score} / ${questions.length}`;
+            const p = (score / questions.length) * 100;
+            document.getElementById('result-text').textContent = p >= 80 ? "Excellent work! You've mastered this topic." : "Good effort. Review the incorrect answers and try again.";
+        }
+
+        startBtn.onclick = () => {
+            setupView.classList.add('hidden');
+            quizView.classList.remove('hidden');
+            showQuestion();
+        };
+
+        window.onload = loadQuizData;
+    </script>
+</body>
+</html>
