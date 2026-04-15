@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Physical Circuit Model: Potential as Height</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #38bdf8; 
+            cursor: pointer;
+            margin-top: -6px;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #334155;
+            border-radius: 2px;
+        }
+        canvas {
+            display: block;
+            outline: none;
+        }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+    <!-- Three.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- OrbitControls -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+</head>
+<body class="min-h-screen flex flex-col items-center p-4 md:p-8">
+
+    <div class="max-w-7xl w-full">
+        <!-- Back Navigation -->
+        <div class="mb-4 md:mb-6">
+            <a href="../" class="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm font-bold bg-slate-800/50 py-2 px-4 rounded-lg border border-slate-700 shadow-md hover:bg-slate-700 w-max">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Back to Home
+            </a>
+        </div>
+
+        <header class="mb-6 text-center">
+            <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-3 tracking-tight">Physical Circuit Simulator</h1>
+            <p class="text-slate-400 max-w-3xl mx-auto text-sm md:text-base leading-relaxed">
+                A mechanical "marble run" analogy for electrical circuits. The <strong>Battery</strong> is an elevator pumping charges to a high potential energy. <strong>Light Bulbs</strong> are sloped ramps filled with obstacles (atoms) that restrict flow. Adjust the <strong>Resistance</strong> to change the size of the obstacles! <strong>Repulsion:</strong> Notice how charges naturally space out and create "traffic jams" at the bulbs because they repel each other.
+            </p>
+        </header>
+
+        <div class="glass-panel rounded-2xl shadow-2xl mb-8 overflow-hidden flex flex-col">
+            <!-- Controls -->
+            <div class="flex flex-col gap-6 p-4 md:p-6 border-b border-slate-700/50 bg-slate-800/40">
+                <!-- Top Row: Actions & Config -->
+                <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 w-full">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-end gap-4 w-full sm:w-auto">
+                        <button id="toggleCircuitBtn" class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2.5 rounded-lg font-bold transition-all shadow-[0_0_15px_rgba(37,99,235,0.4)] w-full sm:w-32 shrink-0">
+                            Switch: ON
+                        </button>
+                        <div class="w-full sm:w-64">
+                            <label for="circuitType" class="block text-xs font-semibold tracking-wider text-slate-400 uppercase mb-1.5">Circuit Configuration</label>
+                            <select id="circuitType" class="w-full bg-slate-900 text-white border border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors">
+                                <option value="simple">Simple Circuit (Single Drop)</option>
+                                <option value="series">Series Circuit (Stepped Stairs)</option>
+                                <option value="parallel">Parallel Circuit (Smooth Rivers)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button id="resetCamBtn" class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-5 py-2.5 rounded-lg font-bold transition-colors w-full sm:w-auto text-sm border border-slate-600">
+                        Reset Camera
+                    </button>
+                </div>
+                
+                <!-- Bottom Row: Sliders -->
+                <div class="flex flex-col md:flex-row items-center gap-6 w-full bg-slate-900/40 p-4 md:p-5 rounded-xl border border-slate-700/40">
+                    <div class="flex-1 w-full">
+                        <label for="voltage" class="flex justify-between text-xs font-semibold tracking-wider text-slate-400 uppercase mb-2">
+                            <span>Battery Voltage (Lift)</span>
+                            <span class="text-blue-400">⚡</span>
+                        </label>
+                        <input type="range" id="voltage" min="10" max="100" value="60">
+                    </div>
+                    <div class="flex-1 w-full">
+                        <label for="resistance1" class="flex justify-between text-xs font-semibold tracking-wider text-slate-400 uppercase mb-2">
+                            <span>Bulb 1 Resistance</span>
+                            <span class="text-yellow-400">💡</span>
+                        </label>
+                        <input type="range" id="resistance1" min="10" max="100" value="50">
+                    </div>
+                    <div class="flex-1 w-full hidden transition-all" id="res2-container">
+                        <label for="resistance2" class="flex justify-between text-xs font-semibold tracking-wider text-slate-400 uppercase mb-2">
+                            <span>Bulb 2 Resistance</span>
+                            <span class="text-yellow-400">💡</span>
+                        </label>
+                        <input type="range" id="resistance2" min="10" max="100" value="50">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3D Canvas Container -->
+            <div id="canvas-container" class="relative w-full aspect-[4/3] md:aspect-[21/9] bg-[#0b1120] shadow-inner cursor-move">
+                <canvas id="circuitCanvas" class="w-full h-full"></canvas>
+                
+                <!-- Dynamic UI Labels -->
+                <div id="labels-container" class="absolute inset-0 pointer-events-none"></div>
+                
+                <div class="absolute bottom-4 left-4 pointer-events-none">
+                    <span class="px-3 py-1 bg-slate-900/80 rounded text-xs text-slate-400 border border-slate-700/50 backdrop-blur">
+                        Left Click: Rotate | Right Click: Pan | Scroll: Zoom
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Educational Analysis -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-300">
+            <div class="glass-panel p-6 rounded-xl">
+                <h3 class="text-white font-bold text-lg mb-3 flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]"></span>
+                    Series Circuit Physics
+                </h3>
+                <p class="leading-relaxed text-slate-400">
+                    Notice the two distinct "stairs". Because the total height (voltage) must be shared across both bulbs, each drop is smaller. Because charges <strong>repel each other</strong>, a marble slowing down at the bulb pushes backward on the ones behind it. This creates a cascading traffic jam that restricts the flow rate (current) throughout the entire path!
+                </p>
+            </div>
+            <div class="glass-panel p-6 rounded-xl">
+                <h3 class="text-white font-bold text-lg mb-3 flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.8)]"></span>
+                    Parallel Circuit Physics
+                </h3>
+                <p class="leading-relaxed text-slate-400">
+                    The path smoothly splits into two branches. Notice that <strong>both ramps fall the entire height</strong> of the elevator. Since both paths get the full voltage drop, both bulbs can glow brightly. Because the charges have two separate avenues to go down, they don't bunch up as severely, allowing double the overall flow rate to be drawn from the battery!
+                </p>
+            </div>
+        </div>
+        
+        <footer class="mt-12 text-center text-slate-600 text-xs pb-8">
+            <p>Interactive Topographical Circuit Physics Model</p>
+        </footer>
+    </div>
+
+    <script>
+        // --- 3D Scene Initialization ---
+        const container = document.getElementById('canvas-container');
+        const canvas = document.getElementById('circuitCanvas');
+        
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(0x0b1120, 0.012);
+
+        const camera = new THREE.PerspectiveCamera(40, container.clientWidth / container.clientHeight, 0.1, 1000);
+        camera.position.set(0, 30, 50);
+
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setClearColor(0x0b1120, 1);
+        
+        // Enable Shadows
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.maxPolarAngle = Math.PI / 2 - 0.05; 
+        controls.target.set(0, 5, 0);
+
+        // --- Lighting ---
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+        scene.add(ambientLight);
+
+        const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        dirLight.position.set(20, 40, -20);
+        dirLight.castShadow = true;
+        dirLight.shadow.mapSize.width = 2048;
+        dirLight.shadow.mapSize.height = 2048;
+        dirLight.shadow.camera.near = 0.5;
+        dirLight.shadow.camera.far = 100;
+        const d = 25;
+        dirLight.shadow.camera.left = -d;
+        dirLight.shadow.camera.right = d;
+        dirLight.shadow.camera.top = d;
+        dirLight.shadow.camera.bottom = -d;
+        scene.add(dirLight);
+
+        // Fill light to soften harsh shadows
+        const fillLight = new THREE.DirectionalLight(0xaaccff, 0.3);
+        fillLight.position.set(-20, 20, 20);
+        scene.add(fillLight);
+
+        // --- Materials (Physical & Premium) ---
+        const matWood = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.9, metalness: 0.1 });
+        const matRail = new THREE.MeshStandardMaterial({ color: 0x64748b, roughness: 0.4, metalness: 0.6 });
+        const matPeg = new THREE.MeshStandardMaterial({ color: 0x475569, roughness: 0.6, metalness: 0.2 });
+        const matElevator = new THREE.MeshPhysicalMaterial({ color: 0x1e3a8a, transmission: 0.8, opacity: 1, transparent: true, roughness: 0.1, metalness: 0.1 });
+        const matMarble = new THREE.MeshPhysicalMaterial({ color: 0xeab308, emissive: 0x854d0e, roughness: 0.1, metalness: 0.8, clearcoat: 1.0, clearcoatRoughness: 0.1 });
+        const matGround = new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 1, metalness: 0 });
+
+        // Floor Base
+        const groundGeo = new THREE.CylinderGeometry(40, 40, 1, 64);
+        const ground = new THREE.Mesh(groundGeo, matGround);
+        ground.position.y = -0.5;
+        ground.receiveShadow = true;
+        scene.add(ground);
+        
+        const grid = new THREE.GridHelper(80, 40, 0x1e293b, 0x1e293b);
+        grid.position.y = 0.01;
+        scene.add(grid);
+
+        // --- Geometric Curve Helpers ---
+        function makeLine(p1, p2) {
+            return new THREE.LineCurve3(new THREE.Vector3(...p1), new THREE.Vector3(...p2));
+        }
+        function makeCubic(p1, cp1, cp2, p2) {
+            return new THREE.CubicBezierCurve3(new THREE.Vector3(...p1), new THREE.Vector3(...cp1), new THREE.Vector3(...cp2), new THREE.Vector3(...p2));
+        }
+        function makeQuad(p1, cp, p2) {
+            return new THREE.QuadraticBezierCurve3(new THREE.Vector3(...p1), new THREE.Vector3(...cp), new THREE.Vector3(...p2));
+        }
+
+        // --- Core Simulation Logic ---
+        let sceneObjects = [];
+        let segments = [];
+        let marbles = [];
+        let labels = [];
+        let bulbs = []; 
+
+        const T_WIDTH = 2.0;  // Track width
+        const M_RADIUS = 0.4; // Marble radius
+
+        class TrackSegment {
+            constructor(curve, type) {
+                this.curve = curve;
+                this.type = type;
+                this.length = curve.getLength();
+                this.start = curve.getPoint(0);
+                this.end = curve.getPoint(1);
+            }
+
+            getPointAt(progress) {
+                let t = progress / this.length;
+                if (t < 0) t = 0; if (t > 1) t = 1;
+                return this.curve.getPointAt(t);
+            }
+
+            getDirAt(progress) {
+                let t = progress / this.length;
+                if (t < 0) t = 0; if (t > 1) t = 1;
+                return this.curve.getTangentAt(t).normalize();
+            }
+
+            getRightAt(progress) {
+                const dir = this.getDirAt(progress);
+                const right = new THREE.Vector3().crossVectors(dir, new THREE.Vector3(0,1,0)).normalize();
+                if (right.lengthSq() < 0.01) right.set(1,0,0);
+                return right;
+            }
+        }
+
+        class Marble {
+            constructor(segmentIndex, progress) {
+                this.segmentIndex = segmentIndex;
+                this.progress = progress;
+                
+                this.material = matMarble.clone();
+                this.mesh = new THREE.Mesh(new THREE.SphereGeometry(M_RADIUS, 32, 32), this.material);
+                this.mesh.castShadow = true;
+                
+                this.light = new THREE.PointLight(0xeab308, 0.4, 6);
+                this.mesh.add(this.light);
+                
+                scene.add(this.mesh);
+                sceneObjects.push(this.mesh);
+
+                this.jitterOffset = 0;
+                this.jitterPhase = Math.random() * Math.PI * 2;
+                
+                const seg = segments[this.segmentIndex];
+                const initialPos = seg.getPointAt(this.progress);
+                
+                if (seg.type !== 'lift') {
+                    const right = seg.getRightAt(this.progress);
+                    const dir = seg.getDirAt(this.progress);
+                    const up = new THREE.Vector3().crossVectors(right, dir).normalize();
+                    if (up.y < 0) up.negate();
+                    // Slat thickness is 0.1, so surface is at 0.05. Add marble radius to sit perfectly on top.
+                    initialPos.addScaledVector(up, M_RADIUS + 0.05); 
+                }
+                
+                this.mesh.position.copy(initialPos);
+            }
+
+            update(delta, baseVoltage, marblesList) {
+                const seg = segments[this.segmentIndex];
+                let baseSpeed = 0;
+
+                if (seg.type === 'lift') {
+                    baseSpeed = baseVoltage * 0.15; 
+                    this.jitterOffset = 0;
+                } else if (seg.type === 'wire') {
+                    baseSpeed = baseVoltage * 0.4;  
+                    this.jitterOffset *= 0.8;
+                } else if (seg.type === 'bulb') {
+                    let bulbObj = bulbs.find(b => b.segment === seg);
+                    let rValue = 50;
+                    if (bulbObj) {
+                        rValue = bulbObj.bulbIndex === 1 ? currentResistance1Multiplier : currentResistance2Multiplier;
+                    }
+                    
+                    const rFactor = rValue / 50; 
+                    baseSpeed = (baseVoltage * 0.08) / rFactor; 
+                    this.jitterPhase += baseSpeed * 2.5 * rFactor;
+                    const targetJitter = Math.sin(this.jitterPhase) * (T_WIDTH/2 - M_RADIUS - 0.1);
+                    this.jitterOffset += (targetJitter - this.jitterOffset) * 0.2;
+                }
+
+                // Apply Electrostatic Repulsion (Coulomb-like force)
+                let repulsion = 0;
+                const minDist = M_RADIUS * 4.5; // DECREASED: Less exaggerated interaction distance
+
+                for (let j = 0; j < marblesList.length; j++) {
+                    if (this === marblesList[j]) continue;
+                    const m2 = marblesList[j];
+                    
+                    const dx = this.mesh.position.x - m2.mesh.position.x;
+                    const dy = this.mesh.position.y - m2.mesh.position.y;
+                    const dz = this.mesh.position.z - m2.mesh.position.z;
+                    
+                    if (Math.abs(dx) > minDist || Math.abs(dy) > minDist || Math.abs(dz) > minDist) continue;
+                    
+                    const distSq = dx*dx + dy*dy + dz*dz;
+                    if (distSq < minDist * minDist && distSq > 0.001) {
+                        const dist = Math.sqrt(distSq);
+                        const toM2 = new THREE.Vector3(-dx/dist, -dy/dist, -dz/dist);
+                        const dot = toM2.dot(seg.getDirAt(this.progress));
+                        
+                        const force = Math.pow((minDist - dist) / minDist, 2); 
+                        
+                        if (dot > 0.1) {
+                            repulsion -= force * baseVoltage * 0.8; // DECREASED: Softer pushback
+                        } else if (dot < -0.1) {
+                            repulsion += force * baseVoltage * 0.8; // DECREASED: Softer pushback
+                        }
+                    }
+                }
+
+                let finalSpeed = baseSpeed + repulsion;
+
+                let minSpeed = baseVoltage * 0.03; // INCREASED: Flow never completely halts, more realistic continuous drift
+                if (seg.type === 'lift') minSpeed = baseVoltage * 0.15; 
+                
+                if (finalSpeed < minSpeed) finalSpeed = minSpeed;
+                if (finalSpeed > baseVoltage * 1.5) finalSpeed = baseVoltage * 1.5;
+
+                this.progress += finalSpeed * delta;
+
+                while (this.progress >= seg.length) {
+                    this.progress -= seg.length;
+                    this.segmentIndex = (this.segmentIndex + 1) % segments.length;
+                    if (segments[this.segmentIndex].type !== 'bulb') this.jitterOffset = 0;
+                }
+
+                const currentSeg = segments[this.segmentIndex];
+                const basePos = currentSeg.getPointAt(this.progress);
+                
+                // Keep marble perfectly on surface using normals
+                if (currentSeg.type !== 'lift') {
+                    const right = currentSeg.getRightAt(this.progress);
+                    const dir = currentSeg.getDirAt(this.progress);
+                    const up = new THREE.Vector3().crossVectors(right, dir).normalize();
+                    if (up.y < 0) up.negate();
+                    
+                    basePos.addScaledVector(up, M_RADIUS + 0.05); 
+                }
+                
+                if (Math.abs(this.jitterOffset) > 0.01) {
+                    basePos.addScaledVector(currentSeg.getRightAt(this.progress), this.jitterOffset);
+                }
+
+                this.mesh.position.copy(basePos);
+            }
+        }
+
+        // --- Visual Builders ---
+
+        function createTrackBoard(seg, isBulb = false, bulbObj = null) {
+            const group = new THREE.Group();
+            
+            // Build track out of individual slats to guarantee NO twisting
+            const numSlats = Math.floor(seg.length / 0.4);
+            const slatGeo = new THREE.BoxGeometry(T_WIDTH, 0.1, 0.38);
+            const railGeo = new THREE.BoxGeometry(0.2, 0.5, 0.4);
+            
+            const currentBoardMat = isBulb ? bulbObj.material : matWood;
+
+            for (let i = 0; i <= numSlats; i++) {
+                const progress = (i / numSlats) * seg.length;
+                const pt = seg.getPointAt(progress);
+                const right = seg.getRightAt(progress);
+                const dir = seg.getDirAt(progress);
+                const up = new THREE.Vector3().crossVectors(right, dir).normalize();
+                if (up.y < 0) up.negate();
+
+                // Build orientation matrix matching the exact curve normal
+                const matrix = new THREE.Matrix4().makeBasis(right, up, dir);
+                const quaternion = new THREE.Quaternion().setFromRotationMatrix(matrix);
+
+                // Base Slat
+                const slat = new THREE.Mesh(slatGeo, currentBoardMat);
+                slat.position.copy(pt);
+                slat.quaternion.copy(quaternion);
+                slat.castShadow = true; slat.receiveShadow = true;
+                group.add(slat);
+
+                // Left Rail
+                const leftRail = new THREE.Mesh(railGeo, matRail);
+                leftRail.position.copy(pt).addScaledVector(right, -T_WIDTH/2 + 0.1).addScaledVector(up, 0.2);
+                leftRail.quaternion.copy(quaternion);
+                leftRail.castShadow = true; leftRail.receiveShadow = true;
+                group.add(leftRail);
+
+                // Right Rail
+                const rightRail = new THREE.Mesh(railGeo, matRail);
+                rightRail.position.copy(pt).addScaledVector(right, T_WIDTH/2 - 0.1).addScaledVector(up, 0.2);
+                rightRail.quaternion.copy(quaternion);
+                rightRail.castShadow = true; rightRail.receiveShadow = true;
+                group.add(rightRail);
+            }
+
+            scene.add(group);
+            sceneObjects.push(group);
+            return group;
+        }
+
+        function createBulbRamp(seg, label, bulbIndex = 1) {
+            const heatMat = matWood.clone();
+            
+            const bulbData = {
+                segment: seg,
+                bulbIndex: bulbIndex,
+                material: heatMat,
+                light: null,
+                pegs: [],
+                smoothHeat: 0
+            };
+            
+            // Build the slatted track board
+            createTrackBoard(seg, true, bulbData);
+
+            const pegList = [];
+            const pegGeo = new THREE.CylinderGeometry(0.15, 0.15, 0.5, 8);
+            const rows = Math.floor(seg.length / 1.0);
+            
+            for (let i = 1; i < rows; i++) {
+                const progress = (i / rows) * seg.length;
+                const pt = seg.getPointAt(progress);
+                const right = seg.getRightAt(progress);
+                const dir = seg.getDirAt(progress);
+                
+                const up = new THREE.Vector3().crossVectors(right, dir).normalize();
+                if (up.y < 0) up.negate();
+                
+                const isEven = i % 2 === 0;
+                const cols = isEven ? 2 : 3;
+                const spacing = (T_WIDTH - 0.6) / cols;
+                
+                for (let j = 0; j <= cols; j++) {
+                    const xOffset = - (T_WIDTH/2 - 0.3) + j * spacing + (isEven ? spacing/2 : 0);
+                    if (xOffset > T_WIDTH/2 - 0.3) continue;
+
+                    const peg = new THREE.Mesh(pegGeo, matPeg);
+                    
+                    const pegPos = pt.clone().addScaledVector(right, xOffset);
+                    // Shift up so bottom rests exactly on the slat surface
+                    pegPos.addScaledVector(up, 0.3); 
+                    peg.position.copy(pegPos);
+                    
+                    const quaternion = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0,1,0), up);
+                    peg.quaternion.copy(quaternion);
+
+                    peg.castShadow = true;
+                    scene.add(peg);
+                    sceneObjects.push(peg);
+                    bulbData.pegs.push(peg);
+                }
+            }
+
+            const midPoint = seg.getPointAt(seg.length / 2);
+            const heatLight = new THREE.PointLight(0xffaa33, 0, 15);
+            heatLight.position.copy(midPoint);
+            heatLight.position.y += 2;
+            scene.add(heatLight);
+            sceneObjects.push(heatLight);
+
+            bulbData.light = heatLight;
+            bulbs.push(bulbData);
+
+            createLabel(label, midPoint.x, midPoint.y + 3, midPoint.z, "text-yellow-400", "label-bulb-" + bulbIndex);
+        }
+
+        function createElevator(seg) {
+            const group = new THREE.Group();
+            
+            const tubeGeo = new THREE.CylinderGeometry(T_WIDTH/2 + 0.2, T_WIDTH/2 + 0.2, seg.length, 16);
+            const tube = new THREE.Mesh(tubeGeo, matElevator);
+            
+            const coreGeo = new THREE.CylinderGeometry(0.2, 0.2, seg.length, 8);
+            const coreMat = new THREE.MeshStandardMaterial({color: 0x1e293b, metalness: 0.8});
+            const core = new THREE.Mesh(coreGeo, coreMat);
+            
+            group.add(tube, core);
+            
+            const midPoint = seg.getPointAt(seg.length/2);
+            group.position.copy(midPoint);
+            
+            scene.add(group);
+            sceneObjects.push(group);
+
+            createLabel("Battery", seg.start.x, seg.end.y + 2, seg.start.z, "text-blue-400", "label-battery");
+        }
+
+        function createPillar(x, yTop, z) {
+            if (yTop <= 0) return;
+            const geo = new THREE.CylinderGeometry(0.4, 0.5, yTop, 16);
+            const mat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.9 });
+            const mesh = new THREE.Mesh(geo, mat);
+            mesh.position.set(x, yTop / 2, z);
+            mesh.castShadow = true;
+            mesh.receiveShadow = true;
+            scene.add(mesh);
+            sceneObjects.push(mesh);
+        }
+
+        function createLabel(text, x, y, z, colorClass, id) {
+            let el = document.getElementById(id);
+            if (!el) {
+                el = document.createElement('div');
+                el.id = id;
+                // Removed opacity-0 and transition-opacity to prevent flickering on recreate/re-display
+                el.className = `absolute px-3 py-1.5 bg-slate-900/80 border border-slate-600 rounded ${colorClass} text-xs md:text-sm font-bold pointer-events-none transform -translate-x-1/2 -translate-y-1/2 shadow-lg backdrop-blur-md tracking-wide`;
+                document.getElementById('labels-container').appendChild(el);
+            }
+            el.style.display = 'block';
+            el.innerText = text;
+            labels.push({ element: el, pos: new THREE.Vector3(x, y, z) });
+        }
+
+        // --- Circuit Configurations ---
+
+        function clearCircuit() {
+            sceneObjects.forEach(obj => {
+                scene.remove(obj);
+                obj.traverse(child => {
+                    if (child.geometry) child.geometry.dispose();
+                    if (child.material) {
+                        if (Array.isArray(child.material)) child.material.forEach(m => m.dispose());
+                        else child.material.dispose();
+                    }
+                });
+            });
+            sceneObjects = [];
+            segments = [];
+            marbles = [];
+            bulbs = [];
+            labels = [];
+
+            // Hide existing DOM labels instead of destroying them to prevent flicker
+            const container = document.getElementById('labels-container');
+            Array.from(container.children).forEach(child => child.style.display = 'none');
+        }
+
+        function buildCircuit(type) {
+            clearCircuit();
+            const H = Math.max(2, currentVoltageMultiplier / 5); // Max Height dynamically scales
+            const res2Container = document.getElementById('res2-container');
+
+            if (type === 'simple') {
+                if (res2Container) res2Container.classList.add('hidden');
+                
+                segments.push(new TrackSegment(makeLine([-14, 0, 6], [-14, H, 6]), 'lift'));
+                segments.push(new TrackSegment(makeQuad([-14, H, 6], [-14, H, -6], [-10, H, -6]), 'wire'));
+                segments.push(new TrackSegment(makeLine([-10, H, -6], [2, H, -6]), 'wire'));
+                segments.push(new TrackSegment(makeLine([2, H, -6], [10, 0, -6]), 'bulb'));
+                // Smooth 180 U-Turn
+                segments.push(new TrackSegment(makeCubic([10, 0, -6], [16, 0, -6], [16, 0, 6], [10, 0, 6]), 'wire'));
+                segments.push(new TrackSegment(makeLine([10, 0, 6], [-14, 0, 6]), 'wire'));
+
+                createElevator(segments[0]);
+                createTrackBoard(segments[1]);
+                createTrackBoard(segments[2]);
+                createBulbRamp(segments[3], "Light Bulb", 1);
+                createTrackBoard(segments[4]);
+                createTrackBoard(segments[5]);
+
+                createPillar(-10, H, -6);
+                createPillar(2, H, -6);
+
+                spawnMarbles(30, 0, 6);
+            } 
+            else if (type === 'series') {
+                if (res2Container) res2Container.classList.remove('hidden');
+                
+                segments.push(new TrackSegment(makeLine([-14, 0, 6], [-14, H, 6]), 'lift'));
+                segments.push(new TrackSegment(makeQuad([-14, H, 6], [-14, H, -6], [-10, H, -6]), 'wire'));
+                segments.push(new TrackSegment(makeLine([-10, H, -6], [-2, H, -6]), 'wire'));
+                segments.push(new TrackSegment(makeLine([-2, H, -6], [4, H/2, -6]), 'bulb')); // Stair 1
+                // Mid-level U-Turn
+                segments.push(new TrackSegment(makeCubic([4, H/2, -6], [10, H/2, -6], [10, H/2, 6], [4, H/2, 6]), 'wire'));
+                segments.push(new TrackSegment(makeLine([4, H/2, 6], [-2, 0, 6]), 'bulb')); // Stair 2
+                segments.push(new TrackSegment(makeLine([-2, 0, 6], [-14, 0, 6]), 'wire'));
+
+                createElevator(segments[0]);
+                createTrackBoard(segments[1]);
+                createTrackBoard(segments[2]);
+                createBulbRamp(segments[3], "Bulb 1", 1);
+                createTrackBoard(segments[4]);
+                createBulbRamp(segments[5], "Bulb 2", 2);
+                createTrackBoard(segments[6]);
+
+                createPillar(-10, H, -6);
+                createPillar(-2, H, -6);
+
+                spawnMarbles(35, 0, 7);
+            }
+            else if (type === 'parallel') {
+                if (res2Container) res2Container.classList.remove('hidden');
+                
+                segments.push(new TrackSegment(makeLine([-14, 0, 0], [-14, H, 0]), 'lift')); // idx: 0
+                segments.push(new TrackSegment(makeLine([-14, H, 0], [-10, H, 0]), 'wire')); // idx: 1
+                
+                // Branch 1 (Back - S-Curve split)
+                segments.push(new TrackSegment(makeCubic([-10, H, 0], [-8, H, 0], [-8, H, -6], [-6, H, -6]), 'wire')); // idx: 2
+                segments.push(new TrackSegment(makeLine([-6, H, -6], [2, H, -6]), 'wire')); // idx: 3
+                segments.push(new TrackSegment(makeLine([2, H, -6], [10, 0, -6]), 'bulb')); // idx: 4
+                // U-Turn Merge to center
+                segments.push(new TrackSegment(makeCubic([10, 0, -6], [16, 0, -6], [16, 0, 0], [12, 0, 0]), 'wire')); // idx: 5
+
+                // Branch 2 (Front - S-Curve split)
+                segments.push(new TrackSegment(makeCubic([-10, H, 0], [-8, H, 0], [-8, H, 6], [-6, H, 6]), 'wire')); // idx: 6
+                segments.push(new TrackSegment(makeLine([-6, H, 6], [2, H, 6]), 'wire')); // idx: 7
+                segments.push(new TrackSegment(makeLine([2, H, 6], [10, 0, 6]), 'bulb')); // idx: 8
+                // U-Turn Merge to center
+                segments.push(new TrackSegment(makeCubic([10, 0, 6], [16, 0, 6], [16, 0, 0], [12, 0, 0]), 'wire')); // idx: 9
+
+                // Shared Return
+                segments.push(new TrackSegment(makeLine([12, 0, 0], [-14, 0, 0]), 'wire')); // idx: 10
+
+                createElevator(segments[0]);
+                createTrackBoard(segments[1]);
+                
+                createTrackBoard(segments[2]);
+                createTrackBoard(segments[3]);
+                createBulbRamp(segments[4], "Branch 1 Bulb", 1);
+                createTrackBoard(segments[5]);
+
+                createTrackBoard(segments[6]);
+                createTrackBoard(segments[7]);
+                createBulbRamp(segments[8], "Branch 2 Bulb", 2);
+                createTrackBoard(segments[9]);
+
+                createTrackBoard(segments[10]);
+
+                createPillar(-6, H, -6);
+                createPillar(2, H, -6);
+                createPillar(-6, H, 6);
+                createPillar(2, H, 6);
+
+                // Distribute evenly initially
+                spawnMarbles(15, 2, 6);  // Branch 1 loop
+                spawnMarbles(15, 6, 10); // Branch 2 loop
+                spawnMarbles(10, 0, 2);  // Shared initial lines
+            }
+        }
+
+        function spawnMarbles(count, startSegIdx = 0, endSegIdx = null) {
+            let limit = endSegIdx || segments.length;
+            for (let i = 0; i < count; i++) {
+                let initialSeg = startSegIdx + Math.floor(Math.random() * (limit - startSegIdx));
+                let initialProg = Math.random() * segments[initialSeg].length;
+                let marble = new Marble(initialSeg, initialProg);
+                
+                if (segments.length > 8) { // Parallel routing assignment
+                    if (initialSeg >= 2 && initialSeg <= 5) marble.routePrefs = 1;
+                    else if (initialSeg >= 6 && initialSeg <= 9) marble.routePrefs = 2;
+                    else marble.routePrefs = Math.random() > 0.5 ? 1 : 2; 
+                }
+                marbles.push(marble);
+            }
+        }
+
+        // --- Interaction & UI ---
+        let isCircuitOn = true;
+        let currentVoltageMultiplier = 60;
+        let currentResistance1Multiplier = 50;
+        let currentResistance2Multiplier = 50;
+
+        const toggleBtn = document.getElementById('toggleCircuitBtn');
+        const voltageSlider = document.getElementById('voltage');
+        const resistance1Slider = document.getElementById('resistance1');
+        const resistance2Slider = document.getElementById('resistance2');
+        const typeSelect = document.getElementById('circuitType');
+        const resetCamBtn = document.getElementById('resetCamBtn');
+
+        toggleBtn.addEventListener('click', () => {
+            isCircuitOn = !isCircuitOn;
+            if (isCircuitOn) {
+                toggleBtn.textContent = 'Switch: ON';
+                toggleBtn.className = 'bg-blue-600 hover:bg-blue-500 text-white px-6 py-2.5 rounded-lg font-bold transition-all shadow-[0_0_15px_rgba(37,99,235,0.4)] w-full sm:w-32 shrink-0';
+            } else {
+                toggleBtn.textContent = 'Switch: OFF';
+                toggleBtn.className = 'bg-red-600 hover:bg-red-500 text-white px-6 py-2.5 rounded-lg font-bold transition-all shadow-[0_0_15px_rgba(220,38,38,0.4)] w-full sm:w-32 shrink-0';
+            }
+        });
+
+        voltageSlider.addEventListener('input', (e) => {
+            currentVoltageMultiplier = parseInt(e.target.value);
+            buildCircuit(document.getElementById('circuitType').value);
+        });
+        
+        resistance1Slider.addEventListener('input', (e) => currentResistance1Multiplier = parseInt(e.target.value));
+        resistance2Slider.addEventListener('input', (e) => currentResistance2Multiplier = parseInt(e.target.value));
+        
+        typeSelect.addEventListener('change', (e) => {
+            buildCircuit(e.target.value);
+            if(!isCircuitOn) toggleBtn.click();
+        });
+
+        resetCamBtn.addEventListener('click', () => {
+            controls.reset();
+            camera.position.set(0, 30, 50);
+            controls.target.set(0, 5, 0);
+        });
+
+        window.addEventListener('resize', () => {
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+        });
+
+        function updateLabels() {
+            labels.forEach(l => {
+                const pos = l.pos.clone();
+                pos.project(camera);
+                if (pos.z < 1 && pos.z > -1) {
+                    l.element.style.opacity = 1;
+                    l.element.style.left = `${(pos.x * 0.5 + 0.5) * container.clientWidth}px`;
+                    l.element.style.top = `${(pos.y * -0.5 + 0.5) * container.clientHeight}px`;
+                } else {
+                    l.element.style.opacity = 0;
+                }
+            });
+        }
+
+        function handleParallelSplit(marble) {
+            const seg = segments[marble.segmentIndex];
+            if (marble.segmentIndex === 1 && marble.progress >= seg.length) {
+                marble.segmentIndex = marble.routePrefs === 1 ? 2 : 6;
+                marble.progress = 0;
+                return true;
+            }
+            if ((marble.segmentIndex === 5 || marble.segmentIndex === 9) && marble.progress >= seg.length) {
+                marble.segmentIndex = 10;
+                marble.progress = 0;
+                marble.routePrefs = Math.random() > 0.5 ? 1 : 2; 
+                return true;
+            }
+            return false;
+        }
+
+        // --- Main Animation Loop ---
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const delta = Math.min(clock.getDelta(), 0.1); 
+
+            if (isCircuitOn) {
+                marbles.forEach(m => {
+                    const oldSegIdx = m.segmentIndex;
+                    
+                    m.update(delta, currentVoltageMultiplier, marbles);
+                    
+                    if (segments.length > 8) {
+                        if(oldSegIdx !== m.segmentIndex) {
+                           m.segmentIndex = oldSegIdx; 
+                           m.progress = segments[oldSegIdx].length; 
+                           if (!handleParallelSplit(m)) {
+                               m.segmentIndex = (oldSegIdx + 1) % segments.length;
+                               m.progress = 0;
+                           }
+                        }
+                    }
+                });
+            }
+
+            marbles.forEach(m => {
+                // Absolute max height is 20.0 (max voltage 100 / 5)
+                const absoluteMaxH = 20.0;
+                const absoluteHeightRatio = Math.max(0, Math.min(1, m.mesh.position.y / absoluteMaxH)); 
+                
+                // Emissive intensity scales strictly on absolute potential (from 0 at ground to 5.0 at 100V max height)
+                m.material.emissiveIntensity = absoluteHeightRatio * 5.0;
+                m.light.intensity = absoluteHeightRatio * 2.5;
+            });
+
+            const circuitTypeStr = document.getElementById('circuitType').value;
+            const V = currentVoltageMultiplier;
+            const R1 = currentResistance1Multiplier;
+            const R2 = currentResistance2Multiplier;
+
+            bulbs.forEach(b => {
+                const rValue = b.bulbIndex === 1 ? R1 : R2;
+                const pegScale = 0.4 + (rValue / 100) * 1.2;
+                
+                b.pegs.forEach(peg => peg.scale.set(pegScale, 1, pegScale));
+
+                let power = 0;
+                if (circuitTypeStr === 'simple') {
+                    power = (V * V) / rValue;
+                } else if (circuitTypeStr === 'series') {
+                    const I = V / (R1 + R2);
+                    power = I * I * rValue;
+                } else if (circuitTypeStr === 'parallel') {
+                    power = (V * V) / rValue;
+                }
+
+                const targetBrightness = isCircuitOn ? Math.min(power * 0.02, 8.0) : 0;
+                
+                b.smoothHeat += (targetBrightness - b.smoothHeat) * 0.1;
+                
+                const hotColor = new THREE.Color(0xffaa33); 
+                b.material.emissive.copy(hotColor).multiplyScalar(b.smoothHeat);
+                
+                b.light.intensity = b.smoothHeat * 2.0;
+                b.light.color.setHex(0xffdd88);
+            });
+
+            controls.update();
+            updateLabels();
+            renderer.render(scene, camera);
+        }
+
+        buildCircuit('simple');
+        animate();
+
+    </script>
+</body>
+</html>
