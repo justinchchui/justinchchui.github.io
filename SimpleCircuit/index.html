@@ -64,7 +64,7 @@
         <header class="mb-6 text-center">
             <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-3 tracking-tight">Physical Circuit Simulator</h1>
             <p class="text-slate-400 max-w-3xl mx-auto text-sm md:text-base leading-relaxed">
-                A mechanical "marble run" analogy for electrical circuits. The <strong>Battery</strong> is an elevator pumping charges to a high potential energy. <strong>Light Bulbs</strong> are sloped ramps filled with obstacles (atoms) that restrict flow. Adjust the <strong>Resistance</strong> to change the size of the obstacles! <strong>Repulsion:</strong> Notice how charges naturally space out and create "traffic jams" at the bulbs because they repel each other.
+                A mechanical "marble run" analogy for electrical circuits. The <strong>Battery</strong> is an elevator pumping charges to a high potential energy. <strong>Light Bulbs</strong> are sloped ramps filled with obstacles (atoms) that restrict flow. <strong>Repulsion:</strong> Notice how charges naturally space out. <strong>Turn the switch OFF to see the track (potential) drop to zero!</strong>
             </p>
         </header>
 
@@ -74,21 +74,34 @@
                 <!-- Top Row: Actions & Config -->
                 <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 w-full">
                     <div class="flex flex-col sm:flex-row items-start sm:items-end gap-4 w-full sm:w-auto">
-                        <button id="toggleCircuitBtn" class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2.5 rounded-lg font-bold transition-all shadow-[0_0_15px_rgba(37,99,235,0.4)] w-full sm:w-32 shrink-0">
-                            Switch: ON
+                        <button id="toggleCircuitBtn" class="bg-red-600 hover:bg-red-500 text-white px-6 py-2.5 rounded-lg font-bold transition-all shadow-[0_0_15px_rgba(220,38,38,0.4)] w-full sm:w-32 shrink-0">
+                            Switch: OFF
                         </button>
-                        <div class="w-full sm:w-64">
+                        <div class="w-full sm:w-72">
                             <label for="circuitType" class="block text-xs font-semibold tracking-wider text-slate-400 uppercase mb-1.5">Circuit Configuration</label>
-                            <select id="circuitType" class="w-full bg-slate-900 text-white border border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors">
-                                <option value="simple">Simple Circuit (Single Drop)</option>
-                                <option value="series">Series Circuit (Stepped Stairs)</option>
-                                <option value="parallel">Parallel Circuit (Smooth Rivers)</option>
-                            </select>
+                            <div class="relative">
+                                <select id="circuitType" class="w-full appearance-none bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-600 rounded-lg pl-4 pr-10 py-2.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all cursor-pointer shadow-sm">
+                                    <option value="simple" class="bg-slate-800 text-slate-200">Simple Circuit (Single Drop)</option>
+                                    <option value="series" class="bg-slate-800 text-slate-200">Series Circuit (Stepped Stairs)</option>
+                                    <option value="parallel" class="bg-slate-800 text-slate-200">Parallel Circuit (Smooth Rivers)</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-400">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path></svg>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <button id="resetCamBtn" class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-5 py-2.5 rounded-lg font-bold transition-colors w-full sm:w-auto text-sm border border-slate-600">
-                        Reset Camera
-                    </button>
+                    <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                        <button id="addAmmeterBtn" class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-5 py-2.5 rounded-lg font-bold transition-colors w-full sm:w-auto text-sm border border-slate-600">
+                            + Add Ammeter
+                        </button>
+                        <button id="toggleLabelsBtn" class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-5 py-2.5 rounded-lg font-bold transition-colors w-full sm:w-auto text-sm border border-slate-600">
+                            Toggle Labels
+                        </button>
+                        <button id="resetCamBtn" class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-5 py-2.5 rounded-lg font-bold transition-colors w-full sm:w-auto text-sm border border-slate-600">
+                            Reset Camera
+                        </button>
+                    </div>
                 </div>
                 
                 <!-- Bottom Row: Sliders -->
@@ -123,7 +136,7 @@
                 
                 <!-- Dynamic UI Labels -->
                 <div id="labels-container" class="absolute inset-0 pointer-events-none"></div>
-                
+
                 <div class="absolute bottom-4 left-4 pointer-events-none">
                     <span class="px-3 py-1 bg-slate-900/80 rounded text-xs text-slate-400 border border-slate-700/50 backdrop-blur">
                         Left Click: Rotate | Right Click: Pan | Scroll: Zoom
@@ -149,13 +162,22 @@
                     Parallel Circuit Physics
                 </h3>
                 <p class="leading-relaxed text-slate-400">
-                    The path smoothly splits into two branches. Notice that <strong>both ramps fall the entire height</strong> of the elevator. Since both paths get the full voltage drop, both bulbs can glow brightly. Because the charges have two separate avenues to go down, they don't bunch up as severely, allowing double the overall flow rate to be drawn from the battery!
+                    The path smoothly splits into two branches. Notice that <strong>both ramps fall the entire height</strong> of the elevator. Since both paths get the full voltage drop, both bulbs can glow brightly. Also, observe how the charges dynamically route themselves: <strong>more charges flow through the branch with lower resistance</strong>, visually demonstrating how current favors the path of least resistance!
                 </p>
             </div>
         </div>
         
-        <footer class="mt-12 text-center text-slate-600 text-xs pb-8">
-            <p>Interactive Topographical Circuit Physics Model</p>
+        <footer class="w-full mt-12 border-t border-slate-700/50 pt-6 pb-8 text-slate-500 text-sm">
+            <div class="flex flex-col md:flex-row justify-between items-center md:items-start gap-4 px-4 text-center md:text-left">
+                <div>
+                    <p class="mb-1">Built for interactive science education.</p>
+                    <p>Generated by Gemini Pro 3.0 | Prepared By Justin Chui.</p>
+                </div>
+                <a href="../" class="hover:text-blue-400 transition-colors inline-flex items-center gap-1 font-medium shrink-0">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    Back to Home
+                </a>
+            </div>
         </footer>
     </div>
 
@@ -203,7 +225,6 @@
         dirLight.shadow.camera.bottom = -d;
         scene.add(dirLight);
 
-        // Fill light to soften harsh shadows
         const fillLight = new THREE.DirectionalLight(0xaaccff, 0.3);
         fillLight.position.set(-20, 20, 20);
         scene.add(fillLight);
@@ -244,9 +265,17 @@
         let marbles = [];
         let labels = [];
         let bulbs = []; 
+        let hitTubes = []; // Invisible tubes for raycasting (Ammeter placement)
+        let ammeters = []; // Placed ammeters
+        let dynamicMeshes = [];
+        let dynamicPillars = [];
 
         const T_WIDTH = 2.0;  // Track width
         const M_RADIUS = 0.4; // Marble radius
+
+        let circuitState = {
+            dropFactor: 0.05 // 1 = High potential (ON), 0.05 = Dropped flat to ground (OFF)
+        };
 
         class TrackSegment {
             constructor(curve, type) {
@@ -255,25 +284,90 @@
                 this.length = curve.getLength();
                 this.start = curve.getPoint(0);
                 this.end = curve.getPoint(1);
+                this.index = 0; // Assigned in buildCircuit
             }
 
             getPointAt(progress) {
                 let t = progress / this.length;
                 if (t < 0) t = 0; if (t > 1) t = 1;
-                return this.curve.getPointAt(t);
+                let pt = this.curve.getPointAt(t);
+
+                // Dynamically drop the track to zero potential when switch is OFF
+                if (this.index === 1) {
+                    // Switch acts as a rigid drawbridge rotation (hinged at the start)
+                    const targetY = this.end.y * circuitState.dropFactor;
+                    const dy = this.start.y - targetY;
+                    
+                    // If the drop is deeper than the bridge length, it hangs straight down (Math.PI/2)
+                    const dropAngle = (dy >= this.length) ? (Math.PI / 2) : Math.asin(dy / this.length);
+                    
+                    const dist = t * this.length;
+                    const dx = this.end.x - this.start.x;
+                    const dz = this.end.z - this.start.z;
+                    const dir2D = new THREE.Vector2(dx, dz).normalize();
+                    
+                    pt.x = this.start.x + dir2D.x * dist * Math.cos(dropAngle);
+                    pt.z = this.start.z + dir2D.y * dist * Math.cos(dropAngle);
+                    pt.y = this.start.y - dist * Math.sin(dropAngle);
+                } else if (this.index >= 2) {
+                    // All paths after switch fall flat to ground
+                    pt.y *= circuitState.dropFactor;
+                }
+
+                return pt;
             }
 
             getDirAt(progress) {
                 let t = progress / this.length;
                 if (t < 0) t = 0; if (t > 1) t = 1;
-                return this.curve.getTangentAt(t).normalize();
+                
+                if (this.index === 1) {
+                    // Provide the rotated tangent vector for the rigid bridge
+                    const targetY = this.end.y * circuitState.dropFactor;
+                    const dy = this.start.y - targetY;
+                    const dropAngle = (dy >= this.length) ? (Math.PI / 2) : Math.asin(dy / this.length);
+
+                    const dx = this.end.x - this.start.x;
+                    const dz = this.end.z - this.start.z;
+                    const dir2D = new THREE.Vector2(dx, dz).normalize();
+                    
+                    return new THREE.Vector3(
+                        dir2D.x * Math.cos(dropAngle),
+                        -Math.sin(dropAngle),
+                        dir2D.y * Math.cos(dropAngle)
+                    ).normalize();
+                }
+
+                // Sample points closely to get dynamically dropped tangent
+                const delta = 0.01;
+                let t1 = t;
+                let t2 = t + delta;
+                if (t2 > 1) { t2 = t; t1 = t - delta; }
+                
+                let p1 = this.curve.getPointAt(t1);
+                let p2 = this.curve.getPointAt(t2);
+
+                if (this.index >= 2) {
+                    p1.y *= circuitState.dropFactor;
+                    p2.y *= circuitState.dropFactor;
+                }
+
+                return p2.sub(p1).normalize();
             }
 
-            getRightAt(progress) {
+            getBasisAt(progress) {
                 const dir = this.getDirAt(progress);
-                const right = new THREE.Vector3().crossVectors(dir, new THREE.Vector3(0,1,0)).normalize();
-                if (right.lengthSq() < 0.01) right.set(1,0,0);
-                return right;
+                const Z = dir.clone();
+                const X = new THREE.Vector3(0, 1, 0).cross(Z).normalize();
+                if (X.lengthSq() < 0.001) X.set(1, 0, 0); 
+                const Y = new THREE.Vector3().crossVectors(Z, X).normalize();
+                return { right: X, up: Y, dir: Z };
+            }
+
+            getQuaternionAt(progress) {
+                const b = this.getBasisAt(progress);
+                const matrix = new THREE.Matrix4().makeBasis(b.right, b.up, b.dir);
+                return new THREE.Quaternion().setFromRotationMatrix(matrix);
             }
         }
 
@@ -299,12 +393,8 @@
                 const initialPos = seg.getPointAt(this.progress);
                 
                 if (seg.type !== 'lift') {
-                    const right = seg.getRightAt(this.progress);
-                    const dir = seg.getDirAt(this.progress);
-                    const up = new THREE.Vector3().crossVectors(right, dir).normalize();
-                    if (up.y < 0) up.negate();
-                    // Slat thickness is 0.1, so surface is at 0.05. Add marble radius to sit perfectly on top.
-                    initialPos.addScaledVector(up, M_RADIUS + 0.05); 
+                    const b = seg.getBasisAt(this.progress);
+                    initialPos.addScaledVector(b.up, M_RADIUS + 0.05); 
                 }
                 
                 this.mesh.position.copy(initialPos);
@@ -315,10 +405,10 @@
                 let baseSpeed = 0;
 
                 if (seg.type === 'lift') {
-                    baseSpeed = baseVoltage * 0.15; 
+                    baseSpeed = isCircuitOn ? baseVoltage * 0.15 : 0; 
                     this.jitterOffset = 0;
-                } else if (seg.type === 'wire') {
-                    baseSpeed = baseVoltage * 0.4;  
+                } else if (seg.type === 'wire' || seg.type === 'switch') {
+                    baseSpeed = isCircuitOn ? baseVoltage * 0.4 : 0;  
                     this.jitterOffset *= 0.8;
                 } else if (seg.type === 'bulb') {
                     let bulbObj = bulbs.find(b => b.segment === seg);
@@ -328,15 +418,12 @@
                     }
                     
                     const rFactor = rValue / 50; 
-                    baseSpeed = (baseVoltage * 0.08) / rFactor; 
-                    this.jitterPhase += baseSpeed * 2.5 * rFactor;
-                    const targetJitter = Math.sin(this.jitterPhase) * (T_WIDTH/2 - M_RADIUS - 0.1);
-                    this.jitterOffset += (targetJitter - this.jitterOffset) * 0.2;
+                    baseSpeed = isCircuitOn ? (baseVoltage * 0.08) / rFactor : 0; 
                 }
 
-                // Apply Electrostatic Repulsion (Coulomb-like force)
+                // Apply Electrostatic Repulsion
                 let repulsion = 0;
-                const minDist = M_RADIUS * 4.5; // DECREASED: Less exaggerated interaction distance
+                const minDist = M_RADIUS * 4.5; 
 
                 for (let j = 0; j < marblesList.length; j++) {
                     if (this === marblesList[j]) continue;
@@ -357,21 +444,50 @@
                         const force = Math.pow((minDist - dist) / minDist, 2); 
                         
                         if (dot > 0.1) {
-                            repulsion -= force * baseVoltage * 0.8; // DECREASED: Softer pushback
+                            repulsion -= force * baseVoltage * 0.8; 
                         } else if (dot < -0.1) {
-                            repulsion += force * baseVoltage * 0.8; // DECREASED: Softer pushback
+                            repulsion += force * baseVoltage * 0.8; 
                         }
                     }
                 }
 
                 let finalSpeed = baseSpeed + repulsion;
-
-                let minSpeed = baseVoltage * 0.03; // INCREASED: Flow never completely halts, more realistic continuous drift
-                if (seg.type === 'lift') minSpeed = baseVoltage * 0.15; 
+                
+                // Allow backward movement when off so charges can spread apart
+                let minSpeed = isCircuitOn ? baseVoltage * 0.03 : -baseVoltage * 1.5; 
+                if (seg.type === 'lift') minSpeed = isCircuitOn ? baseVoltage * 0.15 : 0; 
                 
                 if (finalSpeed < minSpeed) finalSpeed = minSpeed;
                 if (finalSpeed > baseVoltage * 1.5) finalSpeed = baseVoltage * 1.5;
 
+                // Gap mechanics when switch is OFF
+                if (!isCircuitOn) {
+                    if (this.segmentIndex === 1) {
+                        finalSpeed -= baseVoltage * 0.5; // slide down bridge
+                        if (this.progress > 0.1) {
+                            finalSpeed = Math.min(finalSpeed, 0);
+                            this.progress = Math.min(this.progress, 0.1);
+                        }
+                    } else if ((this.segmentIndex === 2 || this.segmentIndex === 6) && this.progress < 0.2 && finalSpeed < 0) {
+                        finalSpeed = Math.max(finalSpeed, 0);
+                        this.progress = Math.max(this.progress, 0.01);
+                    }
+                }
+
+                if (seg.type === 'bulb') {
+                    let bulbObj = bulbs.find(b => b.segment === seg);
+                    let rValue = bulbObj ? (bulbObj.bulbIndex === 1 ? currentResistance1Multiplier : currentResistance2Multiplier) : 50;
+                    const rFactor = rValue / 50; 
+                    this.jitterPhase += Math.abs(finalSpeed) * 2.5 * rFactor;
+                    const targetJitter = Math.sin(this.jitterPhase) * (T_WIDTH/2 - M_RADIUS - 0.1);
+                    this.jitterOffset += (targetJitter - this.jitterOffset) * 0.2;
+
+                    if (bulbObj) {
+                        bulbObj.flowSpeedSum = (bulbObj.flowSpeedSum || 0) + Math.abs(finalSpeed);
+                    }
+                }
+
+                this.lastSpeed = finalSpeed;
                 this.progress += finalSpeed * delta;
 
                 while (this.progress >= seg.length) {
@@ -379,22 +495,36 @@
                     this.segmentIndex = (this.segmentIndex + 1) % segments.length;
                     if (segments[this.segmentIndex].type !== 'bulb') this.jitterOffset = 0;
                 }
+                
+                // Logic to support backward tracking (essential for spreading out)
+                while (this.progress < 0) {
+                    let oldSegIdx = this.segmentIndex;
+                    let moved = false;
+                    if (segments.length > 8) {
+                        if (oldSegIdx === 10) {
+                            this.segmentIndex = this.routePrefs === 1 ? 5 : 9;
+                            moved = true;
+                        } else if (oldSegIdx === 2 || oldSegIdx === 6) {
+                            this.segmentIndex = 1;
+                            moved = true;
+                        }
+                    }
+                    if (!moved) {
+                        this.segmentIndex = (this.segmentIndex - 1 + segments.length) % segments.length;
+                    }
+                    this.progress += segments[this.segmentIndex].length;
+                    if (segments[this.segmentIndex].type !== 'bulb') this.jitterOffset = 0;
+                }
 
                 const currentSeg = segments[this.segmentIndex];
                 const basePos = currentSeg.getPointAt(this.progress);
                 
-                // Keep marble perfectly on surface using normals
                 if (currentSeg.type !== 'lift') {
-                    const right = currentSeg.getRightAt(this.progress);
-                    const dir = currentSeg.getDirAt(this.progress);
-                    const up = new THREE.Vector3().crossVectors(right, dir).normalize();
-                    if (up.y < 0) up.negate();
-                    
-                    basePos.addScaledVector(up, M_RADIUS + 0.05); 
-                }
-                
-                if (Math.abs(this.jitterOffset) > 0.01) {
-                    basePos.addScaledVector(currentSeg.getRightAt(this.progress), this.jitterOffset);
+                    const b = currentSeg.getBasisAt(this.progress);
+                    basePos.addScaledVector(b.up, M_RADIUS + 0.05); 
+                    if (Math.abs(this.jitterOffset) > 0.01) {
+                        basePos.addScaledVector(b.right, this.jitterOffset);
+                    }
                 }
 
                 this.mesh.position.copy(basePos);
@@ -404,9 +534,6 @@
         // --- Visual Builders ---
 
         function createTrackBoard(seg, isBulb = false, bulbObj = null) {
-            const group = new THREE.Group();
-            
-            // Build track out of individual slats to guarantee NO twisting
             const numSlats = Math.floor(seg.length / 0.4);
             const slatGeo = new THREE.BoxGeometry(T_WIDTH, 0.1, 0.38);
             const railGeo = new THREE.BoxGeometry(0.2, 0.5, 0.4);
@@ -415,41 +542,44 @@
 
             for (let i = 0; i <= numSlats; i++) {
                 const progress = (i / numSlats) * seg.length;
-                const pt = seg.getPointAt(progress);
-                const right = seg.getRightAt(progress);
-                const dir = seg.getDirAt(progress);
-                const up = new THREE.Vector3().crossVectors(right, dir).normalize();
-                if (up.y < 0) up.negate();
 
-                // Build orientation matrix matching the exact curve normal
-                const matrix = new THREE.Matrix4().makeBasis(right, up, dir);
-                const quaternion = new THREE.Quaternion().setFromRotationMatrix(matrix);
-
-                // Base Slat
                 const slat = new THREE.Mesh(slatGeo, currentBoardMat);
-                slat.position.copy(pt);
-                slat.quaternion.copy(quaternion);
                 slat.castShadow = true; slat.receiveShadow = true;
-                group.add(slat);
+                scene.add(slat);
+                sceneObjects.push(slat);
+                dynamicMeshes.push({ mesh: slat, seg: seg, progress: progress, offsetRight: 0, offsetUp: 0 });
 
-                // Left Rail
                 const leftRail = new THREE.Mesh(railGeo, matRail);
-                leftRail.position.copy(pt).addScaledVector(right, -T_WIDTH/2 + 0.1).addScaledVector(up, 0.2);
-                leftRail.quaternion.copy(quaternion);
                 leftRail.castShadow = true; leftRail.receiveShadow = true;
-                group.add(leftRail);
+                scene.add(leftRail);
+                sceneObjects.push(leftRail);
+                dynamicMeshes.push({ mesh: leftRail, seg: seg, progress: progress, offsetRight: -T_WIDTH/2 + 0.1, offsetUp: 0.2 });
 
-                // Right Rail
                 const rightRail = new THREE.Mesh(railGeo, matRail);
-                rightRail.position.copy(pt).addScaledVector(right, T_WIDTH/2 - 0.1).addScaledVector(up, 0.2);
-                rightRail.quaternion.copy(quaternion);
                 rightRail.castShadow = true; rightRail.receiveShadow = true;
-                group.add(rightRail);
+                scene.add(rightRail);
+                sceneObjects.push(rightRail);
+                dynamicMeshes.push({ mesh: rightRail, seg: seg, progress: progress, offsetRight: T_WIDTH/2 - 0.1, offsetUp: 0.2 });
             }
+        }
 
-            scene.add(group);
-            sceneObjects.push(group);
-            return group;
+        function createSwitch(seg) {
+            // Build the switch track
+            createTrackBoard(seg);
+            
+            // Add a red handle to indicate it's a switch
+            const handleGeo = new THREE.CylinderGeometry(0.1, 0.1, 1.5);
+            const handleMat = new THREE.MeshStandardMaterial({color: 0xef4444, roughness: 0.5});
+            const handle = new THREE.Mesh(handleGeo, handleMat);
+            handle.castShadow = true;
+            scene.add(handle);
+            sceneObjects.push(handle);
+            
+            // Register handle as dynamic peg
+            dynamicMeshes.push({ mesh: handle, seg: seg, progress: seg.length - 0.2, offsetRight: T_WIDTH/2 + 0.2, offsetUp: 0.75, isPeg: true });
+
+            const pt0 = seg.getPointAt(0);
+            createLabel("Switch", pt0.x + 2, pt0.y, pt0.z, "text-red-400", "label-switch", false, 4);
         }
 
         function createBulbRamp(seg, label, bulbIndex = 1) {
@@ -461,24 +591,17 @@
                 material: heatMat,
                 light: null,
                 pegs: [],
-                smoothHeat: 0
+                smoothHeat: 0,
+                flowSpeedSum: 0
             };
             
-            // Build the slatted track board
             createTrackBoard(seg, true, bulbData);
 
-            const pegList = [];
-            const pegGeo = new THREE.CylinderGeometry(0.15, 0.15, 0.5, 8);
-            const rows = Math.floor(seg.length / 1.0);
+            const pegGeo = new THREE.CylinderGeometry(0.12, 0.12, 0.5, 8);
+            const rows = Math.floor(seg.length / 0.35); // Generate maximum density
             
             for (let i = 1; i < rows; i++) {
                 const progress = (i / rows) * seg.length;
-                const pt = seg.getPointAt(progress);
-                const right = seg.getRightAt(progress);
-                const dir = seg.getDirAt(progress);
-                
-                const up = new THREE.Vector3().crossVectors(right, dir).normalize();
-                if (up.y < 0) up.negate();
                 
                 const isEven = i % 2 === 0;
                 const cols = isEven ? 2 : 3;
@@ -489,33 +612,28 @@
                     if (xOffset > T_WIDTH/2 - 0.3) continue;
 
                     const peg = new THREE.Mesh(pegGeo, matPeg);
-                    
-                    const pegPos = pt.clone().addScaledVector(right, xOffset);
-                    // Shift up so bottom rests exactly on the slat surface
-                    pegPos.addScaledVector(up, 0.3); 
-                    peg.position.copy(pegPos);
-                    
-                    const quaternion = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0,1,0), up);
-                    peg.quaternion.copy(quaternion);
-
                     peg.castShadow = true;
+                    
+                    // Assign a threshold for when this peg should become visible based on resistance (10 to 100)
+                    peg.userData.threshold = 10 + (Math.random() * 90);
+
                     scene.add(peg);
                     sceneObjects.push(peg);
                     bulbData.pegs.push(peg);
+                    
+                    dynamicMeshes.push({ mesh: peg, seg: seg, progress: progress, offsetRight: xOffset, offsetUp: 0.3, isPeg: true });
                 }
             }
 
-            const midPoint = seg.getPointAt(seg.length / 2);
             const heatLight = new THREE.PointLight(0xffaa33, 0, 15);
-            heatLight.position.copy(midPoint);
-            heatLight.position.y += 2;
             scene.add(heatLight);
             sceneObjects.push(heatLight);
 
             bulbData.light = heatLight;
             bulbs.push(bulbData);
 
-            createLabel(label, midPoint.x, midPoint.y + 3, midPoint.z, "text-yellow-400", "label-bulb-" + bulbIndex);
+            const midPoint = seg.getPointAt(seg.length / 2);
+            createLabel(label, midPoint.x, midPoint.y, midPoint.z, "text-yellow-400", "label-bulb-" + bulbIndex, true, 6);
         }
 
         function createElevator(seg) {
@@ -536,33 +654,36 @@
             scene.add(group);
             sceneObjects.push(group);
 
-            createLabel("Battery", seg.start.x, seg.end.y + 2, seg.start.z, "text-blue-400", "label-battery");
+            createLabel("Battery", seg.start.x, seg.end.y, seg.start.z, "text-blue-400", "label-battery", false, 5);
         }
 
         function createPillar(x, yTop, z) {
             if (yTop <= 0) return;
-            const geo = new THREE.CylinderGeometry(0.4, 0.5, yTop, 16);
+            const geo = new THREE.CylinderGeometry(0.4, 0.5, 1, 16);
+            geo.translate(0, 0.5, 0); // Origin at bottom base
             const mat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.9 });
             const mesh = new THREE.Mesh(geo, mat);
-            mesh.position.set(x, yTop / 2, z);
+            mesh.position.set(x, 0, z);
+            mesh.scale.y = yTop;
             mesh.castShadow = true;
             mesh.receiveShadow = true;
             scene.add(mesh);
             sceneObjects.push(mesh);
+            
+            dynamicPillars.push({ mesh: mesh, baseTop: yTop });
         }
 
-        function createLabel(text, x, y, z, colorClass, id) {
+        function createLabel(text, x, baseH, z, colorClass, id, doesDrop = false, yOffset = 0) {
             let el = document.getElementById(id);
             if (!el) {
                 el = document.createElement('div');
                 el.id = id;
-                // Removed opacity-0 and transition-opacity to prevent flickering on recreate/re-display
                 el.className = `absolute px-3 py-1.5 bg-slate-900/80 border border-slate-600 rounded ${colorClass} text-xs md:text-sm font-bold pointer-events-none transform -translate-x-1/2 -translate-y-1/2 shadow-lg backdrop-blur-md tracking-wide`;
                 document.getElementById('labels-container').appendChild(el);
             }
             el.style.display = 'block';
             el.innerText = text;
-            labels.push({ element: el, pos: new THREE.Vector3(x, y, z) });
+            labels.push({ element: el, pos: new THREE.Vector3(x, 0, z), baseH, doesDrop, yOffset });
         }
 
         // --- Circuit Configurations ---
@@ -582,37 +703,56 @@
             segments = [];
             marbles = [];
             bulbs = [];
+            dynamicMeshes = [];
+            dynamicPillars = [];
+            
+            labels.forEach(l => { if (l.element.parentNode) l.element.remove(); });
             labels = [];
 
-            // Hide existing DOM labels instead of destroying them to prevent flicker
-            const container = document.getElementById('labels-container');
-            Array.from(container.children).forEach(child => child.style.display = 'none');
+            // Cleanup Ammeters and HitTubes
+            hitTubes.forEach(t => { scene.remove(t); t.geometry.dispose(); t.material.dispose(); });
+            hitTubes = [];
+            if(ghostAmmeter) { scene.remove(ghostAmmeter); ghostAmmeter = null; }
+            ammeters.forEach(am => {
+                const el = document.getElementById(am.id);
+                if(el) el.remove();
+            });
+            ammeters = [];
+            isAddingAmmeter = false;
+            controls.enabled = true;
+            document.getElementById('addAmmeterBtn').classList.replace('bg-sky-600', 'bg-slate-700');
+            document.getElementById('addAmmeterBtn').classList.replace('border-sky-500', 'border-slate-600');
+            container.style.cursor = 'move';
         }
 
         function buildCircuit(type) {
             clearCircuit();
-            const H = Math.max(2, currentVoltageMultiplier / 5); // Max Height dynamically scales
+            const H = Math.max(2, currentVoltageMultiplier / 5); 
             const res2Container = document.getElementById('res2-container');
 
             if (type === 'simple') {
                 if (res2Container) res2Container.classList.add('hidden');
                 
-                segments.push(new TrackSegment(makeLine([-14, 0, 6], [-14, H, 6]), 'lift'));
-                segments.push(new TrackSegment(makeQuad([-14, H, 6], [-14, H, -6], [-10, H, -6]), 'wire'));
-                segments.push(new TrackSegment(makeLine([-10, H, -6], [2, H, -6]), 'wire'));
-                segments.push(new TrackSegment(makeLine([2, H, -6], [10, 0, -6]), 'bulb'));
-                // Smooth 180 U-Turn
-                segments.push(new TrackSegment(makeCubic([10, 0, -6], [16, 0, -6], [16, 0, 6], [10, 0, 6]), 'wire'));
-                segments.push(new TrackSegment(makeLine([10, 0, 6], [-14, 0, 6]), 'wire'));
+                segments.push(new TrackSegment(makeLine([-14, 0, 6], [-14, H, 6]), 'lift')); // idx: 0
+                segments.push(new TrackSegment(makeLine([-14, H, 6], [-10, H, 6]), 'switch')); // idx: 1 (Switch!)
+                segments.push(new TrackSegment(makeQuad([-10, H, 6], [-6, H, 6], [-6, H, -6]), 'wire')); // idx: 2
+                segments.push(new TrackSegment(makeLine([-6, H, -6], [2, H, -6]), 'wire')); // idx: 3
+                segments.push(new TrackSegment(makeLine([2, H, -6], [10, 0, -6]), 'bulb')); // idx: 4
+                segments.push(new TrackSegment(makeCubic([10, 0, -6], [16, 0, -6], [16, 0, 6], [10, 0, 6]), 'wire')); // idx: 5
+                segments.push(new TrackSegment(makeLine([10, 0, 6], [-14, 0, 6]), 'wire')); // idx: 6
+
+                segments.forEach((seg, idx) => seg.index = idx);
 
                 createElevator(segments[0]);
-                createTrackBoard(segments[1]);
+                createSwitch(segments[1]);
                 createTrackBoard(segments[2]);
-                createBulbRamp(segments[3], "Light Bulb", 1);
-                createTrackBoard(segments[4]);
+                createTrackBoard(segments[3]);
+                createBulbRamp(segments[4], "Light Bulb", 1);
                 createTrackBoard(segments[5]);
+                createTrackBoard(segments[6]);
 
-                createPillar(-10, H, -6);
+                createPillar(-10, H, 6);
+                createPillar(-6, H, -6);
                 createPillar(2, H, -6);
 
                 spawnMarbles(30, 0, 6);
@@ -620,25 +760,31 @@
             else if (type === 'series') {
                 if (res2Container) res2Container.classList.remove('hidden');
                 
-                segments.push(new TrackSegment(makeLine([-14, 0, 6], [-14, H, 6]), 'lift'));
-                segments.push(new TrackSegment(makeQuad([-14, H, 6], [-14, H, -6], [-10, H, -6]), 'wire'));
-                segments.push(new TrackSegment(makeLine([-10, H, -6], [-2, H, -6]), 'wire'));
-                segments.push(new TrackSegment(makeLine([-2, H, -6], [4, H/2, -6]), 'bulb')); // Stair 1
-                // Mid-level U-Turn
-                segments.push(new TrackSegment(makeCubic([4, H/2, -6], [10, H/2, -6], [10, H/2, 6], [4, H/2, 6]), 'wire'));
-                segments.push(new TrackSegment(makeLine([4, H/2, 6], [-2, 0, 6]), 'bulb')); // Stair 2
-                segments.push(new TrackSegment(makeLine([-2, 0, 6], [-14, 0, 6]), 'wire'));
+                segments.push(new TrackSegment(makeLine([-14, 0, 6], [-14, H, 6]), 'lift')); // idx: 0
+                segments.push(new TrackSegment(makeLine([-14, H, 6], [-10, H, 6]), 'switch')); // idx: 1 (Switch!)
+                segments.push(new TrackSegment(makeQuad([-10, H, 6], [-6, H, 6], [-6, H, -6]), 'wire')); // idx: 2
+                segments.push(new TrackSegment(makeLine([-6, H, -6], [-2, H, -6]), 'wire')); // idx: 3
+                segments.push(new TrackSegment(makeLine([-2, H, -6], [4, H/2, -6]), 'bulb')); // idx: 4 (Stair 1)
+                segments.push(new TrackSegment(makeCubic([4, H/2, -6], [10, H/2, -6], [10, H/2, 6], [4, H/2, 6]), 'wire')); // idx: 5
+                segments.push(new TrackSegment(makeLine([4, H/2, 6], [-2, 0, 6]), 'bulb')); // idx: 6 (Stair 2)
+                segments.push(new TrackSegment(makeLine([-2, 0, 6], [-14, 0, 6]), 'wire')); // idx: 7
+
+                segments.forEach((seg, idx) => seg.index = idx);
 
                 createElevator(segments[0]);
-                createTrackBoard(segments[1]);
+                createSwitch(segments[1]);
                 createTrackBoard(segments[2]);
-                createBulbRamp(segments[3], "Bulb 1", 1);
-                createTrackBoard(segments[4]);
-                createBulbRamp(segments[5], "Bulb 2", 2);
-                createTrackBoard(segments[6]);
+                createTrackBoard(segments[3]);
+                createBulbRamp(segments[4], "Bulb 1", 1);
+                createTrackBoard(segments[5]);
+                createBulbRamp(segments[6], "Bulb 2", 2);
+                createTrackBoard(segments[7]);
 
-                createPillar(-10, H, -6);
+                createPillar(-10, H, 6);
+                createPillar(-6, H, -6);
                 createPillar(-2, H, -6);
+                createPillar(4, H/2, -6);
+                createPillar(4, H/2, 6);
 
                 spawnMarbles(35, 0, 7);
             }
@@ -646,7 +792,7 @@
                 if (res2Container) res2Container.classList.remove('hidden');
                 
                 segments.push(new TrackSegment(makeLine([-14, 0, 0], [-14, H, 0]), 'lift')); // idx: 0
-                segments.push(new TrackSegment(makeLine([-14, H, 0], [-10, H, 0]), 'wire')); // idx: 1
+                segments.push(new TrackSegment(makeLine([-14, H, 0], [-10, H, 0]), 'switch')); // idx: 1 (Switch!)
                 
                 // Branch 1 (Back - S-Curve split)
                 segments.push(new TrackSegment(makeCubic([-10, H, 0], [-8, H, 0], [-8, H, -6], [-6, H, -6]), 'wire')); // idx: 2
@@ -665,8 +811,10 @@
                 // Shared Return
                 segments.push(new TrackSegment(makeLine([12, 0, 0], [-14, 0, 0]), 'wire')); // idx: 10
 
+                segments.forEach((seg, idx) => seg.index = idx);
+
                 createElevator(segments[0]);
-                createTrackBoard(segments[1]);
+                createSwitch(segments[1]);
                 
                 createTrackBoard(segments[2]);
                 createTrackBoard(segments[3]);
@@ -680,41 +828,103 @@
 
                 createTrackBoard(segments[10]);
 
+                createPillar(-10, H, 0);
                 createPillar(-6, H, -6);
                 createPillar(2, H, -6);
                 createPillar(-6, H, 6);
                 createPillar(2, H, 6);
 
-                // Distribute evenly initially
-                spawnMarbles(15, 2, 6);  // Branch 1 loop
-                spawnMarbles(15, 6, 10); // Branch 2 loop
+                const p1 = currentResistance2Multiplier / (currentResistance1Multiplier + currentResistance2Multiplier);
+                const branch1Marbles = Math.round(30 * p1);
+                const branch2Marbles = 30 - branch1Marbles;
+
+                spawnMarbles(branch1Marbles, 2, 6);  // Branch 1 loop
+                spawnMarbles(branch2Marbles, 6, 10); // Branch 2 loop
                 spawnMarbles(10, 0, 2);  // Shared initial lines
             }
+
+            // Generate invisible hitbox tubes for raycasting over all track paths
+            segments.forEach((seg, idx) => {
+                if (seg.type === 'lift' || seg.type === 'switch') return; 
+                const hitGeo = new THREE.TubeGeometry(seg.curve, Math.floor(seg.length * 2), T_WIDTH/2 + 0.5, 8, false);
+                const hitMat = new THREE.MeshBasicMaterial({visible: false});
+                const hitMesh = new THREE.Mesh(hitGeo, hitMat);
+                hitMesh.userData = { index: idx };
+                scene.add(hitMesh);
+                hitTubes.push(hitMesh);
+                sceneObjects.push(hitMesh);
+            });
+            
+            // Force quick initial update to place meshes before first render
+            updateDynamicMeshes();
+        }
+
+        function getParallelRoutePref() {
+            const R1 = currentResistance1Multiplier;
+            const R2 = currentResistance2Multiplier;
+            const p1 = R2 / (R1 + R2);
+            return Math.random() < p1 ? 1 : 2;
         }
 
         function spawnMarbles(count, startSegIdx = 0, endSegIdx = null) {
             let limit = endSegIdx || segments.length;
+            
+            // Calculate total length of the specified segment range
+            let totalLength = 0;
+            for (let i = startSegIdx; i < limit; i++) {
+                totalLength += segments[i].length;
+            }
+            
+            // Calculate exact spacing interval between marbles
+            let interval = totalLength / count;
+            
             for (let i = 0; i < count; i++) {
-                let initialSeg = startSegIdx + Math.floor(Math.random() * (limit - startSegIdx));
-                let initialProg = Math.random() * segments[initialSeg].length;
+                let targetDist = i * interval;
+                let currentSeg = startSegIdx;
+                
+                // Find which segment this exact distance falls into
+                while (currentSeg < limit && targetDist >= segments[currentSeg].length) {
+                    targetDist -= segments[currentSeg].length;
+                    currentSeg++;
+                }
+                
+                // Edge case safety constraint
+                if (currentSeg >= limit) {
+                    currentSeg = limit - 1;
+                    targetDist = segments[currentSeg].length - 0.01;
+                }
+                
+                let initialSeg = currentSeg;
+                let initialProg = targetDist;
+                
                 let marble = new Marble(initialSeg, initialProg);
                 
-                if (segments.length > 8) { // Parallel routing assignment
+                if (segments.length > 8) { 
                     if (initialSeg >= 2 && initialSeg <= 5) marble.routePrefs = 1;
                     else if (initialSeg >= 6 && initialSeg <= 9) marble.routePrefs = 2;
-                    else marble.routePrefs = Math.random() > 0.5 ? 1 : 2; 
+                    else marble.routePrefs = getParallelRoutePref(); 
                 }
                 marbles.push(marble);
             }
         }
 
         // --- Interaction & UI ---
-        let isCircuitOn = true;
+        let isCircuitOn = false;
+        let showLabels = true;
+        let isAddingAmmeter = false;
+        let ghostAmmeter = null;
+        let ammeterIdCounter = 0;
+        
         let currentVoltageMultiplier = 60;
         let currentResistance1Multiplier = 50;
         let currentResistance2Multiplier = 50;
 
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+
         const toggleBtn = document.getElementById('toggleCircuitBtn');
+        const addAmmeterBtn = document.getElementById('addAmmeterBtn');
+        const toggleLabelsBtn = document.getElementById('toggleLabelsBtn');
         const voltageSlider = document.getElementById('voltage');
         const resistance1Slider = document.getElementById('resistance1');
         const resistance2Slider = document.getElementById('resistance2');
@@ -729,6 +939,153 @@
             } else {
                 toggleBtn.textContent = 'Switch: OFF';
                 toggleBtn.className = 'bg-red-600 hover:bg-red-500 text-white px-6 py-2.5 rounded-lg font-bold transition-all shadow-[0_0_15px_rgba(220,38,38,0.4)] w-full sm:w-32 shrink-0';
+            }
+        });
+
+        // Add Ammeter raycast logic
+        addAmmeterBtn.addEventListener('click', () => {
+            if (!isCircuitOn) toggleBtn.click(); // Force turn on circuit to avoid hitboxes mismatching dropped track
+            
+            isAddingAmmeter = !isAddingAmmeter;
+            if (isAddingAmmeter) {
+                addAmmeterBtn.classList.replace('bg-slate-700', 'bg-sky-600');
+                addAmmeterBtn.classList.replace('border-slate-600', 'border-sky-500');
+                container.style.cursor = 'crosshair';
+                controls.enabled = false; 
+            } else {
+                addAmmeterBtn.classList.replace('bg-sky-600', 'bg-slate-700');
+                addAmmeterBtn.classList.replace('border-sky-500', 'border-slate-600');
+                container.style.cursor = 'move';
+                controls.enabled = true;
+                if(ghostAmmeter) ghostAmmeter.visible = false;
+            }
+        });
+
+        container.addEventListener('mousemove', (e) => {
+            if (!isAddingAmmeter) return;
+            
+            const rect = container.getBoundingClientRect();
+            mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+            mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+            
+            if (!ghostAmmeter) {
+                const ringGeo = new THREE.TorusGeometry(1.5, 0.2, 16, 32);
+                const ringMat = new THREE.MeshStandardMaterial({color: 0x0ea5e9, transparent: true, opacity: 0.5, emissive: 0x0369a1});
+                ghostAmmeter = new THREE.Mesh(ringGeo, ringMat);
+                scene.add(ghostAmmeter);
+            }
+            
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(hitTubes);
+            
+            if (intersects.length > 0) {
+                const hit = intersects[0];
+                const segIdx = hit.object.userData.index;
+                const seg = segments[segIdx];
+                const progress = hit.uv.x * seg.length;
+                
+                const pt = seg.getPointAt(progress);
+                const b = seg.getBasisAt(progress);
+                const quaternion = seg.getQuaternionAt(progress);
+                
+                ghostAmmeter.position.copy(pt).addScaledVector(b.up, 1.2);
+                ghostAmmeter.quaternion.copy(quaternion);
+                ghostAmmeter.visible = true;
+                ghostAmmeter.userData = { segIdx, progress };
+            } else {
+                ghostAmmeter.visible = false;
+            }
+        });
+
+        container.addEventListener('click', (e) => {
+            if (isAddingAmmeter && ghostAmmeter && ghostAmmeter.visible) {
+                const {segIdx, progress} = ghostAmmeter.userData;
+                const seg = segments[segIdx];
+                
+                const pt = seg.getPointAt(progress);
+                const b = seg.getBasisAt(progress);
+                const quaternion = seg.getQuaternionAt(progress);
+                
+                const ringGeo = new THREE.TorusGeometry(1.5, 0.2, 16, 32);
+                const ringMat = new THREE.MeshStandardMaterial({color: 0x0ea5e9, emissive: 0x0369a1, metalness: 0.8});
+                const ring = new THREE.Mesh(ringGeo, ringMat);
+                ring.position.copy(pt).addScaledVector(b.up, 1.2);
+                ring.quaternion.copy(quaternion);
+                scene.add(ring);
+                sceneObjects.push(ring);
+                
+                const id = 'ammeter-ui-' + ammeterIdCounter++;
+                
+                ammeters.push({
+                    id: id,
+                    segmentIndex: segIdx,
+                    progress: progress,
+                    mesh: ring,
+                    count: 0,
+                    timer: 0,
+                    lastReading: 0
+                });
+                
+                const lblContainer = document.getElementById('labels-container');
+                const el = document.createElement('div');
+                el.id = id;
+                el.className = `absolute px-3 py-2 bg-slate-900/90 border border-sky-500 rounded-lg shadow-[0_0_15px_rgba(56,189,248,0.3)] backdrop-blur-md pointer-events-none transform -translate-x-1/2 -translate-y-[130%] min-w-[110px] text-center transition-opacity duration-100`;
+                el.innerHTML = `
+                    <div class="flex justify-between items-start mb-0.5">
+                        <div class="text-sky-400 text-[10px] font-bold uppercase tracking-wider">Ammeter</div>
+                        <button class="delete-ammeter-btn text-slate-400 hover:text-red-400 transition-colors cursor-pointer pointer-events-auto" data-id="${id}" title="Remove Ammeter">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        </button>
+                    </div>
+                    <div class="text-xl font-extrabold text-white mb-1"><span class="val">0</span> <span class="text-[10px] text-slate-400 font-medium normal-case tracking-normal">/20s</span></div>
+                    <div class="w-full bg-slate-700 h-1.5 rounded-full overflow-hidden">
+                        <div class="bar bg-sky-500 h-full w-0"></div>
+                    </div>
+                `;
+                lblContainer.appendChild(el);
+                
+                isAddingAmmeter = false;
+                ghostAmmeter.visible = false;
+                addAmmeterBtn.classList.replace('bg-sky-600', 'bg-slate-700');
+                addAmmeterBtn.classList.replace('border-sky-500', 'border-slate-600');
+                container.style.cursor = 'move';
+                controls.enabled = true;
+            }
+        });
+
+        // Delegation listener for ammeter deletion
+        document.getElementById('labels-container').addEventListener('click', (e) => {
+            const btn = e.target.closest('.delete-ammeter-btn');
+            if (btn) {
+                e.stopPropagation(); 
+                const idToRemove = btn.getAttribute('data-id');
+                
+                const idx = ammeters.findIndex(a => a.id === idToRemove);
+                if (idx !== -1) {
+                    const am = ammeters[idx];
+                    scene.remove(am.mesh);
+                    am.mesh.geometry.dispose();
+                    am.mesh.material.dispose();
+                    
+                    const soIdx = sceneObjects.indexOf(am.mesh);
+                    if (soIdx !== -1) sceneObjects.splice(soIdx, 1);
+
+                    ammeters.splice(idx, 1);
+                }
+                
+                const elToRemove = document.getElementById(idToRemove);
+                if (elToRemove) elToRemove.remove();
+            }
+        });
+
+        toggleLabelsBtn.addEventListener('click', () => {
+            showLabels = !showLabels;
+            if (!showLabels) {
+                labels.forEach(l => l.element.style.display = 'none');
+                ammeters.forEach(am => {
+                    const el = document.getElementById(am.id);
+                    if(el) el.style.display = 'none';
+                });
             }
         });
 
@@ -760,15 +1117,47 @@
         });
 
         function updateLabels() {
+            if (!showLabels) {
+                labels.forEach(l => l.element.style.display = 'none');
+                ammeters.forEach(am => {
+                    const el = document.getElementById(am.id);
+                    if(el) el.style.display = 'none';
+                });
+                return;
+            }
+
             labels.forEach(l => {
                 const pos = l.pos.clone();
+                // If it's a label that physically drops, scale its height!
+                pos.y = (l.doesDrop ? l.baseH * circuitState.dropFactor : l.baseH) + l.yOffset;
+                
                 pos.project(camera);
                 if (pos.z < 1 && pos.z > -1) {
-                    l.element.style.opacity = 1;
+                    l.element.style.display = 'block';
                     l.element.style.left = `${(pos.x * 0.5 + 0.5) * container.clientWidth}px`;
                     l.element.style.top = `${(pos.y * -0.5 + 0.5) * container.clientHeight}px`;
                 } else {
-                    l.element.style.opacity = 0;
+                    l.element.style.display = 'none';
+                }
+            });
+
+            ammeters.forEach(am => {
+                const el = document.getElementById(am.id);
+                if (!el) return;
+                
+                const pos = am.mesh.position.clone();
+                pos.y += 0.5; 
+                pos.project(camera);
+                
+                if (pos.z < 1 && pos.z > -1) {
+                    el.style.display = 'block';
+                    el.style.left = `${(pos.x * 0.5 + 0.5) * container.clientWidth}px`;
+                    el.style.top = `${(pos.y * -0.5 + 0.5) * container.clientHeight}px`;
+                    
+                    el.querySelector('.val').innerText = am.lastReading;
+                    el.querySelector('.bar').style.width = (am.timer / 20.0) * 100 + '%';
+                } else {
+                    el.style.display = 'none';
                 }
             });
         }
@@ -776,6 +1165,7 @@
         function handleParallelSplit(marble) {
             const seg = segments[marble.segmentIndex];
             if (marble.segmentIndex === 1 && marble.progress >= seg.length) {
+                marble.routePrefs = getParallelRoutePref();
                 marble.segmentIndex = marble.routePrefs === 1 ? 2 : 6;
                 marble.progress = 0;
                 return true;
@@ -783,10 +1173,48 @@
             if ((marble.segmentIndex === 5 || marble.segmentIndex === 9) && marble.progress >= seg.length) {
                 marble.segmentIndex = 10;
                 marble.progress = 0;
-                marble.routePrefs = Math.random() > 0.5 ? 1 : 2; 
                 return true;
             }
             return false;
+        }
+
+        // --- Core Render & Physical Frame Updates ---
+        
+        function updateDynamicMeshes() {
+            // Apply coordinates to all registered visual elements
+            dynamicMeshes.forEach(item => {
+                const pt = item.seg.getPointAt(item.progress);
+                const b = item.seg.getBasisAt(item.progress);
+                const quat = item.seg.getQuaternionAt(item.progress);
+
+                item.mesh.position.copy(pt)
+                    .addScaledVector(b.right, item.offsetRight)
+                    .addScaledVector(b.up, item.offsetUp);
+
+                if (item.isPeg) {
+                    // Pegs should stand normal to the track surface
+                    item.mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0), b.up);
+                } else {
+                    item.mesh.quaternion.copy(quat);
+                }
+            });
+
+            // Sinking Pillars
+            dynamicPillars.forEach(p => {
+                const currentTop = p.baseTop * circuitState.dropFactor;
+                p.mesh.scale.y = Math.max(0.05, currentTop);
+            });
+
+            // Updating Ammeter meshes so they drop too
+            ammeters.forEach(am => {
+                const seg = segments[am.segmentIndex];
+                const pt = seg.getPointAt(am.progress);
+                const b = seg.getBasisAt(am.progress);
+                const quat = seg.getQuaternionAt(am.progress);
+                
+                am.mesh.position.copy(pt).addScaledVector(b.up, 1.2);
+                am.mesh.quaternion.copy(quat);
+            });
         }
 
         // --- Main Animation Loop ---
@@ -796,65 +1224,121 @@
             requestAnimationFrame(animate);
             const delta = Math.min(clock.getDelta(), 0.1); 
 
-            if (isCircuitOn) {
-                marbles.forEach(m => {
-                    const oldSegIdx = m.segmentIndex;
-                    
-                    m.update(delta, currentVoltageMultiplier, marbles);
-                    
-                    if (segments.length > 8) {
-                        if(oldSegIdx !== m.segmentIndex) {
-                           m.segmentIndex = oldSegIdx; 
-                           m.progress = segments[oldSegIdx].length; 
-                           if (!handleParallelSplit(m)) {
-                               m.segmentIndex = (oldSegIdx + 1) % segments.length;
-                               m.progress = 0;
-                           }
+            // Animated Drop Factor (1.0 = Max Height/Potential, 0.05 = Ground Floor)
+            const targetDrop = isCircuitOn ? 1.0 : 0.05;
+            circuitState.dropFactor += (targetDrop - circuitState.dropFactor) * 0.1;
+
+            updateDynamicMeshes();
+
+            // Always run physics regardless of switch status so charges can equalize
+            marbles.forEach(m => {
+                const oldSegIdx = m.segmentIndex;
+                const oldProgress = m.progress;
+                
+                m.update(delta, currentVoltageMultiplier, marbles);
+                
+                let finalSegIdx = m.segmentIndex;
+                let finalProgress = m.progress;
+                
+                if (segments.length > 8) {
+                    if(oldSegIdx !== m.segmentIndex) {
+                        m.segmentIndex = oldSegIdx; 
+                        m.progress = segments[oldSegIdx].length; 
+                        if (!handleParallelSplit(m)) {
+                            m.segmentIndex = (oldSegIdx + 1) % segments.length;
+                            m.progress = 0;
                         }
+                        finalSegIdx = m.segmentIndex;
+                        finalProgress = m.progress;
+                    }
+                }
+
+                ammeters.forEach(am => {
+                    if (oldSegIdx === am.segmentIndex && finalSegIdx === am.segmentIndex) {
+                        if (oldProgress <= am.progress && finalProgress > am.progress) am.count++;
+                        else if (oldProgress >= am.progress && finalProgress < am.progress) am.count--;
+                    }
+                    else if (oldSegIdx === am.segmentIndex && finalSegIdx !== am.segmentIndex) {
+                        if (m.lastSpeed > 0 && oldProgress <= am.progress) am.count++;
+                        else if (m.lastSpeed < 0 && oldProgress >= am.progress) am.count--;
+                    }
+                    else if (finalSegIdx === am.segmentIndex && oldSegIdx !== am.segmentIndex) {
+                        if (m.lastSpeed > 0 && finalProgress > am.progress) am.count++;
+                        else if (m.lastSpeed < 0 && finalProgress < am.progress) am.count--;
                     }
                 });
-            }
+            });
+
+            ammeters.forEach(am => {
+                am.timer += delta;
+                if (am.timer >= 20.0) {
+                    am.lastReading = am.count;
+                    am.count = 0;
+                    am.timer -= 20.0; 
+                }
+            });
 
             marbles.forEach(m => {
-                // Absolute max height is 20.0 (max voltage 100 / 5)
                 const absoluteMaxH = 20.0;
                 const absoluteHeightRatio = Math.max(0, Math.min(1, m.mesh.position.y / absoluteMaxH)); 
-                
-                // Emissive intensity scales strictly on absolute potential (from 0 at ground to 5.0 at 100V max height)
                 m.material.emissiveIntensity = absoluteHeightRatio * 5.0;
                 m.light.intensity = absoluteHeightRatio * 2.5;
             });
 
-            const circuitTypeStr = document.getElementById('circuitType').value;
             const V = currentVoltageMultiplier;
             const R1 = currentResistance1Multiplier;
             const R2 = currentResistance2Multiplier;
+            const cType = document.getElementById('circuitType').value;
 
             bulbs.forEach(b => {
                 const rValue = b.bulbIndex === 1 ? R1 : R2;
-                const pegScale = 0.4 + (rValue / 100) * 1.2;
+                const pegScale = 0.6 + (rValue / 100) * 0.6;
                 
-                b.pegs.forEach(peg => peg.scale.set(pegScale, 1, pegScale));
+                b.pegs.forEach(peg => {
+                    // Density Control: Toggle visibility based on threshold
+                    peg.visible = rValue >= peg.userData.threshold;
+                    if (peg.visible) {
+                        peg.scale.set(pegScale, 1, pegScale);
+                    }
+                });
 
+                // Check actual flow to verify the circuit is physically closed
+                let actualFlow = b.flowSpeedSum || 0;
+                b.flowSpeedSum = 0; 
+
+                // Calculate theoretical Power based on Circuit Type
                 let power = 0;
-                if (circuitTypeStr === 'simple') {
-                    power = (V * V) / rValue;
-                } else if (circuitTypeStr === 'series') {
+                if (cType === 'simple') {
+                    power = (V * V) / R1;
+                } else if (cType === 'series') {
                     const I = V / (R1 + R2);
                     power = I * I * rValue;
-                } else if (circuitTypeStr === 'parallel') {
+                } else if (cType === 'parallel') {
                     power = (V * V) / rValue;
                 }
 
-                const targetBrightness = isCircuitOn ? Math.min(power * 0.02, 8.0) : 0;
+                // Map mathematical power to visual brightness
+                let targetBrightness = Math.min(10.0, Math.pow(power / 50.0, 0.5) * 1.5);
+                
+                // Fade out smoothly if switch is off or physical marble flow stops
+                if (!isCircuitOn || actualFlow < 0.1) {
+                    targetBrightness = 0;
+                }
                 
                 b.smoothHeat += (targetBrightness - b.smoothHeat) * 0.1;
                 
                 const hotColor = new THREE.Color(0xffaa33); 
                 b.material.emissive.copy(hotColor).multiplyScalar(b.smoothHeat);
                 
-                b.light.intensity = b.smoothHeat * 2.0;
-                b.light.color.setHex(0xffdd88);
+                if (b.light) {
+                    b.light.intensity = b.smoothHeat * 2.0;
+                    b.light.color.setHex(0xffdd88);
+                    
+                    // Light object falls down with the track
+                    const pt = b.segment.getPointAt(b.segment.length / 2);
+                    b.light.position.copy(pt);
+                    b.light.position.y += 2.0; 
+                }
             });
 
             controls.update();
