@@ -69,17 +69,18 @@
             height: 18px;
             width: 18px;
             border-radius: 50%;
-            background: #ef4444;
+            background: #38bdf8;
             cursor: pointer;
             border: 2px solid #ffffff;
-            box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
             margin-top: -6px;
         }
         input[type=range]::-webkit-slider-runnable-track {
             width: 100%;
             height: 6px;
             cursor: pointer;
-            background: #334155;
+            background: #1e293b;
+            border: 1px solid #334155;
             border-radius: 3px;
         }
     </style>
@@ -218,22 +219,39 @@
                             </div>
                         </div>
 
-                        <!-- Next Action Button (Same glowing outline style as simulation panels) -->
-                        <button id="nextBtn" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-3 px-4 rounded-lg transition-all hidden shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2">
-                            <span>Next Question</span>
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
-                        </button>
+                        <!-- Sleek Placeholder & Active Action Row Container (Solves blank gap) -->
+                        <div class="w-full">
+                            <!-- Next Action Button (Shown when answered) -->
+                            <button id="nextBtn" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-3 px-4 rounded-lg transition-all hidden shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2">
+                                <span>Next Question</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+                            </button>
+                            <!-- Elegant Placeholder Button (Shown when awaiting answer) -->
+                            <button id="placeholderBtn" class="w-full bg-slate-800/80 text-slate-500 border border-slate-700/60 font-semibold py-3 px-4 rounded-lg cursor-not-allowed flex items-center justify-center gap-2 transition-all">
+                                <span>Awaiting Response...</span>
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Syllabus Filters & Configuration Board (Aesthetic similarity to range settings) -->
                     <div class="bg-slate-800/50 rounded-xl p-5 border border-slate-700/60 text-sm w-full">
                         <h4 class="text-white font-bold mb-3">Topic Calibration</h4>
-                        <div class="space-y-3">
+                        <div class="space-y-4">
+                            <!-- Multi-Select Category Checkboxes -->
                             <div>
-                                <label class="block text-xs text-slate-400 mb-1">Focus Syllabus Part:</label>
-                                <select id="categoryFilterSelect" class="w-full bg-slate-900 border border-slate-700 rounded-lg py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium">
-                                    <option value="all">Full Compulsory Syllabus</option>
-                                </select>
+                                <label class="block text-xs text-slate-400 mb-2 font-semibold">Focus Syllabus Parts (Select to mix):</label>
+                                <div id="topicsCheckboxContainer" class="space-y-2 bg-slate-900/60 border border-slate-700 p-2.5 rounded-lg max-h-40 overflow-y-auto">
+                                    <!-- Injected dynamically via JS -->
+                                </div>
+                            </div>
+
+                            <!-- Interactive Question Count Selection -->
+                            <div>
+                                <div class="flex justify-between items-center mb-1 text-xs text-slate-400">
+                                    <span class="font-semibold">Question Count:</span>
+                                    <span id="questionCountDisplay" class="text-emerald-400 font-bold font-mono">0</span>
+                                </div>
+                                <input type="range" id="questionCountSlider" min="1" max="6" value="6" class="w-full">
                             </div>
                             
                             <!-- Dynamic File Load Status Indicators -->
@@ -338,10 +356,10 @@
                 id: 2,
                 type: "short",
                 category: "Heat and Gases",
-                question: "How much energy (in $\\text{kJ}$) is required to melt $0.500\\text{ kg}$ of ice at $0\\text{ }^{\\circ}\\text{C}$? ($L_f = 3.34 \\times 10^5\\text{ J kg}^{-1}$)",
-                correctAnswerValue: "167",
-                correctUnit: "kJ",
-                explanation: "Using latent heat formula: $Q = m L_f = 0.500 \\times 3.34 \\times 10^5\\text{ J} = 167,000\\text{ J} = 167\\text{ kJ}$ (corrected to 3 significant figures)."
+                question: "Water of mass $2\\text{ kg}$ at $100\\text{ }^{\\circ}\\text{C}$ is turned to steam. Find the energy needed. ($L_v = 2.26 \\times 10^6\\text{ J kg}^{-1}$)",
+                correctAnswerValue: "4.52 x 10^6",
+                correctUnit: "J",
+                explanation: "Using latent heat of vaporization: $Q = m L_v$. Substituting variables yields: $Q = 2\\text{ kg} \\times 2.26 \\times 10^6\\text{ J kg}^{-1} = 4.52 \\times 10^6\\text{ J}$."
             },
             {
                 id: 3,
@@ -497,6 +515,16 @@
             });
         }
 
+        // --- Fisher-Yates Array Shuffling Helper ---
+        function shuffleArray(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
         // --- Local State ---
         let questionsList = JSON.parse(JSON.stringify(DEFAULT_QUESTIONS));
         let currentQuestionsPool = [];
@@ -559,7 +587,7 @@
         }
 
         // --- DOM Elements References (Assigned inside window.onload) ---
-        let categoryFilterSelect;
+        let topicsCheckboxContainer;
         let liveScore;
         let liveStreak;
         let currentCategoryText;
@@ -576,6 +604,7 @@
         let panelTitle;
         let panelDescription;
         let nextBtn;
+        let placeholderBtn; // Solves blank gap
         let quizContainer;
         let resultsScreen;
         let restartBtn;
@@ -591,6 +620,9 @@
         
         let dbSourceText;
         let dbSourceType;
+        
+        let questionCountSlider;
+        let questionCountDisplay;
 
         // --- Audio Controls UI sync ---
         function updateAudioButtonUI() {
@@ -603,22 +635,60 @@
             }
         }
 
-        // --- Setup Categories Dropdown ---
+        // --- Setup Categories Checkbox List ---
         function populateCategories() {
             const categories = [...new Set(questionsList.map(q => q.category || "General"))];
             
-            // Sync with sidebar select element
-            if (categoryFilterSelect) {
-                const currentSelectedSide = categoryFilterSelect.value;
-                categoryFilterSelect.innerHTML = '<option value="all">Full Compulsory Syllabus</option>';
-                categories.forEach(cat => {
-                    const opt = document.createElement('option');
-                    opt.value = cat;
-                    opt.textContent = cat;
-                    if (cat === currentSelectedSide) opt.selected = true;
-                    categoryFilterSelect.appendChild(opt);
+            if (topicsCheckboxContainer) {
+                topicsCheckboxContainer.innerHTML = '';
+                categories.forEach((cat, idx) => {
+                    const label = document.createElement('label');
+                    label.className = "flex items-center gap-2.5 text-xs text-slate-300 hover:text-white cursor-pointer select-none py-0.5";
+                    label.innerHTML = `
+                        <input type="checkbox" value="${cat}" checked class="topic-checkbox rounded bg-slate-950 border-slate-700 text-blue-500 focus:ring-blue-500 focus:ring-offset-slate-900 w-4 h-4">
+                        <span class="truncate">${cat}</span>
+                    `;
+                    
+                    const cb = label.querySelector('input');
+                    cb.addEventListener('change', () => {
+                        playClickSound();
+                        updateQuestionCountSliderLimits();
+                        startQuiz();
+                    });
+                    
+                    topicsCheckboxContainer.appendChild(label);
                 });
             }
+        }
+
+        // --- Update Question Count Slider Limits Dynamically ---
+        function updateQuestionCountSliderLimits() {
+            if (!topicsCheckboxContainer || !questionCountSlider || !questionCountDisplay) return;
+            
+            const checkedBoxes = document.querySelectorAll('.topic-checkbox:checked');
+            const selectedCategories = Array.from(checkedBoxes).map(cb => cb.value);
+            
+            let availableQuestions = [];
+            if (selectedCategories.length === 0) {
+                availableQuestions = [...questionsList];
+            } else {
+                availableQuestions = questionsList.filter(q => selectedCategories.includes(q.category));
+            }
+
+            if (availableQuestions.length === 0) {
+                availableQuestions = [...DEFAULT_QUESTIONS];
+            }
+
+            const maxQuestions = availableQuestions.length;
+            questionCountSlider.max = maxQuestions;
+            
+            // Default slider value to max questions or bound previous value
+            let currentVal = parseInt(questionCountSlider.value);
+            if (isNaN(currentVal) || currentVal > maxQuestions || currentVal <= 0) {
+                questionCountSlider.value = maxQuestions;
+            }
+            
+            questionCountDisplay.textContent = questionCountSlider.value;
         }
 
         // --- LaTeX MathJax Recompilation Trigger ---
@@ -630,16 +700,26 @@
 
         // --- Quiz Play Engine ---
         function startQuiz() {
-            const activeCategory = (categoryFilterSelect) ? categoryFilterSelect.value : 'all';
-            if (activeCategory === 'all') {
-                currentQuestionsPool = [...questionsList];
+            const checkedBoxes = document.querySelectorAll('.topic-checkbox:checked');
+            const selectedCategories = Array.from(checkedBoxes).map(cb => cb.value);
+            
+            let targetPool = [];
+            if (selectedCategories.length === 0) {
+                targetPool = [...questionsList];
             } else {
-                currentQuestionsPool = questionsList.filter(q => q.category === activeCategory);
+                targetPool = questionsList.filter(q => selectedCategories.includes(q.category));
             }
 
-            if (currentQuestionsPool.length === 0) {
-                currentQuestionsPool = [...DEFAULT_QUESTIONS];
+            if (targetPool.length === 0) {
+                targetPool = [...DEFAULT_QUESTIONS];
             }
+
+            // 1. Shuffling (randomising) the order of questions
+            const shuffledPool = shuffleArray(targetPool);
+
+            // 2. Limit pool to chosen number of questions from slider
+            const chosenLimit = questionCountSlider ? parseInt(questionCountSlider.value) : shuffledPool.length;
+            currentQuestionsPool = shuffledPool.slice(0, chosenLimit);
 
             currentQuestionIndex = 0;
             scoreCount = 0;
@@ -667,7 +747,9 @@
         function showQuestion() {
             selectedIdx = null;
             isAnswered = false;
+            
             if (nextBtn) nextBtn.classList.add('hidden');
+            if (placeholderBtn) placeholderBtn.classList.remove('hidden'); // Show placeholder on loaded question
 
             const activeQ = currentQuestionsPool[currentQuestionIndex];
             if (!activeQ) {
@@ -735,23 +817,29 @@
             triggerMathTypeset();
         }
 
-        // --- 3 Significant Figures Comparison Logic ---
+        // --- Custom Scientific Notation Comparison Engine ---
+        function parseScientificNotation(str) {
+            let s = str.trim().toLowerCase().replace(/\s+/g, '');
+            // Replace 'x10^' or '*10^' or '·10^' with 'e'
+            s = s.replace(/(?:[xX\*·]?10\^?)/g, 'e');
+            // Clean remaining multiplication dot variations
+            s = s.replace(/[·\*]/g, '');
+            return parseFloat(s);
+        }
+
         function checkValueOnlyMatch(studentValStr, correctValStr) {
-            const sVal = studentValStr.trim();
-            const cVal = correctValStr.trim();
+            const parsedStudent = parseScientificNotation(studentValStr);
+            const parsedCorrect = parseScientificNotation(correctValStr);
 
-            const studentNum = parseFloat(sVal);
-            const correctNum = parseFloat(cVal);
-            if (isNaN(studentNum) || isNaN(correctNum)) return false;
-
-            if (studentNum === correctNum) return true;
+            if (isNaN(parsedStudent) || isNaN(parsedCorrect)) return false;
+            if (parsedStudent === parsedCorrect) return true;
 
             const to3SigFigs = (num) => {
                 if (num === 0) return "0.00";
                 return Number(num.toPrecision(3)).toString();
             };
 
-            return to3SigFigs(studentNum) === to3SigFigs(correctNum);
+            return to3SigFigs(parsedStudent) === to3SigFigs(parsedCorrect);
         }
 
         // --- Multiple Choice Evaluation ---
@@ -818,7 +906,8 @@
                 </div>
             `;
 
-            if (nextBtn) nextBtn.classList.remove('hidden');
+            if (placeholderBtn) placeholderBtn.classList.add('hidden'); // Hide placeholder
+            if (nextBtn) nextBtn.classList.remove('hidden'); // Show Next Question button
             triggerMathTypeset();
         }
 
@@ -880,7 +969,7 @@
         // --- Start Initialization & Safe Element Querying ---
         window.onload = async () => {
             // Assign DOM Elements safely
-            categoryFilterSelect = document.getElementById('categoryFilterSelect');
+            topicsCheckboxContainer = document.getElementById('topicsCheckboxContainer');
             liveScore = document.getElementById('liveScore');
             liveStreak = document.getElementById('liveStreak');
             currentCategoryText = document.getElementById('currentCategoryText');
@@ -895,6 +984,7 @@
             panelTitle = document.getElementById('panelTitle');
             panelDescription = document.getElementById('panelDescription');
             nextBtn = document.getElementById('nextBtn');
+            placeholderBtn = document.getElementById('placeholderBtn'); // Assign placeholder element
             quizContainer = document.getElementById('quizContainer');
             resultsScreen = document.getElementById('resultsScreen');
             restartBtn = document.getElementById('restartBtn');
@@ -908,13 +998,26 @@
             finalStreak = document.getElementById('finalStreak');
             dbSourceText = document.getElementById('dbSourceText');
             dbSourceType = document.getElementById('dbSourceType');
+            questionCountSlider = document.getElementById('questionCountSlider');
+            questionCountDisplay = document.getElementById('questionCountDisplay');
 
             // Try loading from JSON folder
             await loadQuestionBank();
 
+            // Setup Categories (Checkbox implementation)
+            populateCategories();
+
+            // Set up ranges on sliders initially
+            updateQuestionCountSliderLimits();
+
             // Attach event listeners safely
-            if (categoryFilterSelect) {
-                categoryFilterSelect.addEventListener('change', () => {
+            if (questionCountSlider) {
+                questionCountSlider.addEventListener('input', () => {
+                    if (questionCountDisplay) {
+                        questionCountDisplay.textContent = questionCountSlider.value;
+                    }
+                });
+                questionCountSlider.addEventListener('change', () => {
                     playClickSound();
                     startQuiz();
                 });
@@ -1068,7 +1171,8 @@
                         `;
                     }
 
-                    if (nextBtn) nextBtn.classList.remove('hidden');
+                    if (placeholderBtn) placeholderBtn.classList.add('hidden'); // Hide placeholder
+                    if (nextBtn) nextBtn.classList.remove('hidden'); // Show Next Question button
                     triggerMathTypeset();
                 });
             }
