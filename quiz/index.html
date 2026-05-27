@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HKDSE Physics Exam Prep Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- MathJax Setup for Elegant LaTeX Rendering -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        /* Modern, ultra-thin elegant scrollbars for slate theme */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 9999px;
+            border: 1px solid #0f172a;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        /* Prevent ugly internal scrollbars/overflow UI inside the text input box */
+        input[type="text"] {
+            overflow: hidden !important;
+            resize: none !important;
+            scrollbar-width: none !important; /* Firefox */
+        }
+        input[type="text"]::-webkit-scrollbar {
+            display: none !important; /* Chrome/Safari/Webkit */
+        }
+
+        /* Match canvas rounded panels of example webpage */
+        .simulator-panel {
+            background-color: #1e293b;
+            border-radius: 0.5rem;
+            box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+        }
+        /* Custom input thumb matching heat conduction simulator */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 18px;
+            width: 18px;
+            border-radius: 50%;
+            background: #ef4444;
+            cursor: pointer;
+            border: 2px solid #ffffff;
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+            margin-top: -6px;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 6px;
+            cursor: pointer;
+            background: #334155;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center p-4 md:p-8">
+
+    <div class="max-w-6xl w-full flex-1 flex flex-col justify-between">
+        
+        <!-- Header & Navigation -->
+        <div>
+            <div class="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <a href="../" class="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-all text-sm font-bold bg-slate-800 py-2.5 px-5 rounded-lg border border-slate-700 shadow-md hover:bg-slate-700">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    Back to Home
+                </a>
+                
+                <div class="flex gap-2 w-full sm:w-auto">
+                    <!-- Synthesizer Audio Toggle -->
+                    <button id="toggleAudioBtn" class="bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white p-2.5 rounded-lg border border-slate-700 transition-all flex items-center justify-center shadow-md shrink-0" title="Toggle Sound Effects">
+                        <svg id="soundOnIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M12 18.75V5.25L7.75 9.5H4.5v5h3.25L12 18.75z"></path></svg>
+                        <svg id="soundOffIcon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Page Title Area -->
+            <header class="mb-8 text-center sm:text-left">
+                <h1 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight">HKDSE Physics Interactive Prep Hub</h1>
+                <p class="text-slate-400 mt-2 max-w-3xl leading-relaxed">
+                    Master Paper 1 with rigorous conceptual multiple-choice items and numerical short-answer challenges. Answers are evaluated exactly or corrected to the strict <span class="text-emerald-400 font-bold">3 significant figures</span> exam standard.
+                </p>
+            </header>
+
+            <!-- Main Interactive Slate Panel (Matches original structure) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
+                
+                <!-- Left Play & Options Card (8 Columns) -->
+                <div class="lg:col-span-8 bg-slate-800/80 rounded-xl p-6 border border-slate-700/80 shadow-2xl flex flex-col justify-between min-h-[480px]">
+                    
+                    <!-- Progress and Topic Row -->
+                    <div>
+                        <div class="flex flex-wrap justify-between items-center gap-3 mb-4 pb-4 border-b border-slate-700/60">
+                            <div class="flex items-center gap-3">
+                                <span class="text-xs font-bold uppercase tracking-widest text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded" id="currentCategoryText">HEAT AND GASES</span>
+                                <span class="text-xs text-slate-400 font-semibold" id="progressCounter">Question 1 of 6</span>
+                            </div>
+                            
+                            <div class="flex items-center gap-3">
+                                <span class="text-xs text-slate-400">Score: <span id="liveScore" class="text-emerald-400 font-bold text-sm">0</span></span>
+                                <span class="text-slate-500">|</span>
+                                <span class="text-xs text-slate-400">Streak: <span id="liveStreak" class="text-amber-400 font-bold text-sm">🔥 0</span></span>
+                            </div>
+                        </div>
+
+                        <!-- Progress Bar (Styled same as conduction timelines) -->
+                        <div class="w-full bg-slate-950 rounded-full h-2 mb-6 overflow-hidden">
+                            <div id="progressBar" class="bg-gradient-to-r from-blue-500 via-purple-500 to-emerald-500 h-2 w-0 transition-all duration-300"></div>
+                        </div>
+
+                        <!-- Main Question Panel -->
+                        <div id="questionContainer">
+                            <h2 id="questionText" class="text-lg md:text-xl font-semibold text-white leading-relaxed mb-6">
+                                Initializing HKDSE Exam Syllabus Database...
+                            </h2>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Input & Selection Wrapper -->
+                    <div id="answersWrapper" class="mt-4">
+                        <!-- MCQ Options Container -->
+                        <div id="optionsContainer" class="grid grid-cols-1 gap-3">
+                            <!-- Populated dynamically -->
+                        </div>
+
+                        <!-- Short Answer / Calculation Inputs -->
+                        <div id="shortAnswerContainer" class="hidden space-y-4 bg-slate-900/60 p-5 rounded-lg border border-slate-700">
+                            <p class="text-xs text-slate-400 font-bold uppercase tracking-wider">HKDSE Numerical Calculation Input</p>
+                            <div class="space-y-2">
+                                <div>
+                                    <label class="block text-xs text-slate-400 mb-1.5 font-semibold">Your Answer (Numerical Value & Unit, e.g., <code class="text-slate-300 font-mono">9.81 kW</code> or <code class="text-slate-300 font-mono">167 kJ</code>)</label>
+                                    <input type="text" id="shortAnswerInput" placeholder="Type your value and unit here..." class="w-full bg-slate-950 border border-slate-700 rounded-lg py-3 px-4 text-white text-base font-mono focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                </div>
+                            </div>
+                            <button id="submitShortAnswerBtn" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-4 rounded-lg transition-all shadow-lg hover:shadow-blue-500/20">
+                                Submit Calculation
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Complete Screen Layout (Hidden initially) -->
+                    <div id="resultsScreen" class="hidden text-center py-8">
+                        <div class="w-20 h-20 bg-gradient-to-tr from-yellow-500 to-amber-400 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-yellow-500/20">
+                            <svg class="w-10 h-10 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <h2 class="text-2xl font-bold text-white mb-2">Practice Block Completed!</h2>
+                        <p class="text-slate-400 mb-6 max-w-md mx-auto">Sensational work! You have finished all the selected HKDSE standard syllabus mock questions.</p>
+                        
+                        <div class="grid grid-cols-3 gap-4 max-w-sm mx-auto bg-slate-900/50 p-4 rounded-xl border border-slate-700 mb-8">
+                            <div>
+                                <span class="block text-[10px] text-slate-400 uppercase font-bold tracking-wider">Accuracy</span>
+                                <span id="finalAccuracy" class="text-xl font-extrabold text-blue-400">0%</span>
+                            </div>
+                            <div class="border-r border-slate-700"></div>
+                            <div>
+                                <span class="block text-[10px] text-slate-400 uppercase font-bold tracking-wider">Score</span>
+                                <span id="finalScore" class="text-xl font-extrabold text-emerald-400">0 / 0</span>
+                            </div>
+                            <div class="border-r border-slate-700"></div>
+                            <div>
+                                <span class="block text-[10px] text-slate-400 uppercase font-bold tracking-wider">Max Streak</span>
+                                <span id="finalStreak" class="text-xl font-extrabold text-amber-400">0</span>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 justify-center">
+                            <button id="retryQuizBtn" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 px-6 rounded-lg transition-colors shadow-md">
+                                Practice Again
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Marking Scheme / Explanation Card (4 Columns) -->
+                <div class="lg:col-span-4 flex flex-col gap-6">
+                    <!-- Status & Explanation Card -->
+                    <div class="bg-slate-900/60 rounded-xl p-5 border border-slate-700/80 flex flex-col justify-between items-center min-h-[300px] text-center flex-1">
+                        <div class="flex flex-col items-center justify-center flex-1 py-4">
+                            <!-- Visual Ring Loader/Indicator -->
+                            <div id="statusIconContainer" class="w-16 h-16 rounded-full bg-slate-800 flex items-center justify-center mb-4 border border-slate-700 shadow-inner text-slate-400">
+                                <svg class="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                            </div>
+                            
+                            <h3 id="panelTitle" class="text-base font-bold text-slate-300 mb-2">Awaiting Response</h3>
+                            <div id="panelDescription" class="text-xs text-slate-400 leading-relaxed max-w-xs">
+                                Select an option on the left or type your calculated value and unit. The parser automatically detects if you missed the correct unit, calculation, or both!
+                            </div>
+                        </div>
+
+                        <!-- Next Action Button (Same glowing outline style as simulation panels) -->
+                        <button id="nextBtn" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-3 px-4 rounded-lg transition-all hidden shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2">
+                            <span>Next Question</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+                        </button>
+                    </div>
+
+                    <!-- Syllabus Filters & Configuration Board (Aesthetic similarity to range settings) -->
+                    <div class="bg-slate-800/50 rounded-xl p-5 border border-slate-700/60 text-sm w-full">
+                        <h4 class="text-white font-bold mb-3">Topic Calibration</h4>
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-xs text-slate-400 mb-1">Focus Syllabus Part:</label>
+                                <select id="categoryFilterSelect" class="w-full bg-slate-900 border border-slate-700 rounded-lg py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium">
+                                    <option value="all">Full Compulsory Syllabus</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Dynamic File Load Status Indicators -->
+                            <div class="bg-slate-900/60 border border-slate-700 rounded-lg p-2.5 space-y-1.5 text-[11px] font-mono">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-slate-400">DB Source:</span>
+                                    <span id="dbSourceText" class="text-blue-400 font-bold truncate max-w-[130px]" title="question_Bank/questions.json">question_Bank/questions.json</span>
+                                </div>
+                                <div class="flex items-center justify-between border-t border-slate-800/80 pt-1.5">
+                                    <span class="text-slate-400">Source Type:</span>
+                                    <span id="dbSourceType" class="text-amber-500 font-bold">Fallback Default</span>
+                                </div>
+                            </div>
+                            
+                            <button id="resetSessionBtn" class="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 rounded-lg transition-colors text-xs">
+                                Restart Syllabus Practice
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Interactive Legend Section (Identical grid-column style to heat conduction simulator legend) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-slate-300">
+                <!-- Legend Grid Box 1 -->
+                <div class="bg-slate-800/50 p-4 rounded-lg border border-slate-700/50">
+                    <strong class="text-white block mb-2">HKDSE Marking Standards</strong>
+                    <div class="space-y-1.5 text-xs">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-slate-700 border border-slate-600 block"></span>
+                            <span>Unselected options & inputs</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-blue-500/20 border border-blue-500 block"></span>
+                            <span>Current selection / evaluation</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/20 border border-emerald-500 block"></span>
+                            <span>Correct answer validated (Exact/3 S.F.)</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-amber-500/20 border border-amber-500 block"></span>
+                            <span>Value is correct, but Unit is incorrect</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-rose-500/20 border border-rose-500 block"></span>
+                            <span>Incorrect calculation or both incorrect</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Legend Grid Box 2 -->
+                <div class="bg-slate-800/50 p-4 rounded-lg border border-slate-700/50 md:col-span-2">
+                    <strong class="text-white block mb-1">How calculation grading works?</strong>
+                    Our assessment algorithm dynamically parses student short-answer inputs. It separates the numerical part from the physical unit and checks them independently. The numeric answer is verified against exact matching and 3-significant-figure values (e.g. <code>9.81</code>). The unit is verified case-sensitively (e.g. <code>J kg-1 K-1</code> or <code>kJ</code>).
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer exactly styled to fit the layout of the heat conduction simulator -->
+        <footer class="w-full border-t border-slate-800 mt-12 pt-8 pb-6 text-center text-xs text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p>© 2026 Physics Simulation Laboratory & Exam Prep Portal. All rights reserved.</p>
+            <p class="text-slate-600 font-semibold">HKDSE Physics Curriculum Compulsory Parts Assessment System</p>
+        </footer>
+
+    </div>
+
+    <!-- Reusable Custom Dialog Backdrop (For Sandboxed Alerts and Confirms) -->
+    <div id="customDialog" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 z-[100] hidden">
+        <div class="bg-slate-900 border border-slate-700 rounded-xl max-w-sm w-full p-6 shadow-2xl text-center">
+            <div id="customDialogIcon" class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center mx-auto mb-4 border border-slate-700 text-slate-400">
+                <!-- Dynamic SVG icon goes here -->
+            </div>
+            <h3 id="customDialogTitle" class="text-lg font-bold text-white mb-2">Notice</h3>
+            <p id="customDialogMsg" class="text-sm text-slate-400 mb-6 leading-relaxed"></p>
+            <div id="customDialogBtnGroup" class="flex justify-center gap-3">
+                <!-- Dynamic Buttons will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Active HKDSE Scripting Core Logic -->
+    <script>
+        // --- High-yield HKDSE Paper 1 Standard Question Bank Dataset ---
+        const DEFAULT_QUESTIONS = [
+            {
+                id: 1,
+                type: "mcq",
+                category: "Heat and Gases",
+                question: "An electric heater ($1000\\text{ W}$) heats $2\\text{ kg}$ of liquid. The temperature rises by $20\\text{ }^{\\circ}\\text{C}$ in $5\\text{ min}$. Find liquid's heat capacity.",
+                options: [
+                    "$3750\\text{ J kg}^{-1}\\text{ K}^{-1}$",
+                    "$7500\\text{ J kg}^{-1}\\text{ K}^{-1}$",
+                    "$15000\\text{ J kg}^{-1}\\text{ K}^{-1}$",
+                    "$30000\\text{ J kg}^{-1}\\text{ K}^{-1}$"
+                ],
+                correct: 1,
+                explanation: "Using $E = P \\times t = mc\\Delta T$. Substituting values: $1000 \\times (5 \\times 60) = 2 \\times c \\times 20$. This gives $300,000 = 40c \\Rightarrow c = 7500\\text{ J kg}^{-1}\\text{ K}^{-1}$."
+            },
+            {
+                id: 2,
+                type: "short",
+                category: "Heat and Gases",
+                question: "How much energy (in $\\text{kJ}$) is required to melt $0.500\\text{ kg}$ of ice at $0\\text{ }^{\\circ}\\text{C}$? ($L_f = 3.34 \\times 10^5\\text{ J kg}^{-1}$)",
+                correctAnswerValue: "167",
+                correctUnit: "kJ",
+                explanation: "Using latent heat formula: $Q = m L_f = 0.500 \\times 3.34 \\times 10^5\\text{ J} = 167,000\\text{ J} = 167\\text{ kJ}$ (corrected to 3 significant figures)."
+            },
+            {
+                id: 3,
+                type: "mcq",
+                category: "Heat and Gases",
+                question: "An ideal gas has pressure $1.0 \\times 10^5\\text{ Pa}$ at $27\\text{ }^{\\circ}\\text{C}$. If heated to $127\\text{ }^{\\circ}\\text{C}$ at constant volume, find its new pressure.",
+                options: [
+                    "$0.75 \\times 10^5\\text{ Pa}$",
+                    "$1.33 \\times 10^5\\text{ Pa}$",
+                    "$1.50 \\times 10^5\\text{ Pa}$",
+                    "$4.25 \\times 10^5\\text{ Pa}$"
+                ],
+                correct: 1,
+                explanation: "According to the Pressure Law: $P_1/T_1 = P_2/T_2$. $T_1 = 300\\text{ K}$ and $T_2 = 400\\text{ K}$. Hence, $P_2 = 1.0 \\times 10^5 \\times \\frac{400}{300} = 1.33 \\times 10^5\\text{ Pa}$."
+            },
+            {
+                id: 4,
+                type: "short",
+                category: "Force and Motion",
+                question: "A car ($1000\\text{ kg}$) travels up a hill ($\\\\sin\\\\theta = 0.05$) at a constant $20.0\\text{ m s}^{-1}$. Calculate power against gravity ($g=9.81$).",
+                correctAnswerValue: "9.81",
+                correctUnit: "kW",
+                explanation: "Gravitational force parallel to slope is $mg\\sin\\theta = 1000 \\times 9.81 \\times 0.05 = 490.5\\text{ N}$. Power is $P = Fv = 490.5 \\times 20 = 9810\\text{ W} = 9.81\\text{ kW}$ (corrected to 3 sig figs)."
+            },
+            {
+                id: 5,
+                type: "mcq",
+                category: "Electromagnetism",
+                question: "An ideal transformer has $500$ primary turns and $100$ secondary turns. If $V_p = 220\\text{ V}$, what is the output power to a $44\\ \\Omega$ load?",
+                options: [
+                    "$8.8\\text{ W}$",
+                    "$22\\text{ W}$",
+                    "$44\\text{ W}$",
+                    "$220\\text{ W}$"
+                ],
+                correct: 2,
+                explanation: "Secondary voltage is $V_s = V_p \\times (N_s/N_p) = 220 \\times (100/500) = 44\\text{ V}$. Secondary power $P_s = V_s^2 / R = 44^2 / 44 = 44\\text{ W}$."
+            },
+            {
+                id: 6,
+                type: "short",
+                category: "Radioactivity",
+                question: "A radioactive isotope has half-life $4.0\\text{ hours}$ and initial activity $800\\text{ Bq}$. What is its remaining activity after $12.0\\text{ hours}$?",
+                correctAnswerValue: "100",
+                correctUnit: "Bq",
+                explanation: "Number of half-lives is $12.0 / 4.0 = 3$. Remaining activity is $A = 800 \\times (\\frac{1}{2})^3 = 800 \\times \\frac{1}{8} = 100\\text{ Bq}$."
+            }
+        ];
+
+        // --- Safe localStorage Mocking for Sandboxed Iframes ---
+        const SafeStorage = {
+            get: (key, fallback) => {
+                try {
+                    const val = localStorage.getItem(key);
+                    return val !== null ? val : fallback;
+                } catch (e) {
+                    console.warn("Storage read blocked by iframe sandbox restriction:", e);
+                    return fallback;
+                }
+            },
+            set: (key, val) => {
+                try {
+                    localStorage.setItem(key, val);
+                } catch (e) {
+                    console.warn("Storage write blocked by iframe sandbox restriction:", e);
+                }
+            }
+        };
+
+        // --- Custom Promise-based dialogue alerts & confirms for blocked iframes ---
+        function customAlert(title, message, type = 'info') {
+            return new Promise((resolve) => {
+                const modal = document.getElementById('customDialog');
+                const titleEl = document.getElementById('customDialogTitle');
+                const msgEl = document.getElementById('customDialogMsg');
+                const btnGroup = document.getElementById('customDialogBtnGroup');
+                const iconEl = document.getElementById('customDialogIcon');
+
+                if (!modal || !titleEl || !msgEl || !btnGroup || !iconEl) {
+                    resolve();
+                    return;
+                }
+
+                titleEl.textContent = title;
+                msgEl.textContent = message;
+
+                if (type === 'success') {
+                    iconEl.className = "w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto mb-4 border border-emerald-500/30";
+                    iconEl.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>`;
+                } else if (type === 'error') {
+                    iconEl.className = "w-12 h-12 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center mx-auto mb-4 border border-rose-500/30";
+                    iconEl.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>`;
+                } else {
+                    iconEl.className = "w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center mx-auto mb-4 border border-blue-500/30";
+                    iconEl.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+                }
+
+                btnGroup.innerHTML = '';
+                const okBtn = document.createElement('button');
+                okBtn.className = "bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-6 rounded-lg text-xs transition-colors shadow-md";
+                okBtn.textContent = "OK";
+                okBtn.onclick = () => {
+                    modal.classList.add('hidden');
+                    resolve();
+                };
+                btnGroup.appendChild(okBtn);
+
+                modal.classList.remove('hidden');
+            });
+        }
+
+        function customConfirm(title, message) {
+            return new Promise((resolve) => {
+                const modal = document.getElementById('customDialog');
+                const titleEl = document.getElementById('customDialogTitle');
+                const msgEl = document.getElementById('customDialogMsg');
+                const btnGroup = document.getElementById('customDialogBtnGroup');
+                const iconEl = document.getElementById('customDialogIcon');
+
+                if (!modal || !titleEl || !msgEl || !btnGroup || !iconEl) {
+                    resolve(false);
+                    return;
+                }
+
+                titleEl.textContent = title;
+                msgEl.textContent = message;
+
+                iconEl.className = "w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto mb-4 border border-amber-500/30";
+                iconEl.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+
+                btnGroup.innerHTML = '';
+                
+                const cancelBtn = document.createElement('button');
+                cancelBtn.className = "bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-2 px-5 rounded-lg text-xs transition-colors";
+                cancelBtn.textContent = "Cancel";
+                cancelBtn.onclick = () => {
+                    modal.classList.add('hidden');
+                    resolve(false);
+                };
+
+                const confirmBtn = document.createElement('button');
+                confirmBtn.className = "bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-5 rounded-lg text-xs transition-colors shadow-md";
+                confirmBtn.textContent = "Confirm";
+                confirmBtn.onclick = () => {
+                    modal.classList.add('hidden');
+                    resolve(true);
+                };
+
+                btnGroup.appendChild(cancelBtn);
+                btnGroup.appendChild(confirmBtn);
+
+                modal.classList.remove('hidden');
+            });
+        }
+
+        // --- Local State ---
+        let questionsList = JSON.parse(JSON.stringify(DEFAULT_QUESTIONS));
+        let currentQuestionsPool = [];
+        let currentQuestionIndex = 0;
+        let scoreCount = 0;
+        let streakCount = 0;
+        let maxStreak = 0;
+        let selectedIdx = null;
+        let isAnswered = false;
+        let audioMuted = SafeStorage.get('quiz_audio_muted', 'false') === 'true';
+
+        // --- Web Audio API Synth Engine ---
+        let audioCtx = null;
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playSynthSound(freq, type, duration, slideToFreq = null) {
+            if (audioMuted) return;
+            try {
+                initAudio();
+                const osc = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+                
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                if (slideToFreq) {
+                    osc.frequency.exponentialRampToValueAtTime(slideToFreq, audioCtx.currentTime + duration);
+                }
+                
+                gainNode.gain.setValueAtTime(0.12, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+                
+                osc.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch (e) {
+                console.warn("Audio Context blocked or not supported on this device.", e);
+            }
+        }
+
+        // --- Audio Cues ---
+        function playCorrectSound() {
+            playSynthSound(523.25, 'triangle', 0.1); // C5
+            setTimeout(() => {
+                playSynthSound(659.25, 'triangle', 0.25); // E5
+            }, 80);
+        }
+
+        function playWrongSound() {
+            playSynthSound(220.00, 'sawtooth', 0.3, 110.00); // A3 sliding slide to A2
+        }
+
+        function playClickSound() {
+            playSynthSound(350, 'sine', 0.08);
+        }
+
+        // --- DOM Elements References (Assigned inside window.onload) ---
+        let categoryFilterSelect;
+        let liveScore;
+        let liveStreak;
+        let currentCategoryText;
+        let progressCounter;
+        let progressBar;
+        let questionText;
+        
+        let optionsContainer;
+        let shortAnswerContainer;
+        let shortAnswerInput;
+        let submitShortAnswerBtn;
+
+        let statusIconContainer;
+        let panelTitle;
+        let panelDescription;
+        let nextBtn;
+        let quizContainer;
+        let resultsScreen;
+        let restartBtn;
+        let resetSessionBtn;
+        let toggleAudioBtn;
+        let soundOnIcon;
+        let soundOffIcon;
+        
+        let retryQuizBtn;
+        let finalAccuracy;
+        let finalScore;
+        let finalStreak;
+        
+        let dbSourceText;
+        let dbSourceType;
+
+        // --- Audio Controls UI sync ---
+        function updateAudioButtonUI() {
+            if (audioMuted) {
+                if (soundOnIcon) soundOnIcon.classList.add('hidden');
+                if (soundOffIcon) soundOffIcon.classList.remove('hidden');
+            } else {
+                if (soundOnIcon) soundOnIcon.classList.remove('hidden');
+                if (soundOffIcon) soundOffIcon.classList.add('hidden');
+            }
+        }
+
+        // --- Setup Categories Dropdown ---
+        function populateCategories() {
+            const categories = [...new Set(questionsList.map(q => q.category || "General"))];
+            
+            // Sync with sidebar select element
+            if (categoryFilterSelect) {
+                const currentSelectedSide = categoryFilterSelect.value;
+                categoryFilterSelect.innerHTML = '<option value="all">Full Compulsory Syllabus</option>';
+                categories.forEach(cat => {
+                    const opt = document.createElement('option');
+                    opt.value = cat;
+                    opt.textContent = cat;
+                    if (cat === currentSelectedSide) opt.selected = true;
+                    categoryFilterSelect.appendChild(opt);
+                });
+            }
+        }
+
+        // --- LaTeX MathJax Recompilation Trigger ---
+        function triggerMathTypeset() {
+            if (window.MathJax && typeof window.MathJax.typesetPromise === 'function') {
+                window.MathJax.typesetPromise().catch((err) => console.error("MathJax compilation error: ", err));
+            }
+        }
+
+        // --- Quiz Play Engine ---
+        function startQuiz() {
+            const activeCategory = (categoryFilterSelect) ? categoryFilterSelect.value : 'all';
+            if (activeCategory === 'all') {
+                currentQuestionsPool = [...questionsList];
+            } else {
+                currentQuestionsPool = questionsList.filter(q => q.category === activeCategory);
+            }
+
+            if (currentQuestionsPool.length === 0) {
+                currentQuestionsPool = [...DEFAULT_QUESTIONS];
+            }
+
+            currentQuestionIndex = 0;
+            scoreCount = 0;
+            streakCount = 0;
+            maxStreak = 0;
+            selectedIdx = null;
+            isAnswered = false;
+
+            if (resultsScreen) resultsScreen.classList.add('hidden');
+            if (quizContainer) quizContainer.classList.remove('hidden');
+            
+            updateLiveHUD();
+            showQuestion();
+        }
+
+        function updateLiveHUD() {
+            // Update all matching instances of Score and Streak
+            const scoreElements = document.querySelectorAll('#liveScore');
+            const streakElements = document.querySelectorAll('#liveStreak');
+            
+            scoreElements.forEach(el => el.textContent = scoreCount);
+            streakElements.forEach(el => el.textContent = `🔥 ${streakCount}`);
+        }
+
+        function showQuestion() {
+            selectedIdx = null;
+            isAnswered = false;
+            if (nextBtn) nextBtn.classList.add('hidden');
+
+            const activeQ = currentQuestionsPool[currentQuestionIndex];
+            if (!activeQ) {
+                finishQuiz();
+                return;
+            }
+
+            if (currentCategoryText) currentCategoryText.textContent = activeQ.category || "GENERAL";
+            if (progressCounter) progressCounter.textContent = `Question ${currentQuestionIndex + 1} of ${currentQuestionsPool.length}`;
+            
+            if (progressBar) {
+                const percentage = ((currentQuestionIndex) / currentQuestionsPool.length) * 100;
+                progressBar.style.width = `${percentage}%`;
+            }
+
+            if (questionText) questionText.textContent = activeQ.question;
+
+            if (activeQ.type === "short") {
+                if (optionsContainer) optionsContainer.classList.add('hidden');
+                if (shortAnswerContainer) shortAnswerContainer.classList.remove('hidden');
+                
+                if (shortAnswerInput) {
+                    shortAnswerInput.value = "";
+                    shortAnswerInput.disabled = false;
+                    shortAnswerInput.className = "w-full bg-slate-950 border border-slate-700 rounded-lg py-3 px-4 text-white text-base focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono";
+                }
+                
+                if (submitShortAnswerBtn) submitShortAnswerBtn.classList.remove('hidden');
+            } else {
+                if (optionsContainer) {
+                    optionsContainer.classList.remove('hidden');
+                    optionsContainer.innerHTML = '';
+                    const opts = activeQ.options || [];
+                    opts.forEach((optText, index) => {
+                        const btn = document.createElement('button');
+                        btn.className = "w-full text-left bg-slate-900 hover:bg-slate-700 border border-slate-700 hover:border-slate-500 rounded-xl p-4 transition-all duration-200 focus:outline-none flex items-center justify-between group";
+                        btn.innerHTML = `
+                            <span class="font-medium text-sm md:text-base group-hover:text-white transition-colors">${optText}</span>
+                            <span class="w-5 h-5 shrink-0 rounded-full border border-slate-600 flex items-center justify-center text-[10px] text-transparent transition-all group-hover:border-slate-400 select-none">✓</span>
+                        `;
+                        btn.addEventListener('click', () => selectMCQAnswer(index));
+                        optionsContainer.appendChild(btn);
+                    });
+                }
+                if (shortAnswerContainer) shortAnswerContainer.classList.add('hidden');
+            }
+
+            // Reset Right Information Panel state
+            if (statusIconContainer) {
+                statusIconContainer.className = "w-16 h-16 rounded-full bg-slate-800 flex items-center justify-center mb-4 border border-slate-700 shadow-inner text-slate-400 animate-pulse";
+                statusIconContainer.innerHTML = `
+                    <svg class="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                `;
+            }
+            if (panelTitle) {
+                panelTitle.textContent = "Evaluate & Calculate";
+                panelTitle.className = "text-sm font-bold text-slate-300 mb-2";
+            }
+            if (panelDescription) {
+                panelDescription.textContent = activeQ.type === "short" 
+                    ? "Evaluate using formulas. Write numerical values rounded to 3 significant figures followed by the unit (e.g., 9.81 kW)."
+                    : "Read the syllabus problem carefully, identify variables, and make your selection.";
+            }
+
+            triggerMathTypeset();
+        }
+
+        // --- 3 Significant Figures Comparison Logic ---
+        function checkValueOnlyMatch(studentValStr, correctValStr) {
+            const sVal = studentValStr.trim();
+            const cVal = correctValStr.trim();
+
+            const studentNum = parseFloat(sVal);
+            const correctNum = parseFloat(cVal);
+            if (isNaN(studentNum) || isNaN(correctNum)) return false;
+
+            if (studentNum === correctNum) return true;
+
+            const to3SigFigs = (num) => {
+                if (num === 0) return "0.00";
+                return Number(num.toPrecision(3)).toString();
+            };
+
+            return to3SigFigs(studentNum) === to3SigFigs(correctNum);
+        }
+
+        // --- Multiple Choice Evaluation ---
+        function selectMCQAnswer(index) {
+            if (isAnswered) return;
+            isAnswered = true;
+            selectedIdx = index;
+
+            const activeQ = currentQuestionsPool[currentQuestionIndex];
+            const isCorrect = (index === activeQ.correct);
+            const children = optionsContainer.children;
+
+            if (isCorrect) {
+                playCorrectSound();
+                scoreCount += 1;
+                streakCount += 1;
+                if (streakCount > maxStreak) maxStreak = streakCount;
+            } else {
+                playWrongSound();
+                streakCount = 0;
+            }
+
+            updateLiveHUD();
+
+            for (let i = 0; i < children.length; i++) {
+                const btn = children[i];
+                const indicator = btn.querySelector('span:last-child');
+                btn.className = "w-full text-left rounded-xl p-4 transition-all duration-200 focus:outline-none flex items-center justify-between border select-none ";
+                
+                if (i === activeQ.correct) {
+                    btn.className += "bg-emerald-950/40 border-emerald-500 text-emerald-300 shadow-md shadow-emerald-950/20";
+                    indicator.className = "w-5 h-5 shrink-0 rounded-full border border-emerald-500 bg-emerald-500 flex items-center justify-center text-[10px] text-slate-950 font-bold font-black";
+                    indicator.textContent = "✓";
+                } else if (i === selectedIdx) {
+                    btn.className += "bg-rose-950/40 border-rose-500 text-rose-300 shadow-md shadow-rose-950/20";
+                    indicator.className = "w-5 h-5 shrink-0 rounded-full border border-rose-500 bg-rose-500 flex items-center justify-center text-[10px] text-slate-950 font-bold font-black";
+                    indicator.textContent = "✗";
+                } else {
+                    btn.className += "bg-slate-900 border-slate-800 text-slate-500 opacity-60";
+                    indicator.className = "w-5 h-5 shrink-0 rounded-full border border-slate-800 flex items-center justify-center text-transparent";
+                }
+            }
+
+            if (isCorrect) {
+                statusIconContainer.className = "w-16 h-16 rounded-full bg-emerald-500/20 flex items-center justify-center mb-4 border border-emerald-500 shadow-lg shadow-emerald-500/20 text-emerald-400";
+                statusIconContainer.innerHTML = `
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                `;
+                panelTitle.textContent = "Correct Response!";
+                panelTitle.className = "text-base font-bold text-emerald-400 mb-2";
+            } else {
+                statusIconContainer.className = "w-16 h-16 rounded-full bg-rose-500/20 flex items-center justify-center mb-4 border border-rose-500 shadow-lg shadow-rose-500/20 text-rose-400";
+                statusIconContainer.innerHTML = `
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg>
+                `;
+                panelTitle.textContent = "Incorrect Choice";
+                panelTitle.className = "text-base font-bold text-rose-400 mb-2";
+            }
+
+            panelDescription.innerHTML = `
+                <div class="text-left">
+                    <span class="block text-[10px] text-slate-400 uppercase font-bold mb-1">Syllabus Breakdown:</span>
+                    <span class="text-slate-300 block text-xs leading-relaxed max-h-[160px] overflow-y-auto pr-1">${activeQ.explanation}</span>
+                </div>
+            `;
+
+            if (nextBtn) nextBtn.classList.remove('hidden');
+            triggerMathTypeset();
+        }
+
+        function nextQuestion() {
+            playClickSound();
+            currentQuestionIndex++;
+            if (currentQuestionIndex >= currentQuestionsPool.length) {
+                finishQuiz();
+            } else {
+                showQuestion();
+            }
+        }
+
+        function finishQuiz() {
+            if (progressBar) progressBar.style.width = `100%`;
+
+            if (quizContainer) quizContainer.classList.add('hidden');
+            if (resultsScreen) resultsScreen.classList.remove('hidden');
+
+            const accuracy = currentQuestionsPool.length > 0 
+                ? Math.round((scoreCount / currentQuestionsPool.length) * 100) 
+                : 0;
+
+            if (finalAccuracy) finalAccuracy.textContent = `${accuracy}%`;
+            if (finalScore) finalScore.textContent = `${scoreCount} / ${currentQuestionsPool.length}`;
+            if (finalStreak) finalStreak.textContent = maxStreak;
+        }
+
+        // --- Fetch and Load Questions dynamically from question_Bank ---
+        async function loadQuestionBank() {
+            try {
+                // Since quiz.html is inside /quiz, questions.json inside /quiz/question_Bank/questions.json is accessible via:
+                const response = await fetch('question_Bank/questions.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const parsed = await response.json();
+                if (Array.isArray(parsed) && parsed.length > 0) {
+                    questionsList = parsed;
+                    
+                    if (dbSourceType) {
+                        dbSourceType.textContent = "Live question_Bank";
+                        dbSourceType.className = "text-emerald-400 font-bold";
+                    }
+                    console.log("Loaded live questions from question_Bank/questions.json successfully.");
+                }
+            } catch (e) {
+                console.warn("Could not retrieve custom JSON file under question_Bank/questions.json. Launching offline mode default presets.", e);
+                // Setup default fallback questions
+                questionsList = JSON.parse(JSON.stringify(DEFAULT_QUESTIONS));
+                
+                if (dbSourceType) {
+                    dbSourceType.textContent = "Fallback Default";
+                    dbSourceType.className = "text-amber-500 font-bold";
+                }
+            }
+        }
+
+        // --- Start Initialization & Safe Element Querying ---
+        window.onload = async () => {
+            // Assign DOM Elements safely
+            categoryFilterSelect = document.getElementById('categoryFilterSelect');
+            liveScore = document.getElementById('liveScore');
+            liveStreak = document.getElementById('liveStreak');
+            currentCategoryText = document.getElementById('currentCategoryText');
+            progressCounter = document.getElementById('progressCounter');
+            progressBar = document.getElementById('progressBar');
+            questionText = document.getElementById('questionText');
+            optionsContainer = document.getElementById('optionsContainer');
+            shortAnswerContainer = document.getElementById('shortAnswerContainer');
+            shortAnswerInput = document.getElementById('shortAnswerInput');
+            submitShortAnswerBtn = document.getElementById('submitShortAnswerBtn');
+            statusIconContainer = document.getElementById('statusIconContainer');
+            panelTitle = document.getElementById('panelTitle');
+            panelDescription = document.getElementById('panelDescription');
+            nextBtn = document.getElementById('nextBtn');
+            quizContainer = document.getElementById('quizContainer');
+            resultsScreen = document.getElementById('resultsScreen');
+            restartBtn = document.getElementById('restartBtn');
+            resetSessionBtn = document.getElementById('resetSessionBtn');
+            toggleAudioBtn = document.getElementById('toggleAudioBtn');
+            soundOnIcon = document.getElementById('soundOnIcon');
+            soundOffIcon = document.getElementById('soundOffIcon');
+            retryQuizBtn = document.getElementById('retryQuizBtn');
+            finalAccuracy = document.getElementById('finalAccuracy');
+            finalScore = document.getElementById('finalScore');
+            finalStreak = document.getElementById('finalStreak');
+            dbSourceText = document.getElementById('dbSourceText');
+            dbSourceType = document.getElementById('dbSourceType');
+
+            // Try loading from JSON folder
+            await loadQuestionBank();
+
+            // Attach event listeners safely
+            if (categoryFilterSelect) {
+                categoryFilterSelect.addEventListener('change', () => {
+                    playClickSound();
+                    startQuiz();
+                });
+            }
+            if (restartBtn) {
+                restartBtn.addEventListener('click', () => {
+                    playClickSound();
+                    startQuiz();
+                });
+            }
+            if (resetSessionBtn) {
+                resetSessionBtn.addEventListener('click', () => {
+                    playClickSound();
+                    startQuiz();
+                });
+            }
+            if (retryQuizBtn) {
+                retryQuizBtn.addEventListener('click', () => {
+                    playClickSound();
+                    startQuiz();
+                });
+            }
+            if (nextBtn) {
+                nextBtn.addEventListener('click', nextQuestion);
+            }
+            if (submitShortAnswerBtn) {
+                submitShortAnswerBtn.addEventListener('click', async () => {
+                    if (isAnswered) return;
+
+                    const rawInput = (shortAnswerInput) ? shortAnswerInput.value.trim() : "";
+                    if (!rawInput) {
+                        await customAlert("Input Required", "Please type your calculation value and unit before submitting!", "error");
+                        return;
+                    }
+
+                    isAnswered = true;
+                    if (submitShortAnswerBtn) submitShortAnswerBtn.classList.add('hidden');
+                    if (shortAnswerInput) shortAnswerInput.disabled = true;
+
+                    // Parse value and unit automatically
+                    // Extracts leading numbers (including signs, decimals, and optional scientific notation)
+                    const match = rawInput.match(/^([+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:\s*[xX\*·]\s*10\^?[+-]?\d+)?)\s*(.*)$/);
+                    let studentVal = "";
+                    let studentUnit = "";
+
+                    if (match) {
+                        studentVal = match[1].trim();
+                        studentUnit = match[2].trim();
+                    } else {
+                        // Fallback fallback detection
+                        if (!isNaN(parseFloat(rawInput))) {
+                            studentVal = rawInput;
+                        } else {
+                            studentUnit = rawInput;
+                        }
+                    }
+
+                    const activeQ = currentQuestionsPool[currentQuestionIndex];
+                    const isValueCorrect = checkValueOnlyMatch(studentVal, activeQ.correctAnswerValue);
+                    const isUnitCorrect = (studentUnit === activeQ.correctUnit);
+
+                    let feedbackTitle = "";
+                    let feedbackClass = "";
+                    let inputBorderClass = "";
+
+                    if (isValueCorrect && isUnitCorrect) {
+                        // Full correct
+                        playCorrectSound();
+                        scoreCount += 1;
+                        streakCount += 1;
+                        if (streakCount > maxStreak) maxStreak = streakCount;
+
+                        feedbackTitle = "Correct Calculation!";
+                        feedbackClass = "text-emerald-400";
+                        inputBorderClass = "bg-emerald-950/30 border-emerald-500 text-emerald-300";
+
+                        if (statusIconContainer) {
+                            statusIconContainer.className = "w-16 h-16 rounded-full bg-emerald-500/20 flex items-center justify-center mb-4 border border-emerald-500 shadow-lg shadow-emerald-500/20 text-emerald-400";
+                            statusIconContainer.innerHTML = `
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                            `;
+                        }
+                    } else if (isValueCorrect && !isUnitCorrect) {
+                        // Unit incorrect
+                        playWrongSound();
+                        streakCount = 0;
+
+                        feedbackTitle = "Unit Incorrect!";
+                        feedbackClass = "text-amber-400";
+                        inputBorderClass = "bg-amber-950/30 border-amber-500 text-amber-300";
+
+                        if (statusIconContainer) {
+                            statusIconContainer.className = "w-16 h-16 rounded-full bg-amber-500/20 flex items-center justify-center mb-4 border border-amber-500 shadow-lg shadow-emerald-500/20 text-emerald-400";
+                            statusIconContainer.innerHTML = `
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            `;
+                        }
+                    } else if (!isValueCorrect && isUnitCorrect) {
+                        // Value incorrect
+                        playWrongSound();
+                        streakCount = 0;
+
+                        feedbackTitle = "Calculation Incorrect!";
+                        feedbackClass = "text-rose-400";
+                        inputBorderClass = "bg-rose-950/30 border-rose-500 text-rose-300";
+
+                        if (statusIconContainer) {
+                            statusIconContainer.className = "w-16 h-16 rounded-full bg-rose-500/20 flex items-center justify-center mb-4 border border-rose-500 shadow-lg shadow-rose-500/20 text-rose-400";
+                            statusIconContainer.innerHTML = `
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            `;
+                        }
+                    } else {
+                        // Both incorrect
+                        playWrongSound();
+                        streakCount = 0;
+
+                        feedbackTitle = "Calculation & Unit Incorrect!";
+                        feedbackClass = "text-rose-400";
+                        inputBorderClass = "bg-rose-950/30 border-rose-500 text-rose-300";
+
+                        if (statusIconContainer) {
+                            statusIconContainer.className = "w-16 h-16 rounded-full bg-rose-500/20 flex items-center justify-center mb-4 border border-rose-500 shadow-lg shadow-rose-500/20 text-rose-400";
+                            statusIconContainer.innerHTML = `
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            `;
+                        }
+                    }
+
+                    if (shortAnswerInput) {
+                        shortAnswerInput.className = "w-full rounded-lg py-3 px-4 text-base font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 " + inputBorderClass;
+                    }
+
+                    if (panelTitle) {
+                        panelTitle.textContent = feedbackTitle;
+                        panelTitle.className = "text-base font-bold mb-2 " + feedbackClass;
+                    }
+
+                    updateLiveHUD();
+
+                    if (panelDescription) {
+                        panelDescription.innerHTML = `
+                            <div class="mb-3 text-left bg-slate-950/40 p-2.5 rounded border border-slate-800">
+                                <span class="block text-[10px] text-slate-400 uppercase font-bold">Standard Target:</span>
+                                <span class="text-white text-xs font-mono font-bold">${activeQ.correctAnswerValue} ${activeQ.correctUnit}</span>
+                            </div>
+                            <div class="text-left">
+                                <span class="block text-[10px] text-slate-400 uppercase font-bold mb-1">Marking Details:</span>
+                                <span class="text-slate-300 block text-xs leading-relaxed max-h-[160px] overflow-y-auto pr-1">${activeQ.explanation}</span>
+                            </div>
+                        `;
+                    }
+
+                    if (nextBtn) nextBtn.classList.remove('hidden');
+                    triggerMathTypeset();
+                });
+            }
+            if (toggleAudioBtn) {
+                toggleAudioBtn.addEventListener('click', () => {
+                    audioMuted = !audioMuted;
+                    SafeStorage.set('quiz_audio_muted', audioMuted);
+                    updateAudioButtonUI();
+                    if (!audioMuted) {
+                        playClickSound();
+                    }
+                });
+            }
+
+            // Audio Controls Init
+            updateAudioButtonUI();
+
+            // Setup Categories & Start Game
+            populateCategories();
+            startQuiz();
+        };
+
+    </script>
+</body>
+</html>
