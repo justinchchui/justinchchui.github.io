@@ -40,10 +40,10 @@
     "id": 4,
     "type": "short",
     "category": "Heat and Gases",
-    "question": "An ideal gas has $P = 1.2 \\times 10^5\\text{ Pa}$ and $V = 2.0 \\times 10^{-3}\\text{ m}^3$ at $300\\text{ K}$. Find number of moles.",
+    "question": "An ideal gas has $p = 1.2 \\times 10^5\\text{ Pa}$ and $V = 2.0 \\times 10^{-3}\\text{ m}^3$ at $300\\text{ K}$. Find number of moles.",
     "correctAnswerValue": "0.0962",
     "correctUnit": "mol",
-    "explanation": "Using $PV = nRT$, $n = (1.2 \\times 10^5 \\times 2 \\times 10^{-3}) / (8.31 \\times 300) \\approx 0.0962\\text{ mol}$."
+    "explanation": "Using $pV = nRT$, $n = (1.2 \\times 10^5 \\times 2 \\times 10^{-3}) / (8.31 \\times 300) \\approx 0.0962\\text{ mol}$."
   },
   {
     "id": 5,
@@ -89,7 +89,7 @@
     "question": "A gas cylinder of volume $0.05\\text{ m}^3$ contains gas at $2.0 \\times 10^6\\text{ Pa}$. Find volume at $1.0 \\times 10^5\\text{ Pa}$.",
     "correctAnswerValue": "1.00",
     "correctUnit": "m3",
-    "explanation": "By Boyle's Law: $P_1V_1 = P_2V_2 \\Rightarrow V_2 = (2 \\times 10^6 \\times 0.05) / 10^5 = 1.00\\text{ m}^3$."
+    "explanation": "By Boyle's Law: $p_1V_1 = p_2V_2 \\Rightarrow V_2 = (2 \\times 10^6 \\times 0.05) / 10^5 = 1.00\\text{ m}^3$."
   },
   {
     "id": 9,
@@ -118,7 +118,7 @@
     "id": 11,
     "type": "mcq",
     "category": "Force and Motion",
-    "question": "A ball of mass $0.2\\text{ kg}$ hits a wall at $10\\text{ m s}^{-1}$ and rebounds at $8\\text{ m s}^{-1}$. Find average force if contact is $0.1\\text{ s}$.",
+    "question": "A ball of mass $0.2\\text{ kg}$ hits a wall at $10\\text{ m s}^{-1}$ and rebounds at $8\\text{ m s}^{-1}$. Find average force if the collision time is $0.1\\text{ s}$.",
     "options": [
       "$4\\text{ N}$",
       "$16\\text{ N}$",
@@ -249,7 +249,7 @@
     "category": "Wave Motion",
     "question": "A light ray enters glass ($n=1.50$) from air with incident angle $45.0\\text{ }^{\\circ}$. Find angle of refraction.",
     "correctAnswerValue": "28.1",
-    "correctUnit": "oC",
+    "correctUnit": "o",
     "explanation": "By Snell's law: $\\sin(45^{\\circ}) = 1.50 \\sin(r) \\Rightarrow r = \\sin^{-1}(\\sin(45^{\\circ})/1.50) \\approx 28.1\\text{ }^{\\circ}$."
   },
   {
@@ -289,15 +289,15 @@
     "correct": 2,
     "explanation": "Critical angle $c = \\sin^{-1}(1/n) = \\sin^{-1}(1/1.33) \\approx 48.8^{\\circ}$."
   },
-  {
-    "id": 26,
-    "type": "short",
-    "category": "Wave Motion",
-    "question": "A sound wave with frequency $170\\text{ Hz}$ travels in air where speed is $340\\text{ m s}^{-1}$. Find path diff for phase difference $180\\text{ }^{\\circ}$.",
-    "correctAnswerValue": "1.00",
-    "correctUnit": "m",
-    "explanation": "$\\lambda = v/f = 340/170 = 2\\text{ m}$. Phase difference $180^{\\circ}$ corresponds to path difference of $0.5\\lambda = 1.00\\text{ m}$."
-  },
+   {
+      "id": 26,
+      "type": "short",
+      "category": "Wave Motion",
+      "question": "A light ray of wavelength $600\\text{ nm}$ in air enters glass ($n = 1.50$). Find its wavelength in glass.",
+      "correctAnswerValue": "400",
+      "correctUnit": "nm",
+      "explanation": "Since frequency is constant across media: $n = \\lambda_{air} / \\lambda_{glass} \\Rightarrow \\lambda_{glass} = 600 / 1.50 = 400\\text{ nm}$."
+   },
   {
     "id": 27,
     "type": "mcq",
@@ -318,7 +318,7 @@
     "category": "Wave Motion",
     "question": "A diffraction grating has $500\\text{ lines mm}^{-1}$. Find angle of first-order maximum for light of $\\lambda = 5.00 \\times 10^{-7}\\text{ m}$.",
     "correctAnswerValue": "14.5",
-    "correctUnit": "oC",
+    "correctUnit": "o",
     "explanation": "$d = 10^{-3}/500 = 2.00 \\times 10^{-6}\\text{ m}$. $\\sin\\theta = \\lambda/d = 5.00\\times 10^{-7}/2.00\\times 10^{-6} = 0.25 \\Rightarrow \\theta \\approx 14.5^{\\circ}$."
   },
   {
@@ -329,7 +329,7 @@
     "options": [
       "Refraction",
       "Diffraction",
-      "Polarization",
+      "Reflection",
       "Total internal reflection"
     ],
     "correct": 1,
@@ -339,7 +339,7 @@
     "id": 30,
     "type": "short",
     "category": "Wave Motion",
-    "question": "An echo sounder on ship sends pulse to sea floor. Echo returns after $0.800\\text{ s}$. Speed of sound in water is $1500\\text{ m s}^{-1}$. Find depth.",
+    "question": "An sonar on ship sends a pulse to sea floor. Echo returns after $0.800\\text{ s}$. Speed of sound in water is $1500\\text{ m s}^{-1}$. Find depth.",
     "correctAnswerValue": "600",
     "correctUnit": "m",
     "explanation": "Distance to sea floor is $d = vt/2 = 1500 \\times 0.800 / 2 = 600\\text{ m}$."
@@ -425,7 +425,7 @@
       "Maxwell's Corkscrew Rule"
     ],
     "correct": 1,
-    "explanation": "Fleming's Right-hand (generator) rule is used to determine direction of induced current in EMF induction."
+    "explanation": "Fleming's Right-hand (generator) rule is used to determine direction of induced current in e.m.f induction."
   },
   {
     "id": 38,
@@ -477,16 +477,16 @@
     "id": 42,
     "type": "short",
     "category": "Radioactivity and Nuclear Energy",
-    "question": "A nucleus $^{238}_{92}\\text{U}$ decays to $^{234}_{90}\\text{Th}$ by emitting a single particle. Name mass number of emitted particle.",
-    "correctAnswerValue": "4.00",
-    "correctUnit": "u",
+    "question": "A nucleus $^{238}_{92}\\text{U}$ decays to $^{234}_{90}\\text{Th}$ by emitting a single particle. What is the mass number of emitted particle.",
+    "correctAnswerValue": "4",
+    "correctUnit": "",
     "explanation": "Alpha decay emits $^{4}_{2}\\text{He}$, which has mass number of 4."
   },
   {
     "id": 43,
     "type": "mcq",
     "category": "Radioactivity and Nuclear Energy",
-    "question": "In nuclear fusion reaction, mass defect is $\\Delta m$. How much energy is released? ($c$ is speed of light)",
+    "question": "In a nuclear fusion reaction, loss in mass is $\\Delta m$. How much energy is released? ($c$ is speed of light)",
     "options": [
       "$\\Delta m / c^2$",
       "$\\Delta m \\cdot c$",
@@ -500,7 +500,7 @@
     "id": 44,
     "type": "short",
     "category": "Radioactivity and Nuclear Energy",
-    "question": "Activity of radioisotope drops from $800\\text{ Bq}$ to $100\\text{ Bq}$ in $15.0\\text{ s}$. Find its half-life.",
+    "question": "Activity of a radioisotope drops from $800\\text{ Bq}$ to $100\\text{ Bq}$ in $15.0\\text{ s}$. Find its half-life.",
     "correctAnswerValue": "5.00",
     "correctUnit": "s",
     "explanation": "$800 \\rightarrow 400 \\rightarrow 200 \\rightarrow 100$ is exactly 3 half-lives. Half-life $= 15.0/3 = 5.00\\text{ s}$."
@@ -514,7 +514,7 @@
       "Alpha radiation",
       "Beta radiation",
       "Gamma radiation",
-      "Neutron beam"
+      "They have the same penetrating power"
     ],
     "correct": 2,
     "explanation": "Gamma rays have lowest ionization power but highest penetrating power, needing thick lead shield to block."
@@ -523,7 +523,7 @@
     "id": 46,
     "type": "short",
     "category": "Radioactivity and Nuclear Energy",
-    "question": "A nuclear reaction releases $4.50 \\times 10^{-12}\\text{ J}$. Find corresponding mass defect. ($c=3.00\\times 10^8\\text{ m s}^{-1}$)",
+    "question": "A nuclear reaction releases $4.50 \\times 10^{-12}\\text{ J}$. Find corresponding loss in mass in kg. ($c=3.00\\times 10^8\\text{ m s}^{-1}$)",
     "correctAnswerValue": "5.00e-29",
     "correctUnit": "kg",
     "explanation": "Using $E = \\Delta m \\cdot c^2$, $\\Delta m = (4.50 \\times 10^{-12}) / (3.00 \\times 10^8)^2 = 5.00 \\times 10^{-29}\\text{ kg}$."
@@ -532,7 +532,7 @@
     "id": 47,
     "type": "mcq",
     "category": "Radioactivity and Nuclear Energy",
-    "question": "When carbon $^{14}_{6}\\text{C}$ beta-minus decays, what are the proton and neutron numbers of daughter nucleus?",
+    "question": "When carbon $^{14}_{6}\\text{C}$ beta decays, what are the proton and neutron numbers of daughter nucleus?",
     "options": [
       "Protons $= 5$, Neutrons $= 9$",
       "Protons $= 7$, Neutrons $= 7$",
@@ -540,7 +540,7 @@
       "Protons $= 6$, Neutrons $= 8$"
     ],
     "correct": 1,
-    "explanation": "Beta-minus decay increases proton number by 1, mass number constant. Daughter $^{14}_{7}\\text{N}$ has 7 protons, 7 neutrons."
+    "explanation": "Beta decay increases proton number by 1, mass number constant. Daughter $^{14}_{7}\\text{N}$ has 7 protons, 7 neutrons."
   },
   {
     "id": 48,
@@ -570,8 +570,8 @@
     "type": "short",
     "category": "Radioactivity and Nuclear Energy",
     "question": "How many protons are present in a nucleus of Uranium-235 ($^{235}_{92}\\text{U}$)?",
-    "correctAnswerValue": "92.0",
-    "correctUnit": "protons",
+    "correctAnswerValue": "92",
+    "correctUnit": "",
     "explanation": "The atomic number $Z$ is 92, which corresponds directly to the number of protons."
   },
   {
@@ -808,16 +808,16 @@
     "id": 71,
     "type": "mcq",
     "category": "Wave Motion",
-    "question": "A periodic wave with frequency $10\\text{ Hz}$ propagates with speed $5\\text{ m s}^{-1}$. Find phase diff between $0.1\\text{ m}$ points.",
+    "question": "A periodic wave of frequency $5.00\\text{ Hz}$ has a wavelength of $2.00\\text{ m}$. Find the distance traveled in $4.00\\text{ s}$.",
     "options": [
-      "$36\\text{ }^{\\circ}$",
-      "$72\\text{ }^{\\circ}$",
-      "$180\\text{ }^{\\circ}$",
-      "$360\\text{ }^{\\circ}$"
+      "$2.50\\text{ m}$",
+      "$10.0\\text{ m}$",
+      "$20.0\\text{ m}$",
+    "$40.0\\text{ m}$"
     ],
-    "correct": 1,
-    "explanation": "Wavelength $\\lambda = v/f = 5/10 = 0.5\\text{ m}$. Phase difference $= 360^{\\circ} \\times (0.1/0.5) = 72^{\\circ}$."
-  },
+    "correct": 3,
+    "explanation": "The wave speed is $v = f\\lambda = 5.00 \\times 2.00 = 10.0\\text{ m s}^{-1}$. The distance traveled in $4.00\\text{ s}$ is $s = vt = 10.0 \\times 4.00 = 40.0\\text{ m}$."
+    },
   {
     "id": 72,
     "type": "short",
@@ -831,12 +831,12 @@
     "id": 73,
     "type": "mcq",
     "category": "Wave Motion",
-    "question": "When a sound wave goes from dry air to damp air, its speed changes. This is mainly due to change in:",
+    "question": "When a sound wave goes from dry air to humid air, its speed changes. This is mainly due to change in:",
     "options": [
       "Frequency",
       "Medium density",
       "Intensity",
-      "Polarization"
+      "Wind speed"
     ],
     "correct": 1,
     "explanation": "Adding water vapor decreases the average density of the air, thereby increasing speed of sound."
@@ -847,23 +847,23 @@
     "category": "Wave Motion",
     "question": "Water waves have wavelength $0.150\\text{ m}$ in deep water, $0.100\\text{ m}$ in shallow. Find speed ratio deep/shallow.",
     "correctAnswerValue": "1.50",
-    "correctUnit": "ratio",
+    "correctUnit": "",
     "explanation": "Speed is directly proportional to wavelength because frequency remains unchanged: $v_1/v_2 = \\lambda_1/\\lambda_2 = 0.150/0.100 = 1.50$."
   },
-  {
-    "id": 75,
-    "type": "mcq",
-    "category": "Wave Motion",
-    "question": "In a microwave oven, standing waves are formed. Why do hot spots occur?",
-    "options": [
-      "Nodes of E-field",
-      "Antinodes of E-field",
-      "Wave attenuation",
-      "Refraction of waves"
-    ],
-    "correct": 1,
-    "explanation": "Antinodes correspond to regions of maximum wave amplitude and electric field intensity, causing rapid heating."
-  },
+{
+  "id": 75,
+  "type": "mcq",
+  "category": "Wave Motion",
+  "question": "A string is clamped at both ends. Find the ratio of the frequency of the first overtone to the fundamental frequency.",
+  "options": [
+    "$1:2$",
+    "$2:1$",
+    "$3:1$",
+    "$4:1$"
+  ],
+  "correct": 1,
+  "explanation": "The fundamental frequency is $f_1 = v/(2L)$ and the first overtone is $f_2 = v/L = 2f_1$. Thus, the ratio of first overtone to fundamental is $2:1$."
+},
   {
     "id": 76,
     "type": "short",
@@ -877,15 +877,15 @@
     "id": 77,
     "type": "mcq",
     "category": "Wave Motion",
-    "question": "Two waves of same amplitude $A$ interfere constructively at a point. What is resultant intensity proportional to?",
+    "question": "Two waves of same amplitude $A$ interfere constructively at a point. What is resultant amplitude proportional to?",
     "options": [
       "$A$",
       "$2A$",
       "$A^2$",
       "$4A^2$"
     ],
-    "correct": 3,
-    "explanation": "Resultant amplitude is $2A$. Intensity is proportional to square of amplitude, so $(2A)^2 = 4A^2$."
+    "correct": 1,
+    "explanation": "Resultant amplitude is $2A$."
   },
   {
     "id": 78,
@@ -960,25 +960,25 @@
     "id": 84,
     "type": "short",
     "category": "Electromagnetism",
-    "question": "A current of $2.50\\text{ A}$ flows through a heating coil of resistance $40.0\\text{ }\\Omega$. Find thermal power.",
+    "question": "A current of $2.50\\text{ A}$ flows through a heating coil of resistance $40.0\\text{ }\\Omega$. Find the power dissipated.",
     "correctAnswerValue": "250",
     "correctUnit": "W",
     "explanation": "$P = I^2R = 2.50^2 \\times 40.0 = 6.25 \\times 40.0 = 250\\text{ W}$."
   },
-  {
-    "id": 85,
-    "type": "mcq",
-    "category": "Electromagnetism",
-    "question": "A circular wire loop is placed in uniform magnetic field. EMF is induced in loop when:",
-    "options": [
-      "The loop rotates in field",
-      "The loop moves at constant velocity",
-      "The field strength is constant",
-      "The loop is stationary"
-    ],
-    "correct": 0,
-    "explanation": "EMF is induced when magnetic flux linkage changes. Rotating changes area vector relative to B-field."
-  },
+{
+  "id": 85,
+  "type": "mcq",
+  "category": "Electromagnetism",
+  "question": "A horizontal loop lies in a uniform vertical B-field. An EMF is induced in the loop when it:",
+  "options": [
+    "Flipped about a horizontal axis",
+    "Rotates about its vertical axis",
+    "Translates horizontally",
+    "Remains stationary in the field"
+  ],
+  "correct": 0,
+  "explanation": "Flipping the loop about a horizontal axis changes the angle between the magnetic field and the area vector, changing the magnetic flux and inducing an EMF."
+},
   {
     "id": 86,
     "type": "short",
@@ -1038,7 +1038,7 @@
     "id": 91,
     "type": "mcq",
     "category": "Radioactivity and Nuclear Energy",
-    "question": "If mass defect of nuclear reaction is $0.005\\text{ u}$, energy released is approx: ($1\\text{ u} = 931\\text{ MeV}$)",
+    "question": "If the loss in mass of a nuclear reaction is $0.005\\text{ u}$, energy released is approx: ($1\\text{ u} = 931\\text{ MeV}$)",
     "options": [
       "$0.46\\text{ MeV}$",
       "$4.66\\text{ MeV}$",
@@ -1098,10 +1098,10 @@
     "id": 96,
     "type": "short",
     "category": "Radioactivity and Nuclear Energy",
-    "question": "Find atomic number $Z$ of daughter nucleus after $^{210}_{82}\\text{Pb}$ emits beta-minus particle.",
-    "correctAnswerValue": "83.0",
-    "correctUnit": "protons",
-    "explanation": "Beta-minus decay converts neutron to proton, increasing atomic number by 1 ($82 \\rightarrow 83$)."
+    "question": "Find atomic number $Z$ of daughter nucleus after $^{210}_{82}\\text{Pb}$ emits beta particle.",
+    "correctAnswerValue": "83",
+    "correctUnit": "",
+    "explanation": "Beta decay converts neutron to proton, increasing atomic number by 1 ($82 \\rightarrow 83$)."
   },
   {
     "id": 97,
@@ -1144,9 +1144,9 @@
     "id": 100,
     "type": "short",
     "category": "Radioactivity and Nuclear Energy",
-    "question": "Complete equation: $^{14}_{7}\\text{N} + ^{4}_{2}\\text{He} \\rightarrow ^{17}_{8}\\text{O} + X$. Find mass number of particle $X$.",
-    "correctAnswerValue": "1.00",
-    "correctUnit": "u",
+    "question": "Complete equation: $^{14}_{7}\\text{N} + ^{4}_{2}\\text{He} \\rightarrow ^{17}_{8}\\text{O} + X$. Find the mass number of particle $X$.",
+    "correctAnswerValue": "1",
+    "correctUnit": "",
     "explanation": "By conservation of mass number: $14 + 4 = 17 + A_x \\Rightarrow A_x = 1$. The particle $X$ is a proton $^{1}_{1}\\text{H}$."
   },
   {
@@ -1261,7 +1261,7 @@
     "category": "Heat and Gases",
     "question": "Two liquids A ($1\\text{ kg}$) and B ($2\\text{ kg}$) absorb same heat. Temp rise ratio A:B is $3:1$. Find ratio of specific heat $c_A/c_B$.",
     "correctAnswerValue": "0.667",
-    "correctUnit": "ratio",
+    "correctUnit": "",
     "explanation": "$Q = m_Ac_A\\Delta T_A = m_Bc_B\\Delta T_B \\Rightarrow 1 \\cdot c_A \\cdot 3 = 2 \\cdot c_B \\cdot 1 \\Rightarrow c_A/c_B = 2/3 \\approx 0.667$."
   },
   {
@@ -1416,29 +1416,29 @@
     "correct": 1,
     "explanation": "$n_1 \\sin\\theta_1 = n_2 \\sin\\theta_2 \\Rightarrow 1.33 \\sin\\theta_1 = 1.50 \\sin(30.0^{\\circ}) \\Rightarrow \\theta_1 \\approx 34.3^{\\circ}$."
   },
+{
+  "id": 124,
+  "type": "short",
+  "category": "Wave Motion",
+  "question": "A student stands $102\\text{ m}$ from a wall and claps. Find the time delay of the echo. (Speed of sound $= 340\\text{ m s}^{-1}$)",
+  "correctAnswerValue": "0.600",
+  "correctUnit": "s",
+  "explanation": "The total distance traveled by the sound to the wall and back is $2d = 2 \\times 102 = 204\\text{ m}$. The time delay is $t = 2d/v = 204/340 = 0.600\\text{ s}$."
+},
   {
-    "id": 124,
-    "type": "short",
-    "category": "Wave Motion",
-    "question": "A sound meter measures background intensity $1.00\\times 10^{-6}\\text{ W m}^{-2}$. Find sound level. ($I_0=1.00\\times 10^{-12}$)",
-    "correctAnswerValue": "60.0",
-    "correctUnit": "dB",
-    "explanation": "$\\beta = 10 \\log_{10}(I/I_0) = 10 \\log_{10}(10^{-6}/10^{-12}) = 10 \\times 6 = 60.0\\text{ dB}$."
-  },
-  {
-    "id": 125,
-    "type": "mcq",
-    "category": "Wave Motion",
-    "question": "Which wave behavior is unique to transverse waves and cannot occur in longitudinal waves?",
-    "options": [
-      "Interference",
-      "Diffraction",
-      "Reflection",
-      "Polarization"
-    ],
-    "correct": 3,
-    "explanation": "Polarization restricts electric field oscillations to a single plane, which is only possible in transverse waves."
-  },
+  "id": 125,
+  "type": "mcq",
+  "category": "Wave Motion",
+  "question": "Which of the following describes the vibration of particles in a longitudinal wave?",
+  "options": [
+    "Parallel to wave propagation",
+    "Perpendicular to wave propagation",
+    "In circular orbits",
+    "In random directions"
+  ],
+  "correct": 0,
+  "explanation": "In a longitudinal wave, particles of the medium vibrate back and forth parallel to the direction of wave propagation. This is a fundamental characteristic of sound waves."
+},
   {
     "id": 126,
     "type": "short",
@@ -1448,27 +1448,27 @@
     "correctUnit": "nm",
     "explanation": "$\\lambda = aw/D = (0.500 \\times 10^{-3} \\times 2.40 \\times 10^{-3}) / 2.00 = 6.00 \\times 10^{-7}\\text{ m} = 600\\text{ nm}$."
   },
-  {
-    "id": 127,
-    "type": "mcq",
-    "category": "Wave Motion",
-    "question": "A progressive wave equation is $y = A\\sin(2\\pi(ft - x/\\lambda))$. Find wave speed $v$.",
-    "options": [
-      "$f\\lambda$",
-      "$f/\\lambda$",
-      "$\\lambda/f$",
-      "$2\\pi f\\lambda$"
-    ],
-    "correct": 0,
-    "explanation": "Standard wave velocity is $v = f\\lambda$, which relates wave frequency and wavelength."
-  },
+{
+  "id": 127,
+  "type": "mcq",
+  "category": "Wave Motion",
+  "question": "A sound wave travels from air into glass. How do its speed $v$ and wavelength $\\lambda$ change?",
+  "options": [
+    "Both $v$ and $\\lambda$ increase",
+    "Both $v$ and $\\lambda$ decrease",
+    "$v$ increases, $\\lambda$ decreases",
+    "$v$ decreases, $\\lambda$ increases"
+  ],
+  "correct": 0,
+  "explanation": "Sound travels faster in solids than in gases, so $v$ increases. Since $v = f\\lambda$ and frequency $f$ is constant, $\\lambda$ must also increase."
+}
   {
     "id": 128,
     "type": "short",
     "category": "Wave Motion",
     "question": "Light speed in crown glass is $2.00 \\times 10^8\\text{ m s}^{-1}$. Find index of refraction of glass.",
     "correctAnswerValue": "1.50",
-    "correctUnit": "index",
+    "correctUnit": "",
     "explanation": "$n = c/v = (3.00 \\times 10^8) / (2.00 \\times 10^8) = 1.50$."
   },
   {
@@ -1491,7 +1491,7 @@
     "category": "Wave Motion",
     "question": "Calculate critical angle for light passing from diamond ($n=2.42$) into water ($n=1.33$).",
     "correctAnswerValue": "33.3",
-    "correctUnit": "oC",
+    "correctUnit": "o",
     "explanation": "$c = \\sin^{-1}(n_2/n_1) = \\sin^{-1}(1.33/2.42) \\approx \\sin^{-1}(0.5496) \\approx 33.3^{\\circ}$."
   },
   {
@@ -1521,7 +1521,7 @@
     "id": 133,
     "type": "mcq",
     "category": "Electromagnetism",
-    "question": "A coil has resistance $8.0\\text{ }\\Omega$ and internal resistance $2.0\\text{ }\\Omega$. Find terminal voltage with $10\\text{ V}$ battery.",
+    "question": "A coil has resistance $8.0\\text{ }\\Omega$ and internal resistance $2.0\\text{ }\\Omega$. Find termianl voltage if the battery ahs an e.m.f. of $10\\text{ V}$.",
     "options": [
       "$2.0\\text{ V}$",
       "$4.0\\text{ V}$",
@@ -1544,15 +1544,15 @@
     "id": 135,
     "type": "mcq",
     "category": "Electromagnetism",
-    "question": "A circular ring of wire in xy-plane has B-field in $+z$ direction decreasing. Induced current flows:",
+    "question": "A circular ring of wire in xy-plane has B-field in $+z$ direction decreasing. Looking from above, induced current flows:",
     "options": [
       "Clockwise",
-      "Counter-clockwise",
+      "Anti-clockwise",
       "Alternating direction",
       "No current"
     ],
     "correct": 1,
-    "explanation": "To oppose E-field decrease, induced B-field must point in $+z$ direction. By grip rule, current is counter-clockwise."
+    "explanation": "To oppose E-field decrease, induced B-field must point in $+z$ direction. By grip rule, current is anti-clockwise."
   },
   {
     "id": 136,
@@ -1597,7 +1597,7 @@
       "South",
       "Downwards"
     ],
-    "correct": 0,
+    "correct": 1,
     "explanation": "Applying Fleming's Left-hand Rule (Field North, Current Upwards), force points East."
   },
   {
@@ -1606,7 +1606,7 @@
     "category": "Electromagnetism",
     "question": "An ideal transformer has $220\\text{ V}$ input and delivers $12.0\\text{ V}$ at secondary. Turn ratio primary/secondary is?",
     "correctAnswerValue": "18.3",
-    "correctUnit": "ratio",
+    "correctUnit": "",
     "explanation": "$N_p / N_s = V_p / V_s = 220 / 12.0 \\approx 18.33 \\approx 18.3$."
   },
   {
@@ -1628,15 +1628,15 @@
     "type": "short",
     "category": "Radioactivity and Nuclear Energy",
     "question": "Complete the alpha decay of Radium $^{226}_{88}\\text{Ra} \\rightarrow ^{222}_{Z}\\text{Rn} + \\alpha$. Find the proton number $Z$.",
-    "correctAnswerValue": "86.0",
-    "correctUnit": "protons",
-    "explanation": "Alpha emission decreases atomic number $Z$ by 2. Thus, $Z = 88 - 2 = 86.0$."
+    "correctAnswerValue": "86",
+    "correctUnit": "",
+    "explanation": "Alpha emission decreases atomic number $Z$ by 2. Thus, $Z = 88 - 2 = 86$."
   },
   {
     "id": 143,
     "type": "mcq",
     "category": "Radioactivity and Nuclear Energy",
-    "question": "Which of the following is true about beta-minus ($\\beta^-$) particle emission?",
+    "question": "Which of the following is true about beta particle emission?",
     "options": [
       "A proton turns into neutron",
       "A neutron turns into proton",
@@ -1644,7 +1644,7 @@
       "Only energy is released"
     ],
     "correct": 1,
-    "explanation": "Beta-minus decay occurs when a neutron decays into a proton, an electron, and an antineutrino."
+    "explanation": "Beta decay occurs when a neutron decays into a proton, an electron, and energy."
   },
   {
     "id": 144,
@@ -1656,18 +1656,19 @@
     "explanation": "$E = \\Delta m c^2 = (1.00 \\times 10^{-6}\\text{ kg}) \\times (3.00\\times 10^8)^2 = 9.00 \\times 10^{10}\\text{ J} = 9.00 \\times 10^7\\text{ MJ}$."
   },
   {
-    "id": 145,
-    "type": "mcq",
-    "category": "Radioactivity and Nuclear Energy",
-    "question": "Which background radiation source contributes most to public radiation exposure on average?",
-    "options": [
-      "Nuclear power plants",
-      "Radon gas in air",
-      "Cosmic rays",
-      "Medical X-rays"
-    ],
-    "correct": 1,
-    "explanation": "Inhaling natural radon gas is the largest contributor to human background radiation dose globally."
+  "id": 145,
+  "type": "mcq",
+  "category": "Radioactivity and Nuclear Energy",
+  "question": "Which of the following radiations is deflected towards the positive plate in an electric field?",
+  "options": [
+    "Alpha radiation",
+    "Beta radiation",
+    "Gamma radiation",
+    "None of them"
+  ],
+  "correct": 1,
+  "explanation": "Beta particles are negatively charged electrons, so they are attracted towards the positive plate in an electric field."
+}
   },
   {
     "id": 146,
@@ -1698,7 +1699,7 @@
     "category": "Radioactivity and Nuclear Energy",
     "question": "How many neutrons are in the isotope Plutonium-239 ($^{239}_{94}\\text{Pu}$)?",
     "correctAnswerValue": "145",
-    "correctUnit": "neutrons",
+    "correctUnit": "",
     "explanation": "Number of neutrons $N = A - Z = 239 - 94 = 145$."
   },
   {
@@ -1715,15 +1716,15 @@
     "correct": 3,
     "explanation": "Gamma decay releases only high-energy photons, which do not change proton or neutron counts."
   },
-  {
-    "id": 150,
-    "type": "short",
-    "category": "Radioactivity and Nuclear Energy",
-    "question": "A radiation dose of $2.50\\text{ Gy}$ is absorbed. Find energy absorbed by $80.0\\text{ kg}$ body tissue.",
-    "correctAnswerValue": "200",
-    "correctUnit": "J",
-    "explanation": "Absorbed dose $D = E/m \\Rightarrow E = D \\cdot m = 2.50 \\times 80.0 = 200\\text{ J}$."
-  },
+{
+  "id": 150,
+  "type": "short",
+  "category": "Radioactivity and Nuclear Energy",
+  "question": "A radioactive sample of half-life $8.00\\text{ days}$ has initial activity $160\\text{ Bq}$. Find activity after $24.0\\text{ days}$.",
+  "correctAnswerValue": "20.0",
+  "correctUnit": "Bq",
+  "explanation": "The number of half-lives is $n = 24.0 / 8.00 = 3$. The activity after $3$ half-lives is $A = 160 / 2^3 = 20.0\\text{ Bq}$."
+},
   {
     "id": 151,
     "type": "mcq",
@@ -1834,7 +1835,7 @@
     "id": 160,
     "type": "short",
     "category": "Heat and Gases",
-    "question": "Find volume of $3.00\\text{ moles}$ of ideal gas at STP ($P = 1.01 \\times 10^5\\text{ Pa}$, $T = 273\\text{ K}$).",
+    "question": "Find volume of $3.00\\text{ moles}$ of ideal gas at notmal atmospheric pressure ($P = 1.01 \\times 10^5\\text{ Pa}$, $T = 273\\text{ K}$).",
     "correctAnswerValue": "0.0674",
     "correctUnit": "m3",
     "explanation": "$V = nRT/P = (3.00 \\times 8.31 \\times 273) / (1.01 \\times 10^5) \\approx 0.0674\\text{ m}^3$."
@@ -1845,8 +1846,8 @@
     "category": "Force and Motion",
     "question": "A block is pulled up a smooth $30\\text{ }^{\\circ}$ incline by $12\\text{ N}$ force parallel to incline. If $m = 2\\text{ kg}$, find acceleration. ($g=9.81$)",
     "options": [
-      "$1.19\\text{ m s}^{-2}$",
-      "$2.19\\text{ m s}^{-2}$",
+      "$1.10\\text{ m s}^{-2}$",
+      "$2.10\\text{ m s}^{-2}$",
       "$4.91\\text{ m s}^{-2}$",
       "$6.00\\text{ m s}^{-2}$"
     ],
@@ -1889,7 +1890,7 @@
     "id": 165,
     "type": "mcq",
     "category": "Force and Motion",
-    "question": "A car goes over a convex humpback bridge of radius $20\\text{ m}$. Find max speed for tires to stay on road. ($g=9.81$)",
+    "question": "A car goes over a arch bridge of radius $20\\text{ m}$ at constant speed. Find max speed for tires to stay on road. ($g=9.81$)",
     "options": [
       "$10.0\\text{ m s}^{-1}$",
       "$14.0\\text{ m s}^{-1}$",
@@ -1926,7 +1927,7 @@
     "id": 168,
     "type": "short",
     "category": "Force and Motion",
-    "question": "A bullet ($10.0\\text{ g}$) at $300\\text{ m s}^{-1}$ hits a $2.99\\text{ kg}$ block suspended as pendulum. Find common speed.",
+    "question": "A bullet ($10.0\\text{ g}$) at $300\\text{ m s}^{-1}$ hits a $2.99\\text{ kg}$ block suspended as pendulum. They stuck together and move at the same speed:",
     "correctAnswerValue": "1.00",
     "correctUnit": "m s-1",
     "explanation": "$m_1u_1 = (m_1+m_2)v \\Rightarrow 0.0100 \\times 300 = 3.00 v \\Rightarrow v = 1.00\\text{ m s}^{-1}$."
@@ -1935,14 +1936,14 @@
     "id": 169,
     "type": "mcq",
     "category": "Force and Motion",
-    "question": "What is the force between two masses of $1000\\text{ kg}$ separated by $2.0\\text{ m}$? ($G = 6.67\\times 10^{-11}\\text{ N m}^2\\text{ kg}^{-2}$)",
+    "question": "What is the gravitational force between two masses of $1000\\text{ kg}$ separated by $2.0\\text{ m}$? ($G = 6.67\\times 10^{-11}\\text{ N m}^2\\text{ kg}^{-2}$)",
     "options": [
       "$1.67 \\times 10^{-5}\\text{ N}$",
       "$1.67 \\times 10^{-6}\\text{ N}$",
       "$1.67 \\times 10^{-7}\\text{ N}$",
       "$1.67 \\times 10^{-8}\\text{ N}$"
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": "$F = G m_1 m_2 / r^2 = 6.67\\times 10^{-11} \\times 10^6 / 4 = 1.6675 \\times 10^{-5}\\text{ N}$ -- wait, $6.67\\times 10^{-5} / 4 = 1.67\\times 10^{-5}\\text{ N}$. Option 0 is correct."
   },
   {
@@ -1954,20 +1955,20 @@
     "correctUnit": "s",
     "explanation": "$T = 2\\pi r/v = (2 \\times \\pi \\times 0.500) / 2.50 \\approx 1.256 \\approx 1.26\\text{ s}$."
   },
-  {
-    "id": 171,
-    "type": "mcq",
-    "category": "Wave Motion",
-    "question": "A wave source has frequency $4\\text{ Hz}$ and wavelength $2\\text{ m}$. Find phase diff between points $0.5\\text{ m}$ apart.",
-    "options": [
-      "$45\\text{ }^{\\circ}$",
-      "$90\\text{ }^{\\circ}$",
-      "$180\\text{ }^{\\circ}$",
-      "$360\\text{ }^{\\circ}$"
-    ],
-    "correct": 1,
-    "explanation": "Phase difference $= 360^{\\circ} \\times (\\Delta x / \\lambda) = 360^{\\circ} \\times (0.5/2) = 90^{\\circ}$."
-  },
+ {
+  "id": 171,
+  "type": "mcq",
+  "category": "Wave Motion",
+  "question": "Sound diffracts more obviously than light when passing through a doorway because sound has a much:",
+  "options": [
+    "Larger amplitude",
+    "Higher wave speed",
+    "Longer wavelength",
+    "Higher frequency"
+  ],
+  "correct": 2,
+  "explanation": "Diffraction is prominent when the wavelength is comparable to the slit size. Sound has a much longer wavelength ($1\\text{ m}$) than light ($10^{-7}\\text{ m}$), making its diffraction obvious."
+},
   {
     "id": 172,
     "type": "short",
@@ -1977,34 +1978,34 @@
     "correctUnit": "MHz",
     "explanation": "$f = v/\\lambda = 1540 / (0.500 \\times 10^{-3}) = 3.08 \\times 10^6\\text{ Hz} = 3.08\\text{ MHz}$."
   },
-  {
-    "id": 173,
-    "type": "mcq",
-    "category": "Wave Motion",
-    "question": "A light ray hits glass plate at Brewster's angle. Reflected ray and refracted ray are at what angle to each other?",
-    "options": [
-      "$0\\text{ }^{\\circ}$",
-      "$45\\text{ }^{\\circ}$",
-      "$90\\text{ }^{\\circ}$",
-      "$180\\text{ }^{\\circ}$"
-    ],
-    "correct": 2,
-    "explanation": "By definition, the reflected and refracted rays are perpendicular ($90^{\\circ}$) to each other at polarization angle."
-  },
+ {
+  "id": 173,
+  "type": "mcq",
+  "category": "Wave Motion",
+  "question": "A light ray travels from glass ($n = 1.50$) to air. Find the critical angle at the boundary.",
+  "options": [
+    "$30.0\\text{ }^{\\circ}$",
+    "$41.8\\text{ }^{\\circ}$",
+    "$48.8\\text{ }^{\\circ}$",
+    "$90.0\\text{ }^{\\circ}$"
+  ],
+  "correct": 1,
+  "explanation": "Critical angle $c = \\sin^{-1}(1/n) = \\sin^{-1}(1/1.50) \\approx 41.8^{\\circ}$."
+},
   {
     "id": 174,
     "type": "short",
     "category": "Wave Motion",
     "question": "Calculate the critical angle for crown glass ($n=1.52$) in water ($n=1.33$).",
     "correctAnswerValue": "61.0",
-    "correctUnit": "oC",
+    "correctUnit": "o",
     "explanation": "$c = \\sin^{-1}(n_2/n_1) = \\sin^{-1}(1.33/1.52) \\approx 61.0^{\\circ}$."
   },
   {
     "id": 175,
     "type": "mcq",
     "category": "Wave Motion",
-    "question": "A standing wave is formed on a wire of length $1.2\\text{ m}$ clamped at both ends (fundamental mode). Find wavelength.",
+    "question": "A standing wave with one loop is formed on a wire of length $1.2\\text{ m}$ clamped at both ends. Find wavelength.",
     "options": [
       "$0.6\\text{ m}$",
       "$1.2\\text{ m}$",
@@ -2038,19 +2039,19 @@
     "explanation": "X-rays have higher frequency and energy, which corresponds to the shortest wavelength among listed."
   },
   {
-    "id": 178,
-    "type": "short",
-    "category": "Wave Motion",
-    "question": "Double slit experiment: $a = 0.250\\text{ mm}$, $D = 1.50\\text{ m}$, fringe width $w = 3.60\\text{ mm}$. Find wavelength.",
-    "correctAnswerValue": "600",
-    "correctUnit": "nm",
-    "explanation": "$\\lambda = aw/D = (0.250 \\times 10^{-3} \\times 3.60 \\times 10^{-3}) / 1.50 = 6.00 \\times 10^{-7}\\text{ m} = 600\\text{ nm}$."
-  },
+  "id": 178,
+  "type": "short",
+  "category": "Wave Motion",
+  "question": "Double slit experiment: $a = 0.250\\text{ mm}$, $D = 1.50\\text{ m}$, fringe separation $\\Delta y = 3.60\\text{ mm}$. Find wavelength.",
+  "correctAnswerValue": "600",
+  "correctUnit": "nm",
+  "explanation": "$\\lambda = a\\Delta y/D = (0.250 \\times 10^{-3} \\times 3.60 \\times 10^{-3}) / 1.50 = 6.00 \\times 10^{-7}\\text{ m} = 600\\text{ nm}$."
+},
   {
     "id": 179,
     "type": "mcq",
     "category": "Wave Motion",
-    "question": "What happens to fringe width in young's double slit if screen is moved closer to slits?",
+    "question": "What happens to fringe separation in young's double slit if screen is moved closer to slits?",
     "options": [
       "Increases",
       "Decreases",
@@ -2058,7 +2059,7 @@
       "Becomes irregular"
     ],
     "correct": 1,
-    "explanation": "Since $w = \\lambda D / a$, decreasing distance to screen $D$ decreases the fringe width $w$."
+    "explanation": "Since $\\Delta y = \\lambda D / a$, decreasing distance to screen $D$ decreases the fringe separation $\\Delta y$."
   },
   {
     "id": 180,
@@ -2066,7 +2067,7 @@
     "category": "Wave Motion",
     "question": "A diffraction grating has $400\\text{ lines mm}^{-1}$. Find first-order angle for $\\lambda = 550\\text{ nm}$ light.",
     "correctAnswerValue": "12.7",
-    "correctUnit": "oC",
+    "correctUnit": "o",
     "explanation": "$d = 10^{-3}/400 = 2.50\\times 10^{-6}\\text{ m}$. $\\sin\\theta = \\lambda/d = 550\\times 10^{-9}/2.50\\times 10^{-6} = 0.22 \\Rightarrow \\theta \\approx 12.7^{\\circ}$."
   },
   {
@@ -2106,15 +2107,15 @@
     "correct": 0,
     "explanation": "$V_p = V_s (N_p / N_s) = 150 \\times (1/15) = 10\\text{ V}$."
   },
-  {
-    "id": 184,
-    "type": "short",
-    "category": "Electromagnetism",
-    "question": "Find electric potential at $0.200\\text{ m}$ from point charge of $+1.50\\text{ }\\mu\\text{C}$. ($k=8.99\\times 10^9$)",
-    "correctAnswerValue": "67400",
-    "correctUnit": "V",
-    "explanation": "$V = kq/r = (8.99 \\times 10^9 \\times 1.50 \\times 10^{-6}) / 0.200 = 67425 \\approx 67400\\text{ V}$."
-  },
+{
+  "id": 184,
+  "type": "short",
+  "category": "Electromagnetism",
+  "question": "Find electric potential at $0.200\\text{ m}$ from a point charge of $+1.50\\text{ }\\mu\\text{C}$.",
+  "correctAnswerValue": "67400",
+  "correctUnit": "V",
+  "explanation": "$V = q / (4\\pi\\varepsilon_0 r) = (1.50\\times 10^{-6}) / (4\\pi \\times 8.85\\times 10^{-12} \\times 0.200) \\approx 67400\\text{ V}$."
+},
   {
     "id": 185,
     "type": "mcq",
@@ -2138,34 +2139,34 @@
     "correctUnit": "kW",
     "explanation": "$P_{max} = V I = 220 \\times 13.0 = 2860\\text{ W} = 2.86\\text{ kW}$."
   },
-  {
-    "id": 187,
-    "type": "mcq",
-    "category": "Electromagnetism",
-    "question": "Two positive charges are moved closer together. What happens to the electric potential energy of the system?",
-    "options": [
-      "Decreases",
-      "Increases",
-      "Remains same",
-      "Becomes zero"
-    ],
-    "correct": 1,
-    "explanation": "Work must be done against electrostatic repulsion, increasing system potential energy."
-  },
+{
+  "id": 187,
+  "type": "mcq",
+  "category": "Electromagnetism",
+  "question": "An electron is between two horizontal parallel plates. If the upper plate is positive, the electrostatic force points:",
+  "options": [
+    "Upwards",
+    "Downwards",
+    "To the left",
+    "To the right"
+  ],
+  "correct": 0,
+  "explanation": "The electric field points downwards (from positive to negative plate). Since an electron is negatively charged, it experiences an upward force opposite to the field."
+},
   {
     "id": 188,
     "type": "short",
     "category": "Electromagnetism",
-    "question": "Find emf induced in straight wire $0.400\\text{ m}$ long moving at $5.00\\text{ m s}^{-1}$ perpendicular to $0.150\\text{ T}$ B-field.",
+    "question": "Find the induced e.m.f. in straight wire $0.400\\text{ m}$ long moving at $5.00\\text{ m s}^{-1}$ perpendicular to $0.150\\text{ T}$ B-field.",
     "correctAnswerValue": "0.300",
     "correctUnit": "V",
-    "explanation": "$E = B L v = 0.150 \\times 0.400 \\times 5.00 = 0.300\\text{ V}$."
+    "explanation": "$\\varepsilon = B L v = 0.150 \\times 0.400 \\times 5.00 = 0.300\\text{ V}$."
   },
   {
     "id": 189,
     "type": "mcq",
     "category": "Electromagnetism",
-    "question": "According to Faraday's Law of Electromagnetic Induction, the magnitude of induced EMF is proportional to:",
+    "question": "According to Faraday's Law of Electromagnetic Induction, the magnitude of induced e.m.f. is proportional to:",
     "options": [
       "Magnetic flux linkage",
       "Rate of change of magnetic flux linkage",
@@ -2173,7 +2174,7 @@
       "Magnetic field strength only"
     ],
     "correct": 1,
-    "explanation": "Faraday's law states magnitude of induced EMF is directly proportional to rate of change of magnetic flux linkage."
+    "explanation": "Faraday's law states magnitude of induced e.m.f. is directly proportional to rate of change of magnetic flux linkage."
   },
   {
     "id": 190,
@@ -2202,30 +2203,30 @@
     "id": 192,
     "type": "short",
     "category": "Radioactivity and Nuclear Energy",
-    "question": "Complete equation: $^{234}_{90}\\text{Th} \\rightarrow A_{Z}\\text{Pa} + \\beta^-$. Find mass number $A$ of daughter.",
+    "question": "Complete equation: $^{234}_{90}\\text{Th} \\rightarrow A_{Z}\\text{Pa} + \\beta$. Find mass number $A$ of daughter.",
     "correctAnswerValue": "234",
-    "correctUnit": "u",
-    "explanation": "Beta-minus decay does not change total mass number. Hence, $A = 234$."
+    "correctUnit": "",
+    "explanation": "Beta decay does not change total mass number. Hence, $A = 234$."
   },
   {
     "id": 193,
     "type": "mcq",
     "category": "Radioactivity and Nuclear Energy",
-    "question": "Which particles are emitted during typical beta-plus ($\\beta^+$) decay of a nucleus?",
-    "options": [
-      "Electron and antineutrino",
-      "Positron and neutrino",
-      "Proton and electron",
-      "Alpha particle and gamma ray"
-    ],
-    "correct": 1,
-    "explanation": "Beta-plus decay converts a proton into a neutron, emitting a positron ($e^+$) and a neutrino ($\\nu_e$)."
+	"question": "Which of the following describes the charge and ionizing power of an alpha particle?",
+	"options": [
+		"Positive, high ionizing power",
+		"Negative, high ionizing power",
+		"Positive, low ionizing power",
+		"Neutral, low ionizing power"
+	],
+	"correct": 0,
+	"explanation": "An alpha particle ($^{4}_{2}\\text{He}$) has a charge of $+2e$ (positive) and has a very high ionizing power because of its large mass and charge."
   },
   {
     "id": 194,
     "type": "short",
     "category": "Radioactivity and Nuclear Energy",
-    "question": "Mass defect of a helium nucleus $^{4}_{2}\\text{He}$ is $0.0300\\text{ u}$. Find binding energy in MeV. ($1\\text{ u}=931\\text{ MeV}$)",
+    "question": "The loss in mass in combining 2 protons and 2 neutrons into a helium nucleus $^{4}_{2}\\text{He}$ is $0.0300\\text{ u}$. Find binding energy in MeV. ($1\\text{ u}=931\\text{ MeV}$)",
     "correctAnswerValue": "27.9",
     "correctUnit": "MeV",
     "explanation": "$E_b = 0.0300 \\times 931\\text{ MeV} \\approx 27.93 \\approx 27.9\\text{ MeV}$."
@@ -2253,25 +2254,25 @@
     "correctUnit": "h",
     "explanation": "$400 \\rightarrow 200 \\rightarrow 100 \\rightarrow 50$ is $3$ half-lives. Half-life $= 24.0 / 3 = 8.00\\text{ hours}$."
   },
-  {
-    "id": 197,
-    "type": "mcq",
-    "category": "Radioactivity and Nuclear Energy",
-    "question": "In a modern fission reactor, what is the role of coolant fluid (like pressurized water)?",
-    "options": [
-      "To stop chain reaction",
-      "To transfer thermal energy to steam generator",
-      "To absorb thermal neutrons",
-      "To act as primary radiation shield"
-    ],
-    "correct": 1,
-    "explanation": "The coolant absorbs thermal energy from the reactor core and transfers it to create steam to drive turbines."
-  },
+{
+  "id": 197,
+  "type": "mcq",
+  "category": "Radioactivity and Nuclear Energy",
+  "question": "Compared to nuclear fission, a nuclear fusion reaction:",
+  "options": [
+    "Releases more energy per unit mass",
+    "Can occur at room temperature",
+    "Uses heavy uranium nuclei as fuel",
+    "Produces more high-level nuclear waste"
+  ],
+  "correct": 0,
+  "explanation": "Nuclear fusion of light hydrogen isotopes releases significantly more energy per unit mass of fuel compared to the fission of heavy uranium nuclei, and its products are generally non-radioactive."
+},
   {
     "id": 198,
     "type": "short",
     "category": "Radioactivity and Nuclear Energy",
-    "question": "Find the total binding energy of a nucleus in joules if mass defect is $5.00\times 10^{-29}\\text{ kg}$. ($c=3.00\times 10^8$)",
+    "question": "Find the total binding energy of a nucleus in joules if the loss in mass is $5.00\times 10^{-29}\\text{ kg}$. ($c=3.00\times 10^8$)",
     "correctAnswerValue": "4.50e-12",
     "correctUnit": "J",
     "explanation": "$E_b = \\Delta m c^2 = (5.00 \\times 10^{-29}) \\times (3.00 \\times 10^8)^2 = 4.50 \\times 10^{-12}\\text{ J}$."
@@ -2294,16 +2295,16 @@
     "id": 200,
     "type": "short",
     "category": "Radioactivity and Nuclear Energy",
-    "question": "An isotope has decay constant $\\lambda = 2.31 \\times 10^{-6}\\text{ s}^{-1}$. Find its half-life in days.",
+    "question": "An isotope has decay constant $k = 2.31 \\times 10^{-6}\\text{ s}^{-1}$. Find its half-life in days.",
     "correctAnswerValue": "3.47",
     "correctUnit": "days",
-    "explanation": "$t_{1/2} = \\ln(2) / \\lambda = 0.69315 / (2.31 \\times 10^{-6}) = 300064\\text{ s} = 300064 / 86400 \\approx 3.47\\text{ days}$."
+    "explanation": "$t_{1/2} = \\ln(2) / k = 0.69315 / (2.31 \\times 10^{-6}) = 300064\\text{ s} = 300064 / 86400 \\approx 3.47\\text{ days}$."
   },
   {
     "id": 201,
     "type": "mcq",
     "category": "Heat and Gases",
-    "question": "A heater of $80\\text{ W}$ melts $0.1\\text{ kg}$ of a substance in $200\\text{ s}$ at melting point. Find latent heat of fusion.",
+    "question": "A heater of $80\\text{ W}$ melts $0.1\\text{ kg}$ of a substance in $200\\text{ s}$ at melting point. Find its specific latent heat of fusion.",
     "options": [
       "$4.0 \\times 10^3\\text{ J kg}^{-1}$",
       "$1.6 \\times 10^4\\text{ J kg}^{-1}$",
@@ -2346,19 +2347,19 @@
     "explanation": "Assuming constant temperature, Boyle's Law gives $P_1V_1 = P_2V_2 \\Rightarrow V_2 = (3.00\\times 10^5 \\times 3.00) / 1.00\\times 10^5 = 9.00\\text{ cm}^3$."
   },
   {
-    "id": 205,
-    "type": "mcq",
-    "category": "Heat and Gases",
-    "question": "Which of the following statements about the kinetic theory of gases is/are true? (1) Elastic collisions (2) Intermolecular attraction",
-    "options": [
-      "(1) only",
-      "(2) only",
-      "Both (1) and (2)",
-      "Neither (1) nor (2)"
-    ],
-    "correct": 0,
-    "explanation": "The kinetic model of an ideal gas assumes perfectly elastic collisions and completely negligible intermolecular forces."
-  },
+  "id": 205,
+  "type": "mcq",
+  "category": "Heat and Gases",
+  "question": "Which of the following is/are assumptions of the kinetic model of an ideal gas?\n(1) Molecular collisions are perfectly elastic.\n(2) Intermolecular forces are completely negligible.",
+  "options": [
+    "(1) only",
+    "(2) only",
+    "Both (1) and (2)",
+    "Neither (1) nor (2)"
+  ],
+  "correct": 2,
+  "explanation": "Both statements are correct. The kinetic model of an ideal gas assumes that all molecular collisions are perfectly elastic (conserving kinetic energy) and that intermolecular attractive forces are completely negligible."
+},
   {
     "id": 206,
     "type": "short",
@@ -2483,20 +2484,20 @@
     "correctUnit": "m s-1",
     "explanation": "Deceleration $a = F/m = 300/600 = 0.500\\text{ m s}^{-2}$. Initial speed $u = at = 0.500 \\times 4.00 = 2.00\\text{ m s}^{-1}$."
   },
-  {
-    "id": 217,
-    "type": "mcq",
-    "category": "Force and Motion",
-    "question": "What is the work done in stretching a spring of stiffness $k = 200\\text{ N m}^{-1}$ by an extension of $0.1\\text{ m}$?",
-    "options": [
-      "$1\\text{ J}$",
-      "$2\\text{ J}$",
-      "$10\\text{ J}$",
-      "$20\\text{ J}$"
-    ],
-    "correct": 0,
-    "explanation": "Elastic potential energy $E = 0.5 k x^2 = 0.5 \\times 200 \\times 0.1^2 = 1\\text{ J}$."
-  },
+ {
+  "id": 217,
+  "type": "mcq",
+  "category": "Force and Motion",
+  "question": "A block is pulled by a force of $10.0\\text{ N}$ at a constant speed of $3.00\\text{ m s}^{-1}$ for $5.00\\text{ s}$. Find work done by the force.",
+  "options": [
+    "$15.0\\text{ J}$",
+    "$30.0\\text{ J}$",
+    "$50.0\\text{ J}$",
+    "$150\\text{ J}$"
+  ],
+  "correct": 3,
+  "explanation": "The distance traveled is $s = vt = 3.00 \\times 5.00 = 15.0\\text{ m}$. The work done by the constant force is $W = Fs = 10.0 \\times 15.0 = 150\\text{ J}$."
+},
   {
     "id": 218,
     "type": "short",
@@ -2549,7 +2550,7 @@
     "category": "Wave Motion",
     "question": "Light travels from air into glass ($n = 1.60$) with incident angle $30.0\\text{ }^{\\circ}$. Find angle of refraction.",
     "correctAnswerValue": "18.2",
-    "correctUnit": "oC",
+    "correctUnit": "o",
     "explanation": "Using Snell's law: $\\sin(30.0^{\\circ}) = 1.60 \\sin(r) \\Rightarrow r = \\sin^{-1}(0.5/1.60) \\approx 18.2^{\\circ}$."
   },
   {
@@ -2823,25 +2824,25 @@
     "id": 246,
     "type": "short",
     "category": "Radioactivity and Nuclear Energy",
-    "question": "Daughter $^{14}_{7}\\text{N}$ is formed from $^{14}_{6}\\text{C}$ decay. What particle was emitted?",
-    "correctAnswerValue": "beta-minus",
-    "correctUnit": "particle",
-    "explanation": "A neutron changes to a proton, keeping mass number constant and increasing $Z$ by 1, emitting beta-minus."
+    "question": "Daughter $^{14}_{7}\\text{N}$ is formed from $^{14}_{6}\\text{C}$ decay. What radiation particle is emitted?",
+    "correctAnswerValue": "beta particle	",
+    "correctUnit": "",
+    "explanation": "Beta decay occurs when a neutron in the nucleus decays into a proton and an electron, which is emitted as a beta particle."
   },
   {
-    "id": 247,
-    "type": "mcq",
-    "category": "Radioactivity and Nuclear Energy",
-    "question": "The main purpose of control rods in a nuclear power plant is to:",
-    "options": [
-      "Cool the reactor",
-      "Absorb neutrons",
-      "Slow down neutrons",
-      "Contain radiation"
-    ],
-    "correct": 1,
-    "explanation": "Control rods absorb excess neutrons to regulate and control the rate of the fission chain reaction."
-  },
+  "id": 247,
+  "type": "mcq",
+  "category": "Radioactivity and Nuclear Energy",
+  "question": "In the decay $^{A}_{Z}\\text{X} \\rightarrow ^{206}_{82}\\text{Pb} + \\alpha$, find the mass number $A$ of nucleus X.",
+  "options": [
+    "$202$",
+    "$204$",
+    "$208$",
+    "$210$"
+  ],
+  "correct": 3,
+  "explanation": "An alpha particle ($\\alpha$) is a helium nucleus ($^{4}_{2}\\text{He}$). By conservation of mass number: $A = 206 + 4 = 210$."
+},
   {
     "id": 248,
     "type": "short",
@@ -2871,7 +2872,7 @@
     "category": "Radioactivity and Nuclear Energy",
     "question": "Nuclear fusion of Deuterium $^{2}_{1}\\text{H}$ and Tritium $^{3}_{1}\\text{H}$ produces Helium-4 and what other particle?",
     "correctAnswerValue": "neutron",
-    "correctUnit": "particle",
+    "correctUnit": "",
     "explanation": "$^{2}_{1}\\text{H} + ^{3}_{1}\\text{H} \\rightarrow ^{4}_{2}\\text{He} + ^{1}_{0}\\text{n}$. The other particle is a neutron."
   },
   {
@@ -2924,15 +2925,15 @@
     "id": 255,
     "type": "mcq",
     "category": "Heat and Gases",
-    "question": "Which of the following contains the same thermal energy as a copper cup at $50\\text{ }^{\\circ}\\text{C}$?",
+    "question": "Two bodies in thermal contact have different temperatures. Net heat flows between them until:",
     "options": [
-      "Depends only on mass",
-      "Depends on mass and capacity",
-      "Concept of total thermal energy",
-      "Is always constant"
+      "They have the same thermal energy",
+      "They have the same temperature",
+      "Their heat capacities are equal",
+      "Their internal energies are equal"
     ],
     "correct": 1,
-    "explanation": "Thermal energy in a body is its internal energy, determined by mass, specific heat, and temperature."
+    "explanation": "Net heat flow occurs due to a temperature difference. Heat transfer ceases when thermal equilibrium is reached, meaning both have the same temperature."
   },
   {
     "id": 256,
@@ -2959,12 +2960,12 @@
   },
   {
     "id": 258,
-    "type": "short",
+   "type": "short",
     "category": "Heat and Gases",
-    "question": "A $50.0\\text{ W}$ heater is placed in $0.200\\text{ kg}$ of oil. Temp increases by $15.0\\text{ K}$ in $600\\text{ s}$. Find oil specific heat.",
-    "correctAnswerValue": "10000",
+    "question": "A $50.0\\text{ W}$ heater is placed in $0.200\\text{ kg}$ of oil. Temp increases by $15.0\\text{ K}$ in $120\\text{ s}$. Find oil specific heat.",
+    "correctAnswerValue": "2000",
     "correctUnit": "J kg-1 K-1",
-    "explanation": "$Pt = mc\\Delta T \\Rightarrow c = (50.0 \\times 600) / (0.200 \\times 15.0) = 10000\\text{ J kg}^{-1}\\text{ K}^{-1}$."
+    "explanation": "$Pt = mc\\Delta T \\Rightarrow c = (50.0 \\times 120) / (0.200 \\times 15.0) = 2000\\text{ J kg}^{-1}\\text{ K}^{-1}$."
   },
   {
     "id": 259,
@@ -3099,8 +3100,8 @@
     "id": 270,
     "type": "short",
     "category": "Force and Motion",
-    "question": "A constant force $F = 40.0\\text{ N}$ pulls a $10.0\\text{ kg}$ block up $30.0\\text{ }^{\\circ}$ incline. Find acceleration. ($g=9.81$)",
-    "correctAnswerValue": "0.905",
+    "question": "A constant force $F = 40.0\\text{ N}$ pulls a $10.0\\text{ kg}$ block up $30.0\\text{ }^{\\circ}$ incline. Find the acceleration. ($g=9.81$)",
+    "correctAnswerValue": "-0.905",
     "correctUnit": "m s-2",
     "explanation": "Equation: $F - mg\\sin\\theta = ma \\Rightarrow a = 40.0/10.0 - 9.81\\sin(30.0^{\\circ}) = 4.00 - 4.905 = -0.905\\text{ m s}^{-2}$ (decelerating up)."
   },
@@ -3124,7 +3125,7 @@
     "category": "Wave Motion",
     "question": "A light ray goes from air to water ($n = 1.33$). Refractive index of air $=1.00$. Find critical angle at boundary.",
     "correctAnswerValue": "48.8",
-    "correctUnit": "oC",
+    "correctUnit": "o",
     "explanation": "Critical angle $c = \\sin^{-1}(1.00/1.33) \\approx 48.8^{\\circ}$."
   },
   {
@@ -3145,10 +3146,10 @@
     "id": 274,
     "type": "short",
     "category": "Wave Motion",
-    "question": "In Young's experiment, fringe width $w = 2.00\\text{ mm}$ for green light. Screen distance $D$ is halved. Find new width.",
+    "question": "In Young's experiment, fringe separation $\\Delta y = 2.00\\text{ mm}$ for green light. Screen distance $D$ is halved. Find new fringe separation.",
     "correctAnswerValue": "1.00",
     "correctUnit": "mm",
-    "explanation": "Since $w = \\lambda D / a$, $w \\propto D$. Halving $D$ halves the fringe width to $1.00\\text{ mm}$."
+    "explanation": "Since $\\Delta y = \\lambda D / a$, $\\Delta y \\propto D$. Halving $D$ halves the fringe width to $1.00\\text{ mm}$."
   },
   {
     "id": 275,
@@ -3170,23 +3171,23 @@
     "category": "Wave Motion",
     "question": "A diffraction grating has spacing $d = 2.00\\text{ }\\mu\\text{m}$. Find second-order maximum angle for $\\lambda = 500\\text{ nm}$ light.",
     "correctAnswerValue": "30.0",
-    "correctUnit": "oC",
-    "explanation": "$d\\sin\\theta = m\\lambda \\Rightarrow 2.00\\times 10^{-6}\\sin\\theta = 2 \\times 500\\times 10^{-9} \\Rightarrow \\sin\\theta = 0.5 \\Rightarrow \\theta = 30.0^{\\circ}$."
+    "correctUnit": "o",
+    "explanation": "$d\\sin\\theta = n\\lambda \\Rightarrow 2.00\\times 10^{-6}\\sin\\theta = 2 \\times 500\\times 10^{-9} \\Rightarrow \\sin\\theta = 0.5 \\Rightarrow \\theta = 30.0^{\\circ}$."
   },
   {
-    "id": 277,
-    "type": "mcq",
-    "category": "Wave Motion",
-    "question": "A stationary observer hears an approaching siren. What does the observer perceive relative to the source?",
-    "options": [
-      "Higher speed",
-      "Lower frequency",
-      "Higher frequency",
-      "Larger wavelength"
-    ],
-    "correct": 2,
-    "explanation": "Due to Doppler effect, approaching sources compress wavefronts, increasing perceived frequency."
-  },
+  "id": 277,
+  "type": "mcq",
+  "category": "Wave Motion",
+  "question": "Which of the following is the same for both X-rays and infrared radiation in a vacuum?",
+  "options": [
+    "Wavelength",
+    "Frequency",
+    "Speed",
+    "Wave amplitude"
+  ],
+  "correct": 2,
+  "explanation": "All electromagnetic waves travel at the same speed of light ($c \\approx 3.00 \\times 10^8\\text{ m s}^{-1}$) in a vacuum, regardless of their frequency or wavelength."
+},
   {
     "id": 278,
     "type": "short",
@@ -3196,25 +3197,25 @@
     "correctUnit": "m",
     "explanation": "Frequency remains constant: $f = 680\\text{ Hz}$. Wavelength in $CO_2$ is $\\lambda = v/f = 260 / 680 \\approx 0.382\\text{ m}$."
   },
-  {
-    "id": 279,
-    "type": "mcq",
-    "category": "Wave Motion",
-    "question": "Polarizing filters can block certain waves. Which of the following CANNOT be polarized?",
-    "options": [
-      "Infrared waves",
-      "Sound waves",
-      "Microwaves",
-      "X-ray waves"
-    ],
-    "correct": 1,
-    "explanation": "Polarization is a phenomenon restricted only to transverse waves; sound is a longitudinal wave."
-  },
+{
+  "id": 279,
+  "type": "mcq",
+  "category": "Wave Motion",
+  "question": "Which of the following physical quantities of a sound wave determines its pitch?",
+  "options": [
+    "Frequency",
+    "Amplitude",
+    "Wave speed",
+    "Waveform"
+  ],
+  "correct": 0,
+  "explanation": "The pitch of a sound wave is determined by its frequency (higher frequency corresponds to a higher pitch), whereas amplitude determines its loudness."
+},
   {
     "id": 280,
     "type": "short",
     "category": "Wave Motion",
-    "question": "A string clamped at both ends vibrates in fundamental mode of $40.0\\text{ Hz}$. Find second harmonic frequency.",
+    "question": "A string clamped at both ends vibrates in fundamental mode (1 loop) of $40.0\\text{ Hz}$. Find second harmonic frequency.",
     "correctAnswerValue": "80.0",
     "correctUnit": "Hz",
     "explanation": "Harmonics in stretched strings are integer multiples: $f_n = n \\cdot f_1$. Thus, $f_2 = 2 \\times 40.0 = 80.0\\text{ Hz}$."
@@ -3269,7 +3270,7 @@
     "id": 285,
     "type": "mcq",
     "category": "Electromagnetism",
-    "question": "A $20\\text{ }\\Omega$ resistor is connected to $12\\text{ V}$ battery. Find thermal power dissipated.",
+    "question": "A $20\\text{ }\\Omega$ resistor is connected to $12\\text{ V}$ battery. Find the power dissipated.",
     "options": [
       "$1.44\\text{ W}$",
       "$7.2\\text{ W}$",
@@ -3292,7 +3293,7 @@
     "id": 287,
     "type": "mcq",
     "category": "Electromagnetism",
-    "question": "A metal rod of length $L$ moves normal to B-field at speed $v$. Induced potential difference is:",
+    "question": "A metal rod of length $L$ moves normal to B-field at speed $v$. Induced e.m.f. is:",
     "options": [
       "$B/vL$",
       "$BL/v$",
@@ -3334,25 +3335,25 @@
     "correctUnit": "A",
     "explanation": "Power $P = 4.40\\text{ kW h} / 8.00\\text{ h} = 0.550\\text{ kW} = 550\\text{ W}$. Current $I = P/V = 550 / 220 = 2.50\\text{ A}$."
   },
-  {
-    "id": 291,
-    "type": "mcq",
-    "category": "Radioactivity and Nuclear Energy",
-    "question": "A radioactive nucleus emits beta-minus particle. How do proton number $Z$ and mass number $A$ change?",
-    "options": [
-      "$Z$ increases by 1, $A$ constant",
-      "$Z$ decreases by 1, $A$ constant",
-      "$Z$ constant, $A$ decreases by 1",
-      "Both remain constant"
-    ],
-    "correct": 0,
-    "explanation": "Beta-minus decay converts a neutron to proton, increasing proton number $Z$ by 1, mass number constant."
-  },
+{
+  "id": 291,
+  "type": "mcq",
+  "category": "Radioactivity and Nuclear Energy",
+  "question": "Two isotopes of the same element must have the same number of:",
+  "options": [
+    "Protons but different neutrons",
+    "Neutrons but different protons",
+    "Protons and neutrons",
+    "Nucleons"
+  ],
+  "correct": 0,
+  "explanation": "Isotopes are nuclides belonging to the same chemical element (same atomic/proton number $Z$) but possessing different numbers of neutrons (different mass number $A$)."
+},
   {
     "id": 292,
     "type": "short",
     "category": "Radioactivity and Nuclear Energy",
-    "question": "Mass defect of a reaction is $1.20 \\times 10^{-29}\\text{ kg}$. Find energy released in Joules.",
+    "question": "$1.20 \\times 10^{-29}\\text{ kg}$ of mass is loss during a nuclear reaction. Find energy released in Joules.",
     "correctAnswerValue": "1.08e-12",
     "correctUnit": "J",
     "explanation": "$E = \\Delta m c^2 = (1.20 \\times 10^{-29}) \\times (3.00 \\times 10^8)^2 = 1.08 \\times 10^{-12}\\text{ J}$."
@@ -3384,7 +3385,7 @@
     "id": 295,
     "type": "mcq",
     "category": "Radioactivity and Nuclear Energy",
-    "question": "Which of the following is correct regarding electrostatic ionization power of the three radiations?",
+    "question": "Which of the following is correct regarding ionization power of the three radiations?",
     "options": [
       "Alpha > Beta > Gamma",
       "Gamma > Beta > Alpha",
@@ -3399,8 +3400,8 @@
     "type": "short",
     "category": "Radioactivity and Nuclear Energy",
     "question": "How many protons are present in a nucleus of unstable isotope Carbon-14 ($^{14}_{6}\\text{C}$)?",
-    "correctAnswerValue": "6.00",
-    "correctUnit": "protons",
+    "correctAnswerValue": "6",
+    "correctUnit": "",
     "explanation": "The lower atomic index is 6, which indicates the number of protons inside Carbon nucleus."
   },
   {
@@ -3445,24 +3446,24 @@
     "type": "short",
     "category": "Radioactivity and Nuclear Energy",
     "question": "Complete equation: $^{14}_{7}\\text{N} + ^{4}_{2}\\text{He} \\rightarrow ^{17}_{8}\\text{O} + X$. Find atomic number of $X$.",
-    "correctAnswerValue": "1.00",
-    "correctUnit": "protons",
+    "correctAnswerValue": "1",
+    "correctUnit": "",
     "explanation": "By conservation of charge: $7 + 2 = 8 + Z_x \\Rightarrow Z_x = 1$. The particle is a proton ($^{1}_{1}\\text{H}$)."
   },
   {
-    "id": 301,
-    "type": "mcq",
-    "category": "Heat and Gases",
-    "question": "An electrical heater of $60\\text{ W}$ heats $0.5\\text{ kg}$ oil. Temp rise is $12\\text{ K}$ in $400\\text{ s}$. Find specific heat of oil.",
-    "options": [
-      "$4.0 \\times 10^2\\text{ J kg}^{-1}\\text{ K}^{-1}$",
-      "$2.0 \\times 10^3\\text{ J kg}^{-1}\\text{ K}^{-1}$",
-      "$4.0 \\times 10^3\\text{ J kg}^{-1}\\text{ K}^{-1}$",
-      "$8.0 \\times 10^3\\text{ J kg}^{-1}\\text{ K}^{-1}$"
-    ],
-    "correct": 1,
-    "explanation": "Using $Pt = mc\\Delta T$, specific heat is $c = Pt / (m\\Delta T) = (60 \\times 400) / (0.5 \\times 12) = 4000\\text{ J kg}^{-1}\\text{ K}^{-1}$."
-  },
+  "id": 301,
+  "type": "mcq",
+  "category": "Heat and Gases",
+  "question": "Which of the following can increase the rate of evaporation of a liquid?\n(1) Blowing air across the liquid surface.\n(2) Increasing the surface area of the liquid.\n(3) Increasing the humidity of the surrounding air.",
+  "options": [
+    "(1) and (2) only",
+    "(1) and (3) only",
+    "(2) and (3) only",
+    "(1), (2) and (3)"
+  ],
+  "correct": 0,
+  "explanation": "Blowing air and increasing surface area both enhance evaporation by helping vapor molecules escape or exposing more surface molecules. High humidity increases the rate of condensation back into the liquid, thereby reducing the net rate of evaporation."
+},
   {
     "id": 302,
     "type": "short",
@@ -3495,34 +3496,34 @@
     "correctUnit": "kJ",
     "explanation": "$Q = mc\\Delta T = 1.50 \\times 4200 \\times 80.0 = 504000\\text{ J} = 504\\text{ kJ}$."
   },
-  {
-    "id": 305,
-    "type": "mcq",
-    "category": "Heat and Gases",
-    "question": "In melting at constant temperature, the energy absorbed by solid is primarily used to:",
-    "options": [
-      "Increase kinetic energy of molecules",
-      "Overcome potential bonds between molecules",
-      "Decrease speed of free molecules",
-      "Generate pressure on surrounding walls"
-    ],
-    "correct": 1,
-    "explanation": "Melting occurs at constant temperature (constant kinetic energy), so energy is used to break intermolecular bonds."
-  },
-  {
-    "id": 306,
-    "type": "short",
-    "category": "Heat and Gases",
-    "question": "Calculate molecular root-mean-square speed of gas of density $1.20\\text{ kg m}^{-3}$ at $1.00\\times 10^5\\text{ Pa}$ pressure.",
-    "correctAnswerValue": "500",
-    "correctUnit": "m s-1",
-    "explanation": "Using $P = 1/3 \\rho v_{rms}^2$, $v_{rms} = \\sqrt{3P/\\rho} = \\sqrt{3 \\times 10^5 / 1.20} = 500\\text{ m s}^{-1}$."
-  },
+ {
+  "id": 305,
+  "type": "mcq",
+  "category": "Heat and Gases",
+  "question": "Which of the following statements about temperature and heat is/are correct?\n(1) Temperature is a measure of the total internal energy of a body.\n(2) Heat spontaneously flows from a body with higher temperature to one with lower temperature.",
+  "options": [
+    "(1) only",
+    "(2) only",
+    "Both (1) and (2)",
+    "Neither (1) nor (2)"
+  ],
+  "correct": 1,
+  "explanation": "Statement (1) is incorrect because temperature is a measure of the average kinetic energy of the molecules, not the total internal energy (which also depends on potential energy and the mass of the body). Statement (2) is correct as it describes the spontaneous direction of net heat flow."
+},
+{
+  "id": 306,
+  "type": "short",
+  "category": "Heat and Gases",
+  "question": "An ideal gas of total mass $1.20\\times 10^{-3}\\text{ kg}$ is in a container of volume $1.00\\times 10^{-3}\\text{ m}^3$ at pressure $1.00\\times 10^5\\text{ Pa}$. Find the root-mean-square speed of the molecules.",
+  "correctAnswerValue": "500",
+  "correctUnit": "m s-1",
+  "explanation": "Using $pV = \\frac{1}{3}Nmc^2$, where the total mass of the gas is $Nm = 1.20\\times 10^{-3}\\text{ kg}$. Rearranging for the root-mean-square speed: $c_{rms} = \\sqrt{\\frac{3pV}{Nm}} = \\sqrt{\\frac{3 \\times (1.00\\times 10^5) \\times (1.00\\times 10^{-3})}{1.20\\times 10^{-3}}} = 500\\text{ m s}^{-1}$."
+},
   {
     "id": 307,
     "type": "mcq",
     "category": "Heat and Gases",
-    "question": "Which of the following processes does not involve bulk flow of a fluid medium?",
+    "question": "Which of the following processes does not involve the flow of a fluid medium?",
     "options": [
       "Conduction",
       "Convection",
@@ -3530,7 +3531,7 @@
       "Warm ocean currents"
     ],
     "correct": 0,
-    "explanation": "Conduction is the transfer of heat through molecular vibrations and collisions, without physical bulk transport."
+    "explanation": "Conduction is the transfer of heat through molecular vibrations and collisions."
   },
   {
     "id": 308,
@@ -3648,14 +3649,14 @@
     "explanation": "$KE_1 = 0.5 \\times 2 \\times 100 = 100\\text{ J}$. $KE_2 = 0.5 \\times 2 \\times 25 = 25\\text{ J}$. Lost $KE = 100 - 25 = 75\\text{ J}$."
   },
   {
-    "id": 318,
-    "type": "short",
-    "category": "Force and Motion",
-    "question": "A spring has spring constant $250\\text{ N m}^{-1}$. What extension is required to store $5.00\\text{ J}$ elastic energy?",
-    "correctAnswerValue": "0.200",
-    "correctUnit": "m",
-    "explanation": "$E = 0.5 k x^2 \\Rightarrow 5.00 = 125 x^2 \\Rightarrow x^2 = 0.0400 \\Rightarrow x = 0.200\\text{ m}$."
-  },
+  "id": 318,
+  "type": "short",
+  "category": "Force and Motion",
+  "question": "A uniform rod is pivoted at its center. A downward force of $40.0\\text{ N}$ acts $1.20\\text{ m}$ to the left of the pivot. Find the downward force required $1.50\\text{ m}$ to the right of the pivot to maintain equilibrium.",
+  "correctAnswerValue": "32.0",
+  "correctUnit": "N",
+  "explanation": "By taking moments about the pivot for rotational equilibrium: $\\text{Anticlockwise moment} = \\text{Clockwise moment} \\Rightarrow 40.0 \\times 1.20 = F \\times 1.50 \\Rightarrow F = 32.0\\text{ N}$."
+},
   {
     "id": 319,
     "type": "mcq",
@@ -3674,25 +3675,26 @@
     "id": 320,
     "type": "short",
     "category": "Force and Motion",
-    "question": "A block of $8.00\\text{ kg}$ is on incline ($\\\\sin\\\\theta = 0.600$). Find gravity force component down incline. ($g=9.81$)",
+    "question": "A block of $8.00\\text{ kg}$ is on incline ($\\sin\\theta = 0.600$). Find gravity force component down incline. ($g=9.81$)",
     "correctAnswerValue": "47.1",
     "correctUnit": "N",
     "explanation": "$F_{parallel} = mg\\sin\\theta = 8.00 \\times 9.81 \\times 0.600 = 47.088 \\approx 47.1\\text{ N}$."
   },
-  {
-    "id": 321,
-    "type": "mcq",
-    "category": "Wave Motion",
-    "question": "A transverse wave is expressed as $y = A\\sin(\\omega t - kx)$. What physical parameter is represented by $2\\pi/k$?",
-    "options": [
-      "Frequency",
-      "Wavelength",
-      "Time period",
-      "Phase constant"
-    ],
-    "correct": 1,
-    "explanation": "By definition, the wave number is $k = 2\\pi / \\lambda$, so wavelength is equal to $2\\pi / k$."
-  },
+ {
+  "id": 321,
+  "type": "mcq",
+  "category": "Wave Motion",
+  "question": "To form a real, magnified image with a convex lens of focal length $15.0\\text{ cm}$, the object distance $u$ must satisfy:",
+  "options": [
+    "$u < 15.0\\text{ cm}$",
+    "$15.0\\text{ cm} < u < 30.0\\text{ cm}$",
+    "$u = 30.0\\text{ cm}$",
+    "$u > 30.0\\text{ cm}$",
+    "Both remain constant"
+  ],
+  "correct": 1,
+  "explanation": "A convex lens forms a real, magnified image when the object is located between the focal point $F$ and $2F$. Therefore, the object distance must satisfy $f < u < 2f$, which corresponds to $15.0\\text{ cm} < u < 30.0\\text{ cm}$."
+},
   {
     "id": 322,
     "type": "short",
@@ -3706,7 +3708,7 @@
     "id": 323,
     "type": "mcq",
     "category": "Wave Motion",
-    "question": "Which of the following describes the behavior of a light ray passing from optically denser to rarer medium?",
+    "question": "Which of the following describes the behavior of a light ray passing from optically denser to less dense medium?",
     "options": [
       "Bends towards normal",
       "Bends away from normal",
@@ -3714,7 +3716,7 @@
       "Critical angle decreases"
     ],
     "correct": 1,
-    "explanation": "As light passes into a rarer medium, its speed increases and it bends away from the normal."
+    "explanation": "As light passes into a optically less dense medium, its speed increases and it bends away from the normal."
   },
   {
     "id": 324,
@@ -3739,15 +3741,15 @@
     "correct": 1,
     "explanation": "Since $w = \\lambda D / a$, fringe width is inversely proportional to $a$. Halving $a$ doubles $w$."
   },
-  {
-    "id": 326,
-    "type": "short",
-    "category": "Wave Motion",
-    "question": "A sound meter measures sound level of $80.0\\text{ dB}$. Find sound intensity. ($I_0=1.00\\times 10^{-12}$)",
-    "correctAnswerValue": "1.00e-4",
-    "correctUnit": "W m-2",
-    "explanation": "$80.0 = 10 \\log_{10}(I / 10^{-12}) \\Rightarrow 8 = \\log_{10}(I / 10^{-12}) \\Rightarrow I = 1.00 \\times 10^{-4}\\text{ W m}^{-2}$."
-  },
+{
+  "id": 326,
+  "type": "short",
+  "category": "Wave Motion",
+  "question": "A student of height $1.60\\text{ m}$ stands before a vertical plane mirror. Find the minimum vertical length of the mirror needed to see their full-length image.",
+  "correctAnswerValue": "0.800",
+  "correctUnit": "m",
+  "explanation": "To see a full-length image, light rays from the top of the head and the toes must reflect into the eyes. By similar triangles formed by the object, the image, and the path of the reflecting light rays, the minimum vertical length of the mirror is always exactly half of the person's height: $L_{min} = H/2 = 1.60 / 2 = 0.800\\text{ m}$. This result is independent of the distance between the person and the mirror."
+},
   {
     "id": 327,
     "type": "mcq",
@@ -3767,8 +3769,8 @@
     "type": "short",
     "category": "Wave Motion",
     "question": "A diffraction grating has spacing $d = 1.67\\text{ }\\mu\\text{m}$. Find maximum order possible for $\\lambda = 600\\text{ nm}$.",
-    "correctAnswerValue": "2.00",
-    "correctUnit": "order",
+    "correctAnswerValue": "2",
+    "correctUnit": "",
     "explanation": "$m_{max} = d / \\lambda = 1.67\\times 10^{-6} / (600\\times 10^{-9}) \\approx 2.78$. Largest integer order is $2$."
   },
   {
@@ -3786,21 +3788,21 @@
     "explanation": "Interference is the combination of overlapping coherent waves resulting in constructive or destructive patterns."
   },
   {
-    "id": 330,
-    "type": "short",
-    "category": "Wave Motion",
-    "question": "A closed organ pipe has fundamental frequency of $150\\text{ Hz}$. Find frequency of its first overtone.",
-    "correctAnswerValue": "450",
-    "correctUnit": "Hz",
-    "explanation": "A closed pipe produces only odd harmonics: $f_3 = 3 f_1$ (first overtone). $f_3 = 3 \\times 150 = 450\\text{ Hz}$."
-  },
+  "id": 330,
+  "type": "short",
+  "category": "Wave Motion",
+  "question": "A light ray travels from glass ($n = 1.50$) into a liquid ($n = 1.25$). If the angle of incidence is $30.0\\text{ }^{\\circ}$, find the angle of refraction.",
+  "correctAnswerValue": "36.9",
+  "correctUnit": "o",
+  "explanation": "Using Snell's Law: $n_1 \\sin\\theta_1 = n_2 \\sin\\theta_2 \\Rightarrow 1.50 \\times \\sin(30.0^{\\circ}) = 1.25 \\times \\sin(r) \\Rightarrow \\sin(r) = 0.750 / 1.25 = 0.600 \\Rightarrow r = \\sin^{-1}(0.600) \\approx 36.9^{\\circ}$."
+},
   {
     "id": 331,
     "type": "mcq",
     "category": "Electromagnetism",
-    "question": "A circular wire loop is placed in uniform magnetic field. EMF is induced in loop when:",
+    "question": "A circular wire loop is placed in uniform magnetic field. e.m.f. is induced in loop when:",
     "options": [
-      "The loop is distorted in shape",
+      "The loop is changed in shape",
       "The loop moves at constant velocity parallel",
       "The loop is stationary in constant field",
       "The loop is rotated parallel to field lines"
@@ -3848,7 +3850,7 @@
     "options": [
       "Vertically upwards",
       "Vertically downwards",
-      "Horizontal and perpendicular",
+      "Horizontal and perpendicular to the current and B-field",
       "Zero force"
     ],
     "correct": 2,
@@ -3870,12 +3872,12 @@
     "question": "Which of the following safety components will break the circuit during excessive current flow?",
     "options": [
       "Earth wire",
-      "Circuit breaker",
+      "Fuse",
       "Voltmeter",
       "Transformer core"
     ],
     "correct": 1,
-    "explanation": "A circuit breaker (or fuse) is designed to interrupt electrical flow if currents exceed safe thresholds."
+    "explanation": "A fuse is designed to interrupt electrical flow if currents exceed safe thresholds."
   },
   {
     "id": 338,
@@ -3884,8 +3886,8 @@
     "question": "Two charges ($q_1 = 4.00\\text{ }\\mu\\text{C}$ and $q_2 = 1.00\\text{ }\\mu\\text{C}$) are $0.200\\text{ m}$ apart. Find electrostatic force.",
     "correctAnswerValue": "0.899",
     "correctUnit": "N",
-    "explanation": "$F = kq_1q_2/r^2 = (8.99 \\times 10^9 \\times 4.00 \\times 10^{-12}) / 0.0400 = 0.899\\text{ N}$."
-  },
+    "explanation": "$F = q_1q_2 / (4\\pi\\varepsilon_0 r^2) = (4.00\\times 10^{-6} \\times 1.00\\times 10^{-6}) / (4\\pi \\times 8.85\\times 10^{-12} \\times 0.200^2) = 0.899\\text{ N}$."
+}
   {
     "id": 339,
     "type": "mcq",
@@ -3973,11 +3975,11 @@
     "id": 346,
     "type": "short",
     "category": "Radioactivity and Nuclear Energy",
-    "question": "The daughter $^{210}_{84}\\text{Po}$ is formed from alpha decay of what parent nucleus?",
+    "question": "The daughter $^{210}_{84}\\text{Po}$ is formed from alpha decay of a parent nucleus. What is the mass number of the parent nucleus?",
     "correctAnswerValue": "214",
-    "correctUnit": "parent-mass",
+    "correctUnit": "",
     "explanation": "Alpha decay reduces mass $A$ by 4 and $Z$ by 2. Thus parent must have mass $210+4 = 214$ ($^{214}_{86}\\text{Rn}$)."
-  },
+  },	
   {
     "id": 347,
     "type": "mcq",
@@ -4001,27 +4003,27 @@
     "correctUnit": "s",
     "explanation": "$t_{1/2} = \\ln(2) / \\lambda = 0.69315 / 0.0500 \\approx 13.9\\text{ s}$."
   },
-  {
-    "id": 349,
-    "type": "mcq",
-    "category": "Radioactivity and Nuclear Energy",
-    "question": "The moderator in a nuclear reactor must be constructed from light elements because:",
-    "options": [
-      "They absorb neutrons efficiently",
-      "They cause elastic recoil slowing down neutrons",
-      "They act as radiation shields",
-      "They remain solid at core temp"
-    ],
-    "correct": 1,
-    "explanation": "Light nuclei (like Hydrogen in water or Carbon) slow down neutrons via kinetic elastic collisions without absorbing them."
-  },
+{
+  "id": 349,
+  "type": "mcq",
+  "category": "Radioactivity and Nuclear Energy",
+  "question": "Which of the following physical quantities of a radioactive sample decreases by half after one half-life?\n(1) The activity of the sample.\n(2) The decay constant of the radioisotope.\n(3) The mass of the active undecayed nuclei.",
+  "options": [
+    "(1) and (2) only",
+    "(1) and (3) only",
+    "(2) and (3) only",
+    "(1), (2) and (3)"
+  ],
+  "correct": 1,
+  "explanation": "Both the activity of the sample and the number of active undecayed nuclei (and hence their mass) decrease by half after one half-life. The decay constant ($\\lambda$) is a fundamental property of the nuclide and remains constant regardless of the decay progress."
+},
   {
     "id": 350,
     "type": "short",
     "category": "Radioactivity and Nuclear Energy",
     "question": "An radioactive isotope has half-life $5.00\\text{ s}$. How many half-lives are needed to reduce sample by $99.0\\%$?",
-    "correctAnswerValue": "7.00",
-    "correctUnit": "half-lives",
+    "correctAnswerValue": "7",
+    "correctUnit": "",
     "explanation": "Remaining fraction $< 1\\% = 0.01$. $(1/2)^6 = 0.0156$, $(1/2)^7 = 0.0078$. Thus, $7$ half-lives are required."
   },
   {
@@ -4094,19 +4096,19 @@
     "explanation": "Boyle's Law: $P_1V_1 = P_2V_2 \\Rightarrow P_2 = 1.00\\times 10^5 \\times 4 = 4.00 \\times 10^5\\text{ Pa}$."
   },
   {
-    "id": 357,
-    "type": "mcq",
-    "category": "Heat and Gases",
-    "question": "Why is latent heat of vaporization of water significantly larger than latent heat of fusion?",
-    "options": [
-      "Liquid density is low",
-      "Vaporization requires complete separation of molecules",
-      "Fusion breaks intramolecular covalent bonds",
-      "Ice has larger specific heat"
-    ],
-    "correct": 1,
-    "explanation": "Vaporization must overcome all molecular attractions to separate molecules, requiring more work than fusion."
-  },
+  "id": 357,
+  "type": "mcq",
+  "category": "Heat and Gases",
+  "question": "According to the kinetic theory, the pressure exerted by a gas on the walls of a container is due to:",
+  "options": [
+    "Attractive forces between molecules",
+    "Collisions of molecules with the walls",
+    "Collisions between different molecules",
+    "Repulsive forces between molecules"
+  ],
+  "correct": 1,
+  "explanation": "According to the kinetic theory, gas pressure is caused by the continuous collisions of gas molecules with the container walls, which results in a change in momentum and thus exerts a force on the walls."
+},
   {
     "id": 358,
     "type": "short",
@@ -4143,7 +4145,7 @@
     "id": 361,
     "type": "mcq",
     "category": "Force and Motion",
-    "question": "A ball is thrown vertically up at $30\\text{ m s}^{-1}$. Just before hitting ground, its velocity is: ($g=9.81$)",
+    "question": "A ball is thrown vertically up from ground at $30\\text{ m s}^{-1}$. Just before hitting ground, its velocity is: ($g=9.81$)",
     "options": [
       "$-30\\text{ m s}^{-1}$",
       "$0\\text{ m s}^{-1}$",
@@ -4157,7 +4159,7 @@
     "id": 362,
     "type": "short",
     "category": "Force and Motion",
-    "question": "A $10.0\\text{ kg}$ trolley travels along friction-free floor at $3.00\\text{ m s}^{-1}$. Find kinetic energy.",
+    "question": "A $10.0\\text{ kg}$ trolley travels along smooth floor at $3.00\\text{ m s}^{-1}$. Find kinetic energy.",
     "correctAnswerValue": "45.0",
     "correctUnit": "J",
     "explanation": "$KE = 0.5 mv^2 = 0.5 \\times 10.0 \\times 3.00^2 = 45.0\\text{ J}$."
@@ -4186,19 +4188,19 @@
     "explanation": "Vertical: $s = 0.5 gt^2 \\Rightarrow t = \\sqrt{2s/g} = \\sqrt{160.0/9.81} \\approx 4.039 \\approx 4.04\\text{ s}$."
   },
   {
-    "id": 365,
-    "type": "mcq",
-    "category": "Force and Motion",
-    "question": "If limiting static friction coefficient is $0.50$, find max slope angle before block begins sliding. ($g=9.81$)",
-    "options": [
-      "$26.6\\text{ }^{\\circ}$",
-      "$30.0\\text{ }^{\\circ}$",
-      "$45.0\\text{ }^{\\circ}$",
-      "$60.0\\text{ }^{\\circ}$"
-    ],
-    "correct": 0,
-    "explanation": "Sliding starts when gravity down slope exceeds friction: $mg\\sin\\theta = \\mu mg\\cos\\theta \\Rightarrow \\tan\\theta = \\mu = 0.50 \\Rightarrow \\theta \\approx 26.6^{\\circ}$."
-  },
+  "id": 365,
+  "type": "mcq",
+  "category": "Force and Motion",
+  "question": "A horizontal force of $12.0\\text{ N}$ pulls a $3.00\\text{ kg}$ block along a rough floor at a constant velocity of $2.00\\text{ m s}^{-1}$. Find the friction force acting on the block.",
+  "options": [
+    "$0\\text{ N}$",
+    "$6.00\\text{ N}$",
+    "$12.0\\text{ N}$",
+    "$24.0\\text{ N}$"
+  ],
+  "correct": 2,
+  "explanation": "Since the block moves at a constant velocity, its acceleration is zero. According to Newton's First Law, the net force acting on the block must be zero ($F_{net} = F_{pull} - f = 0$). Therefore, the friction force $f$ is equal in magnitude to the pulling force, which is $12.0\\text{ N}$."
+},
   {
     "id": 366,
     "type": "short",
@@ -4274,18 +4276,18 @@
     "category": "Wave Motion",
     "question": "A ray enters plastic from air with angle $60.0\\text{ }^{\\circ}$. Plastic index $n = 1.414$. Find angle of refraction.",
     "correctAnswerValue": "37.8",
-    "correctUnit": "oC",
+    "correctUnit": "o",
     "explanation": "Snell's Law: $\\sin(60.0^{\\circ}) = 1.414 \\sin(r) \\Rightarrow \\sin(r) = 0.866 / 1.414 \\approx 0.6125 \\Rightarrow r \\approx 37.8^{\\circ}$."
   },
   {
     "id": 373,
     "type": "mcq",
     "category": "Wave Motion",
-    "question": "Which of the following describes the difference between progressive and standing waves?",
+    "question": "Which of the following describes the difference between travelling and standing waves?",
     "options": [
-      "Progressive waves have nodes",
+      "Travelling waves have nodes",
       "Standing waves transfer energy",
-      "Progressive waves transfer net energy",
+      "Travelling waves transfer energy",
       "Standing waves have no phase change"
     ],
     "correct": 2,
@@ -4315,51 +4317,51 @@
     "explanation": "Critical angle $c = \\sin^{-1}(n_2/n_1) = \\sin^{-1}(1.33/1.52) \\approx 61.0^{\\circ}$."
   },
   {
-    "id": 376,
-    "type": "short",
-    "category": "Wave Motion",
-    "question": "Find frequency of third harmonic of stretched string clamped at both ends of length $1.20\\text{ m}$ ($v=120\\text{ m s}^{-1}$).",
-    "correctAnswerValue": "150",
-    "correctUnit": "Hz",
-    "explanation": "Wavelength $\\lambda_3 = 2L/3 = 2.40 / 3 = 0.800\\text{ m}$. Frequency $f_3 = v/\\lambda_3 = 120 / 0.800 = 150\\text{ Hz}$."
-  },
+  "id": 376,
+  "type": "short",
+  "category": "Wave Motion",
+  "question": "A stationary wave with three loops is formed on a stretched string of length $1.20\\text{ m}$ clamped at both ends. If the wave speed is $120\\text{ m s}^{-1}$, find the frequency of vibration.",
+  "correctAnswerValue": "150",
+  "correctUnit": "Hz",
+  "explanation": "For a stationary wave with three loops, the length of the string $L$ corresponds to $1.5$ wavelengths: $L = 1.5\\lambda \\Rightarrow 1.20 = 1.5\\lambda \\Rightarrow \\lambda = 0.800\\text{ m}$. Using the wave equation $v = f\\lambda$, the frequency of vibration is $f = v/\\lambda = 120 / 0.800 = 150\\text{ Hz}$."
+},
   {
-    "id": 377,
-    "type": "mcq",
-    "category": "Wave Motion",
-    "question": "Which of the following is correct regarding sound wave propagation relative to wind direction?",
-    "options": [
-      "Speed is unaffected",
-      "Apparent frequency changes only",
-      "Speed is vector sum of sound and wind",
-      "Intensity is completely conserved"
-    ],
-    "correct": 2,
-    "explanation": "Sound is carried by medium, so actual wave velocity relative to ground is the vector sum of wind speed and sound speed."
-  },
+  "id": 377,
+  "type": "mcq",
+  "category": "Wave Motion",
+  "question": "Which of the following is/are the necessary condition(s) for total internal reflection to occur?\n(1) Light must travel from an optically denser to an optically less dense medium.\n(2) The angle of incidence must be greater than the critical angle.",
+  "options": [
+    "(1) only",
+    "(2) only",
+    "Both (1) and (2)",
+    "Neither (1) nor (2)"
+  ],
+  "correct": 2,
+  "explanation": "Both conditions are required. Total internal reflection can only occur when light travels from a medium of higher refractive index (optically denser) to one of lower refractive index (less dense), and the angle of incidence in the denser medium exceeds the critical angle ($i > c$)."
+},
   {
     "id": 378,
     "type": "short",
     "category": "Wave Motion",
-    "question": "An FM station has wavelength $3.00\\text{ m}$ in vacuum. Find transmission frequency in MHz.",
+    "question": "Signal from an FM station has wavelength $3.00\\text{ m}$ in vacuum. Find transmission frequency in MHz.",
     "correctAnswerValue": "100",
     "correctUnit": "MHz",
     "explanation": "$f = c/\\lambda = (3.00 \\times 10^8) / 3.00 = 1.00 \\times 10^8\\text{ Hz} = 100\\text{ MHz}$."
   },
-  {
-    "id": 379,
-    "type": "mcq",
-    "category": "Wave Motion",
-    "question": "Which of the following wave behaviors is used in polaroid sunglasses to reduce glare?",
-    "options": [
-      "Refraction",
-      "Diffraction",
-      "Polarization",
-      "Total internal reflection"
-    ],
-    "correct": 2,
-    "explanation": "Polaroid sunglasses block horizontally polarized light reflections (glare) from flat surfaces."
-  },
+ {
+  "id": 379,
+  "type": "mcq",
+  "category": "Wave Motion",
+  "question": "A wave of wavelength $\\lambda$ passes through a slit of width $d$. The diffraction of the wave is most significant when:",
+  "options": [
+    "$\\lambda$ is much smaller than $d$",
+    "$\\lambda$ is comparable to or larger than $d$",
+    "$\\lambda$ is exactly equal to zero",
+    "The wave amplitude is much larger than $d$"
+  ],
+  "correct": 1,
+  "explanation": "The diffraction (spreading) of a wave becomes most pronounced and noticeable when the wavelength of the wave is comparable to or larger than the size of the slit opening ($$\\lambda \\ge d$$)."
+},
   {
     "id": 380,
     "type": "short",
@@ -4407,14 +4409,14 @@
     "explanation": "$V_s = V_p (N_s/N_p) = 12 \\times (1000/200) = 12 \\times 5 = 60\\text{ V}$."
   },
   {
-    "id": 384,
-    "type": "short",
-    "category": "Electromagnetism",
-    "question": "A charge of $5.00\\text{ nC}$ experiences potential difference $120\\text{ V}$ in circuit. Find work done.",
-    "correctAnswerValue": "600",
-    "correctUnit": "nJ",
-    "explanation": "$W = qV = (5.00 \\times 10^{-9}) \\times 120 = 6.00 \\times 10^{-7}\\text{ J} = 600\\text{ nJ}$."
-  },
+  "id": 384,
+  "type": "short",
+  "category": "Electromagnetism",
+  "question": "Two point charges of $+2.00\\text{ }\\mu\\text{C}$ and $+5.00\\text{ }\\mu\\text{C}$ are separated by $0.300\\text{ m}$ in a vacuum. Find the electrostatic force between them.",
+  "correctAnswerValue": "1.00",
+  "correctUnit": "N",
+  "explanation": "Using Coulomb's Law: $F = \\frac{q_1q_2}{4\\pi\\varepsilon_0 r^2} = \\frac{(2.00\\times 10^{-6}) \\times (5.00\\times 10^{-6})}{4\\pi \\times 8.85\\times 10^{-12} \\times 0.300^2} \\approx 0.999 \\approx 1.00\\text{ N}$."
+},
   {
     "id": 385,
     "type": "mcq",
@@ -4444,13 +4446,13 @@
     "category": "Electromagnetism",
     "question": "Which of the following electrical components is used to measure potential difference across a resistor?",
     "options": [
-      "Ammeter in series",
-      "Voltmeter in parallel",
-      "Galvanometer in series",
-      "Fuse in parallel"
+      "Ammeter",
+      "Voltmeter",
+      "Galvanometer",
+      "Fuse"
     ],
     "correct": 1,
-    "explanation": "Voltmeters must be connected in parallel with components to measure voltage drop across them."
+    "explanation": "Voltmeters connected in parallel with components can measure voltage drop across them."
   },
   {
     "id": 388,
@@ -4504,7 +4506,7 @@
     "category": "Radioactivity and Nuclear Energy",
     "question": "Find mass number $A$ of daughter nucleus after parent $^{238}_{92}\\text{U}$ undergoes alpha decay.",
     "correctAnswerValue": "234",
-    "correctUnit": "u",
+    "correctUnit": "",
     "explanation": "Alpha decay emits helium nucleus $^{4}_{2}\\text{He}$. Mass number decreases by 4 ($238 \\rightarrow 234$)."
   },
   {
@@ -4525,26 +4527,25 @@
     "id": 394,
     "type": "short",
     "category": "Radioactivity and Nuclear Energy",
-    "question": "A reaction releases energy $3.60 \\times 10^{-12}\\text{ J}$. Find mass defect in kg.",
+    "question": "A reaction releases energy $3.60 \\times 10^{-12}\\text{ J}$. Find the loss in mass in kg.",
     "correctAnswerValue": "4.00e-29",
     "correctUnit": "kg",
     "explanation": "Using $E = \\Delta m c^2 \\Rightarrow \\Delta m = E/c^2 = (3.60 \\times 10^{-12}) / (3.00 \\times 10^8)^2 = 4.00 \\times 10^{-29}\\text{ kg}$."
   },
-  {
-    "id": 395,
-    "type": "mcq",
-    "category": "Radioactivity and Nuclear Energy",
-    "question": "What is the primary function of a moderator in a typical nuclear fission reactor?",
-    "options": [
-      "To accelerate thermal neutrons",
-      "To slow down fast neutrons",
-      "To absorb thermal neutrons",
-      "To prevent cooling of reactor"
-    ],
-    "correct": 1,
-    "explanation": "Moderators slow down fast neutrons to thermal speeds, increasing the probability of further Uranium-235 fission."
-  },
-  {
+{
+  "id": 395,
+  "type": "mcq",
+  "category": "Radioactivity and Nuclear Energy",
+  "question": "A nucleus of Carbon-14 ($^{14}_{6}\\text{C}$) undergoes $\\beta$ decay to form a Nitrogen nucleus ($^{A}_{Z}\\text{N}$). What are the values of $A$ and $Z$?",
+  "options": [
+    "$A = 14$, $Z = 5$",
+    "$A = 14$, $Z = 7$",
+    "$A = 13$, $Z = 6$",
+    "$A = 15$, $Z = 7$"
+  ],
+  "correct": 1,
+  "explanation": "In $\\beta$ decay, a neutron changes into a proton, emitting an electron ($^{0}_{-1}\\text{e}$). The mass number $A$ remains unchanged ($14$), while the atomic number $Z$ increases by 1 ($6 + 1 = 7$). Equation: $^{14}_{6}\\text{C} \\rightarrow ^{14}_{7}\\text{N} + ^{0}_{-1}\\text{e}$."
+}  {
     "id": 396,
     "type": "short",
     "category": "Radioactivity and Nuclear Energy",
@@ -4554,28 +4555,28 @@
     "explanation": "$\\lambda = \\ln(2) / t_{1/2} = 0.69315 / 120 \\approx 0.005776 \\approx 0.00578\\text{ s}^{-1}$."
   },
   {
-    "id": 397,
-    "type": "mcq",
-    "category": "Radioactivity and Nuclear Energy",
-    "question": "In nuclear fusion, when Deuterium and Tritium fuse, what is released alongside Helium-4?",
-    "options": [
-      "Proton",
-      "Neutron",
-      "Beta particle",
-      "Gamma ray"
-    ],
-    "correct": 1,
-    "explanation": "The fusion reaction is $^{2}_{1}\\text{H} + ^{3}_{1}\\text{H} \\rightarrow ^{4}_{2}\\text{He} + ^{1}_{0}\\text{n}$, releasing a neutron."
-  },
-  {
-    "id": 398,
-    "type": "short",
-    "category": "Radioactivity and Nuclear Energy",
-    "question": "A source records $240\\text{ cpm}$ including background of $20\\text{ cpm}$. Find corrected count rate.",
-    "correctAnswerValue": "220",
-    "correctUnit": "cpm",
-    "explanation": "Corrected rate = Total rate - Background rate = 240 - 20 = 220 cpm."
-  },
+  "id": 397,
+  "type": "mcq",
+  "category": "Radioactivity and Nuclear Energy",
+  "question": "Which of the following statements about nuclear fission and nuclear fusion is/are correct?\n(1) Both processes release energy due to a decrease in total rest mass.\n(2) Fission involves splitting a heavy nucleus, while fusion involves joining light nuclei.\n(3) Fusion can occur spontaneously at room temperature.",
+  "options": [
+    "(1) and (2) only",
+    "(1) and (3) only",
+    "(2) and (3) only",
+    "(1), (2) and (3)"
+  ],
+  "correct": 0,
+  "explanation": "Both fission and fusion result in a mass defect where the total rest mass of the products is less than that of the reactants, releasing energy according to $E = \\Delta m c^2$. Fission is the splitting of a heavy nucleus, whereas fusion is the joining of light nuclei. Statement (3) is incorrect because fusion requires extremely high temperatures to provide the kinetic energy needed to overcome the strong electrostatic repulsion between positive nuclei."
+},
+ {
+  "id": 398,
+  "type": "short",
+  "category": "Radioactivity and Nuclear Energy",
+  "question": "The background count rate in a laboratory is $15.0\\text{ cpm}$. A detector placed near a radioactive sample with a half-life of $6.00\\text{ hours}$ initially registers a total count rate of $175\\text{ cpm}$. Find the corrected count rate of the sample after $12.0\\text{ hours}$.",
+  "correctAnswerValue": "40.0",
+  "correctUnit": "cpm",
+  "explanation": "The initial corrected count rate is the initial total count rate minus the background count rate: $175 - 15.0 = 160\\text{ cpm}$. Since $12.0\\text{ hours}$ corresponds to exactly two half-lives ($12.0 / 6.00 = 2$), the corrected count rate of the sample after $12.0\\text{ hours}$ is: $160 / 2^2 = 40.0\\text{ cpm}$."
+},
   {
     "id": 399,
     "type": "mcq",
@@ -4594,10 +4595,10 @@
     "id": 400,
     "type": "short",
     "category": "Radioactivity and Nuclear Energy",
-    "question": "Find atomic number $Z$ of daughter nucleus $^{A}_{Z}\\text{Y}$ formed after parent $^{234}_{90}\\text{Th}$ beta-minus decays.",
-    "correctAnswerValue": "91.0",
-    "correctUnit": "protons",
-    "explanation": "Beta-minus decay increases atomic number $Z$ by 1. Thus, $Z = 90 + 1 = 91.0$."
+    "question": "Find the atomic number $Z$ of daughter nucleus $^{A}_{Z}\\text{Y}$ formed after parent $^{234}_{90}\\text{Th}$ beta decays.",
+    "correctAnswerValue": "91",
+    "correctUnit": "",
+    "explanation": "Beta decay increases atomic number $Z$ by 1. Thus, $Z = 90 + 1 = 91.0$."
   },
   {
     "id": 401,
@@ -4620,7 +4621,7 @@
     "question": "A container of $3.00 \\times 10^{-3}\\text{ m}^3$ holds gas at $1.50\\times 10^5\\text{ Pa}$. Compressed at constant temp to $1/3$ volume. Find pressure.",
     "correctAnswerValue": "4.50e5",
     "correctUnit": "Pa",
-    "explanation": "$P_1V_1 = P_2V_2$. Halving volume triples pressure: $P_2 = 3 \\times 1.50 \\times 10^5 = 4.50 \\times 10^5\\text{ Pa}$."
+    "explanation": "$P_1V_1 = P_2V_2$. Reducing volume to one-third triples pressure: $P_2 = 3 \\times 1.50 \\times 10^5 = 4.50 \\times 10^5\\text{ Pa}$."
   },
   {
     "id": 403,
@@ -4751,43 +4752,43 @@
     "correct": 2,
     "explanation": "$R = (u^2\\sin(2\\theta))/g = (400 \\times 1) / 9.81 \\approx 40.8\\text{ m}$."
   },
+{
+  "id": 414,
+  "type": "short",
+  "category": "Force and Motion",
+  "question": "A light rod of length $2.00\\text{ m}$ is pivoted at its left end. A downward force of $12.0\\text{ N}$ acts at a distance of $1.50\\text{ m}$ from the pivot. Find the vertical upward force required at the right end to maintain horizontal equilibrium.",
+  "correctAnswerValue": "9.00",
+  "correctUnit": "N",
+  "explanation": "By taking moments about the pivot at the left end for rotational equilibrium: $\\text{Clockwise moment} = \\text{Anticlockwise moment} \\Rightarrow 12.0 \\times 1.50 = F \\times 2.00 \\Rightarrow 2.00F = 18.0 \\Rightarrow F = 9.00\\text{ N}$."
+},
   {
-    "id": 414,
-    "type": "short",
-    "category": "Force and Motion",
-    "question": "A spring is stretched by extension $0.150\\text{ m}$ under load of $30.0\\text{ N}$. Find spring stiffness.",
-    "correctAnswerValue": "200",
-    "correctUnit": "N m-1",
-    "explanation": "Hooke's Law: $F = kx \\Rightarrow k = F/x = 30.0 / 0.150 = 200\\text{ N m}^{-1}$."
-  },
-  {
-    "id": 415,
-    "type": "mcq",
-    "category": "Force and Motion",
-    "question": "A mass of $1\\text{ kg}$ is tied to $0.5\\text{ m}$ string and spun in vertical circle. Find min speed at peak. ($g=9.81$)",
-    "options": [
-      "$1.11\\text{ m s}^{-1}$",
-      "$2.21\\text{ m s}^{-1}$",
-      "$4.91\\text{ m s}^{-1}$",
-      "$9.81\\text{ m s}^{-1}$"
-    ],
-    "correct": 1,
-    "explanation": "At highest point, minimum tension is $0$: $mg = mv^2/r \\Rightarrow v = \\sqrt{gr} = \\sqrt{9.81 \\times 0.5} \\approx 2.21\\text{ m s}^{-1}$."
-  },
+  "id": 415,
+  "type": "mcq",
+  "category": "Force and Motion",
+  "question": "An object of mass $0.50\\text{ kg}$ is tied to a string of length $0.80\\text{ m}$ and whirled in a horizontal circle on a smooth table at a constant speed of $4.0\\text{ m s}^{-1}$. Find the tension in the string.",
+  "options": [
+    "$5.0\\text{ N}$",
+    "$10\\text{ N}$",
+    "$20\\text{ N}$",
+    "$40\\text{ N}$"
+  ],
+  "correct": 1,
+  "explanation": "For uniform circular motion on a smooth horizontal surface, the tension in the string provides the necessary centripetal force: $T = \\frac{mv^2}{r} = \\frac{0.50 \\times 4.0^2}{0.80} = \\frac{0.50 \\times 16.0}{0.80} = 10\\text{ N}$."
+},
   {
     "id": 416,
     "type": "short",
     "category": "Force and Motion",
     "question": "A $1500\\text{ kg}$ truck moving at $12.0\\text{ m s}^{-1}$ is stopped in distance $18.0\\text{ m}$. Find average braking power.",
-    "correctAnswerValue": "72.0",
+    "correctAnswerValue": "36.0",
     "correctUnit": "kW",
-    "explanation": "Stopping time: $s = (u+v)/2 \\cdot t \\Rightarrow 18.0 = 6.00 t \\Rightarrow t = 3.00\\text{ s}$. Power $P = \\Delta KE / t = (0.5\\times 1500\\times 144)/3 = 36000\\text{ W} = 36.0\\text{ kW}$... Wait, average power over time is $\\Delta KE / t = 36.0\\text{ kW}$."
+    "explanation": "Stopping time: $s = (u+v)/2 \\cdot t \\Rightarrow 18.0 = 6.00 t \\Rightarrow t = 3.00\\text{ s}$. Power $P = \\Delta KE / t = (0.5\\times 1500\\times 144)/3 = 36000\\text{ W} = 36.0\\text{ kW}$."
   },
   {
     "id": 417,
     "type": "mcq",
     "category": "Force and Motion",
-    "question": "A trolley of mass $m$ moving at velocity $v$ collides and sticks to identical stationary trolley. Elastic energy lost is:",
+    "question": "A trolley of mass $m$ moving at velocity $v$ collides and sticks to identical stationary trolley. Kinetic energy lost is:",
     "options": [
       "Zero",
       "$25\\%$",
@@ -4849,7 +4850,7 @@
     "category": "Wave Motion",
     "question": "A light ray in glass ($n = 1.50$) hits boundary to air at angle $45.0\\text{ }^{\\circ}$. Is total internal reflection observed?",
     "correctAnswerValue": "yes",
-    "correctUnit": "TIR-status",
+    "correctUnit": "",
     "explanation": "Critical angle $c = \\sin^{-1}(1/1.50) \\approx 41.8^{\\circ}$. Incident angle $45.0^{\\circ} > 41.8^{\\circ}$, so TIR is observed ('yes')."
   },
   {
@@ -4918,7 +4919,7 @@
     "category": "Wave Motion",
     "question": "A diffraction grating has spacing $2.50\\text{ }\\mu\\text{m}$. Find second-order maximum angle for $\\lambda = 500\\text{ nm}$ light.",
     "correctAnswerValue": "23.6",
-    "correctUnit": "oC",
+    "correctUnit": "o",
     "explanation": "$d\\sin\\theta = m\\lambda \\Rightarrow 2.50\\times 10^{-6}\\sin\\theta = 2 \\times 500\\times 10^{-9} = 10^{-6} \\Rightarrow \\sin\\theta = 0.4 \\Rightarrow \\theta \\approx 23.6^{\\circ}$."
   },
   {
@@ -4935,29 +4936,29 @@
     "correct": 1,
     "explanation": "Standing waves require identical amplitude, frequency, and wavelength traveling in opposite directions."
   },
-  {
-    "id": 430,
-    "type": "short",
-    "category": "Wave Motion",
-    "question": "A sound source moves away from observer at $30.0\\text{ m s}^{-1}$ ($v_{sound}=340$). Frequency is $370\\text{ Hz}$. Find apparent freq.",
-    "correctAnswerValue": "340",
-    "correctUnit": "Hz",
-    "explanation": "Doppler effect: $f' = f [v / (v + v_s)] = 370 \\times [340 / (340 + 30.0)] = 370 \\times (340 / 370) = 340\\text{ Hz}$."
-  },
-  {
-    "id": 431,
-    "type": "mcq",
-    "category": "Electromagnetism",
-    "question": "A current-carrying wire loop is suspended horizontally. When B-field pointing up is applied, loop tries to:",
-    "options": [
-      "Vaporize completely",
-      "Decrease in radius",
-      "Increase in radius",
-      "Remain stationary"
-    ],
-    "correct": 2,
-    "explanation": "According to magnetic pressure, forces on loop point outward, acting to expand current loop radius."
-  },
+ {
+  "id": 430,
+  "type": "short",
+  "category": "Wave Motion",
+  "question": "A light ray in air enters a triangular glass prism ($n = 1.50$). If the angle of refraction inside the glass is $30.0\\text{ }^{\\circ}$, find the angle of incidence in air.",
+  "correctAnswerValue": "48.6",
+  "correctUnit": "o",
+  "explanation": "Using Snell's Law for the light entering from air ($n_{air} = 1.00$) into glass ($n_{glass} = 1.50$): $n_{air} \\sin\\theta_1 = n_{glass} \\sin\\theta_2 \\Rightarrow 1.00 \\times \\sin(i) = 1.50 \\times \\sin(30.0^{\\circ}) \\Rightarrow \\sin(i) = 1.50 \\times 0.500 = 0.750 \\Rightarrow i = \\sin^{-1}(0.750) \\approx 48.6^{\\circ}$."
+},
+ {
+  "id": 431,
+  "type": "mcq",
+  "category": "Electromagnetism",
+  "question": "A straight wire carrying a constant current is placed in a uniform magnetic field. When the wire is perpendicular to the magnetic field, the magnetic force acting on it is $F$. If the wire is rotated so that it is parallel to the magnetic field, what is the new magnetic force on the wire?",
+  "options": [
+    "Zero",
+    "$0.5 F$",
+    "$F$",
+    "$2 F$"
+  ],
+  "correct": 0,
+  "explanation": "The magnetic force on a current-carrying conductor is given by $F = BIL \\sin\\theta$, where $\\theta$ is the angle between the conductor and the magnetic field. When the wire is parallel to the magnetic field, $\\theta = 0^{\\circ}$, so $\\sin(0^{\\circ}) = 0$, resulting in a magnetic force of zero."
+},
   {
     "id": 432,
     "type": "short",
@@ -5017,15 +5018,15 @@
     "id": 437,
     "type": "mcq",
     "category": "Electromagnetism",
-    "question": "What is the primary role of the thick steel core in a domestic power transformer?",
+    "question": "What is the primary role of the soft-iron core in a domestic power transformer?",
     "options": [
       "To prevent electric shock",
       "To lower secondary resistance",
-      "To maximize magnetic flux coupling",
+      "To minimize magnetic flux leakage",
       "To cool transformer coils"
     ],
     "correct": 2,
-    "explanation": "Soft iron/steel core provides path of low reluctance, channeling magnetic flux efficiently from primary to secondary."
+    "explanation": "Soft-iron core provides path of low reluctance, channeling magnetic flux efficiently from primary to secondary."
   },
   {
     "id": 438,
@@ -5078,70 +5079,70 @@
     "type": "short",
     "category": "Radioactivity and Nuclear Energy",
     "question": "Find atomic number $Z$ of daughter nucleus formed after $^{222}_{86}\\text{Rn}$ undergoes alpha decay.",
-    "correctAnswerValue": "84.0",
-    "correctUnit": "protons",
+    "correctAnswerValue": "84",
+    "correctUnit": "",
     "explanation": "Alpha decay emits helium nucleus $^{4}_{2}\\text{He}$. Atomic number decreases by 2 ($86 \\rightarrow 84$)."
   },
+{
+  "id": 443,
+  "type": "mcq",
+  "category": "Radioactivity and Nuclear Energy",
+  "question": "A beam containing $\\alpha$, $\\beta$, and $\\gamma$ radiations passes through an electric field between two oppositely charged plates. Which radiation(s) will be deflected towards the positive plate?",
+  "options": [
+    "$\\alpha$ radiation only",
+    "$\\beta$ radiation only",
+    "$\\gamma$ radiation only",
+    "Both $\\alpha$ and $\\beta$ radiations"
+  ],
+  "correct": 1,
+  "explanation": "Beta particles ($\\beta$) are negatively charged electrons, meaning they are attracted to and deflected towards the positive plate. Alpha particles ($\\alpha$) are positively charged and deflected towards the negative plate, while gamma rays ($\\gamma$) carry no charge and pass straight through undeflected."
+},
   {
-    "id": 443,
-    "type": "mcq",
-    "category": "Radioactivity and Nuclear Energy",
-    "question": "Which decay process converts a neutron into a proton, emitting an electron and antineutrino?",
-    "options": [
-      "Alpha decay",
-      "Beta-minus decay",
-      "Beta-plus decay",
-      "Gamma decay"
-    ],
-    "correct": 1,
-    "explanation": "Beta-minus decay converts a neutron to a proton, ejecting a beta-minus particle (electron)."
-  },
+  "id": 444,
+  "type": "short",
+  "category": "Radioactivity and Nuclear Energy",
+  "question": "The mass loss of a helium-4 nucleus is $5.00 \\times 10^{-29}\\text{ kg}$. Find its binding energy.",
+  "correctAnswerValue": "4.50e-12",
+  "correctUnit": "J",
+  "explanation": "Using Einstein's mass-energy equation, the binding energy is: $E_b = \\Delta m c^2 = (5.00 \\times 10^{-29}) \\times (3.00 \\times 10^8)^2 = 4.50 \\times 10^{-12}\\text{ J}$."
+},
   {
-    "id": 444,
-    "type": "short",
-    "category": "Radioactivity and Nuclear Energy",
-    "question": "Mass defect of a helium-4 nucleus is $5.00 \\times 10^{-29}\\text{ kg}$. Find binding energy in Joules.",
-    "correctAnswerValue": "4.50e-12",
-    "correctUnit": "J",
-    "explanation": "$E_b = \\Delta m c^2 = (5.00 \\times 10^{-29}) \\times (3.00 \\times 10^8)^2 = 4.50 \\times 10^{-12}\\text{ J}$."
-  },
-  {
-    "id": 445,
-    "type": "mcq",
-    "category": "Radioactivity and Nuclear Energy",
-    "question": "Which of the following is correct regarding biological radiation risk in terms of equivalent dose?",
-    "options": [
-      "Equivalent dose is in Gray",
-      "Beta is highly ionizing internally than alpha",
-      "Sieve (Sv) is unit of equivalent dose",
-      "Absorbed dose in J is Sv"
-    ],
-    "correct": 2,
-    "explanation": "Equivalent dose accounts for biological damage of different radiations, and is measured in Sieverts (Sv)."
-  },
+  "id": 445,
+  "type": "mcq",
+  "category": "Radioactivity and Nuclear Energy",
+  "question": "In a factory, the thickness of paper sheets is monitored continuously using a radioactive source and a detector. Which type of radiation source is most suitable for this application?",
+  "options": [
+    "An alpha emitter",
+    "A beta emitter",
+    "A gamma emitter",
+    "A neutron emitter"
+  ],
+  "correct": 1,
+  "explanation": "Alpha particles are completely absorbed by even thin paper and air, so they cannot reach the detector. Gamma rays are too penetrating and would pass through with virtually no change in count rate regardless of thickness variations. Beta particles are partially absorbed, making them highly sensitive to small variations in the paper's thickness."
+},
   {
     "id": 446,
     "type": "short",
     "category": "Radioactivity and Nuclear Energy",
     "question": "Complete the alpha decay parent: $X \\rightarrow ^{218}_{84}\\text{Po} + \\alpha$. Find mass number of parent $X$.",
     "correctAnswerValue": "222",
-    "correctUnit": "u",
+    "correctUnit": "",
     "explanation": "Alpha emission decreases parent mass number by 4. Thus parent mass $A = 218 + 4 = 222$."
   },
-  {
-    "id": 447,
-    "type": "mcq",
-    "category": "Radioactivity and Nuclear Energy",
-    "question": "In a nuclear fission chain reaction, if the multiplication factor $k$ is greater than 1, reaction is:",
-    "options": [
-      "Subcritical",
-      "Critical",
-      "Supercritical",
-      "Moderated"
-    ],
-    "correct": 2,
-    "explanation": "When $k > 1$, the reaction rate grows exponentially, designating supercritical state (runaway chain reaction)."
-  },
+ {
+  "id": 447,
+  "type": "mcq",
+  "category": "Radioactivity and Nuclear Energy",
+  "question": "In medical imaging, a radioactive tracer is injected into a patient. Which of the following is the most suitable combination of radiation emitted and half-life for this tracer?",
+  "options": [
+    "$\\alpha$ radiation; half-life of $6\\text{ hours}$",
+    "$\\gamma$ radiation; half-life of $6\\text{ hours}$",
+    "$\\beta$ radiation; half-life of $15\\text{ years}$",
+    "$\\gamma$ radiation; half-life of $15\\text{ years}$"
+  ],
+  "correct": 1,
+  "explanation": "Gamma ($\\gamma$) radiation is selected because it is highly penetrating and can easily escape the body to be detected by external sensors while causing minimal internal ionization damage. A short half-life of $6\\text{ hours}$ ensures that the activity remains high enough for the scan, but decays quickly afterwards to minimize long-term radiation exposure."
+},
   {
     "id": 448,
     "type": "short",
@@ -5151,27 +5152,27 @@
     "correctUnit": "s",
     "explanation": "$t_{1/2} = \\ln(2) / \\lambda = 0.69315 / (3.50 \\times 10^{-4}) \\approx 1980\\text{ s}$."
   },
-  {
-    "id": 449,
-    "type": "mcq",
-    "category": "Radioactivity and Nuclear Energy",
-    "question": "Why is light concrete containment shell built around a nuclear fission reactor core?",
-    "options": [
-      "To slow down thermal neutrons",
-      "To contain high-pressure steam leaks",
-      "To absorb gamma radiation and shield outside",
-      "To moderate fuel assemblies"
-    ],
-    "correct": 2,
-    "explanation": "Thick steel and concrete containment walls absorb penetrating gamma rays and neutrons to shield personnel."
-  },
+{
+  "id": 449,
+  "type": "mcq",
+  "category": "Radioactivity and Nuclear Energy",
+  "question": "Which of the following precautions should be taken when handling a radioactive source in a school laboratory?\n(1) Handle the source with long forceps.\n(2) Point the source away from the human body.\n(3) Store the source in a thick lead container immediately after use.",
+  "options": [
+    "(1) and (2) only",
+    "(1) and (3) only",
+    "(2) and (3) only",
+    "(1), (2) and (3)"
+  ],
+  "correct": 3,
+  "explanation": "All three are standard safety practices in school laboratories. Long forceps increase the distance from the source (reducing exposure intensity). Pointing the source away prevents direct exposure of the eyes and body to the radiation beam. Storing the source in a thick lead container blocks radiation from reaching the surroundings when it is not in use."
+},
   {
     "id": 450,
     "type": "short",
     "category": "Radioactivity and Nuclear Energy",
     "question": "Complete equation: $^{2}_{1}\\text{H} + ^{2}_{1}\\text{H} \\rightarrow ^{3}_{2}\\text{He} + X$. Find mass number of $X$.",
-    "correctAnswerValue": "1.00",
-    "correctUnit": "u",
+    "correctAnswerValue": "1",
+    "correctUnit": "",
     "explanation": "By conservation of mass: $2 + 2 = 3 + A_x \\Rightarrow A_x = 1$. The particle $X$ is a neutron ($^{1}_{0}\\text{n}$)."
   },
   {
@@ -5227,12 +5228,12 @@
     "question": "Which of the following occurs during melting at molecular scale?",
     "options": [
       "Molecules speed up dramatically",
-      "Intermolecular order is disrupted",
+      "Intermolecular separation increases",
       "Latent heat increases kinetic energy",
       "Potential energy of bonds drops"
     ],
     "correct": 1,
-    "explanation": "Melting breaks intermolecular bonds, disrupting crystalline ordered structure while keeping kinetic energy constant."
+    "explanation": "Melting breaks intermolecular bonds, disrupting ordered structure while keeping kinetic energy constant."
   },
   {
     "id": 456,
@@ -5241,7 +5242,7 @@
     "question": "Gas at $1.50 \\times 10^5\\text{ Pa}$ is compressed to $1/3$ volume at constant temp. Find new pressure.",
     "correctAnswerValue": "4.50e5",
     "correctUnit": "Pa",
-    "explanation": "Boyle's Law: $P_1V_1 = P_2V_2$. Volume is thirded, so pressure is tripled: $P_2 = 3 \\times 1.50 \\times 10^5 = 4.50 \\times 10^5\\text{ Pa}$."
+    "explanation": "Boyle's Law: $P_1V_1 = P_2V_2$. Volume is reduced to one-third, so pressure is tripled: $P_2 = 3 \\times 1.50 \\times 10^5 = 4.50 \\times 10^5\\text{ Pa}$."
   },
   {
     "id": 457,
@@ -5339,7 +5340,7 @@
     "id": 465,
     "type": "mcq",
     "category": "Force and Motion",
-    "question": "A car of mass $m$ rounds curved path. Friction keeps it on path. If speed is doubled, centripetal force rises by factor:",
+    "question": "A car of mass $m$ rounds curved path. Friction keeps it on path. If speed is doubled, centripetal force should be rises by factor:",
     "options": [
       "$2$",
       "$4$",
@@ -5424,7 +5425,7 @@
     "category": "Wave Motion",
     "question": "A light ray in glass ($n = 1.62$) hits boundary to water ($n = 1.33$). Find critical angle.",
     "correctAnswerValue": "55.2",
-    "correctUnit": "oC",
+    "correctUnit": "o",
     "explanation": "Critical angle $c = \\sin^{-1}(1.33/1.62) \\approx \\sin^{-1}(0.821) \\approx 55.2^{\\circ}$."
   },
   {
@@ -5445,7 +5446,7 @@
     "id": 474,
     "type": "short",
     "category": "Wave Motion",
-    "question": "A Young's setup has $a = 0.400\\text{ mm}$, $D = 2.00\\text{ m}$. Fringe width $w = 3.00\\text{ mm}$. Find light wavelength in nm.",
+    "question": "A Young's double slit setup has $a = 0.400\\text{ mm}$, $D = 2.00\\text{ m}$. Fringe width $w = 3.00\\text{ mm}$. Find light wavelength in nm.",
     "correctAnswerValue": "600",
     "correctUnit": "nm",
     "explanation": "$\\lambda = aw/D = (0.400 \\times 10^{-3} \\times 3.00 \\times 10^{-3}) / 2.00 = 6.00 \\times 10^{-7}\\text{ m} = 600\\text{ nm}$."
@@ -5473,57 +5474,57 @@
     "correctUnit": "Hz",
     "explanation": "For closed pipe fundamental: $\\lambda_1 = 4L = 3.40\\text{ m}$. Frequency $f_1 = v/\\lambda_1 = 340 / 3.40 = 100\\text{ Hz}$."
   },
-  {
-    "id": 477,
-    "type": "mcq",
-    "category": "Wave Motion",
-    "question": "Which electromagnetic wave is highly utilized in physical therapists' infrared heat lamps?",
-    "options": [
-      "Microwaves",
-      "Infrared",
-      "Ultraviolet",
-      "Gamma rays"
-    ],
-    "correct": 1,
-    "explanation": "Infrared radiation transfers thermal energy, vibrating skin molecules to warm sore muscles."
-  },
+ {
+  "id": 477,
+  "type": "mcq",
+  "category": "Wave Motion",
+  "question": "Which of the following statements about infrared (IR) radiation and ultraviolet (UV) radiation is/are correct?\n(1) IR radiation has a longer wavelength than UV radiation in a vacuum.\n(2) Both radiations travel at the same speed in a vacuum.\n(3) IR radiation has a higher frequency than UV radiation.",
+  "options": [
+    "(1) only",
+    "(1) and (2) only",
+    "(2) and (3) only",
+    "(1), (2) and (3)"
+  ],
+  "correct": 1,
+  "explanation": "IR radiation has a longer wavelength than UV radiation, which means its frequency is lower than that of UV radiation because wave speed in a vacuum is constant ($c = f\\lambda$). All electromagnetic waves travel at the same speed of $3.00 \\times 10^8\\text{ m s}^{-1}$ in a vacuum. Therefore, statements (1) and (2) are correct, while statement (3) is incorrect."
+},
   {
     "id": 478,
     "type": "short",
     "category": "Wave Motion",
     "question": "A diffraction grating has line spacing $d = 2.00\\text{ }\\mu\\text{m}$. Find angle of first order maximum for $\\lambda = 500\\text{ nm}$.",
     "correctAnswerValue": "14.5",
-    "correctUnit": "oC",
+    "correctUnit": "o",
     "explanation": "$d\\sin\\theta = m\\lambda \\Rightarrow 2.00\\times 10^{-6}\\sin\\theta = 500\\times 10^{-9} = 0.5\\times 10^{-6} \\Rightarrow \\sin\\theta = 0.25 \\Rightarrow \\theta \\approx 14.5^{\\circ}$."
   },
-  {
-    "id": 479,
-    "type": "mcq",
-    "category": "Wave Motion",
-    "question": "Which of the following wave behaviors is unique to transverse electromagnetic waves?",
-    "options": [
-      "Diffraction",
-      "Refraction",
-      "Polarization",
-      "Interference"
-    ],
-    "correct": 2,
-    "explanation": "Only waves with transverse oscillation components can have their displacement planes restricted (polarized)."
-  },
-  {
-    "id": 480,
-    "type": "short",
-    "category": "Wave Motion",
-    "question": "A sound source moves towards stationary observer at $20.0\\text{ m s}^{-1}$ ($v_{sound}=340$). Frequency is $320\\text{ Hz}$. Find apparent freq.",
-    "correctAnswerValue": "340",
-    "correctUnit": "Hz",
-    "explanation": "Doppler effect: $f' = f [v / (v - v_s)] = 320 \\times [340 / (340 - 20.0)] = 320 \\times (340 / 320) = 340\\text{ Hz}$."
-  },
+ {
+  "id": 479,
+  "type": "mcq",
+  "category": "Wave Motion",
+  "question": "When water waves travel from a deep region to a shallow region, which of the following physical quantities will decrease?\n(1) Speed of the waves\n(2) Wavelength of the waves\n(3) Frequency of the waves",
+  "options": [
+    "(1) and (2) only",
+    "(1) and (3) only",
+    "(2) and (3) only",
+    "(1), (2) and (3)"
+  ],
+  "correct": 0,
+  "explanation": "Water waves travel slower in shallow water than in deep water ($v_{shallow} < v_{deep}$). Since the frequency $f$ of the wave is determined solely by the wave source and remains constant across boundaries, the wavelength $\\lambda$ must also decrease to satisfy the wave equation $v = f\\lambda$."
+},
+{
+  "id": 480,
+  "type": "short",
+  "category": "Wave Motion",
+  "question": "A water wave of frequency $4.00\\text{ Hz}$ has a wavelength of $0.150\\text{ m}$ in a deep region. When it enters a shallow region, its wave speed becomes $0.400\\text{ m s}^{-1}$. Find the wavelength of the wave in the shallow region.",
+  "correctAnswerValue": "0.100",
+  "correctUnit": "m",
+  "explanation": "The frequency of a wave remains constant when it crosses a boundary between different media. Using the wave equation $v = f\\lambda$, the wavelength of the water wave in the shallow region is: $\\lambda_{shallow} = \\frac{v_{shallow}}{f} = \\frac{0.400}{4.00} = 0.100\\text{ m}$."
+},
   {
     "id": 481,
     "type": "mcq",
     "category": "Electromagnetism",
-    "question": "A straight conductor is placed in B-field. Current flows. Magnetic force is maximized when:",
+    "question": "A straight conductor is placed in B-field. Current flows in the conductor. Magnetic force acting on it is maximized when:",
     "options": [
       "Conductor is parallel to field",
       "Conductor is perpendicular to field",
@@ -5537,7 +5538,7 @@
     "id": 482,
     "type": "short",
     "category": "Electromagnetism",
-    "question": "An electrical heater of resistance $22.0\\text{ }\\Omega$ is connected to $220\\text{ V}$ mains. Find electrical power.",
+    "question": "An electrical heater of resistance $22.0\\text{ }\\Omega$ is connected to $220\\text{ V}$ mains. Find electrical power dissipated.",
     "correctAnswerValue": "2.20",
     "correctUnit": "kW",
     "explanation": "$P = V^2 / R = 220^2 / 22.0 = 48400 / 22.0 = 2200\\text{ W} = 2.20\\text{ kW}$."
@@ -5629,7 +5630,7 @@
     "id": 490,
     "type": "short",
     "category": "Electromagnetism",
-    "question": "A household plug wire has a resistance $0.500\\text{ }\\Omega$. A short circuit occurs with $220\\text{ V}$ line. Find short current.",
+    "question": "A household plug wire has a resistance $0.500\\text{ }\\Omega$. A short circuit occurs with $220\\text{ V}$ line. Find the current in the wire.",
     "correctAnswerValue": "440",
     "correctUnit": "A",
     "explanation": "Short circuit current is $I = V / R = 220 / 0.500 = 440\\text{ A}$."
@@ -5652,10 +5653,10 @@
     "id": 492,
     "type": "short",
     "category": "Radioactivity and Nuclear Energy",
-    "question": "Find atomic number $Z$ of daughter nucleus formed after $^{234}_{90}\\text{Th}$ undergoes beta-minus decay.",
-    "correctAnswerValue": "91.0",
-    "correctUnit": "protons",
-    "explanation": "Beta-minus decay converts a neutron to a proton, increasing atomic number by 1 ($90 \\rightarrow 91$)."
+    "question": "Find atomic number $Z$ of daughter nucleus formed after $^{234}_{90}\\text{Th}$ undergoes beta decay.",
+    "correctAnswerValue": "91",
+    "correctUnit": "",
+    "explanation": "Beta decay converts a neutron to a proton, increasing atomic number by 1 ($90 \\rightarrow 91$)."
   },
   {
     "id": 493,
@@ -5675,48 +5676,48 @@
     "id": 494,
     "type": "short",
     "category": "Radioactivity and Nuclear Energy",
-    "question": "Mass defect of a reaction is $8.00\times 10^{-29}\\text{ kg}$. Find energy released in Joules.",
+    "question": "Loss of mass of a nuclear reaction is $8.00\times 10^{-29}\\text{ kg}$. Find energy released in Joules.",
     "correctAnswerValue": "7.20e-12",
     "correctUnit": "J",
     "explanation": "$E_b = \\Delta m c^2 = (8.00 \\times 10^{-29}) \\times (3.00 \\times 10^8)^2 = 7.20 \\times 10^{-12}\\text{ J}$."
   },
-  {
-    "id": 495,
-    "type": "mcq",
-    "category": "Radioactivity and Nuclear Energy",
-    "question": "In nuclear fission reactors, what material is typically used as control rods to absorb excess thermal neutrons?",
-    "options": [
-      "Boron steel",
-      "Graphite blocks",
-      "Heavy water",
-      "Uranium-235"
-    ],
-    "correct": 0,
-    "explanation": "Boron and cadmium are superb neutron absorbers and are used in rods to safely curb fission rates."
-  },
+ {
+  "id": 495,
+  "type": "mcq",
+  "category": "Radioactivity and Nuclear Energy",
+  "question": "The half-life of a radioactive sample is $8.0\\text{ days}$. Which of the following methods can be used to decrease its half-life?\n(1) Heating the sample to a very high temperature.\n(2) Increasing the external pressure acting on the sample.\n(3) Reacting the sample chemically with oxygen.",
+  "options": [
+    "(1) and (2) only",
+    "(2) and (3) only",
+    "All of the above",
+    "None of the above"
+  ],
+  "correct": 3,
+  "explanation": "Radioactive decay is a spontaneous nuclear process. The half-life of a radioisotope is a fundamental nuclear property that is completely unaffected by physical factors (such as temperature or pressure) and chemical environments (such as chemical reactions or combinations)."
+},
   {
     "id": 496,
     "type": "short",
     "category": "Radioactivity and Nuclear Energy",
     "question": "Complete the alpha decay parent: $X \\rightarrow ^{214}_{82}\\text{Pb} + \\alpha$. Find mass number of parent $X$.",
     "correctAnswerValue": "218",
-    "correctUnit": "u",
+    "correctUnit": "",
     "explanation": "Alpha emission decreases parent mass number by 4. Thus parent mass $A = 214 + 4 = 218$."
   },
   {
-    "id": 497,
-    "type": "mcq",
-    "category": "Radioactivity and Nuclear Energy",
-    "question": "During a supercritical fission reaction chain, the rate of energy release is described by which function?",
-    "options": [
-      "Linear growth",
-      "Quadratic decline",
-      "Exponential growth",
-      "Constant plateau"
-    ],
-    "correct": 2,
-    "explanation": "Each splitting produces more neutrons than are absorbed, leading to a runaway exponential cascade."
-  },
+  "id": 495,
+  "type": "mcq",
+  "category": "Radioactivity and Nuclear Energy",
+  "question": "Which of the following statements about a nuclear fission reaction of Uranium-235 is/are correct?\n(1) The total rest mass of the products is less than that of the reactants.\n(2) The total binding energy of the products is greater than that of the reactants.\n(3) The reaction is initiated by bombarding the nucleus with a fast-moving proton.",
+  "options": [
+    "(1) only",
+    "(1) and (2) only",
+    "(2) and (3) only",
+    "(1), (2) and (3)"
+  ],
+  "correct": 1,
+  "explanation": "Statement (1) is correct because fission results in a mass loss ($\\Delta m$) where the lost rest mass is converted into energy ($E = \\Delta m c^2$). Statement (2) is correct because the fission products are more stable and tightly bound than the original heavy nucleus, meaning they have a larger total binding energy. Statement (3) is incorrect because the fission of Uranium-235 is typically initiated by a slow-moving (thermal) neutron, not a fast-moving proton which would be repelled by the positive nucleus."
+},
   {
     "id": 498,
     "type": "short",
@@ -5734,7 +5735,7 @@
     "options": [
       "Heavy nuclei split",
       "Protons turn into alpha neutrons",
-      "Mass defect converts directly to binding energy",
+      "Mass loss converts directly to binding energy",
       "Coulomb forces attract nuclei naturally"
     ],
     "correct": 2,
@@ -5745,8 +5746,8 @@
     "type": "short",
     "category": "Radioactivity and Nuclear Energy",
     "question": "Complete equation: $^{3}_{2}\\text{He} + ^{3}_{2}\\text{He} \\rightarrow ^{4}_{2}\\text{He} + 2X$. Find mass number of $X$.",
-    "correctAnswerValue": "1.00",
-    "correctUnit": "u",
+    "correctAnswerValue": "1",
+    "correctUnit": "",
     "explanation": "By conservation of mass: $3 + 3 = 4 + 2(A_x) \\Rightarrow 2A_x = 2 \\Rightarrow A_x = 1$. The particle $X$ is a proton ($^{1}_{1}\\text{H}$)."
   }
 ]
