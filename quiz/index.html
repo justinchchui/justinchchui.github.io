@@ -114,15 +114,15 @@
                 </p>
             </header>
 
-            <!-- Main Interactive Slate Panel (Matches original structure) -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
+            <!-- Main Interactive Slate Panel -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-8">
                 
                 <!-- Left Play & Options Card (8 Columns) -->
-                <div class="lg:col-span-8 bg-slate-800/80 rounded-xl p-6 border border-slate-700/80 shadow-2xl flex flex-col justify-between min-h-[480px]">
+                <div class="lg:col-span-8 bg-slate-800/80 rounded-xl p-6 border border-slate-700/80 shadow-2xl flex flex-col justify-start gap-6 min-h-[480px]">
                     
                     <!-- Progress and Topic Row -->
-                    <div>
-                        <div class="flex flex-wrap justify-between items-center gap-3 mb-4 pb-4 border-b border-slate-700/60">
+                    <div class="space-y-4">
+                        <div class="flex flex-wrap justify-between items-center gap-3 pb-4 border-b border-slate-700/60">
                             <div class="flex items-center gap-3">
                                 <span class="text-xs font-bold uppercase tracking-widest text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded" id="currentCategoryText">HEAT AND GASES</span>
                                 <span class="text-xs text-slate-400 font-semibold" id="progressCounter">Question 1 of 6</span>
@@ -135,21 +135,21 @@
                             </div>
                         </div>
 
-                        <!-- Progress Bar (Styled same as conduction timelines) -->
-                        <div class="w-full bg-slate-950 rounded-full h-2 mb-6 overflow-hidden">
+                        <!-- Progress Bar -->
+                        <div class="w-full bg-slate-950 rounded-full h-2 overflow-hidden">
                             <div id="progressBar" class="bg-gradient-to-r from-blue-500 via-purple-500 to-emerald-500 h-2 w-0 transition-all duration-300"></div>
                         </div>
 
                         <!-- Main Question Panel -->
                         <div id="questionContainer">
-                            <h2 id="questionText" class="text-lg md:text-xl font-semibold text-white leading-relaxed mb-6">
+                            <h2 id="questionText" class="text-lg md:text-xl font-semibold text-white leading-relaxed">
                                 Initializing HKDSE Exam Syllabus Database...
                             </h2>
                         </div>
                     </div>
 
                     <!-- Dynamic Input & Selection Wrapper -->
-                    <div id="answersWrapper" class="mt-4">
+                    <div id="answersWrapper" class="w-full">
                         <!-- MCQ Options Container -->
                         <div id="optionsContainer" class="grid grid-cols-1 gap-3">
                             <!-- Populated dynamically -->
@@ -161,24 +161,24 @@
                             <div class="space-y-2">
                                 <div>
                                     <label class="block text-xs text-slate-400 mb-1.5 font-semibold">Your Answer (Numerical Value & Unit, e.g., <code class="text-slate-300 font-mono">9.81 kW</code> or <code class="text-slate-300 font-mono">167 kJ</code>)</label>
-                                    <input type="text" id="shortAnswerInput" placeholder="Type your value and unit here..." class="w-full bg-slate-950 border border-slate-700 rounded-lg py-3 px-4 text-white text-base font-mono focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <input type="text" id="shortAnswerInput" placeholder="Type your value and unit here..." class="w-full bg-slate-950 border border-slate-700 rounded-lg py-3 px-4 text-white text-base font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono">
                                 </div>
                             </div>
-                            <button id="submitShortAnswerBtn" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-4 rounded-lg transition-all shadow-lg hover:shadow-blue-500/20">
+                            <button id="submitShortAnswerBtn" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-4 rounded-lg transition-all shadow-lg hover:shadow-blue-500/20 font-sans">
                                 Submit Calculation
                             </button>
                         </div>
                     </div>
 
                     <!-- Complete Screen Layout (Hidden initially) -->
-                    <div id="resultsScreen" class="hidden text-center py-8">
+                    <div id="resultsScreen" class="hidden text-center py-8 w-full">
                         <div class="w-20 h-20 bg-gradient-to-tr from-yellow-500 to-amber-400 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-yellow-500/20">
                             <svg class="w-10 h-10 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         </div>
                         <h2 class="text-2xl font-bold text-white mb-2">Practice Block Completed!</h2>
                         <p class="text-slate-400 mb-6 max-w-md mx-auto">Sensational work! You have finished all the selected HKDSE standard syllabus mock questions.</p>
                         
-                        <div class="grid grid-cols-3 gap-4 max-w-sm mx-auto bg-slate-900/50 p-4 rounded-xl border border-slate-700 mb-8">
+                        <div class="grid grid-cols-3 gap-4 max-w-sm mx-auto bg-slate-900/50 p-4 rounded-xl border border-slate-700 mb-8 font-sans">
                             <div>
                                 <span class="block text-[10px] text-slate-400 uppercase font-bold tracking-wider">Accuracy</span>
                                 <span id="finalAccuracy" class="text-xl font-extrabold text-blue-400">0%</span>
@@ -196,7 +196,7 @@
                         </div>
 
                         <div class="flex gap-4 justify-center">
-                            <button id="retryQuizBtn" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 px-6 rounded-lg transition-colors shadow-md">
+                            <button id="retryQuizBtn" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 px-6 rounded-lg transition-colors shadow-md font-sans">
                                 Practice Again
                             </button>
                         </div>
@@ -205,51 +205,47 @@
 
                 <!-- Right Marking Scheme / Explanation Card (4 Columns) -->
                 <div class="lg:col-span-4 flex flex-col gap-6">
-                    <!-- Status & Explanation Card -->
-                    <div class="bg-slate-900/60 rounded-xl p-5 border border-slate-700/80 flex flex-col justify-between items-center min-h-[300px] text-center flex-1">
-                        <div class="flex flex-col items-center justify-center flex-1 py-4">
+                    <!-- Status & Explanation Card (Perfect Natural Heights without Stretching) -->
+                    <div class="bg-slate-900/60 rounded-xl p-5 border border-slate-700/80 flex flex-col items-center gap-4 text-center">
+                        <div class="flex flex-col items-center justify-center py-2 w-full">
                             <!-- Visual Ring Loader/Indicator -->
-                            <div id="statusIconContainer" class="w-16 h-16 rounded-full bg-slate-800 flex items-center justify-center mb-4 border border-slate-700 shadow-inner text-slate-400">
-                                <svg class="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                            <div id="statusIconContainer" class="w-14 h-14 rounded-full bg-slate-800 flex items-center justify-center mb-3 border border-slate-700 shadow-inner text-slate-400 shrink-0 animate-pulse">
+                                <svg class="w-7 h-7 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
                             </div>
                             
-                            <h3 id="panelTitle" class="text-base font-bold text-slate-300 mb-2">Awaiting Response</h3>
-                            <div id="panelDescription" class="text-xs text-slate-400 leading-relaxed max-w-xs">
+                            <h3 id="panelTitle" class="text-sm font-bold text-slate-300 mb-1.5">Awaiting Response</h3>
+                            <div id="panelDescription" class="text-xs text-slate-400 leading-relaxed max-w-xs px-1">
                                 Select an option on the left or type your calculated value and unit. The parser automatically detects if you missed the correct unit, calculation, or both!
                             </div>
                         </div>
 
-                        <!-- Sleek Placeholder & Active Action Row Container (Solves blank gap) -->
+                        <!-- Sleek Active Action Row Container -->
                         <div class="w-full">
                             <!-- Next Action Button (Shown when answered) -->
-                            <button id="nextBtn" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-3 px-4 rounded-lg transition-all hidden shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2">
+                            <button id="nextBtn" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-2.5 px-4 rounded-lg text-xs transition-all hidden shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2 font-sans">
                                 <span>Next Question</span>
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
-                            </button>
-                            <!-- Elegant Placeholder Button (Shown when awaiting answer) -->
-                            <button id="placeholderBtn" class="w-full bg-slate-800/80 text-slate-500 border border-slate-700/60 font-semibold py-3 px-4 rounded-lg cursor-not-allowed flex items-center justify-center gap-2 transition-all">
-                                <span>Awaiting Response...</span>
                             </button>
                         </div>
                     </div>
 
                     <!-- Syllabus Filters & Configuration Board (Aesthetic similarity to range settings) -->
-                    <div class="bg-slate-800/50 rounded-xl p-5 border border-slate-700/60 text-sm w-full">
-                        <h4 class="text-white font-bold mb-3">Topic Calibration</h4>
+                    <div class="bg-slate-800/50 rounded-xl p-5 border border-slate-700/60 text-sm w-full font-sans">
+                        <h4 class="text-white font-bold mb-3 text-sm">Topic Calibration</h4>
                         <div class="space-y-4">
                             <!-- Multi-Select Category Checkboxes -->
                             <div>
                                 <label class="block text-xs text-slate-400 mb-2 font-semibold">Focus Syllabus Parts (Select to mix):</label>
-                                <div id="topicsCheckboxContainer" class="space-y-2 bg-slate-900/60 border border-slate-700 p-2.5 rounded-lg max-h-40 overflow-y-auto">
+                                <div id="topicsCheckboxContainer" class="space-y-2 bg-slate-900/60 border border-slate-700 p-2.5 rounded-lg max-h-40 overflow-y-auto font-medium">
                                     <!-- Injected dynamically via JS -->
                                 </div>
                             </div>
 
                             <!-- Interactive Question Count Selection -->
                             <div>
-                                <div class="flex justify-between items-center mb-1 text-xs text-slate-400">
+                                <div class="flex justify-between items-center mb-1 text-xs text-slate-400 font-medium">
                                     <span class="font-semibold">Question Count:</span>
-                                    <span id="questionCountDisplay" class="text-emerald-400 font-bold font-mono">0</span>
+                                    <span id="questionCountDisplay" class="text-emerald-400 font-bold font-mono text-xs">0</span>
                                 </div>
                                 <input type="range" id="questionCountSlider" min="1" max="6" value="6" class="w-full">
                             </div>
@@ -266,7 +262,7 @@
                                 </div>
                             </div>
                             
-                            <button id="resetSessionBtn" class="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 rounded-lg transition-colors text-xs">
+                            <button id="resetSessionBtn" class="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 rounded-lg transition-colors text-xs font-sans">
                                 Restart Syllabus Practice
                             </button>
                         </div>
@@ -275,12 +271,12 @@
 
             </div>
 
-            <!-- Interactive Legend Section (Identical grid-column style to heat conduction simulator legend) -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-slate-300">
+            <!-- Interactive Legend Section -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-slate-300 mb-12 font-sans">
                 <!-- Legend Grid Box 1 -->
                 <div class="bg-slate-800/50 p-4 rounded-lg border border-slate-700/50">
                     <strong class="text-white block mb-2">HKDSE Marking Standards</strong>
-                    <div class="space-y-1.5 text-xs">
+                    <div class="space-y-1.5 text-xs font-sans">
                         <div class="flex items-center gap-2">
                             <span class="w-2.5 h-2.5 rounded-full bg-slate-700 border border-slate-600 block"></span>
                             <span>Unselected options & inputs</span>
@@ -312,10 +308,10 @@
             </div>
         </div>
 
-        <!-- Footer exactly styled to fit the layout of the heat conduction simulator -->
-        <footer class="w-full border-t border-slate-800 mt-12 pt-8 pb-6 text-center text-xs text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p>© 2026 Physics Simulation Laboratory & Exam Prep Portal. All rights reserved.</p>
-            <p class="text-slate-600 font-semibold">HKDSE Physics Curriculum Compulsory Parts Assessment System</p>
+        <!-- Footer matched perfectly with heat conduction template styling -->
+        <footer class="w-full border-t border-slate-800 mt-12 pt-8 pb-6 flex flex-col justify-center items-center text-center gap-1.5 text-xs text-slate-500 font-sans">
+            <p>© 2026 Physics Simulation Laboratory. All rights reserved.</p>
+            <p class="text-slate-600 font-semibold">Built for interactive science education. Generated by Gemini Pro 3.0 | Prepared By Justin Chui</p>
         </footer>
 
     </div>
@@ -379,10 +375,10 @@
                 id: 4,
                 type: "short",
                 category: "Force and Motion",
-                question: "A car ($1000\\text{ kg}$) travels up a hill ($\\\\sin\\\\theta = 0.05$) at a constant $20.0\\text{ m s}^{-1}$. Calculate power against gravity ($g=9.81$).",
-                correctAnswerValue: "9.81",
-                correctUnit: "kW",
-                explanation: "Gravitational force parallel to slope is $mg\\sin\\theta = 1000 \\times 9.81 \\times 0.05 = 490.5\\text{ N}$. Power is $P = Fv = 490.5 \\times 20 = 9810\\text{ W} = 9.81\\text{ kW}$ (corrected to 3 sig figs)."
+                question: "An object in orbital path around Earth has radius $7.00 \\times 10^6\\text{ m}$. Speed is $7.50 \\times 10^3\\text{ m s}^{-1}$. Find centripetal acc.",
+                correctAnswerValue: "8.04",
+                correctUnit: "m s-2",
+                explanation: "Using centripetal acceleration formula: $a_c = v^2 / r$. Substituting variables yields: $a_c = (7.50 \\times 10^3)^2 / (7.00 \\times 10^6) = 56.25 \\times 10^6 / (7.00 \\times 10^6) = 8.0357 \\approx 8.04\\text{ m s}^{-2}$."
             },
             {
                 id: 5,
@@ -401,11 +397,11 @@
             {
                 id: 6,
                 type: "short",
-                category: "Radioactivity",
-                question: "A radioactive isotope has half-life $4.0\\text{ hours}$ and initial activity $800\\text{ Bq}$. What is its remaining activity after $12.0\\text{ hours}$?",
-                correctAnswerValue: "100",
-                correctUnit: "Bq",
-                explanation: "Number of half-lives is $12.0 / 4.0 = 3$. Remaining activity is $A = 800 \\times (\\frac{1}{2})^3 = 800 \\times \\frac{1}{8} = 100\\text{ Bq}$."
+                category: "Radioactivity and Nuclear Energy",
+                question: "A source records $240\\text{ cpm}$ including a background count rate of $20\\text{ cpm}$. Find the corrected count rate.",
+                correctAnswerValue: "220",
+                correctUnit: "cpm",
+                explanation: "Using corrected count rate formula: Corrected Count Rate = Recorded Count Rate - Background Count Rate = $240 - 20 = 220\\text{ cpm}$."
             }
         ];
 
@@ -429,102 +425,6 @@
             }
         };
 
-        // --- Custom Promise-based dialogue alerts & confirms for blocked iframes ---
-        function customAlert(title, message, type = 'info') {
-            return new Promise((resolve) => {
-                const modal = document.getElementById('customDialog');
-                const titleEl = document.getElementById('customDialogTitle');
-                const msgEl = document.getElementById('customDialogMsg');
-                const btnGroup = document.getElementById('customDialogBtnGroup');
-                const iconEl = document.getElementById('customDialogIcon');
-
-                if (!modal || !titleEl || !msgEl || !btnGroup || !iconEl) {
-                    resolve();
-                    return;
-                }
-
-                titleEl.textContent = title;
-                msgEl.textContent = message;
-
-                if (type === 'success') {
-                    iconEl.className = "w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto mb-4 border border-emerald-500/30";
-                    iconEl.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>`;
-                } else if (type === 'error') {
-                    iconEl.className = "w-12 h-12 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center mx-auto mb-4 border border-rose-500/30";
-                    iconEl.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>`;
-                } else {
-                    iconEl.className = "w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center mx-auto mb-4 border border-blue-500/30";
-                    iconEl.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
-                }
-
-                btnGroup.innerHTML = '';
-                const okBtn = document.createElement('button');
-                okBtn.className = "bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-6 rounded-lg text-xs transition-colors shadow-md";
-                okBtn.textContent = "OK";
-                okBtn.onclick = () => {
-                    modal.classList.add('hidden');
-                    resolve();
-                };
-                btnGroup.appendChild(okBtn);
-
-                modal.classList.remove('hidden');
-            });
-        }
-
-        function customConfirm(title, message) {
-            return new Promise((resolve) => {
-                const modal = document.getElementById('customDialog');
-                const titleEl = document.getElementById('customDialogTitle');
-                const msgEl = document.getElementById('customDialogMsg');
-                const btnGroup = document.getElementById('customDialogBtnGroup');
-                const iconEl = document.getElementById('customDialogIcon');
-
-                if (!modal || !titleEl || !msgEl || !btnGroup || !iconEl) {
-                    resolve(false);
-                    return;
-                }
-
-                titleEl.textContent = title;
-                msgEl.textContent = message;
-
-                iconEl.className = "w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto mb-4 border border-amber-500/30";
-                iconEl.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
-
-                btnGroup.innerHTML = '';
-                
-                const cancelBtn = document.createElement('button');
-                cancelBtn.className = "bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-2 px-5 rounded-lg text-xs transition-colors";
-                cancelBtn.textContent = "Cancel";
-                cancelBtn.onclick = () => {
-                    modal.classList.add('hidden');
-                    resolve(false);
-                };
-
-                const confirmBtn = document.createElement('button');
-                confirmBtn.className = "bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-5 rounded-lg text-xs transition-colors shadow-md";
-                confirmBtn.textContent = "Confirm";
-                confirmBtn.onclick = () => {
-                    modal.classList.add('hidden');
-                    resolve(true);
-                };
-
-                btnGroup.appendChild(cancelBtn);
-                btnGroup.appendChild(confirmBtn);
-
-                modal.classList.remove('hidden');
-            });
-        }
-
-        // --- Fisher-Yates Array Shuffling Helper ---
-        function shuffleArray(array) {
-            const arr = [...array];
-            for (let i = arr.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [arr[i], arr[j]] = [arr[j], arr[i]];
-            }
-            return arr;
-        }
-
         // --- Local State ---
         let questionsList = JSON.parse(JSON.stringify(DEFAULT_QUESTIONS));
         let currentQuestionsPool = [];
@@ -544,6 +444,7 @@
             }
         }
 
+        // --- Synthesizer Sounds ---
         function playSynthSound(freq, type, duration, slideToFreq = null) {
             if (audioMuted) return;
             try {
@@ -582,8 +483,14 @@
             playSynthSound(220.00, 'sawtooth', 0.3, 110.00); // A3 sliding slide to A2
         }
 
-        function playClickSound() {
-            playSynthSound(350, 'sine', 0.08);
+        // --- Fisher-Yates Array Shuffling Helper ---
+        function shuffleArray(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
         }
 
         // --- DOM Elements References (Assigned inside window.onload) ---
@@ -604,7 +511,6 @@
         let panelTitle;
         let panelDescription;
         let nextBtn;
-        let placeholderBtn; // Solves blank gap
         let quizContainer;
         let resultsScreen;
         let restartBtn;
@@ -651,7 +557,7 @@
                     
                     const cb = label.querySelector('input');
                     cb.addEventListener('change', () => {
-                        playClickSound();
+                        playSynthSound(350, 'sine', 0.08);
                         updateQuestionCountSliderLimits();
                         startQuiz();
                     });
@@ -735,6 +641,33 @@
             showQuestion();
         }
 
+        // --- Move to Next Question ---
+        function nextQuestion() {
+            playSynthSound(350, 'sine', 0.08);
+            currentQuestionIndex++;
+            if (currentQuestionIndex >= currentQuestionsPool.length) {
+                finishQuiz();
+            } else {
+                showQuestion();
+            }
+        }
+
+        // --- Finish and Render Results Dashboard ---
+        function finishQuiz() {
+            if (progressBar) progressBar.style.width = `100%`;
+
+            if (quizContainer) quizContainer.classList.add('hidden');
+            if (resultsScreen) resultsScreen.classList.remove('hidden');
+
+            const accuracy = currentQuestionsPool.length > 0 
+                ? Math.round((scoreCount / currentQuestionsPool.length) * 100) 
+                : 0;
+
+            if (finalAccuracy) finalAccuracy.textContent = `${accuracy}%`;
+            if (finalScore) finalScore.textContent = `${scoreCount} / ${currentQuestionsPool.length}`;
+            if (finalStreak) finalStreak.textContent = maxStreak;
+        }
+
         function updateLiveHUD() {
             // Update all matching instances of Score and Streak
             const scoreElements = document.querySelectorAll('#liveScore');
@@ -749,7 +682,6 @@
             isAnswered = false;
             
             if (nextBtn) nextBtn.classList.add('hidden');
-            if (placeholderBtn) placeholderBtn.classList.remove('hidden'); // Show placeholder on loaded question
 
             const activeQ = currentQuestionsPool[currentQuestionIndex];
             if (!activeQ) {
@@ -794,7 +726,9 @@
                         optionsContainer.appendChild(btn);
                     });
                 }
-                if (shortAnswerContainer) shortAnswerContainer.classList.add('hidden');
+                if (shortAnswerContainer) {
+                    shortAnswerContainer.classList.add('hidden');
+                }
             }
 
             // Reset Right Information Panel state
@@ -821,9 +755,9 @@
         function parseScientificNotation(str) {
             let s = str.trim().toLowerCase().replace(/\s+/g, '');
             // Replace 'x10^' or '*10^' or '·10^' with 'e'
-            s = s.replace(/(?:[xX\*·]?10\^?)/g, 'e');
+            s = s.replace(/(?:[xX\*·××*]?10\^?)/g, 'e');
             // Clean remaining multiplication dot variations
-            s = s.replace(/[·\*]/g, '');
+            s = s.replace(/[·\*×]/g, '');
             return parseFloat(s);
         }
 
@@ -842,7 +776,7 @@
             return to3SigFigs(parsedStudent) === to3SigFigs(parsedCorrect);
         }
 
-        // --- Multiple Choice Evaluation ---
+        // --- MCQ Choice Actions ---
         function selectMCQAnswer(index) {
             if (isAnswered) return;
             isAnswered = true;
@@ -906,40 +840,13 @@
                 </div>
             `;
 
-            if (placeholderBtn) placeholderBtn.classList.add('hidden'); // Hide placeholder
             if (nextBtn) nextBtn.classList.remove('hidden'); // Show Next Question button
             triggerMathTypeset();
-        }
-
-        function nextQuestion() {
-            playClickSound();
-            currentQuestionIndex++;
-            if (currentQuestionIndex >= currentQuestionsPool.length) {
-                finishQuiz();
-            } else {
-                showQuestion();
-            }
-        }
-
-        function finishQuiz() {
-            if (progressBar) progressBar.style.width = `100%`;
-
-            if (quizContainer) quizContainer.classList.add('hidden');
-            if (resultsScreen) resultsScreen.classList.remove('hidden');
-
-            const accuracy = currentQuestionsPool.length > 0 
-                ? Math.round((scoreCount / currentQuestionsPool.length) * 100) 
-                : 0;
-
-            if (finalAccuracy) finalAccuracy.textContent = `${accuracy}%`;
-            if (finalScore) finalScore.textContent = `${scoreCount} / ${currentQuestionsPool.length}`;
-            if (finalStreak) finalStreak.textContent = maxStreak;
         }
 
         // --- Fetch and Load Questions dynamically from question_Bank ---
         async function loadQuestionBank() {
             try {
-                // Since quiz.html is inside /quiz, questions.json inside /quiz/question_Bank/questions.json is accessible via:
                 const response = await fetch('question_Bank/questions.json');
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -956,7 +863,6 @@
                 }
             } catch (e) {
                 console.warn("Could not retrieve custom JSON file under question_Bank/questions.json. Launching offline mode default presets.", e);
-                // Setup default fallback questions
                 questionsList = JSON.parse(JSON.stringify(DEFAULT_QUESTIONS));
                 
                 if (dbSourceType) {
@@ -984,7 +890,6 @@
             panelTitle = document.getElementById('panelTitle');
             panelDescription = document.getElementById('panelDescription');
             nextBtn = document.getElementById('nextBtn');
-            placeholderBtn = document.getElementById('placeholderBtn'); // Assign placeholder element
             quizContainer = document.getElementById('quizContainer');
             resultsScreen = document.getElementById('resultsScreen');
             restartBtn = document.getElementById('restartBtn');
@@ -1018,25 +923,25 @@
                     }
                 });
                 questionCountSlider.addEventListener('change', () => {
-                    playClickSound();
+                    playSynthSound(350, 'sine', 0.08);
                     startQuiz();
                 });
             }
             if (restartBtn) {
                 restartBtn.addEventListener('click', () => {
-                    playClickSound();
+                    playSynthSound(350, 'sine', 0.08);
                     startQuiz();
                 });
             }
             if (resetSessionBtn) {
                 resetSessionBtn.addEventListener('click', () => {
-                    playClickSound();
+                    playSynthSound(350, 'sine', 0.08);
                     startQuiz();
                 });
             }
             if (retryQuizBtn) {
                 retryQuizBtn.addEventListener('click', () => {
-                    playClickSound();
+                    playSynthSound(350, 'sine', 0.08);
                     startQuiz();
                 });
             }
@@ -1059,7 +964,7 @@
 
                     // Parse value and unit automatically
                     // Extracts leading numbers (including signs, decimals, and optional scientific notation)
-                    const match = rawInput.match(/^([+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:\s*[xX\*·]\s*10\^?[+-]?\d+)?)\s*(.*)$/);
+                    const match = rawInput.match(/^([+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:\s*[xX\*·××*]?10\^?[+-]?\d+)?)\s*(.*)$/);
                     let studentVal = "";
                     let studentUnit = "";
 
@@ -1076,8 +981,65 @@
                     }
 
                     const activeQ = currentQuestionsPool[currentQuestionIndex];
-                    const isValueCorrect = checkValueOnlyMatch(studentVal, activeQ.correctAnswerValue);
-                    const isUnitCorrect = (studentUnit === activeQ.correctUnit);
+                    const studentValParsed = parseScientificNotation(studentVal);
+                    const targetValParsed = parseScientificNotation(activeQ.correctAnswerValue);
+
+                    // Normalize student and target units by stripping all whitespaces and carets
+                    const normalizeUnitStr = (str) => {
+                        return str.replace(/\s+/g, '').replace(/\^/g, '');
+                    };
+
+                    const normalizedStudentUnit = normalizeUnitStr(studentUnit);
+                    const normalizedTargetUnit = normalizeUnitStr(activeQ.correctUnit);
+
+                    // Dynamic prefix scaling engine
+                    const scaleableBases = ['J', 'W', 'Pa', 'Bq', 'Hz', 'V', 'A', 'g'];
+                    const prefixMultipliers = {
+                        'T': 1e12, 'G': 1e9, 'M': 1e6, 'k': 1e3, 'h': 1e2, 'da': 10,
+                        'd': 0.1, 'c': 0.01, 'm': 1e-3, 'u': 1e-6, 'μ': 1e-6, 'n': 1e-9, 'p': 1e-12
+                    };
+
+                    function getScaleInfo(normalizedUnit) {
+                        // Default fallback: multiplier of 1, base is the entire unit
+                        let info = { multiplier: 1, base: normalizedUnit };
+                        for (let pref in prefixMultipliers) {
+                            if (normalizedUnit.startsWith(pref)) {
+                                let rest = normalizedUnit.slice(pref.length);
+                                // Base must either be a scaleable base or start with one followed by a modifier
+                                if (scaleableBases.includes(rest) || (rest.length > 1 && scaleableBases.some(b => rest.startsWith(b)))) {
+                                    info = { multiplier: prefixMultipliers[pref], base: rest };
+                                    break;
+                                }
+                            }
+                        }
+                        return info;
+                    }
+
+                    const studentScale = getScaleInfo(normalizedStudentUnit);
+                    const targetScale = getScaleInfo(normalizedTargetUnit);
+
+                    // Dimensions match check
+                    const isBaseCompatible = (studentScale.base === targetScale.base);
+
+                    // Scaled values normalized to base unit
+                    const studentBaseValue = studentValParsed * studentScale.multiplier;
+                    const targetBaseValue = targetValParsed * targetScale.multiplier;
+
+                    // Check numerical accuracy
+                    const isValueCorrect = checkValueOnlyMatch(studentBaseValue.toString(), targetBaseValue.toString());
+
+                    // Strict scientific casing check
+                    function checkUnitScientificallyValid(normalizedUnit, baseUnit) {
+                        if (normalizedUnit === baseUnit) return true;
+                        for (let pref in prefixMultipliers) {
+                            if (normalizedUnit === pref + baseUnit) {
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
+
+                    const isUnitCorrect = isBaseCompatible && checkUnitScientificallyValid(normalizedStudentUnit, targetScale.base);
 
                     let feedbackTitle = "";
                     let feedbackClass = "";
@@ -1101,7 +1063,7 @@
                             `;
                         }
                     } else if (isValueCorrect && !isUnitCorrect) {
-                        // Unit incorrect
+                        // Unit incorrect (wrong prefix casing or bad formatting)
                         playWrongSound();
                         streakCount = 0;
 
@@ -1171,7 +1133,6 @@
                         `;
                     }
 
-                    if (placeholderBtn) placeholderBtn.classList.add('hidden'); // Hide placeholder
                     if (nextBtn) nextBtn.classList.remove('hidden'); // Show Next Question button
                     triggerMathTypeset();
                 });
@@ -1182,7 +1143,7 @@
                     SafeStorage.set('quiz_audio_muted', audioMuted);
                     updateAudioButtonUI();
                     if (!audioMuted) {
-                        playClickSound();
+                        playSynthSound(350, 'sine', 0.08);
                     }
                 });
             }
