@@ -1,0 +1,5751 @@
+[
+  {
+  "id": 1,
+  "type": "mcq",
+  "category": "熱與氣體",
+  "question": "將質量為 $2\\text{ kg}$ 且溫度在 $100\\text{ }^{\\circ}\\text{C}$ 的水轉化為蒸汽。求所需的能量。（$L_v=2.26 \\times 10^6\\text{ J kg}^{-1}$）",
+  "options": [
+    "$1.13 \\times 10^6\\text{ J}$",
+    "$2.26 \\times 10^6\\text{ J}$",
+    "$4.52 \\times 10^6\\text{ J}$",
+    "$9.04 \\times 10^6\\text{ J}$"
+  ],
+  "correct": 2,
+  "explanation": "能量 $E = mL_v = 2 \\times 2.26 \\times 10^6 = 4.52 \\times 10^6\\text{ J}$。"
+},
+  {
+    "id": 2,
+    "type": "short",
+    "category": "熱與氣體",
+    "question": "一個 $500\\text{ W}$ 的加熱器將 $0.8\\text{ kg}$ 的液體加熱 $60\\text{ s}$。溫度上升了 $15\\text{ K}$。求比熱容。",
+    "correctAnswerValue": "2500",
+    "correctUnit": "J kg-1 K-1",
+    "explanation": "利用 $Pt = mc\\Delta T$，$c = (500 \\times 60) / (0.8 \\times 15) = 2500\\text{ J kg}^{-1}\\text{ K}^{-1}$。"
+  },
+  {
+    "id": 3,
+    "type": "mcq",
+    "category": "熱與氣體",
+    "question": "將處於 $27\\text{ }^{\\circ}\\text{C}$ 的氣體在恆壓下加熱至其體積的兩倍。求最終溫度。",
+    "options": [
+      "$54\\text{ }^{\\circ}\\text{C}$",
+      "$127\\text{ }^{\\circ}\\text{C}$",
+      "$327\\text{ }^{\\circ}\\text{C}$",
+      "$600\\text{ }^{\\circ}\\text{C}$"
+    ],
+    "correct": 2,
+    "explanation": "根據查理定律：$T_2 = 2T_1 = 2 \\times (27+273) = 600\\text{ K} = 327\\text{ }^{\\circ}\\text{C}$。"
+  },
+  {
+    "id": 4,
+    "type": "short",
+    "category": "熱與氣體",
+    "question": "一理想氣體在 $300\\text{ K}$ 時的壓強為 $1.2 \\times 10^5\\text{ Pa}$，體積為 $2.0 \\times 10^{-3}\\text{ m}^3$。求摩爾數。",
+    "correctAnswerValue": "0.0962",
+    "correctUnit": "mol",
+    "explanation": "利用 $PV = nRT$，$n = (1.2 \\times 10^5 \\times 2 \\times 10^{-3}) / (8.31 \\times 300) \\approx 0.0962\\text{ mol}$。"
+  },
+  {
+    "id": 5,
+    "type": "mcq",
+    "category": "熱與氣體",
+    "question": "若氣體分子的均方根速率增加一倍，其絕對溫度 $T$ 會改變多少倍？",
+    "options": [
+      "$0.5$",
+      "$\\sqrt{2}$",
+      "$2$",
+      "$4$"
+    ],
+    "correct": 3,
+    "explanation": "由於 $v_{rms} \\propto \\sqrt{T}$，均方根速率增加一倍需要將 $T$ 增加至 $4$ 倍。"
+  },
+  {
+    "id": 6,
+    "type": "short",
+    "category": "熱與氣體",
+    "question": "當 $0.1\\text{ kg}$ 且溫度在 $80\\text{ }^{\\circ}\\text{C}$ 的水與 $0.2\\text{ kg}$ 且溫度在 $20\\text{ }^{\\circ}\\text{C}$ 的水混合時，求最終溫度。",
+    "correctAnswerValue": "40.0",
+    "correctUnit": "oC",
+    "explanation": "根據能量守恆：$m_1c(T_1 - T) = m_2c(T - T_2)$，$0.1(80 - T) = 0.2(T - 20)$，解得 $T = 40.0\\text{ }^{\\circ}\\text{C}$。"
+  },
+  {
+    "id": 7,
+    "type": "mcq",
+    "category": "熱與氣體",
+    "question": "哪一個物理量決定兩個處於熱接觸的物體之間的淨熱流動方向？",
+    "options": [
+      "內能",
+      "比熱容",
+      "總熱含量",
+      "溫度"
+    ],
+    "correct": 3,
+    "explanation": "淨熱會自發地從溫度較高的區域流向溫度較低的區域。"
+  },
+  {
+    "id": 8,
+    "type": "short",
+    "category": "熱與氣體",
+    "question": "一個體積為 $0.05\\text{ m}^3$ 的氣缸含有壓強為 $2.0 \\times 10^6\\text{ Pa}$ 的氣體。求在 $1.0 \\times 10^5\\text{ Pa}$ 時的體積。",
+    "correctAnswerValue": "1.00",
+    "correctUnit": "m3",
+    "explanation": "根據玻意耳定律：$P_1V_1 = P_2V_2 \\Rightarrow V_2 = (2 \\times 10^6 \\times 0.05) / 10^5 = 1.00\\text{ m}^3$。"
+  },
+  {
+    "id": 9,
+    "type": "mcq",
+    "category": "熱與氣體",
+    "question": "當物質在恆溫下熔化時，其內部動能（$KE$）和勢能（$PE$）會發生甚麼變化？",
+    "options": [
+      "$KE$ 增加，$PE$ 保持不變",
+      "$KE$ 保持不變，$PE$ 增加",
+      "$KE$ 和 $PE$ 均增加",
+      "$KE$ 和 $PE$ 均保持不變"
+    ],
+    "correct": 1,
+    "explanation": "溫度保持不變，因此 $KE$ 保持不變。在熔化過程中，隨著分子間鍵合斷裂，勢能會增加。"
+  },
+  {
+    "id": 10,
+    "type": "short",
+    "category": "熱與氣體",
+    "question": "將 $0.5\\text{ kg}$ 且溫度在 $0\\text{ }^{\\circ}\\text{C}$ 的冰加熱至 $10\\text{ }^{\\circ}\\text{C}$ 的水需要多少能量？（$L_f=3.34\\times 10^5$，$c=4200$）",
+    "correctAnswerValue": "188000",
+    "correctUnit": "J",
+    "explanation": "$E = mL_f + mc\\Delta T = 0.5(3.34\\times 10^5) + 0.5(4200)(10) = 167000 + 21000 = 188000\\text{ J}$。"
+  },
+  {
+    "id": 11,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一個質量為 $0.2\\text{ kg}$ 的球以 $10\\text{ m s}^{-1}$ 的速度撞擊牆壁，並以 $8\\text{ m s}^{-1}$ 的速度反彈。若接觸時間為 $0.1\\text{ s}$，求平均力。",
+    "options": [
+      "$4\\text{ N}$",
+      "$16\\text{ N}$",
+      "$36\\text{ N}$",
+      "$40\\text{ N}$"
+    ],
+    "correct": 2,
+    "explanation": "$F = \\Delta p / t = [0.2 \\times (8 - (-10))] / 0.1 = 36\\text{ N}$。"
+  },
+  {
+    "id": 12,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一塊石頭從 $45.0\\text{ m}$ 的高度釋放（下落）。求它剛到達地面（撞擊地面）前的速率。（$g=9.81\\text{ m s}^{-2}$）",
+    "correctAnswerValue": "29.7",
+    "correctUnit": "m s-1",
+    "explanation": "$v^2 = u^2 + 2gs \\Rightarrow v = \\sqrt{2 \\times 9.81 \\times 45.0} \\approx 29.7\\text{ m s}^{-1}$。"
+  },
+  {
+    "id": 13,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一個滑塊沿著倾角為 $30\\text{ }^{\\circ}$ 的光滑斜面下滑。求它沿斜面向下的加速度。（$g=9.81\\text{ m s}^{-2}$）",
+    "options": [
+      "$4.91\\text{ m s}^{-2}$",
+      "$8.50\\text{ m s}^{-2}$",
+      "$9.81\\text{ m s}^{-2}$",
+      "$19.6\\text{ m s}^{-2}$"
+    ],
+    "correct": 0,
+    "explanation": "加速度 $a = g \\sin\\theta = 9.81 \\sin(30^{\\circ}) = 4.905 \\approx 4.91\\text{ m s}^{-2}$。"
+  },
+  {
+    "id": 14,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一輛質量為 $1000\\text{ kg}$ 的汽車以 $15.0\\text{ m s}^{-1}$ 的速率駛過半徑為 $50.0\\text{ m}$ 的彎道。求汽車受到的向心力（或離心力）。",
+    "correctAnswerValue": "4500",
+    "correctUnit": "N",
+    "explanation": "$F_c = mv^2/r = 1000 \\times 15^2 / 50 = 4500\\text{ N}$。"
+  },
+  {
+    "id": 15,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一個拋體以與水平方向成 $60\\text{ }^{\\circ}$ 的夾角及 $30\\text{ m s}^{-1}$ 的速度發射。求速度的水平分量。",
+    "options": [
+      "$15\\text{ m s}^{-1}$",
+      "$26\\text{ m s}^{-1}$",
+      "$30\\text{ m s}^{-1}$",
+      "$52\\text{ m s}^{-1}$"
+    ],
+    "correct": 0,
+    "explanation": "$u_x = u\\cos\\theta = 30\\cos(60^{\\circ}) = 15\\text{ m s}^{-1}$。"
+  },
+  {
+    "id": 16,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一個 $15.0\\text{ N}$ 的恆力施於一個起初靜止、質量為 $3.00\\text{ kg}$ 的物體上，作用時間為 $4.00\\text{ s}$。求最終動能。",
+    "correctAnswerValue": "600",
+    "correctUnit": "J",
+    "explanation": "$a = F/m = 5\\text{ m s}^{-2}$。$v = at = 20\\text{ m s}^{-1}$。$KE = 0.5 mv^2 = 0.5 \\times 3 \\times 400 = 600\\text{ J}$。"
+  },
+  {
+    "id": 17,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一輛以 $6\\text{ m s}^{-1}$ 行駛、質量為 $2\\text{ kg}$ 的模型車（小車）與一輛質量為 $1\\text{ kg}$ 的靜止模型車發生迎頭相撞並黏在一起。求它們的共同速度。",
+    "options": [
+      "$2\\text{ m s}^{-1}$",
+      "$3\\text{ m s}^{-1}$",
+      "$4\\text{ m s}^{-1}$",
+      "$6\\text{ m s}^{-1}$"
+    ],
+    "correct": 2,
+    "explanation": "$m_1u_1 = (m_1+m_2)v \\Rightarrow 2 \\times 6 = 3v \\Rightarrow v = 4\\text{ m s}^{-1}$。"
+  },
+  {
+    "id": 18,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一台電動機以 $1.50\\text{ m s}^{-1}$ 的恆定速度垂直提升 $200\\text{ kg}$ 的負載。求有用輸出功率。（$g=9.81$）",
+    "correctAnswerValue": "2940",
+    "correctUnit": "W",
+    "explanation": "$P = Fv = mgv = 200 \\times 9.81 \\times 1.50 = 2943 \\approx 2940\\text{ W}$。"
+  },
+  {
+    "id": 19,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一個物體作勻速圓周運動。下列哪項或哪些物理量是恆定不變的？ (1) 速度 (2) 動能",
+    "options": [
+      "只有 (1)",
+      "只有 (2)",
+      "(1) 和 (2) 皆是",
+      "(1) 和 (2) 皆不是"
+    ],
+    "correct": 1,
+    "explanation": "速度的方向不斷改變，因此速度並非恆定。速率是恆定的，故動能保持不變。"
+  },
+  {
+    "id": 20,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一個質量為 $5.00\\text{ kg}$ 的滑塊，其極限摩擦係數為 $0.400$。求最大靜摩擦力。（$g=9.81$）",
+    "correctAnswerValue": "19.6",
+    "correctUnit": "N",
+    "explanation": "$f_{max} = \\mu R = \\mu mg = 0.400 \\times 5.00 \\times 9.81 = 19.62 \\approx 19.6\\text{ N}$。"
+  },
+  {
+    "id": 21,
+    "type": "mcq",
+    "category": "波動",
+    "question": "一列橫波的波長為 $0.4\\text{ m}$，頻率為 $5\\text{ Hz}$。求波速率。",
+    "options": [
+      "$0.08\\text{ m s}^{-1}$",
+      "$1.25\\text{ m s}^{-1}$",
+      "$2.0\\text{ m s}^{-1}$",
+      "$8.0\\text{ m s}^{-1}$"
+    ],
+    "correct": 2,
+    "explanation": "利用 $v = f\\lambda = 5 \\times 0.4 = 2\\text{ m s}^{-1}$。"
+  },
+  {
+    "id": 22,
+    "type": "short",
+    "category": "波動",
+    "question": "一束光綫從空氣進入玻璃（$n=1.50$），入射角為 $45.0\\text{ }^{\\circ}$。求折射角。",
+    "correctAnswerValue": "28.1",
+    "correctUnit": "oC",
+    "explanation": "根據斯耐爾定律：$\\sin(45^{\\circ}) = 1.50 \\sin(r) \\Rightarrow r = \\sin^{-1}(\\sin(45^{\\circ})/1.50) \\approx 28.1\\text{ }^{\\circ}$。"
+  },
+  {
+    "id": 23,
+    "type": "mcq",
+    "category": "波動",
+    "question": "當聲波從空氣傳播進入水中時，哪些性質會發生改變？",
+    "options": [
+      "只有速率",
+      "只有波長",
+      "速率和波長",
+      "頻率和速率"
+    ],
+    "correct": 2,
+    "explanation": "當跨越介質時，頻率保持恆定。由於速率改變，波長也必須相應改變。"
+  },
+  {
+    "id": 24,
+    "type": "short",
+    "category": "波動",
+    "question": "在雙縫實驗中，使用的光波波長 $\\lambda = 6.00 \\times 10^{-7}\\text{ m}$。若雙縫間距（縫間分離）為 $0.200\\text{ mm}$，光屏距離雙縫為 $2.00\\text{ m}$。求條紋寬度。",
+    "correctAnswerValue": "6.00",
+    "correctUnit": "mm",
+    "explanation": "條紋寬度 $w = \\lambda D / a = (6.00 \\times 10^{-7} \\times 2.00) / (2.00 \\times 10^{-4}) = 6.00 \\times 10^{-3}\\text{ m} = 6.00\\text{ mm}$。"
+  },
+  {
+    "id": 25,
+    "type": "mcq",
+    "category": "波動",
+    "question": "求光在水（$n=1.33$）與空氣的交界面發生全內反射時的臨界角。",
+    "options": [
+      "$32.4\\text{ }^{\\circ}$",
+      "$41.8\\text{ }^{\\circ}$",
+      "$48.8\\text{ }^{\\circ}$",
+      "$90.0\\text{ }^{\\circ}$"
+    ],
+    "correct": 2,
+    "explanation": "臨界角 $c = \\sin^{-1}(1/n) = \\sin^{-1}(1/1.33) \\approx 48.8^{\\circ}$。"
+  },
+ {
+    "id": 26,
+    "type": "short",
+    "category": "波動",
+    "question": "一列頻率為 $170\\text{ Hz}$ 的聲波在空氣中傳播，其波速為 $340\\text{ m s}^{-1}$。求相差為 $180\\text{ }^{\\circ}$ 時的程差。",
+    "correctAnswerValue": "1.00",
+    "correctUnit": "m",
+    "explanation": "$\\lambda = v/f = 340/170 = 2\\text{ m}$。相差 $180^{\\circ}$ 對應的程差為 $0.5\\lambda = 1.00\\text{ m}$。"
+  },
+  {
+    "id": 27,
+    "type": "mcq",
+    "category": "波動",
+    "question": "下列哪一項是電磁波？",
+    "options": [
+      "阿爾法輻射（$\\alpha$ 輻射）",
+      "貝塔輻射（$\\beta$ 輻射）",
+      "超聲波",
+      "伽馬射線（$\\gamma$ 射線）"
+    ],
+    "correct": 3,
+    "explanation": "伽馬射線是高頻電磁輻射，而阿爾法與貝塔是粒子，超聲波則是聲學波。"
+  },
+  {
+    "id": 28,
+    "type": "short",
+    "category": "波動",
+    "question": "一個繞射光柵每毫米有 $500\\text{ 條透光綫}$（$500\\text{ lines mm}^{-1}$）。求波長 $\\lambda = 5.00 \\times 10^{-7}\\text{ m}$ 的光產生第一級極大的角度。",
+    "correctAnswerValue": "14.5",
+    "correctUnit": "oC",
+    "explanation": "$d = 10^{-3}/500 = 2.00 \\times 10^{-6}\\text{ m}$。$\\sin\\theta = \\lambda/d = 5.00\\times 10^{-7}/2.00\\times 10^{-6} = 0.25 \\Rightarrow \\theta \\approx 14.5^{\\circ}$。"
+  },
+  {
+    "id": 29,
+    "type": "mcq",
+    "category": "波動",
+    "question": "當波通過狹縫時，會觀察到哪種波的現象（行為）？",
+    "options": [
+      "折射",
+      "繞射",
+      "偏振",
+      "全內反射"
+    ],
+    "correct": 1,
+    "explanation": "繞射是指波通過孔徑（繞過障礙物）時散開的現象。"
+  },
+  {
+    "id": 30,
+    "type": "short",
+    "category": "波動",
+    "question": "船上的回聲探測儀向海底發送一個脈衝。探測儀在 $0.800\\text{ s}$ 後收到回聲。已知聲音在水中的速度為 $1500\\text{ m s}^{-1}$。求海深。",
+    "correctAnswerValue": "600",
+    "correctUnit": "m",
+    "explanation": "到海底的距離為 $d = vt/2 = 1500 \\times 0.800 / 2 = 600\\text{ m}$。"
+  },
+  {
+    "id": 31,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "兩個正點電荷 $Q$ 和 $4Q$ 相距 $r$。它們相互受到的靜電力（電磁力）之比是多少？",
+    "options": [
+      "$1:1$",
+      "$1:2$",
+      "$1:4$",
+      "$4:1$"
+    ],
+    "correct": 0,
+    "explanation": "根據牛頓第三定律，作用於兩個電荷上的靜電力組成一對作用力與反作用力，兩者必須相等。"
+  },
+  {
+    "id": 32,
+    "type": "short",
+    "category": "電磁學",
+    "question": "求三個並聯連接、電阻皆為 $6.00\\text{ }\\Omega$ 的電阻器的等效電阻。",
+    "correctAnswerValue": "2.00",
+    "correctUnit": "ohm",
+    "explanation": "$1/R_{eq} = 1/6 + 1/6 + 1/6 = 3/6 = 1/2 \\Rightarrow R_{eq} = 2.00\\text{ }\\Omega$。"
+  },
+  {
+    "id": 33,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "一個降壓變壓器的原綫圈（初級）匝數為 $1000$，副綫圈（次級）匝數為 $100$。若原綫圈接上 $220\\text{ V}$ 的交流電（AC），求副綫圈的電壓。",
+    "options": [
+      "$11\\text{ V}$",
+      "$22\\text{ V}$",
+      "$110\\text{ V}$",
+      "$2200\\text{ V}$"
+    ],
+    "correct": 1,
+    "explanation": "利用 $V_s/V_p = N_s/N_p$，可得 $V_s = 220 \\times (100/1000) = 22\\text{ V}$。"
+  },
+  {
+    "id": 34,
+    "type": "short",
+    "category": "電磁學",
+    "question": "一條長度為 $0.500\\text{ m}$ 且通有 $4.00\\text{ A}$ 電流的直導綫垂直置於 $0.200\\text{ T}$ 的磁場（B場）中。求導綫受到的磁力。",
+    "correctAnswerValue": "0.400",
+    "correctUnit": "N",
+    "explanation": "磁力 $F = B I L \\sin(90^{\\circ}) = 0.200 \\times 4.00 \\times 0.500 = 0.400\\text{ N}$。"
+  },
+  {
+    "id": 35,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "一個 $1200\\text{ W}$ 的多士爐（烤麵包機）連接到 $240\\text{ V}$ 的市電。求通過的電流。",
+    "options": [
+      "$0.2\\text{ A}$",
+      "$5.0\\text{ A}$",
+      "$10\\text{ A}$",
+      "$28.8\\text{ A}$"
+    ],
+    "correct": 1,
+    "explanation": "功率 $P = VI \\Rightarrow I = P/V = 1200/240 = 5.0\\text{ A}$。"
+  },
+  {
+    "id": 36,
+    "type": "short",
+    "category": "電磁學",
+    "question": "求接上 $120\\text{ V}$ 電源、兩板相距 $0.0200\\text{ m}$ 的平行板之間的電場強度。",
+    "correctAnswerValue": "6000",
+    "correctUnit": "V m-1",
+    "explanation": "電場 $E = V/d = 120 / 0.0200 = 6000\\text{ V m}^{-1}$。"
+  },
+  {
+    "id": 37,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "當導體切過磁場（在磁場中運動）時，哪條定則可用於確定感應電流的方向？",
+    "options": [
+      "佛萊明左手定則",
+      "佛萊明右手定則",
+      "右手螺旋定則（右手握拳定則）",
+      "麥克斯韋右手螺旋定則"
+    ],
+    "correct": 1,
+    "explanation": "佛萊明右手（發電機）定則是專門用於判定感應電動勢和感應電流方向的。"
+  },
+  {
+    "id": 38,
+    "type": "short",
+    "category": "電磁學",
+    "question": "一個 $2000\\text{ W}$ 的電熱器運行了 $4.50\\text{ 小時}$。問共消耗了多少以 $\\text{kW h}$（度）為單位的電能？",
+    "correctAnswerValue": "9.00",
+    "correctUnit": "kW h",
+    "explanation": "$E = P(kW) \\times t(h) = 2.00 \\times 4.50 = 9.00\\text{ kW h}$。"
+  },
+  {
+    "id": 39,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "一個質子進入一個指向穿出紙面（指向讀者）的磁場。若質子向右運動，求它最初受到的磁力方向。",
+    "options": [
+      "向上",
+      "向下",
+      "穿入紙面",
+      "穿出紙面"
+    ],
+    "correct": 1,
+    "explanation": "根據佛萊明左手定則（磁場穿出紙面，電流向右），受力方向指向下方。"
+  },
+  {
+    "id": 40,
+    "type": "short",
+    "category": "電磁學",
+    "question": "兩個電荷（$q_1=q_2=1.00\\text{ }\\mu\\text{C}$）相距 $0.300\\text{ m}$。求它們之間的靜電力。（$k=8.99\\times 10^9\\text{ N m}^2\\text{ C}^{-2}$）",
+    "correctAnswerValue": "0.0999",
+    "correctUnit": "N",
+    "explanation": "$F = kq_1q_2/r^2 = (8.99 \\times 10^9 \\times (1.00\\times 10^{-6})^2) / 0.300^2 = 0.0999\\text{ N}$。"
+  },
+  {
+    "id": 41,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "某放射源的半衰期為 $4$ 天。在 $12$ 天後，該放射源還剩下多少分數？",
+    "options": [
+      "$1/3$",
+      "$1/4$",
+      "$1/8$",
+      "$1/16$"
+    ],
+    "correct": 2,
+    "explanation": "半衰期的次數 $n = 12/4 = 3$。剩下的分數 $= (1/2)^3 = 1/8$。"
+  },
+  {
+    "id": 42,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "一個原子核 $^{238}_{92}\\text{U}$ 通過釋放（發射）單個粒子衰變為 $^{234}_{90}\\text{Th}$。試寫出該釋放粒子的質量數。",
+    "correctAnswerValue": "4.00",
+    "correctUnit": "u",
+    "explanation": "阿爾法衰變會釋放出 $^{4}_{2}\\text{He}$（$\\alpha$ 粒子），其質量數為 4。"
+  },
+  {
+    "id": 43,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "在核聚變（核融合）反應中，質量虧損為 $\\Delta m$。問釋放了多少能量？（$c$ 為光速）",
+    "options": [
+      "$\\Delta m / c^2$",
+      "$\\Delta m \\cdot c$",
+      "$\\Delta m \\cdot c^2$",
+      "$\\Delta m^2 \\cdot c$"
+    ],
+    "correct": 2,
+    "explanation": "根據愛因斯坦的質能方程，$E = \\Delta m \\cdot c^2$。"
+  },
+  {
+    "id": 44,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "某放射性同位素的放射性強度（活度）在 $15.0\\text{ s}$ 內從 $800\\text{ Bq}$ 下降到 $100\\text{ Bq}$。求其半衰期。",
+    "correctAnswerValue": "5.00",
+    "correctUnit": "s",
+    "explanation": "$800 \\rightarrow 400 \\rightarrow 200 \\rightarrow 100$ 正好經歷了 3 個半衰期。因此半衰期 $= 15.0/3 = 5.00\\text{ s}$。"
+  },
+  {
+    "id": 45,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "哪一種類型的電離輻射具有最強的穿透能力（穿透力）？",
+    "options": [
+      "阿爾法輻射（$\\alpha$ 輻射）",
+      "貝塔輻射（$\\beta$ 輻射）",
+      "伽馬輻射（$\\gamma$ 輻射）",
+      "中子束"
+    ],
+    "correct": 2,
+    "explanation": "伽馬射線的電離能力最低，但穿透能力最強，需要厚鉛板（鉛屏障）才能阻擋。"
+  },
+  {
+    "id": 46,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "某核反應釋放了 $4.50 \\times 10^{-12}\\text{ J}$ 的能量。求相應的質量虧損。（$c=3.00\\times 10^8\\text{ m s}^{-1}$）",
+    "correctAnswerValue": "5.00e-29",
+    "correctUnit": "kg",
+    "explanation": "利用 $E = \\Delta m \\cdot c^2$，可得 $\\Delta m = (4.50 \\times 10^{-12}) / (3.00 \\times 10^8)^2 = 5.00 \\times 10^{-29}\\text{ kg}$。"
+  },
+  {
+    "id": 47,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "當碳 $^{14}_{6}\\text{C}$ 發生負貝塔（$\\beta^-$）衰變時，子核的質子數和中子數分別是多少？",
+    "options": [
+      "質子數 $= 5$，中子數 $= 9$",
+      "質子數 $= 7$，中子數 $= 7$",
+      "質子數 $= 7$，中子數 $= 8$",
+      "質子數 $= 6$，中子數 $= 8$"
+    ],
+    "correct": 1,
+    "explanation": "負貝塔衰變會使質子數增加 1，而質量數保持不變。子核 $^{14}_{7}\\text{N}$ 擁有 7 個質子和 7 個中子。"
+  },
+  {
+    "id": 48,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "計數器記錄到的本底放射性強度（背景活度）為 $12\\text{ cpm}$，總計數率為 $112\\text{ cpm}$。求經更正的計數率（校正計數率）。",
+    "correctAnswerValue": "100",
+    "correctUnit": "cpm",
+    "explanation": "經更正的計數率 = 總計數率 - 本底計數率 = 112 - 12 = 100 cpm。"
+  },
+  {
+    "id": 49,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "在核裂變（核分裂）反應堆中，減速劑（慢化劑）的主要作用是什麼？",
+    "options": [
+      "吸收多餘的中子",
+      "使快中子減速",
+      "冷卻反應堆堆芯（爐心）",
+      "防範輻射的屏蔽"
+    ],
+    "correct": 1,
+    "explanation": "減速劑（如水或石墨）能將快中子的速度降低至熱速度，以維持鏈式反應。"
+  },
+  {
+    "id": 50,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "鈾-235（$^{235}_{92}\\text{U}$）的原子核中含有多少個質子？",
+    "correctAnswerValue": "92.0",
+    "correctUnit": "protons",
+    "explanation": "原子序數 $Z$ 為 92，這直接對應於質子的數目。"
+  },
+  {
+    "id": 51,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "一個質量為 $0.5\\text{ kg}$ 的固體以 $100\\text{ W}$ 的恆定功率加熱。熔化過程歷時 $50\\text{ s}$。求熔化潛熱。",
+    "options": [
+      "$5.0 \\times 10^3\\text{ J kg}^{-1}$",
+      "$1.0 \\times 10^4\\text{ J kg}^{-1}$",
+      "$2.5 \\times 10^4\\text{ J kg}^{-1}$",
+      "$5.0 \\times 10^4\\text{ J kg}^{-1}$"
+    ],
+    "correct": 1,
+    "explanation": "$Pt = mL_f \\Rightarrow L_f = (100 \\times 50)/0.5 = 10000\\text{ J kg}^{-1}$。"
+  },
+  {
+    "id": 52,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "$1.50\\text{ kg}$ 的水從 $80.0\\text{ }^{\\circ}\\text{C}$ 冷卻到 $20.0\\text{ }^{\\circ}\\text{C}$。求釋放的熱量。（$c=4200\\text{ J kg}^{-1}\\text{ K}^{-1}$）",
+    "correctAnswerValue": "378",
+    "correctUnit": "kJ",
+    "explanation": "$E = mc\\Delta T = 1.50 \\times 4200 \\times 60.0 = 378000\\text{ J} = 378\\text{ kJ}$。"
+  },
+  {
+    "id": 53,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "若理想氣體的體積在恆溫（等溫）下減少了 $50\\%$，則其壓強會增加到原來的多少倍？",
+    "options": [
+      "$0.5$",
+      "$1.0$",
+      "$1.5$",
+      "$2.0$"
+    ],
+    "correct": 3,
+    "explanation": "根據波意耳定律 $PV = \\text{恆量}$，體積減半則壓強加倍。"
+  },
+  {
+    "id": 54,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "將體積為 $4.00\\text{ L}$、溫度為 $27.0\\text{ }^{\\circ}\\text{C}$ 的氣體在恆壓下加熱至 $127\\text{ }^{\\circ}\\text{C}$。求新的體積。",
+    "correctAnswerValue": "5.33",
+    "correctUnit": "L",
+    "explanation": "$V_1/T_1 = V_2/T_2 \\Rightarrow V_2 = 4.00 \\times (400/300) = 5.33\\text{ L}$。"
+  },
+  {
+    "id": 55,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "在絕對零度時，理想氣體分子的理論狀態是怎樣的？",
+    "options": [
+      "具有最大速率",
+      "體積為零",
+      "動能為零",
+      "具有最大動能"
+    ],
+    "correct": 2,
+    "explanation": "在絕對零度下，分子的平移運動停止，從而導致理論上的動能為零。"
+  },
+  {
+    "id": 56,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "空氣被封鎖在一個氣缸中，其初始壓強為 $1.00 \\times 10^5\\text{ Pa}$。若將其壓縮至原體積的 $1/5$，求最終的壓強。",
+    "correctAnswerValue": "5.00e5",
+    "correctUnit": "Pa",
+    "explanation": "$P_1V_1 = P_2V_2 \\Rightarrow P_2 = 1.00\\times 10^5 \\times 5 = 5.00 \\times 10^5\\text{ Pa}$。"
+  },
+  {
+    "id": 57,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "下列哪項正確描述了水的汽化潛熱？",
+    "options": [
+      "使 $1\\text{ kg}$ 的水完全沸騰所需的熱量",
+      "使 $1\\text{ kg}$ 的水升溫 $1\\text{ }^{\\circ}\\text{C}$ 所需的熱量",
+      "使 $1\\text{ kg}$ 的冰熔化為液態水所需的熱量",
+      "使水蒸氣膨脹 $1\\text{ m}^3$ 所需的熱量"
+    ],
+    "correct": 0,
+    "explanation": "汽化潛熱是在不改變溫度的情況下，將 $1\\text{ kg}$ 液體轉化為氣態所需的熱量。"
+  },
+  {
+    "id": 58,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "一個功率為 $2.00\\text{ kW}$ 的鍋爐在 $580\\text{ s}$ 內將 $0.500\\text{ kg}$、溫度為 $100\\text{ }^{\\circ}\\text{C}$ 的水燒乾（汽化）。求汽化潛熱。",
+    "correctAnswerValue": "2.32e6",
+    "correctUnit": "J kg-1",
+    "explanation": "$Pt = mL_v \\Rightarrow L_v = (2000 \\times 580) / 0.500 = 2.32 \\times 10^6\\text{ J kg}^{-1}$。"
+  },
+  {
+    "id": 59,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "為什麼 $100\\text{ }^{\\circ}\\text{C}$ 的水蒸氣比 $100\\text{ }^{\\circ}\\text{C}$ 的沸水造成的皮膚灼傷更為嚴重？",
+    "options": [
+      "水蒸氣的溫度更高",
+      "水蒸氣的比熱容更高",
+      "水蒸氣會釋放潛熱",
+      "水蒸氣在皮膚上會膨脹"
+    ],
+    "correct": 2,
+    "explanation": "水蒸氣在皮膚上凝聚時，會在冷卻前釋放出額外的汽化潛熱，從而加劇灼傷。"
+  },
+  {
+    "id": 60,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "輪胎內的氣體壓強在 $27.0\\text{ }^{\\circ}\\text{C}$ 時為 $2.00 \\times 10^5\\text{ Pa}$。若溫度上升至 $57.0\\text{ }^{\\circ}\\text{C}$，求新的壓強。",
+    "correctAnswerValue": "2.20e5",
+    "correctUnit": "Pa",
+    "explanation": "$P_1/T_1 = P_2/T_2 \\Rightarrow P_2 = 2.00\\times 10^5 \\times (330/300) = 2.20 \\times 10^5\\text{ Pa}$。"
+  },
+  {
+    "id": 61,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一個 $10\\text{ N}$ 的恆力使物體由靜止開始加速，在 $3\\text{ s}$ 內達到 $15\\text{ m s}^{-1}$ 的速度。求物體的質量。",
+    "options": [
+      "$0.5\\text{ kg}$",
+      "$2.0\\text{ kg}$",
+      "$4.5\\text{ kg}$",
+      "$5.0\\text{ kg}$"
+    ],
+    "correct": 1,
+    "explanation": "加速度 $a = (15-0)/3 = 5\\text{ m s}^{-2}$。質量 $m = F/a = 10/5 = 2.0\\text{ kg}$。"
+  },
+  {
+    "id": 62,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一個從 $20.0\\text{ m}$ 高的懸崖水平拋出的拋體，需要多少秒才會著地？（$g=9.81$）",
+    "correctAnswerValue": "2.02",
+    "correctUnit": "s",
+    "explanation": "垂直運動 $s = 0.5 gt^2 \\Rightarrow t = \\sqrt{2s/g} = \\sqrt{40.0/9.81} \\approx 2.02\\text{ s}$。"
+  },
+  {
+    "id": 63,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一部升降機以 $2\\text{ m s}^{-2}$ 的減速度向下運動。求升降機內一個質量為 $60\\text{ kg}$ 的人的視重。（$g=9.81$）",
+    "options": [
+      "$120\\text{ N}$",
+      "$469\\text{ N}$",
+      "$589\\text{ N}$",
+      "$709\\text{ N}$"
+    ],
+    "correct": 3,
+    "explanation": "向下作減速運動意味著加速度 $a$ 是向上的。由 $R - mg = ma \\Rightarrow R = 60(9.81+2) \\approx 709\\text{ N}$。"
+  },
+  {
+    "id": 64,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一輛質量為 $1500\\text{ kg}$ 的汽車由靜止開始前進，在 $8.00\\text{ s}$ 內達到 $20.0\\text{ m s}^{-1}$ 的速度。求合力。",
+    "correctAnswerValue": "3750",
+    "correctUnit": "N",
+    "explanation": "$a = (20.0 - 0)/8.00 = 2.50\\text{ m s}^{-2}$。$F = ma = 1500 \\times 2.50 = 3750\\text{ N}$。"
+  },
+  {
+    "id": 65,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一個質量為 $m$ 的球從高度 $h$ 下落，並反彈至 $0.8h$。求地面施加在球上的衝量。",
+    "options": [
+      "$m\\sqrt{2gh}$",
+      "$1.8m\\sqrt{2gh}$",
+      "$1.89m\\sqrt{2gh}$",
+      "$2.8m\\sqrt{2gh}$"
+    ],
+    "correct": 2,
+    "explanation": "$v_{in} = -\\sqrt{2gh}$，$v_{out} = \\sqrt{1.6gh} \\approx 0.894\\sqrt{2gh}$。衝量 $\\Delta p = m(v_{out} - v_{in}) \\approx 1.89m\\sqrt{2gh}$。"
+  },
+  {
+    "id": 66,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一個質量為 $10.0\\text{ kg}$ 的箱子在光滑地面上受到一個與地面成 $30.0\\text{ }^{\\circ}$ 夾角、大小為 $30.0\\text{ N}$ 的力拉動。求加速度。",
+    "correctAnswerValue": "2.60",
+    "correctUnit": "m s-2",
+    "explanation": "$F_x = F\\cos\\theta = 30.0\\cos(30.0^{\\circ}) = 25.98\\text{ N}$。$a = F_x/m = 2.598 \\approx 2.60\\text{ m s}^{-2}$。"
+  },
+  {
+    "id": 67,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "如果一個物體的動量增加到原來的兩倍，那麼它的動能會增加到原來的多少倍？",
+    "options": [
+      "$\\sqrt{2}$",
+      "$2$",
+      "$4$",
+      "$8$"
+    ],
+    "correct": 2,
+    "explanation": "$KE = p^2/(2m)$。若 $p$ 變為原來的兩倍，則 $KE$ 變為原來的四倍。"
+  },
+  {
+    "id": 68,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一個質量為 $40.0\\text{ kg}$ 的兒童以 $3.00\\text{ m s}^{-1}$ 的速率奔跑並跳上一輛質量為 $10.0\\text{ kg}$ 的靜止滑板。求最終的速率。",
+    "correctAnswerValue": "2.40",
+    "correctUnit": "m s-1",
+    "explanation": "$m_1u_1 = (m_1+m_2)v \\Rightarrow 40.0 \\times 3.00 = 50.0 v \\Rightarrow v = 2.40\\text{ m s}^{-1}$。"
+  },
+  {
+    "id": 69,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一塊石頭從橋上水平拋出，初始速率為 $15\\text{ m s}^{-1}$。$1\\text{ s}$ 後其速度的垂直分量是多少？（$g=9.81$）",
+    "options": [
+      "$0\\text{ m s}^{-1}$",
+      "$9.81\\text{ m s}^{-1}$",
+      "$15\\text{ m s}^{-1}$",
+      "$17.9\\text{ m s}^{-1}$"
+    ],
+    "correct": 1,
+    "explanation": "垂直速度 $v_y = u_y + gt = 0 + (9.81 \\times 1) = 9.81\\text{ m s}^{-1}$。"
+  },
+  {
+    "id": 70,
+    "type": "short",
+    "category": "力和運動",
+    "question": "起重機將某質量垂直提升到 $12.0\\text{ m}$ 的高度，共作了 $60.0\\text{ kJ}$ 的功。求被提升的質量。（$g=9.81$）",
+    "correctAnswerValue": "510",
+    "correctUnit": "kg",
+    "explanation": "$W = mgh \\Rightarrow m = W / (gh) = 60000 / (9.81 \\times 12.0) \\approx 509.68 \\approx 510\\text{ kg}$。"
+  },
+ {
+    "id": 71,
+    "type": "mcq",
+    "category": "波動",
+    "question": "某一週期波的頻率為 $10\\text{ Hz}$，傳播速率為 $5\\text{ m s}^{-1}$。求相距 $0.1\\text{ m}$ 的兩點之間的相差（相位差）。",
+    "options": [
+      "$36\\text{ }^{\\circ}$",
+      "$72\\text{ }^{\\circ}$",
+      "$180\\text{ }^{\\circ}$",
+      "$360\\text{ }^{\\circ}$"
+    ],
+    "correct": 1,
+    "explanation": "波長 $\\lambda = v/f = 5/10 = 0.5\\text{ m}$。相差（相位差）$= 360^{\\circ} \\times (0.1/0.5) = 72^{\\circ}$。"
+  },
+  {
+    "id": 72,
+    "type": "short",
+    "category": "波動",
+    "question": "紅光在真空中的波長為 $650\\text{ nm}$。已知光速 $c = 3.00\\times 10^8\\text{ m s}^{-1}$，求其頻率。",
+    "correctAnswerValue": "4.62e14",
+    "correctUnit": "Hz",
+    "explanation": "$f = c/\\lambda = (3.00 \\times 10^8) / (650 \\times 10^{-9}) \\approx 4.615 \\times 10^{14} \\approx 4.62 \\times 10^{14}\\text{ Hz}$。"
+  },
+  {
+    "id": 73,
+    "type": "mcq",
+    "category": "波動",
+    "question": "當聲波從乾燥空氣進入潮濕空氣時，其速率會發生改變。這主要是由於下列哪項發生了變化？",
+    "options": [
+      "頻率",
+      "介質密度",
+      "強度",
+      "偏振（極化）"
+    ],
+    "correct": 1,
+    "explanation": "加入水蒸氣會降低空氣的平均密度，從而提高聲速。"
+  },
+  {
+    "id": 74,
+    "type": "short",
+    "category": "波動",
+    "question": "水波在深水中的波長為 $0.150\\text{ m}$，在淺水中的波長為 $0.100\\text{ m}$。求深水與淺水中的波速比值（深水/淺水）。",
+    "correctAnswerValue": "1.50",
+    "correctUnit": "ratio",
+    "explanation": "由於頻率保持不變，波速與波長成正比：$v_1/v_2 = \\lambda_1/\\lambda_2 = 0.150/0.100 = 1.50$。"
+  },
+  {
+    "id": 75,
+    "type": "mcq",
+    "category": "波動",
+    "question": "微波爐運作時內部會形成駐波。為什麼爐內會出現熱點（溫度特別高的區域）？",
+    "options": [
+      "電場的波節處",
+      "電場的波腹處",
+      "波的衰減",
+      "波的折射"
+    ],
+    "correct": 1,
+    "explanation": "波腹對應於波幅最大和電場強度最強的區域，從而引起快速加熱。"
+  },
+  {
+    "id": 76,
+    "type": "short",
+    "category": "波動",
+    "question": "某一調頻（FM）廣播電台的發射頻率為 $98.1\\text{ MHz}$。求該載波在真空中的波長。",
+    "correctAnswerValue": "3.06",
+    "correctUnit": "m",
+    "explanation": "$\\lambda = c/f = (3.00 \\times 10^8) / (98.1 \\times 10^6) \\approx 3.058 \\approx 3.06\\text{ m}$。"
+  },
+  {
+    "id": 77,
+    "type": "mcq",
+    "category": "波動",
+    "question": "兩列振幅同為 $A$ 的波在某一點發生相長干涉（建設性干涉）。其合成強度與下列哪項成正比？",
+    "options": [
+      "$A$",
+      "$2A$",
+      "$A^2$",
+      "$4A^2$"
+    ],
+    "correct": 3,
+    "explanation": "合成振幅為 $2A$。由於強度與振幅的平方成正比，因此 $(2A)^2 = 4A^2$。"
+  },
+  {
+    "id": 78,
+    "type": "short",
+    "category": "波動",
+    "question": "某一繞射光柵（衍射光柵）每毫米有 $600\\text{ 條刻線}$。求其光柵刻線間距 $d$（以微米為單位）。",
+    "correctAnswerValue": "1.67",
+    "correctUnit": "um",
+    "explanation": "$d = (1/600)\\text{ mm} = 1.6667 \\times 10^{-3}\\text{ mm} \\approx 1.67\\text{ }\\mu\\text{m}$。"
+  },
+  {
+    "id": 79,
+    "type": "mcq",
+    "category": "波動",
+    "question": "下列哪種光學現象支持光的波動說，而不是微粒說（粒子說）？",
+    "options": [
+      "光電效應",
+      "反射",
+      "折射",
+      "干涉"
+    ],
+    "correct": 3,
+    "explanation": "干涉和繞射（衍射）是波動所獨有的現象，無法用微粒說（粒子說）來解釋。"
+  },
+  {
+    "id": 80,
+    "type": "short",
+    "category": "波動",
+    "question": "醫療上使用頻率為 $2.00\\text{ MHz}$ 的超聲波。其在人體軟組織中的傳播速度為 $1540\\text{ m s}^{-1}$。求其波長。",
+    "correctAnswerValue": "0.770",
+    "correctUnit": "mm",
+    "explanation": "$\\lambda = v/f = 1540 / (2.00 \\times 10^6) = 7.70 \\times 10^{-4}\\text{ m} = 0.770\\text{ mm}$。"
+  },
+  {
+    "id": 81,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "兩個電荷 $+q$ 和 $-q$ 分別位於 x 軸上的 $x=-d$ 和 $x=+d$ 處。求在原點 $x=0$ 處的電場方向：",
+    "options": [
+      "指向右方",
+      "指向左方",
+      "指向止方",
+      "為零"
+    ],
+    "correct": 0,
+    "explanation": "位於 $-d$ 的 $+q$ 產生的電場指向右方，而位於 $+d$ 的 $-q$ 產生的電場同樣指向右方。因此總電場方向指向右方。"
+  },
+  {
+    "id": 82,
+    "type": "short",
+    "category": "電磁學",
+    "question": "一個 $12.0\\text{ V}$ 的電池使 $180\\text{ C}$ 的電荷通過電路。求電池所提供的總電能。",
+    "correctAnswerValue": "2160",
+    "correctUnit": "J",
+    "explanation": "電能 $E = QV = 180 \\times 12.0 = 2160\\text{ J}$。"
+  },
+  {
+    "id": 83,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "三個完全相同的燈泡串聯連接。如果其中一個燈泡燒斷，其他燈泡中的電流會發生什麼變化？",
+    "options": [
+      "增加",
+      "減少至一半",
+      "保持不變",
+      "變為零"
+    ],
+    "correct": 3,
+    "explanation": "在串聯電路中，路徑中任何一處斷開都會使整個電路中的電流完全停止流動。"
+  },
+  {
+    "id": 84,
+    "type": "short",
+    "category": "電磁學",
+    "question": "大小為 $2.50\\text{ A}$ 的電流流過一個電阻為 $40.0\\text{ }\\Omega$ 的發熱線圈。求其熱功率。",
+    "correctAnswerValue": "250",
+    "correctUnit": "W",
+    "explanation": "$P = I^2R = 2.50^2 \\times 40.0 = 6.25 \\times 40.0 = 250\\text{ W}$。"
+  },
+  {
+    "id": 85,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "將一個圓形導線線圈置於勻強磁場中。在下列哪種情況下，線圈中會產生感應電動勢？",
+    "options": [
+      "線圈在磁場中轉動",
+      "線圈以恆定速度平移",
+      "磁場強度保持恆定",
+      "線圈保持靜止"
+    ],
+    "correct": 0,
+    "explanation": "當穿過線圈的磁通鏈發生變化時，就會產生感應電動勢。轉動線圈會改變面積向量與磁場方向的相對夾角，從而改變磁通量。"
+  },
+  {
+    "id": 86,
+    "type": "short",
+    "category": "電磁學",
+    "question": "一個理想變壓器的初級微圈電壓為 $200\\text{ V}$，次級線圈電壓為 $10.0\\text{ V}$。若初級線圈電流為 $0.500\\text{ A}$，求次級線圈電流。",
+    "correctAnswerValue": "10.0",
+    "correctUnit": "A",
+    "explanation": "對於理想變壓器，$I_p V_p = I_s V_s \\Rightarrow I_s = (0.500 \\times 200) / 10.0 = 10.0\\text{ A}$。"
+  },
+  {
+    "id": 87,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "下列哪項正確描述了家用電器中標準地線（接地線）的功能？",
+    "options": [
+      "構成電流的迴路",
+      "調節電壓波動",
+      "安全地導走短路電流",
+      "減少電能消耗"
+    ],
+    "correct": 2,
+    "explanation": "地線（接地線）將電器的金屬外殼與大地相連，以防止在發生短路故障時引致觸電。"
+  },
+  {
+    "id": 88,
+    "type": "short",
+    "category": "電磁學",
+    "question": "一個電子（電荷量 $q=-1.60\\times 10^{-19}\\text{ C}$）以 $5.00 \\times 10^6\\text{ m s}^{-1}$ 的速度垂直射入 $0.400\\text{ T}$ 的磁場中。求其受到的磁場力大小。",
+    "correctAnswerValue": "3.20e-13",
+    "correctUnit": "N",
+    "explanation": "$F = qvB = 1.60\\times 10^{-19} \\times 5.00\\times 10^6 \\times 0.400 = 3.20 \\times 10^{-13}\\text{ N}$。"
+  },
+  {
+    "id": 89,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "一根導線繞在螺線管外。如果螺線管中的電流減小，線圈中的感應電流會試圖：",
+    "options": [
+      "反抗磁場的減小",
+      "協助磁場的減小",
+      "抵消磁場",
+      "保持為零"
+    ],
+    "correct": 0,
+    "explanation": "根據楞次定律，感應電流的效果總是反抗引起它的磁通量變化。"
+  },
+  {
+    "id": 90,
+    "type": "short",
+    "category": "電磁學",
+    "question": "求距離一根通有 $10.0\\text{ A}$ 電流的長直導線 $0.0500\\text{ m}$ 處的磁場強度 $B$。（真空磁導率 $\\mu_0=4\\pi\\times 10^{-7}$）",
+    "correctAnswerValue": "4.00e-5",
+    "correctUnit": "T",
+    "explanation": "$B = \\mu_0 I / (2\\pi r) = (4\\pi \\times 10^{-7} \\times 10.0) / (2\\pi \\times 0.0500) = 4.00 \\times 10^{-5}\\text{ T}$。"
+  },
+  {
+    "id": 91,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "若某一核反應的質量虧損為 $0.005\\text{ u}$，求釋放出的能量大約是多少？（已知 $1\\text{ u} = 931\\text{ MeV}$）",
+    "options": [
+      "$0.46\\text{ MeV}$",
+      "$4.66\\text{ MeV}$",
+      "$46.6\\text{ MeV}$",
+      "$466\\text{ MeV}$"
+    ],
+    "correct": 1,
+    "explanation": "能量 $E = 0.005 \\times 931\\text{ MeV} \\approx 4.655 \\approx 4.66\\text{ MeV}$。"
+  },
+  {
+    "id": 92,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "某一放射性同位素的初始放射性活度為 $3200\\text{ Bq}$。在 $48.0\\text{ 小時}$ 後，活度變為 $100\\text{ Bq}$。求其半衰期。",
+    "correctAnswerValue": "9.60",
+    "correctUnit": "h",
+    "explanation": "$3200/100 = 32 = 2^5$，表示經歷了 $5$ 個半衰期。因此 $5$ 個半衰期 $= 48.0\\text{ 小時}$，半衰期 $= 48.0 / 5 = 9.60\\text{ 小時}$。"
+  },
+  {
+    "id": 93,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "下列哪項敘述正確描述了核裂變（核分裂）？",
+    "options": [
+      "輕原子核分裂成更重的原子核",
+      "輕原子核結合結成更重的原子核",
+      "重原子核分裂成較輕的原子核與中子",
+      "原子核釋放出阿爾法粒子"
+    ],
+    "correct": 2,
+    "explanation": "核裂變（核分裂）是指一個沉重且不穩定的原子核分裂成兩個較輕的原子核和中子的過程。"
+  },
+  {
+    "id": 94,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "一個氡氣樣本（半衰期 $t_{1/2}=3.80\\text{ 天}$）最初含有 $1.00\\times 10^5$ 個原子核。問在 $11.4\\text{ 天}$ 後還剩下多少個原子核？",
+    "correctAnswerValue": "12500",
+    "correctUnit": "nuclei",
+    "explanation": "半衰期次數 $n = 11.4/3.80 = 3$ 次。剩餘原子核數 $= 1.00\\times 10^5 / 2^3 = 12500$ 個。"
+  },
+  {
+    "id": 95,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "一個阿爾法粒子（$\\alpha$ 粒子）是由下列哪種亞原子粒子的組合組成的？",
+    "options": [
+      "1 個質子，1 個中子",
+      "2 個質子，2 個中子",
+      "2 個質子，4 個中子",
+      "4 個質子，2 個中子"
+    ],
+    "correct": 1,
+    "explanation": "阿爾法粒子等同於氦核（$^{4}_{2}\\text{He}$），包含 2 個質子和 2 個中子。"
+  },
+  {
+    "id": 96,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "鉛原子核 $^{210}_{82}\\text{Pb}$ 在發射一個負貝塔（$\\beta^-$）粒子後，求子核的原子序數 $Z$。",
+    "correctAnswerValue": "83.0",
+    "correctUnit": "protons",
+    "explanation": "負貝塔衰變中，一個中子會轉化為質子，使原子序數增加 1（$82 \\rightarrow 83$）。"
+  },
+  {
+    "id": 97,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "為什麼核聚變（核融合）反應需要極高的溫度才能發生？",
+    "options": [
+      "為了打破中子",
+      "為了克服強核力",
+      "為了克服庫侖排斥力（靜電排斥力）",
+      "為了使原子同位素汽化"
+    ],
+    "correct": 2,
+    "explanation": "需要極高的熱動能才能克服帶正電的原子核之間強烈的靜電排斥力（庫侖排斥）。"
+  },
+  {
+    "id": 98,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "蓋革計數器在 $1.00\\text{ 分鐘}$ 內記錄到 $15.0\\text{ 次計數}$。求以赫茲（Hz）為單位的計數率。",
+    "correctAnswerValue": "0.250",
+    "correctUnit": "Hz",
+    "explanation": "$15.0\\text{ counts per minute} = 15.0 / 60.0\\text{ s} = 0.250\\text{ counts s}^{-1} = 0.250\\text{ Hz}$。"
+  },
+  {
+    "id": 99,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "當放射性物質被攝入人體內部時，下列哪一種輻射源最為危險？",
+    "options": [
+      "阿爾法輻射體（$\\alpha$ 輻射源）",
+      "貝塔輻射體（$\\beta$ 輻射源）",
+      "伽馬輻射體（$\\gamma$ 輻射源）",
+      "X射線源"
+    ],
+    "correct": 0,
+    "explanation": "阿爾法粒子具有最強的電離能力，一但在體內會對細胞造成嚴重的破壞。"
+  },
+  {
+    "id": 100,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "補全方程：$^{14}_{7}\\text{N} + ^{4}_{2}\\text{He} \\rightarrow ^{17}_{8}\\text{O} + X$。求粒子 $X$ 的質量數。",
+    "correctAnswerValue": "1.00",
+    "correctUnit": "u",
+    "explanation": "根據質量數守恆：$14 + 4 = 17 + A_x \\Rightarrow A_x = 1$。粒子 $X$ 實際上是一個質子 $^{1}_{1}\\text{H}$。"
+  },
+  {
+    "id": 101,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "一個鋁塊（質量 $0.2\\text{ kg}$）吸收了 $1800\\text{ J}$ 的熱量。已知鋁的比熱容為 $900\\text{ J kg}^{-1}\\text{ K}^{-1}$。求其溫度升幅。",
+    "options": [
+      "$5\\text{ K}$",
+      "$10\\text{ K}$",
+      "$15\\text{ K}$",
+      "$20\\text{ K}$"
+    ],
+    "correct": 1,
+    "explanation": "利用 $\\Delta T = Q / (mc) = 1800 / (0.2 \\times 900) = 10\\text{ K}$。"
+  },
+  {
+    "id": 102,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "某氣體在 $300\\text{ K}$ 時的體積為 $2.50 \\times 10^{-3}\\text{ m}^3$。若壓強保持恆定，求在 $450\\text{ K}$ 時的體積。",
+    "correctAnswerValue": "0.00375",
+    "correctUnit": "m3",
+    "explanation": "$V_1/T_1 = V_2/T_2 \\Rightarrow V_2 = (2.50\\times 10^{-3} \\times 450) / 300 = 0.00375\\text{ m}^3$。"
+  },
+  {
+    "id": 103,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "燒瓶中封存的空氣被從 $20\\text{ }^{\\circ}\\text{C}$ 加熱到 $80\\text{ }^{\\circ}\\text{C}$。求最終絕對溫度與初始絕對溫度的比值。",
+    "options": [
+      "$1.20$",
+      "$1.30$",
+      "$2.40$",
+      "$4.00$"
+    ],
+    "correct": 0,
+    "explanation": "比值 $= T_2/T_1 = (80+273)/(20+273) = 353/293 \\approx 1.20$。"
+  },
+  {
+    "id": 104,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "一個容器裝有 $2.00\\text{ 摩爾}$ 的氣體，其壓強為 $1.50 \\times 10^5\\text{ Pa}$，溫度為 $300\\text{ K}$。求氣體的體積。",
+    "correctAnswerValue": "0.0332",
+    "correctUnit": "m3",
+    "explanation": "$V = nRT/P = (2.00 \\times 8.31 \\times 300) / (1.50\\times 10^5) \\approx 0.0332\\text{ m}^3$。"
+  },
+  {
+    "id": 105,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "如果氣體分子的平均動能增加到原來的兩倍，則該氣體的絕對溫度 $T$ 會如何變化？",
+    "options": [
+      "減半",
+      "保持不變",
+      "增加到原來的兩倍",
+      "增加到原來的四倍"
+    ],
+    "correct": 2,
+    "explanation": "氣體的絕對溫度 $T$ 與分子的平均動能直接成正比。"
+  },
+  {
+    "id": 106,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "質量為 $0.200\\text{ kg}$、溫度為 $100\\text{ }^{\\circ}\\text{C}$ 的水在 $200\\text{ s}$ 內完全汽化。求所使用的功率。（已知水的汽化潛熱 $L_v=2.26\\times 10^6\\text{ J kg}^{-1}$）",
+    "correctAnswerValue": "2260",
+    "correctUnit": "W",
+    "explanation": "$E = mL_v = 0.200 \\times 2.26\\times 10^6 = 452000\\text{ J}$。功率 $P = E/t = 452000 / 200 = 2260\\text{ W}$。"
+  },
+  {
+    "id": 107,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "在下列哪種條件下，真實氣體的行為與理想氣體最為接近？",
+    "options": [
+      "低溫、高壓",
+      "高溫、低壓",
+      "高溫、高壓",
+      "低溫、低壓"
+    ],
+    "correct": 1,
+    "explanation": "在高溫和低壓下，氣體分子間的相互作用力和分子自身所佔的體積都可以忽略不計。"
+  },
+  {
+    "id": 108,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "求使一個質量為 $4.00\\text{ kg}$ 的銅塊溫度升高 $25.0\\text{ K}$ 所需的熱能。（銅的比熱容 $c=390\\text{ J kg}^{-1}\\text{ K}^{-1}$）",
+    "correctAnswerValue": "39.0",
+    "correctUnit": "kJ",
+    "explanation": "$Q = mc\\Delta T = 4.00 \\times 390 \\times 25.0 = 39000\\text{ J} = 39.0\\text{ kJ}$。"
+  },
+  {
+    "id": 109,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "將 $1\\text{ mol}$ 的氣體封存於體積為 $0.024\\text{ m}^3$ 的容器中，溫度為 $300\\text{ K}$，求其壓強。",
+    "options": [
+      "$1.04 \\times 10^5\\text{ Pa}$",
+      "$2.08 \\times 10^5\\text{ Pa}$",
+      "$1.04 \\times 10^6\\text{ Pa}$",
+      "$2.08 \\times 10^6\\text{ Pa}$"
+    ],
+    "correct": 0,
+    "explanation": "$P = nRT/V = (1 \\times 8.31 \\times 300) / 0.024 \\approx 1.04 \\times 10^5\\text{ Pa}$。"
+  },
+  {
+    "id": 110,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "兩種液體 A（質量 $1\\text{ kg}$）與 B（質量 $2\\text{ kg}$）吸收相同的熱量。它們的温度升幅之比 A:B 為 $3:1$。求它們的比熱容之比 $c_A/c_B$。",
+    "correctAnswerValue": "0.667",
+    "correctUnit": "ratio",
+    "explanation": "$Q = m_Ac_A\\Delta T_A = m_Bc_B\\Delta T_B \\Rightarrow 1 \\cdot c_A \\cdot 3 = 2 \\cdot c_B \\cdot 1 \\Rightarrow c_A/c_B = 2/3 \\approx 0.667$。"
+  },
+  {
+    "id": 111,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一個質量為 $3\\text{ kg}$ 的物體由靜止開始運動，其加速度為 $4\\text{ m s}^{-2}$。求在 $t = 3\\text{ s}$ 時物體的動能。",
+    "options": [
+      "$24\\text{ J}$",
+      "$54\\text{ J}$",
+      "$108\\text{ J}$",
+      "$216\\text{ J}$"
+    ],
+    "correct": 3,
+    "explanation": "$v = at = 4 \\times 3 = 12\\text{ m s}^{-1}$。$KE = 0.5 mv^2 = 0.5 \\times 3 \\times 144 = 216\\text{ J}$。"
+  },
+  {
+    "id": 112,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一塊石頭從地面以 $25.0\\text{ m s}^{-1}$ 的初速度垂直上拋。求它所能達到的最大高度。（重力加速度 $g=9.81$）",
+    "correctAnswerValue": "31.9",
+    "correctUnit": "m",
+    "explanation": "$v^2 = u^2 - 2gh \\Rightarrow 0 = 25.0^2 - 2(9.81)h \\Rightarrow h = 625 / 19.62 \\approx 31.9\\text{ m}$。"
+  },
+  {
+    "id": 113,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一輛汽車受到的阻力為 $f = 0.1v^2$。若要使汽車保持 $20\\text{ m s}^{-1}$ 的恆定速率行駛，需要多少功率？",
+    "options": [
+      "$40\\text{ W}$",
+      "$400\\text{ W}$",
+      "$800\\text{ W}$",
+      "$8000\\text{ W}$"
+    ],
+    "correct": 2,
+    "explanation": "$F = 0.1 \\times 20^2 = 40\\text{ N}$。功率 $P = Fv = 40 \\times 20 = 800\\text{ W}$。"
+  },
+  {
+    "id": 114,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一輛質量為 $1200\\text{ kg}$ 的車輛以 $12.0\\text{ m s}^{-1}$ 的速率沿半徑為 $60.0\\text{ m}$ 的圓形軌道行駛。求其向心力。",
+    "correctAnswerValue": "2880",
+    "correctUnit": "N",
+    "explanation": "$F_c = mv^2 / r = 1200 \\times 12.0^2 / 60.0 = 2880\\text{ N}$。"
+  },
+  {
+    "id": 115,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一顆質量為 $0.01\\text{ kg}$ 的子彈以 $400\\text{ m s}^{-1}$ 的速度射入木塊，並在深入 $0.05\\text{ m}$ 後停止。求木塊對子彈的平均阻力。",
+    "options": [
+      "$1.6 \\times 10^3\\text{ N}$",
+      "$8.0 \\times 10^3\\text{ N}$",
+      "$1.6 \\times 10^4\\text{ N}$",
+      "$3.2 \\times 10^4\\text{ N}$"
+    ],
+    "correct": 2,
+    "explanation": "根據功能原理：$F \\cdot d = 0.5 mv^2 \\Rightarrow F = (0.5 \\times 0.01 \\times 160000) / 0.05 = 16000\\text{ N}$。"
+  },
+  {
+    "id": 116,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一個球以與地面成 $35.0\\text{ }^{\\circ}$ 夾角、大小為 $18.0\\text{ m s}^{-1}$ 的初速度被拋出。求其初始垂直速度分量。",
+    "correctAnswerValue": "10.3",
+    "correctUnit": "m s-1",
+    "explanation": "$u_y = u\\sin\\theta = 18.0\\sin(35.0^{\\circ}) \\approx 10.32 \\approx 10.3\\text{ m s}^{-1}$。"
+  },
+  {
+    "id": 117,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "兩個質量分別為 $2\\text{ kg}$ 和 $4\\text{ kg}$ 的物體用細繩跨過一個輕滑輪連接。求該系統的加速度。（$g=9.81$）",
+    "options": [
+      "$1.64\\text{ m s}^{-2}$",
+      "$3.27\\text{ m s}^{-2}$",
+      "$4.91\\text{ m s}^{-2}$",
+      "$9.81\\text{ m s}^{-2}$"
+    ],
+    "correct": 1,
+    "explanation": "利用牛頓第二定律：$a = (m_2 - m_1)g / (m_1+m_2) = (4-2)(9.81)/6 \\approx 3.27\\text{ m s}^{-2}$。"
+  },
+  {
+    "id": 118,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一顆質量為 $15.0\\text{ g}$ 的子彈以 $240\\text{ m s}^{-1}$ 的速度擊中沙袋，並以 $80.0\\text{ m s}^{-1}$ 的速度穿出。求子彈損失的動能。",
+    "correctAnswerValue": "384",
+    "correctUnit": "J",
+    "explanation": "$\\Delta KE = 0.5 m (u^2 - v^2) = 0.5 \\times 0.0150 \\times (240^2 - 80.0^2) = 0.0075 \\times 51200 = 384\\text{ J}$。"
+  },
+  {
+    "id": 119,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一個質量為 $m$ 的木塊被推上一個粗糙斜面。在運動過程中，下列哪些力對木塊作負功？",
+    "options": [
+      "法向力（正交力）",
+      "只有摩擦力",
+      "只有重力",
+      "摩擦力和重力"
+    ],
+    "correct": 3,
+    "explanation": "摩擦力以及重力沿斜面向下的分力都與沿斜面朝上的位移方向相反，因此兩者皆作負功。"
+  },
+  {
+    "id": 120,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一個繞地球作軌道運動的物體，其軌道半徑為 $7.00\\times 10^6\\text{ m}$，速率為 $7.50\\times 10^3\\text{ m s}^{-1}$。求其向心加速度。",
+    "correctAnswerValue": "8.04",
+    "correctUnit": "m s-2",
+    "explanation": "$a_c = v^2/r = (7.50 \\times 10^3)^2 / (7.00 \\times 10^6) = 5.625 \\times 10^7 / 7.00 \\times 10^6 \\approx 8.04\\text{ m s}^{-2}$。"
+  },
+ {
+    "id": 121,
+    "type": "mcq",
+    "category": "波動",
+    "question": "波的波長為 $2.4\\text{ m}$。相鄰的波節與波腹之間的距離是多少？",
+    "options": [
+      "$0.3\\text{ m}$",
+      "$0.6\\text{ m}$",
+      "$1.2\\text{ m}$",
+      "$2.4\\text{ m}$"
+    ],
+    "correct": 1,
+    "explanation": "在駐波中，相鄰的波節與波腹之間的距離為 $\\lambda / 4 = 2.4/4 = 0.6\\text{ m}$。"
+  },
+  {
+    "id": 122,
+    "type": "short",
+    "category": "波動",
+    "question": "某波的波速為 $340\\text{ m s}^{-1}$，頻率為 $500\\text{ Hz}$。求相移 $90.0\\text{ }^{\\circ}$ 的間距。",
+    "correctAnswerValue": "0.170",
+    "correctUnit": "m",
+    "explanation": "$\\lambda = v/f = 340/500 = 0.680\\text{ m}$。 相差為 $90.0^{\\circ}$ 的間距 $= \\lambda / 4 = 0.170\\text{ m}$。"
+  },
+  {
+    "id": 123,
+    "type": "mcq",
+    "category": "波動",
+    "question": "一束光綫從水（$n=1.33$）射入玻璃（$n=1.50$）。在玻璃中的折射角為 $30.0\\text{ }^{\\circ}$。求水中的角度。",
+    "options": [
+      "$26.4\\text{ }^{\\circ}$",
+      "$34.3\\text{ }^{\\circ}$",
+      "$38.2\\text{ }^{\\circ}$",
+      "$45.1\\text{ }^{\\circ}$"
+    ],
+    "correct": 1,
+    "explanation": "$n_1 \\sin\\theta_1 = n_2 \\sin\\theta_2 \\Rightarrow 1.33 \\sin\\theta_1 = 1.50 \\sin(30.0^{\\circ}) \\Rightarrow \\theta_1 \\approx 34.3^{\\circ}$。"
+  },
+  {
+    "id": 124,
+    "type": "short",
+    "category": "波動",
+    "question": "一個聲級計量得背景聲強度為 $1.00\\times 10^{-6}\\text{ W m}^{-2}$。求聲級。（$I_0=1.00\\times 10^{-12}$）",
+    "correctAnswerValue": "60.0",
+    "correctUnit": "dB",
+    "explanation": "$\\beta = 10 \\log_{10}(I/I_0) = 10 \\log_{10}(10^{-6}/10^{-12}) = 10 \\times 6 = 60.0\\text{ dB}$。"
+  },
+  {
+    "id": 125,
+    "type": "mcq",
+    "category": "波動",
+    "question": "以下哪種波的行為是橫波獨有的，而不會在縱波中發生？",
+    "options": [
+      "干涉",
+      "衍射",
+      "反射",
+      "偏振"
+    ],
+    "correct": 3,
+    "explanation": "偏振將電場的振動限制在單一平面內，這只有在橫波中才有可能發生。"
+  },
+  {
+    "id": 126,
+    "type": "short",
+    "category": "波動",
+    "question": "在楊氏雙縫實驗裝置中，條紋寬度 $w = 2.40\\text{ mm}$，雙縫間距 $a = 0.500\\text{ mm}$，且縫與熒幕的距離 $D = 2.00\\text{ m}$。求光的波長，以 nm 為單位。",
+    "correctAnswerValue": "600",
+    "correctUnit": "nm",
+    "explanation": "$\\lambda = aw/D = (0.500 \\times 10^{-3} \\times 2.40 \\times 10^{-3}) / 2.00 = 6.00 \\times 10^{-7}\\text{ m} = 600\\text{ nm}$。"
+  },
+  {
+    "id": 127,
+    "type": "mcq",
+    "category": "波動",
+    "question": "一個前進波的方程為 $y = A\\sin(2\\pi(ft - x/\\lambda))$。求波速 $v$。",
+    "options": [
+      "$f\\lambda$",
+      "$f/\\lambda$",
+      "$\\lambda/f$",
+      "$2\\pi f\\lambda$"
+    ],
+    "correct": 0,
+    "explanation": "標準波速為 $v = f\\lambda$，它將波的頻率與波長聯繫起來。"
+  },
+  {
+    "id": 128,
+    "type": "short",
+    "category": "波動",
+    "question": "光在冕牌玻璃中的傳播速度為 $2.00 \\times 10^8\\text{ m s}^{-1}$。求玻璃的折射率。",
+    "correctAnswerValue": "1.50",
+    "correctUnit": "index",
+    "explanation": "$n = c/v = (3.00 \\times 10^8) / (2.00 \\times 10^8) = 1.50$。"
+  },
+  {
+    "id": 129,
+    "type": "mcq",
+    "category": "波動",
+    "question": "在雙縫實驗中，如果將綠光更換為紅光，條紋間距將會：",
+    "options": [
+      "增加",
+      "減少",
+      "保持不變",
+      "變為零"
+    ],
+    "correct": 0,
+    "explanation": "紅光的波長比綠光長。由於 $w = \\lambda D / a$，波長越長意味著條紋間距越寬。"
+  },
+  {
+    "id": 130,
+    "type": "short",
+    "category": "波動",
+    "question": "計算光從鑽石（$n=2.42$）射入水（$n=1.33$）的臨界角。",
+    "correctAnswerValue": "33.3",
+    "correctUnit": "o",
+    "explanation": "$c = \\sin^{-1}(n_2/n_1) = \\sin^{-1}(1.33/2.42) \\approx \\sin^{-1}(0.5496) \\approx 33.3^{\\circ}$。"
+  },
+  {
+    "id": 131,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "如果兩個點電荷之間的距離減半，它們之間的靜電力會如何變化？",
+    "options": [
+      "減少至 $1/4$",
+      "減少至 $1/2$",
+      "加倍",
+      "增至四倍"
+    ],
+    "correct": 3,
+    "explanation": "根據庫侖定律，$F \\propto 1/r^2$。距離減半會使靜電力增至四倍。"
+  },
+  {
+    "id": 132,
+    "type": "short",
+    "category": "電磁學",
+    "question": "一個 $12.0\\text{ }\\Omega$ 的電阻器連接到 $6.00\\text{ V}$ 的電池上。求產生的熱功率。",
+    "correctAnswerValue": "3.00",
+    "correctUnit": "W",
+    "explanation": "$P = V^2 / R = 6.00^2 / 12.0 = 36.0 / 12.0 = 3.00\\text{ W}$。"
+  },
+  {
+    "id": 133,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "某綫圈的電阻為 $8.0\\text{ }\\Omega$，內阻為 $2.0\\text{ }\\Omega$。求連接到 $10\\text{ V}$ 電池時的端電壓。",
+    "options": [
+      "$2.0\\text{ V}$",
+      "$4.0\\text{ V}$",
+      "$8.0\\text{ V}$",
+      "$10.0\\text{ V}$"
+    ],
+    "correct": 2,
+    "explanation": "$I = E / (R+r) = 10 / (8+2) = 1.0\\text{ A}$。 $V = E - Ir = 10 - 1 \\times 2 = 8.0\\text{ V}$。"
+  },
+  {
+    "id": 134,
+    "type": "short",
+    "category": "電磁學",
+    "question": "將 $4.00\\text{ nC}$ 的電荷移過 $50.0\\text{ V}$ 的電勢差。求所作的功。",
+    "correctAnswerValue": "200",
+    "correctUnit": "nJ",
+    "explanation": "$W = qV = (4.00 \\times 10^{-9}) \\times 50.0 = 2.00 \\times 10^{-7}\\text{ J} = 200\\text{ nJ}$。"
+  },
+  {
+    "id": 135,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "在 xy 平面內的一個圓形導綫圈，其 $+z$ 方向的磁場正在減少。感應電流的流向為：",
+    "options": [
+      "順時針",
+      "逆時針",
+      "方向交替",
+      "沒有電流"
+    ],
+    "correct": 1,
+    "explanation": "為了反抗磁場的減少，感應磁場必須指向 $+z$ 方向。根據右手握拳定則，電流方向為逆時針。"
+  },
+  {
+    "id": 136,
+    "type": "short",
+    "category": "電磁學",
+    "question": "一台 $3000\\text{ W}$ 的冷氣機在 $220\\text{ V}$ 的市電供電下運行。求流經該電器的電流。",
+    "correctAnswerValue": "13.6",
+    "correctUnit": "A",
+    "explanation": "$I = P/V = 3000 / 220 \\approx 13.636 \\approx 13.6\\text{ A}$。"
+  },
+  {
+    "id": 137,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "兩條載有相反方向電流的平行導綫將會：",
+    "options": [
+      "互相吸引",
+      "互相排斥",
+      "順時針旋轉",
+      "不施加淨力"
+    ],
+    "correct": 1,
+    "explanation": "相反方向的電流會在導綫之間產生互相對抗的磁場，從而產生排斥磁力。"
+  },
+  {
+    "id": 138,
+    "type": "short",
+    "category": "電磁學",
+    "question": "計算一條長度為 $10.0\\text{ m}$、橫截面積為 $1.70\\times 10^{-7}\\text{ m}^2$ 的銅導綫的電阻。（$\\rho=1.70\\times 10^{-8}$）",
+    "correctAnswerValue": "1.00",
+    "correctUnit": "ohm",
+    "explanation": "$R = \\rho L/A = (1.70\\times 10^{-8} \\times 10.0) / (1.70\\times 10^{-7}) = 1.00\\text{ }\\Omega$。"
+  },
+  {
+    "id": 139,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "一個 alpha 粒子（$+2e$）被垂直向上射入指向北方的磁場中。初始力的方向為：",
+    "options": [
+      "東方",
+      "西方",
+      "南方",
+      "向下"
+    ],
+    "correct": 0,
+    "explanation": "應用弗萊明左手定則（磁場向北，電流向上），磁力指向東方。"
+  },
+  {
+    "id": 140,
+    "type": "short",
+    "category": "電磁學",
+    "question": "一個理想變壓器的輸入電壓為 $220\\text{ V}$，並在副綫圈輸出 $12.0\\text{ V}$。原綫圈與副綫圈的圈數比是多少？",
+    "correctAnswerValue": "18.3",
+    "correctUnit": "ratio",
+    "explanation": "$N_p / N_s = V_p / V_s = 220 / 12.0 \\approx 18.33 \\approx 18.3$。"
+  },
+  {
+    "id": 141,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "某放射源的衰變常數 $\\lambda = 0.1\\text{ s}^{-1}$。計算其半衰期。",
+    "options": [
+      "$0.069\\text{ s}$",
+      "$0.69\\text{ s}$",
+      "$6.93\\text{ s}$",
+      "$10.0\\text{ s}$"
+    ],
+    "correct": 2,
+    "explanation": "$t_{1/2} = \\ln(2) / \\lambda = 0.693 / 0.1 = 6.93\\text{ s}$。"
+  },
+  {
+    "id": 142,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "完成鐳的 alpha 衰變方程：$^{226}_{88}\\text{Ra} \\rightarrow ^{222}_{Z}\\text{Rn} + \\alpha$。求質子數 $Z$。",
+    "correctAnswerValue": "86.0",
+    "correctUnit": "protons",
+    "explanation": "Alpha 發射會使原子序數 $Z$ 減少 2。因此，$Z = 88 - 2 = 86.0$。"
+  },
+  {
+    "id": 143,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "關於 beta 減（$\\beta^-$）粒子發射，以下哪項是正確的？",
+    "options": [
+      "一個質子轉化為中子",
+      "一個中子轉化為質子",
+      "原子核失去質量數 4",
+      "只釋放出能量"
+    ],
+    "correct": 1,
+    "explanation": "Beta 減衰變發生在一個中子衰變為一個質子、一個電子和一個反中微子之時。"
+  },
+  {
+    "id": 144,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "在核聚變中產生了 $1.00\\text{ mg}$ 的質量虧損。求釋放出的能量，以兆焦耳（MJ）為單位。",
+    "correctAnswerValue": "9.00e7",
+    "correctUnit": "MJ",
+    "explanation": "$E = \\Delta m c^2 = (1.00 \\times 10^{-6}\\text{ kg}) \\times (3.00\\times 10^8)^2 = 9.00 \\times 10^{10}\\text{ J} = 9.00 \\times 10^7\\text{ MJ}$。"
+  },
+  {
+    "id": 145,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "平均而言，哪種背景輻射源對公眾輻射劑量的貢獻最大？",
+    "options": [
+      "核電廠",
+      "空氣中的氡氣",
+      "宇宙射綫",
+      "醫療 X 光"
+    ],
+    "correct": 1,
+    "explanation": "吸入天然氡氣是全球人類背景輻射劑量的最大貢獻源。"
+  },
+  {
+    "id": 146,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "一具化石的 $^{14}\\text{C}$ 放射活度為 $3.00\\text{ Bq}$，而新鮮樣本則為 $24.0\\text{ Bq}$。半衰期 $=5730\\text{ 年}$。求該化石的年齡。",
+    "correctAnswerValue": "17200",
+    "correctUnit": "years",
+    "explanation": "放射活度比例 $3.00/24.0 = 1/8 = (1/2)^3$。因此，已經過去了 3 個半衰期。年齡 $= 3 \\times 5730 = 17190 \\approx 17200\\text{ 年}$。"
+  },
+  {
+    "id": 147,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "為什麼在聚變核反應堆中要使用控制棒？",
+    "options": [
+      "為了加速中子",
+      "為了冷卻燃料元件",
+      "為了吸收熱中子",
+      "為了屏蔽 gamma 射綫"
+    ],
+    "correct": 2,
+    "explanation": "控制棒由能夠吸收中子的材料（如硼或鎘）製成，用以調節裂變速率。"
+  },
+  {
+    "id": 148,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "鈈-239（$^{239}_{94}\\text{Pu}$）同位素中含有多少個中子？",
+    "correctAnswerValue": "145",
+    "correctUnit": "neutrons",
+    "explanation": "中子數目 $N = A - Z = 239 - 94 = 145$。"
+  },
+  {
+    "id": 149,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "原子核發生 gamma（$\\gamma$）衰變時，其質量數會如何變化？",
+    "options": [
+      "減少 4",
+      "減少 1",
+      "增加 1",
+      "保持不變"
+    ],
+    "correct": 3,
+    "explanation": "Gamma 衰變僅釋放高能光子，不會改變質子或中子的數目。"
+  },
+  {
+    "id": 150,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "吸收了 $2.50\\text{ Gy}$ 的輻射劑量。求重 $80.0\\text{ kg}$ 的身體組織所吸收的能量。",
+    "correctAnswerValue": "200",
+    "correctUnit": "J",
+    "explanation": "吸收劑量 $D = E/m \\Rightarrow E = D \\cdot m = 2.50 \\times 80.0 = 200\\text{ J}$。"
+  },
+  {
+    "id": 151,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "若理想氣體的體積在恆定絕對溫度下增至三倍，末壓與初壓的比值是多少？",
+    "options": [
+      "$1/3$",
+      "$1/2$",
+      "$2$",
+      "$3$"
+    ],
+    "correct": 0,
+    "explanation": "$P_1V_1 = P_2V_2$。由於體積增至三倍，氣壓變為初始值的 $1/3$。"
+  },
+  {
+    "id": 152,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "求將 $1.20\\text{ kg}$ 的 $0\\text{ }^{\\circ}\\text{C}$ 冰熔化為相同溫度的水所需熱量。（$L_f=3.34\\times 10^5$）",
+    "correctAnswerValue": "401",
+    "correctUnit": "kJ",
+    "explanation": "$Q = mL_f = 1.20 \\times 3.34\\times 10^5 = 400800\\text{ J} = 400.8 \\approx 401\\text{ kJ}$。"
+  },
+  {
+    "id": 153,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "關於固定質量理想氣體的內能，以下哪項是正確的？",
+    "options": [
+      "僅取決於氣壓",
+      "僅取決於溫度",
+      "取決於氣壓和體積",
+      "總是保持恆定"
+    ],
+    "correct": 1,
+    "explanation": "對於理想氣體而言，內能純粹是其絕對溫度的函數。"
+  },
+  {
+    "id": 154,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "一個電熱水壺（$1.50\\text{ kW}$）在 $640\\text{ s}$ 內將 $0.400\\text{ kg}$ 的水燒開並完全汽化為蒸汽。求汽化潛熱。",
+    "correctAnswerValue": "2.40e6",
+    "correctUnit": "J kg-1",
+    "explanation": "$Pt = mL_v \\Rightarrow L_v = (1500 \\times 640) / 0.400 = 2.40 \\times 10^6\\text{ J kg}^{-1}$。"
+  },
+  {
+    "id": 155,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "若與外界絕熱，為什麼氣缸內被困氣體的膨脹通常會導致冷卻？",
+    "options": [
+      "氣體作功以消耗內能",
+      "熱量流出氣缸",
+      "分子量減少",
+      "分子間作用力增加"
+    ],
+    "correct": 0,
+    "explanation": "膨脹的氣體對周圍環境作功。如果處於絕熱狀態，這部分能量來自內起動能，從而降低溫度。"
+  },
+  {
+    "id": 156,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "處於 $1.20\\times 10^5\\text{ Pa}$ 和 $300\\text{ K}$ 的氣體在恆定體積下被冷卻至 $200\\text{ K}$。求新氣壓。",
+    "correctAnswerValue": "80000",
+    "correctUnit": "Pa",
+    "explanation": "$P_1/T_1 = P_2/T_2 \\Rightarrow P_2 = 1.20\\times 10^5 \\times (200/300) = 80000\\text{ Pa}$。"
+  },
+  {
+    "id": 157,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "對於恆定溫度下的固定質量氣體，以下哪項在數學上代表玻意耳定律？",
+    "options": [
+      "$P \\propto V$",
+      "$P/V = \\text{常數}$",
+      "$P \\cdot V = \\text{常數}$",
+      "$V \\propto T$"
+    ],
+    "correct": 2,
+    "explanation": "玻意耳定律指出，在恆定溫度下，固定質量氣體的氣壓與體積成反比，即：$PV=C$。"
+  },
+  {
+    "id": 158,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "一個 $250\\text{ W}$ 的太陽能板加熱 $5.00\\text{ kg}$ 的水。求在 $10.0\\text{ 分鐘}$ 內升高的溫度。（$c=4200$）",
+    "correctAnswerValue": "7.14",
+    "correctUnit": "K",
+    "explanation": "$Pt = mc\\Delta T \\Rightarrow \\Delta T = (250 \\times 600) / (5.00 \\times 4200) = 150000 / 21000 \\approx 7.14\\text{ K}$。"
+  },
+  {
+    "id": 159,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "通過固體銅棒傳熱的主要機制是什麼？",
+    "options": [
+      "對流",
+      "輻射",
+      "導熱",
+      "蒸發"
+    ],
+    "correct": 2,
+    "explanation": "導熱是固體內部通過分子振動和自由電子碰撞進行的熱傳遞。"
+  },
+  {
+    "id": 160,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "求 $3.00\\text{ 摩爾}$ 理想氣體在標準狀況下（$P = 1.01 \\times 10^5\\text{ Pa}$，$T = 273\\text{ K}$）的體積。",
+    "correctAnswerValue": "0.0674",
+    "correctUnit": "m3",
+    "explanation": "$V = nRT/P = (3.00 \\times 8.31 \\times 273) / (1.01 \\times 10^5) \\approx 0.0674\\text{ m}^3$。"
+  },
+  {
+    "id": 161,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一個木塊在與斜面平行的 $12\\text{ N}$ 外力作用下，沿著光滑的 $30\\text{ }^{\\circ}$ 斜面向上拉。若 $m = 2\\text{ kg}$，求加速度。（$g=9.81$）",
+    "options": [
+      "$1.10\\text{ m s}^{-2}$",
+      "$2.10\\text{ m s}^{-2}$",
+      "$4.91\\text{ m s}^{-2}$",
+      "$6.00\\text{ m s}^{-2}$"
+    ],
+    "correct": 0,
+    "explanation": "$F_{net} = F - mg\\sin\\theta = 12 - 2(9.81)(0.5) = 12 - 9.81 = 2.19\\text{ N}$。$a = 2.19/2 \\approx 1.10\\text{ m s}^{-2}$。"
+  },
+  {
+    "id": 162,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一個拋體以 $30.0\\text{ m s}^{-1}$ 的初速度從地面以 $45.0\\text{ }^{\\circ}$ 射出。求飛行時間。（$g=9.81$）",
+    "correctAnswerValue": "4.32",
+    "correctUnit": "s",
+    "explanation": "$t = (2u\\sin\\theta)/g = (2 \\times 30.0 \\times \\sin 45^{\\circ}) / 9.81 \\approx 42.426 / 9.81 \\approx 4.32\\text{ s}$。"
+  },
+  {
+    "id": 163,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一個重量為 $2.0\\text{ kg}$ 的物體受到外力 $F = 6t$ 的作用。若初始狀態為靜止，求其在 $t = 2\\text{ s}$ 時的速度。",
+    "options": [
+      "$3\\text{ m s}^{-1}$",
+      "$6\\text{ m s}^{-1}$",
+      "$12\\text{ m s}^{-1}$",
+      "$24\\text{ m s}^{-1}$"
+    ],
+    "correct": 1,
+    "explanation": "衝量 $J = \\int F dt = [3t^2]_0^2 = 12\\text{ N s}$。速度的變化 $\\Delta v = J/m = 12/2 = 6\\text{ m s}^{-1}$。"
+  },
+  {
+    "id": 164,
+    "type": "short",
+    "category": "力和運動",
+    "question": "求汽車引擎將一輛重量為 $1500\\text{ kg}$ 的汽車從 $10.0\\text{ m s}^{-1}$ 加速到 $20.0\\text{ m s}^{-1}$ 所作的功。",
+    "correctAnswerValue": "225",
+    "correctUnit": "kJ",
+    "explanation": "$W = \\Delta KE = 0.5 \\times 1500 \\times (20.0^2 - 10.0^2) = 750 \\times 300 = 225000\\text{ J} = 225\\text{ kJ}$。"
+  },
+  {
+    "id": 165,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一輛汽車駛過一座半徑為 $20\\text{ m}$ 的凸形駝峰橋。求輪胎不離開路面的最大速度。（$g=9.81$）",
+    "options": [
+      "$10.0\\text{ m s}^{-1}$",
+      "$14.0\\text{ m s}^{-1}$",
+      "$19.6\\text{ m s}^{-1}$",
+      "$28.0\\text{ m s}^{-1}$"
+    ],
+    "correct": 1,
+    "explanation": "法向反作用力 $R = 0 \\Rightarrow mg = mv^2/r \\Rightarrow v = \\sqrt{gr} = \\sqrt{9.81 \\times 20} \\approx 14.0\\text{ m s}^{-1}$。"
+  },
+  {
+    "id": 166,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一個重量為 $200\\text{ g}$ 的冰球在冰面上滑行，在 $4.00\\text{ s}$ 內速度從 $12.0\\text{ m s}^{-1}$ 減慢至 $10.0\\text{ m s}^{-1}$。求摩擦力。",
+    "correctAnswerValue": "0.100",
+    "correctUnit": "N",
+    "explanation": "$a = (10.0 - 12.0)/4.00 = -0.500\\text{ m s}^{-2}$。力的大小 $F = ma = 0.200 \\times 0.500 = 0.100\\text{ N}$。"
+  },
+  {
+    "id": 167,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一個質量為 $m$ 的木塊在水平粗糙地面上滑行。如果速度加倍，煞車距離會改變多少倍？",
+    "options": [
+      "$\\sqrt{2}$",
+      "$2$",
+      "$4$",
+      "$8$"
+    ],
+    "correct": 2,
+    "explanation": "煞車距離 $d = v^2 / (2\\mu g)$。速度 $v$ 加倍會使 $d$ 增至四倍。"
+  },
+  {
+    "id": 168,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一顆子彈（$10.0\\text{ g}$）以 $300\\text{ m s}^{-1}$ 的速度擊中一個懸掛成單擺、重量為 $2.99\\text{ kg}$ 的木塊。求它們的共同速度。",
+    "correctAnswerValue": "1.00",
+    "correctUnit": "m s-1",
+    "explanation": "$m_1u_1 = (m_1+m_2)v \\Rightarrow 0.0100 \\times 300 = 3.00 v \\Rightarrow v = 1.00\\text{ m s}^{-1}$。"
+  },
+  {
+    "id": 169,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "兩個相距 $2.0\\text{ m}$ 且質量均為 $1000\\text{ kg}$ 的物體之間的萬有引力是多少？（$G = 6.67\\times 10^{-11}\\text{ N m}^2\\text{ kg}^{-2}$）",
+    "options": [
+      "$1.67 \\times 10^{-5}\\text{ N}$",
+      "$1.67 \\times 10^{-6}\\text{ N}$",
+      "$1.67 \\times 10^{-7}\\text{ N}$",
+      "$1.67 \\times 10^{-8}\\text{ N}$"
+    ],
+    "correct": 0,
+    "explanation": "$F = G m_1 m_2 / r^2 = 6.67\\times 10^{-11} \\times 10^6 / 4 = 1.6675 \\times 10^{-5}\\text{ N}$。"
+  },
+  {
+    "id": 170,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一個粒子以 $2.50\\text{ m s}^{-1}$ 的恆定速度沿半徑為 $0.500\\text{ m}$ 的路徑運動。求運動的週期。",
+    "correctAnswerValue": "1.26",
+    "correctUnit": "s",
+    "explanation": "$T = 2\\pi r/v = (2 \\times \\pi \\times 0.500) / 2.50 \\approx 1.256 \\approx 1.26\\text{ s}$。"
+  },
+  {
+    "id": 171,
+    "type": "mcq",
+    "category": "波動",
+    "question": "某波源的頻率為 $4\\text{ Hz}$，波長為 $2\\text{ m}$。求相距 $0.5\\text{ m}$ 的兩點之間的相差。",
+    "options": [
+      "$45\\text{ }^{\\circ}$",
+      "$90\\text{ }^{\\circ}$",
+      "$180\\text{ }^{\\circ}$",
+      "$360\\text{ }^{\\circ}$"
+    ],
+    "correct": 1,
+    "explanation": "相差 $= 360^{\\circ} \\times (\\Delta x / \\lambda) = 360^{\\circ} \\times (0.5/2) = 90^{\\circ}$。"
+  },
+  {
+    "id": 172,
+    "type": "short",
+    "category": "波動",
+    "question": "一台超聲波掃描儀在身體組織中使用波長為 $0.500\\text{ mm}$ 的波。波速為 $1540\\text{ m s}^{-1}$。求頻率。",
+    "correctAnswerValue": "3.08",
+    "correctUnit": "MHz",
+    "explanation": "$f = v/\\lambda = 1540 / (0.500 \\times 10^{-3}) = 3.08 \\times 10^6\\text{ Hz} = 3.08\\text{ MHz}$。"
+  },
+  {
+    "id": 173,
+    "type": "mcq",
+    "category": "波動",
+    "question": "一束光綫以布儒斯特角射向玻璃片。反射光綫與折射光綫之間的夾角是多少？",
+    "options": [
+      "$0\\text{ }^{\\circ}$",
+      "$45\\text{ }^{\\circ}$",
+      "$90\\text{ }^{\\circ}$",
+      "$180\\text{ }^{\\circ}$"
+    ],
+    "correct": 2,
+    "explanation": "根據定義，在偏振角（布儒斯特角）下，反射光綫與折射光綫互相垂直（$90^{\\circ}$）。"
+  },
+  {
+    "id": 174,
+    "type": "short",
+    "category": "波動",
+    "question": "計算冕牌玻璃（$n=1.52$）在水中（$n=1.33$）的臨界角。",
+    "correctAnswerValue": "61.0",
+    "correctUnit": "oC",
+    "explanation": "$c = \\sin^{-1}(n_2/n_1) = \\sin^{-1}(1.33/1.52) \\approx 61.0^{\\circ}$。"
+  },
+  {
+    "id": 175,
+    "type": "mcq",
+    "category": "波動",
+    "question": "一條長度為 $1.2\\text{ m}$ 且兩端固定夾緊的導綫上形成了一個駐波（基頻振動模式）。求波長。",
+    "options": [
+      "$0.6\\text{ m}$",
+      "$1.2\\text{ m}$",
+      "$2.4\\text{ m}$",
+      "$4.8\\text{ m}$"
+    ],
+    "correct": 2,
+    "explanation": "基頻模式的波長為 $\\lambda = 2L = 2 \\times 1.2 = 2.4\\text{ m}$。"
+  },
+  {
+    "id": 176,
+    "type": "short",
+    "category": "波動",
+    "question": "一個聲源（$500\\text{ Hz}$）位於水中（$v=1500\\text{ m s}^{-1}$）。求聲音在水中的波長。",
+    "correctAnswerValue": "3.00",
+    "correctUnit": "m",
+    "explanation": "$\\lambda = v/f = 1500 / 500 = 3.00\\text{ m}$。"
+  },
+  {
+    "id": 177,
+    "type": "mcq",
+    "category": "波動",
+    "question": "以下哪種電磁波的波長最短？",
+    "options": [
+      "微波",
+      "紅外綫",
+      "紫外線",
+      "X 射綫"
+    ],
+    "correct": 3,
+    "explanation": "在列出的電磁波中，X 射綫具有最高的頻率和能量，對應最短的波長。"
+  },
+  {
+    "id": 178,
+    "type": "short",
+    "category": "波動",
+    "question": "雙縫實驗：雙縫間距 $a = 0.250\\text{ mm}$，縫與熒幕距離 $D = 1.50\\text{ m}$，條紋寬度 $w = 3.60\\text{ mm}$。求波長。",
+    "correctAnswerValue": "600",
+    "correctUnit": "nm",
+    "explanation": "$\\lambda = aw/D = (0.250 \\times 10^{-3} \\times 3.60 \\times 10^{-3}) / 1.50 = 6.00 \\times 10^{-7}\\text{ m} = 600\\text{ nm}$。"
+  },
+  {
+    "id": 179,
+    "type": "mcq",
+    "category": "波動",
+    "question": "在楊氏雙縫實驗中，如果將熒幕移近雙縫，條紋寬度將會：",
+    "options": [
+      "增加",
+      "減少",
+      "沒有改變",
+      "變得不規則"
+    ],
+    "correct": 1,
+    "explanation": "由於 $w = \\lambda D / a$，減小與熒幕的距離 $D$ 會使條紋寬度 $w$ 減小。"
+  },
+  {
+    "id": 180,
+    "type": "short",
+    "category": "波動",
+    "question": "一個衍射光柵具有 $400\\text{ lines mm}^{-1}$。求 $\\lambda = 550\\text{ nm}$ 的光綫的第一級衍射角。",
+    "correctAnswerValue": "12.7",
+    "correctUnit": "oC",
+    "explanation": "$d = 10^{-3}/400 = 2.50\\times 10^{-6}\\text{ m}$。 $\\sin\\theta = \\lambda/d = 550\\times 10^{-9}/2.50\\times 10^{-6} = 0.22 \\Rightarrow \\theta \\approx 12.7^{\\circ}$。"
+  },
+  {
+    "id": 181,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "一個 $10\\text{ }\\Omega$ 和一個 $15\\text{ }\\Omega$ 的電阻器串聯連接到 $50\\text{ V}$ 的電池上。求電流。",
+    "options": [
+      "$0.5\\text{ A}$",
+      "$1.0\\text{ A}$",
+      "$2.0\\text{ A}$",
+      "$5.0\\text{ A}$"
+    ],
+    "correct": 2,
+    "explanation": "等效電阻 $R_{eq} = 10 + 15 = 25\\text{ }\\Omega$。電流 $I = V / R_{eq} = 50 / 25 = 2.0\\text{ A}$。"
+  },
+ {
+    "id": 182,
+    "type": "short",
+    "category": "電磁學",
+    "question": "求在與 $0.500\\text{ T}$ 磁場垂直的方向上，以 $2.00 \\times 10^5\\text{ m s}^{-1}$ 運動的電荷（$q=3.00\\text{ }\\mu\\text{C}$）所受到的磁力。",
+    "correctAnswerValue": "0.300",
+    "correctUnit": "N",
+    "explanation": "$F = qvB = (3.00 \\times 10^{-6}) \\times (2.00 \\times 10^5) \\times 0.500 = 0.300\\text{ N}$。"
+  },
+  {
+    "id": 183,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "某升壓變壓器的原綫圈與副綫圈匝數比為 $1:15$。若輸出電壓為 $150\\text{ V}$ 交流電，求輸入電壓。",
+    "options": [
+      "$10\\text{ V}$",
+      "$22.5\\text{ V}$",
+      "$150\\text{ V}$",
+      "$2250\\text{ V}$"
+    ],
+    "correct": 0,
+    "explanation": "$V_p = V_s (N_p / N_s) = 150 \\times (1/15) = 10\\text{ V}$。"
+  },
+  {
+    "id": 184,
+    "type": "short",
+    "category": "電磁學",
+    "question": "求距離 $+1.50\\text{ }\\mu\\text{C}$ 點電荷 $0.200\\text{ m}$ 處的電勢。（$k=8.99\\times 10^9$）",
+    "correctAnswerValue": "67400",
+    "correctUnit": "V",
+    "explanation": "$V = kq/r = (8.99 \\times 10^9 \\times 1.50 \\times 10^{-6}) / 0.200 = 67425 \\approx 67400\\text{ V}$。"
+  },
+  {
+    "id": 185,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "一根長度為 $L$ 且載有電流 $I$ 的導綫與磁場垂直。若將其長度加倍且電流減半，則其所受的磁力將：",
+    "options": [
+      "減半",
+      "加倍",
+      "保持不變",
+      "增至四倍"
+    ],
+    "correct": 2,
+    "explanation": "$F = BIL$。新磁力 $F' = B(I/2)(2L) = BIL = F$，因此保持不變。"
+  },
+  {
+    "id": 186,
+    "type": "short",
+    "category": "電磁學",
+    "question": "使用額定電流為 $13.0\\text{ A}$ 的主電路熔斷器。在 $220\\text{ V}$ 的電路綫上，最大允許功率是多少？",
+    "correctAnswerValue": "2.86",
+    "correctUnit": "kW",
+    "explanation": "$P_{max} = V I = 220 \\times 13.0 = 2860\\text{ W} = 2.86\\text{ kW}$。"
+  },
+  {
+    "id": 187,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "將兩個正電荷移得更近。系統的電勢能會發生甚麼變化？",
+    "options": [
+      "減少",
+      "增加",
+      "保持不變",
+      "變為零"
+    ],
+    "correct": 1,
+    "explanation": "必須克服靜電排斥力作功，從而增加系統的電勢能。"
+  },
+  {
+    "id": 188,
+    "type": "short",
+    "category": "電磁學",
+    "question": "求一根長 $0.400\\text{ m}$ 的直導綫，以 $5.00\\text{ m s}^{-1}$ 垂直於 $0.150\\text{ T}$ 磁場運動時所產生的感應電動勢。",
+    "correctAnswerValue": "0.300",
+    "correctUnit": "V",
+    "explanation": "$E = B L v = 0.150 \\times 0.400 \\times 5.00 = 0.300\\text{ V}$。"
+  },
+  {
+    "id": 189,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "根據法拉第電磁感應定律，感應電動勢的大小正比於：",
+    "options": [
+      "磁通匝鏈",
+      "磁通匝鏈的變化率",
+      "導體電阻",
+      "僅與磁場強度相關"
+    ],
+    "correct": 1,
+    "explanation": "法拉第定律指出，感應電動勢的大小與磁通匝鏈的變化率成正比。"
+  },
+  {
+    "id": 190,
+    "type": "short",
+    "category": "電磁學",
+    "question": "將一個 $24.0\\text{ }\\Omega$ 的電阻器與一個 $12.0\\text{ V}$ 的電池串聯。計算總電流（以毫安為單位）。",
+    "correctAnswerValue": "500",
+    "correctUnit": "mA",
+    "explanation": "$I = V/R = 12.0 / 24.0 = 0.500\\text{ A} = 500\\text{ mA}$。"
+  },
+  {
+    "id": 191,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "放射性同位素的放射活度要降至其初始值的 $1\\%$ 以下，需要經過多少個半衰期？",
+    "options": [
+      "$4$",
+      "$5$",
+      "$7$",
+      "$10$"
+    ],
+    "correct": 2,
+    "explanation": "$2^6 = 64$（$1.56\\%$），$2^7 = 128$（$0.78\\%$）。因此，需要 7 個半衰期才能降至 $1\\%$ 以下。"
+  },
+  {
+    "id": 192,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "完成方程：$^{234}_{90}\\text{Th} \\rightarrow A_{Z}\\text{Pa} + \\beta$。求子核的質量數 $A$。",
+    "correctAnswerValue": "234",
+    "correctUnit": "u",
+    "explanation": "beta 衰變（$\beta$ 衰變）不會改變總質量數。因此 $A = 234$。"
+  },
+{
+  "id": 193,
+  "type": "mcq",
+  "category": "放射現象和核能",
+  "question": "下列關於 $\\beta$ 衰變（貝他衰變）的敘述，哪項/哪些是正確的？\n(1) 原子核內的一個中子轉化為一個質子和一個電子。\n(2) 子原子核的質量數與母原子核的質量數相同。\n(3) 釋放出的 $\\beta$ 粒子是來自原子外層電子殼的電子。",
+  "options": [
+    "只有 (1) 和 (2)",
+    "只有 (1) 和 (3)",
+    "只有 (2) 和 (3)",
+    "(1)、(2) 和 (3)"
+  ],
+  "correct": 0,
+  "explanation": "在 $\\beta$ 衰變過程中，原子核內的一個中子會轉化為一個質子和一個電子，而這個新產生的電子會被放射出去作為 $\\beta$ 粒子，因此 (1) 是正確的。由於一個中子被一個質子所取代，核子的總數（質量數 $A$）保持不變，因此 (2) 亦是正確的。敘述 (3) 是錯誤的，因為釋放出的 $\\beta$ 粒子是在*原子核*自身內部產生並放射出來的，而不是來自原子核外的電子殼層（軌域）。"
+},
+  {
+    "id": 194,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "氦核 $^{4}_{2}\\text{He}$ 的質量虧損為 $0.0300\\text{ u}$。求其結合能（以 MeV 為單位）。（$1\\text{ u}=931\\text{ MeV}$）",
+    "correctAnswerValue": "27.9",
+    "correctUnit": "MeV",
+    "explanation": "$E_b = 0.0300 \\times 931\\text{ MeV} \\approx 27.93 \\approx 27.9\\text{ MeV}$。"
+  },
+  {
+    "id": 195,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "下列關於輻射安全與致電離能力的敘述，哪項是正確的？",
+    "options": [
+      "gamma 射綫的致電離能力最強，且在體外最危險",
+      "alpha 粒子的致電離能力最弱，且在體內最安全",
+      "alpha 粒子的致電離能力最強，且在體內最危險",
+      "beta 射綫屬於非致電離輻射且安全"
+    ],
+    "correct": 2,
+    "explanation": "alpha 粒子具有極強的致電離能力，若被攝入或吸入體內，會對組織造成極嚴重的破壞。"
+  },
+  {
+    "id": 196,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "某放射性樣本的初始放射活度為 $400\\text{ Bq}$，並在 $24.0\\text{ 小時}$ 內衰變至 $50.0\\text{ Bq}$。求其半衰期。",
+    "correctAnswerValue": "8.00",
+    "correctUnit": "h",
+    "explanation": "$400 \\rightarrow 200 \\rightarrow 100 \\rightarrow 50$ 共經過了 $3$ 個半衰期。半衰期 $= 24.0 / 3 = 8.00\\text{ 小時}$。"
+  },
+  {
+    "id": 197,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "在現代裂變反應堆中，冷卻劑（如壓力水）的作用是什麼？",
+    "options": [
+      "停止鏈式反應",
+      "將熱能傳遞至蒸汽發生器",
+      "吸收熱中子",
+      "作為主要的輻射屏蔽層"
+    ],
+    "correct": 1,
+    "explanation": "冷卻劑吸收反應堆堆芯的熱能，並將其傳遞以產生蒸汽，從而驅動渦輪機。"
+  },
+  {
+    "id": 198,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "若質量虧損為 $5.00\times 10^{-29}\\text{ kg}$，求該原子核的總結合能（以焦耳為單位）。（$c=3.00\times 10^8$）",
+    "correctAnswerValue": "4.50e-12",
+    "correctUnit": "J",
+    "explanation": "$E_b = \\Delta m c^2 = (5.00 \\times 10^{-29}) \\times (3.00 \\times 10^8)^2 = 4.50 \\times 10^{-12}\\text{ J}$。"
+  },
+  {
+    "id": 199,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "根據經典力學，核反應主要違反了哪條經典的守恆定律？",
+    "options": [
+      "動量守恆定律",
+      "電荷守恆定律",
+      "經典質量守恆定律",
+      "重子數守恆定律"
+    ],
+    "correct": 2,
+    "explanation": "經典物理學認為質量是嚴格守恆的。而現代物理學則證明了質量可透過 $E=\\Delta mc^2$ 轉化為能量。"
+  },
+  {
+    "id": 200,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "某同位素的衰變常數 $\\lambda = 2.31 \\times 10^{-6}\\text{ s}^{-1}$。求其以天為單位的半衰期。",
+    "correctAnswerValue": "3.47",
+    "correctUnit": "days",
+    "explanation": "$t_{1/2} = \\ln(2) / \\lambda = 0.69315 / (2.31 \\times 10^{-6}) = 300064\\text{ s} = 300064 / 86400 \\approx 3.47\\text{ 天}$。"
+  },
+  {
+    "id": 201,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "一個 $80\\text{ W}$ 的加熱器在熔點下，於 $200\\text{ s}$ 內熔化了 $0.1\\text{ kg}$ 的物質。求該物質的熔化潛熱。",
+    "options": [
+      "$4.0 \\times 10^3\\text{ J kg}^{-1}$",
+      "$1.6 \\times 10^4\\text{ J kg}^{-1}$",
+      "$8.0 \\times 10^4\\text{ J kg}^{-1}$",
+      "$1.6 \\times 10^5\\text{ J kg}^{-1}$"
+    ],
+    "correct": 3,
+    "explanation": "利用公式 $Pt = mL_f$，可得 $L_f = Pt / m = (80 \\times 200) / 0.1 = 1.6 \\times 10^5\\text{ J kg}^{-1}$。"
+  },
+  {
+    "id": 202,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "一個 $1.20\\text{ kW}$ 的電熱水壺將 $0.500\\text{ kg}$ 的水從 $20.0\\text{ }^{\\circ}\\text{C}$ 加熱到 $100\\text{ }^{\\circ}\\text{C}$。求所需時間。（$c=4200$）",
+    "correctAnswerValue": "140",
+    "correctUnit": "s",
+    "explanation": "所需熱量 $Q = mc\\Delta T = 0.500 \\times 4200 \\times 80.0 = 1.68 \\times 10^5\\text{ J}$。時間 $t = Q/P = 1.68\\times 10^5 / 1200 = 140\\text{ s}$。"
+  },
+  {
+    "id": 203,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "將一個處於 $127\\text{ }^{\\circ}\\text{C}$ 的理想氣體在恆定體積下冷卻，直到其壓強減半。求其最終溫度。",
+    "options": [
+      "$-73\\text{ }^{\\circ}\\text{C}$",
+      "$0\\text{ }^{\\circ}\\text{C}$",
+      "$63.5\\text{ }^{\\circ}\\text{C}$",
+      "$200\\text{ }^{\\circ}\\text{C}$"
+    ],
+    "correct": 0,
+    "explanation": "壓強定律：$P_1/T_1 = P_2/T_2$。$T_1 = 127 + 273 = 400\\text{ K}$。壓強減半則絕對溫度隨之減半至 $200\\text{ K} = -73\\text{ }^{\\circ}\\text{C}$。"
+  },
+  {
+    "id": 204,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "一個體積為 $3.00\\text{ cm}^3$ 的氣泡從壓強為 $3.00 \\times 10^5\\text{ Pa}$ 的深處升到水面（該處壓強為 $1.00\\times 10^5\\text{ Pa}$）。求氣泡的新體積。",
+    "correctAnswerValue": "9.00",
+    "correctUnit": "cm3",
+    "explanation": "假設溫度不變，根據波義耳定律可得 $P_1V_1 = P_2V_2 \\Rightarrow V_2 = (3.00\\times 10^5 \\times 3.00) / 1.00\\times 10^5 = 9.00\\text{ cm}^3$。"
+  },
+  {
+    "id": 205,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "關於氣體動力論，下列哪些敘述是正確的？（1）彈性碰撞 （2）分子間的引力",
+    "options": [
+      "只限（1）",
+      "只限（2）",
+      "（1）和（2）皆正確",
+      "（1）和（2）皆不正確"
+    ],
+    "correct": 0,
+    "explanation": "理想氣體的動力學模型假設氣體分子之間進行完全彈性碰撞，且分子間作用力完全可忽略不計。"
+  },
+  {
+    "id": 206,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "求在 $27.0\\text{ }^{\\circ}\\text{C}$ 時理想氣體分子的平均動能（以 $10^{-21}\\text{ J}$ 為單位）。（$k_B = 1.38 \\times 10^{-23}$）",
+    "correctAnswerValue": "6.21",
+    "correctUnit": "10^-21 J",
+    "explanation": "平均動能 $KE = 1.5 k_B T = 1.5 \\times 1.38\\times 10^{-23} \\times 300 = 6.21 \\times 10^{-21}\\text{ J}$。"
+  },
+  {
+    "id": 207,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "相同質量的金屬 A（$c=400\\text{ J kg}^{-1}\\text{ K}^{-1}$）和金屬 B（$c=800\\text{ J kg}^{-1}\\text{ K}^{-1}$）吸收了相同的熱量。求 A 與 B 的溫度升幅比。",
+    "options": [
+      "$1:2$",
+      "$1:1$",
+      "$2:1$",
+      "$4:1$"
+    ],
+    "correct": 2,
+    "explanation": "由於 $Q = mc\\Delta T$ 為常數，故 $\\Delta T \\propto 1/c$。升幅比 $\\Delta T_A / \\Delta T_B = c_B/c_A = 800/400 = 2:1$。"
+  },
+  {
+    "id": 208,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "加熱質量為 $2.50\\text{ kg}$ 的液體。當它吸收 $45.0\\text{ kJ}$ 的熱量時，溫度升高了 $12.0\\text{ }^{\\circ}\\text{C}$。求該液體的比熱容量。",
+    "correctAnswerValue": "1500",
+    "correctUnit": "J kg-1 K-1",
+    "explanation": "比熱容量 $c = Q / (m\\Delta T) = 45000 / (2.50 \\times 12.0) = 1500\\text{ J kg}^{-1}\\text{ K}^{-1}$。"
+  },
+  {
+    "id": 209,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "當液體在低於其沸點的溫度下發生蒸發時，會出現以下哪種情況？",
+    "options": [
+      "只有表面分子能逃逸",
+      "液體內部形成氣泡",
+      "剩餘分子的平均動能上升",
+      "只在固定溫度下發生"
+    ],
+    "correct": 0,
+    "explanation": "蒸發是一種在任何溫度下都會發生的表面現象，此時具有高能量的表面分子會逃逸。"
+  },
+  {
+    "id": 210,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "某理想氣體在體積為 $0.0500\\text{ m}^3$、壓強為 $1.20 \\times 10^5\\text{ Pa}$ 的狀態下含有 $3.00\\text{ 摩爾}$。求其絕對溫度。",
+    "correctAnswerValue": "241",
+    "correctUnit": "K",
+    "explanation": "利用公式 $PV = nRT$，可得 $T = PV / nR = (1.20\\times 10^5 \\times 0.0500) / (3.00 \\times 8.31) \\approx 241\\text{ K}$。"
+  },
+  {
+    "id": 211,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一塊石頭從懸崖上落下，總共移動了 $44.1\\text{ m}$。求其飛行時間。（$g=9.81\\text{ m s}^{-2}$）",
+    "options": [
+      "$1.5\\text{ s}$",
+      "$2.1\\text{ s}$",
+      "$3.0\\text{ s}$",
+      "$4.5\\text{ s}$"
+    ],
+    "correct": 2,
+    "explanation": "利用公式 $s = 0.5 gt^2$，可得 $t = \\sqrt{2s/g} = \\sqrt{2 \\times 44.1 / 9.81} = 3.0\\text{ s}$。"
+  },
+  {
+    "id": 212,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一輛以 $10.0\\text{ m s}^{-1}$ 行駛、質量為 $2000\\text{ kg}$ 的貨車與一輛靜止、質量為 $1000\\text{ kg}$ 的汽車相撞並卡在一起。求撞後的最終速度。",
+    "correctAnswerValue": "6.67",
+    "correctUnit": "m s-1",
+    "explanation": "根據動量守恆定律：$2000 \\times 10.0 = (2000 + 1000) v \\Rightarrow v = 20000 / 3000 \\approx 6.67\\text{ m s}^{-1}$。"
+  },
+  {
+    "id": 213,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一個拋體以與水平方向呈 $30\\text{ }^{\\circ}$ 角、速率為 $40\\text{ m s}^{-1}$ 的初速度射出。求其最大高度。（$g=9.81\\text{ m s}^{-2}$）",
+    "options": [
+      "$10.2\\text{ m}$",
+      "$20.4\\text{ m}$",
+      "$40.8\\text{ m}$",
+      "$81.6\\text{ m}$"
+    ],
+    "correct": 1,
+    "explanation": "垂直分量 $u_y = 40\\sin(30^{\\circ}) = 20\\text{ m s}^{-1}$。最大高度 $h = u_y^2 / 2g = 400 / 19.62 \\approx 20.4\\text{ m}$。"
+  },
+  {
+    "id": 214,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一個質量為 $4.00\\text{ kg}$ 的木塊受到一個與水平方向呈 $60.0\\text{ }^{\\circ}$ 角、大小為 $10.0\\text{ N}$ 的力推動，沿著光滑地面運動。求其加速度。",
+    "correctAnswerValue": "1.25",
+    "correctUnit": "m s-2",
+    "explanation": "水平方向的力為 $F_x = 10.0\\cos(60.0^{\\circ}) = 5.00\\text{ N}$。加速度 $a = F_x/m = 5.00/4.00 = 1.25\\text{ m s}^{-2}$。"
+  },
+  {
+    "id": 215,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一個物體在半徑為 $10\\text{ m}$ 的圓周路徑上以 $5\\text{ m s}^{-1}$ 的恆定速率運動。求其加速度。",
+    "options": [
+      "$0.5\\text{ m s}^{-2}$",
+      "$1.0\\text{ m s}^{-2}$",
+      "$2.5\\text{ m s}^{-2}$",
+      "$5.0\\text{ m s}^{-2}$"
+    ],
+    "correct": 2,
+    "explanation": "向心加速度 $a_c = v^2/r = 25 / 10 = 2.5\\text{ m s}^{-2}$。"
+  },
+  {
+    "id": 216,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一個 $300\\text{ N}$ 的恆定煞車力使一輛 $600\\text{ kg}$ 的汽車在 $4.00\\text{ s}$ 內停了下來。求其初速度。",
+    "correctAnswerValue": "2.00",
+    "correctUnit": "m s-1",
+    "explanation": "減速度 $a = F/m = 300/600 = 0.500\\text{ m s}^{-2}$。初速度 $u = at = 0.500 \\times 4.00 = 2.00\\text{ m s}^{-1}$。"
+  },
+  {
+    "id": 217,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "將一個剛度為 $k = 200\\text{ N m}^{-1}$ 的彈簧拉伸 $0.1\\text{ m}$ 的形變量，所作的功是多少？",
+    "options": [
+      "$1\\text{ J}$",
+      "$2\\text{ J}$",
+      "$10\\text{ J}$",
+      "$20\\text{ J}$"
+    ],
+    "correct": 0,
+    "explanation": "彈性勢能 $E = 0.5 k x^2 = 0.5 \\times 200 \\times 0.1^2 = 1\\text{ J}$。"
+  },
+  {
+    "id": 218,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一個 $60.0\\text{ kg}$ 的物體被垂直向上拉引，其加速度為 $1.50\\text{ m s}^{-2}$。求張力。（$g=9.81$）",
+    "correctAnswerValue": "679",
+    "correctUnit": "N",
+    "explanation": "運動方程：$T - mg = ma \\Rightarrow T = m(g+a) = 60.0 \\times (9.81 + 1.50) = 678.6 \\approx 679\\text{ N}$。"
+  },
+  {
+    "id": 219,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "彈性碰撞是指在碰撞過程中以下哪項守恆？",
+    "options": [
+      "只限動量",
+      "只限動能",
+      "動量與動能皆守恆",
+      "總能量守恆，但動量不守恆"
+    ],
+    "correct": 2,
+    "explanation": "在彈性碰撞中，總綫動量和總動能皆保持守恆。"
+  },
+  {
+    "id": 220,
+    "type": "short",
+    "category": "力和運動",
+    "question": "某電動機的功率為 $400\\text{ W}$。求將一個質量為 $50.0\\text{ kg}$ 的重物提升 $6.00\\text{ m}$ 高度所需的時間。（$g=9.81$）",
+    "correctAnswerValue": "7.36",
+    "correctUnit": "s",
+    "explanation": "所作的功 $W = mgh = 50.0 \\times 9.81 \\times 6.00 = 2943\\text{ J}$。時間 $t = W / P = 2943 / 400 \\approx 7.36\\text{ s}$。"
+  },
+  {
+    "id": 221,
+    "type": "mcq",
+    "category": "波動",
+    "question": "一個聲波的頻率為 $250\\text{ Hz}$，波速為 $350\\text{ m s}^{-1}$。求其波長。",
+    "options": [
+      "$0.71\\text{ m}$",
+      "$1.2\\text{ m}$",
+      "$1.4\\text{ m}$",
+      "$2.5\\text{ m}$"
+    ],
+    "correct": 2,
+    "explanation": "波長 $\\lambda = v/f = 350 / 250 = 1.4\\text{ m}$。"
+  },
+  {
+    "id": 222,
+    "type": "short",
+    "category": "波動",
+    "question": "光綫從空氣射入玻璃（$n = 1.60$），入射角為 $30.0\\text{ }^{\\circ}$。求折射角。",
+    "correctAnswerValue": "18.2",
+    "correctUnit": "oC",
+    "explanation": "利用斯涅耳定律（折射定律）：$\\sin(30.0^{\\circ}) = 1.60 \\sin(r) \\Rightarrow r = \\sin^{-1}(0.5/1.60) \\approx 18.2^{\\circ}$。"
+  },
+  {
+    "id": 223,
+    "type": "mcq",
+    "category": "波動",
+    "question": "當波在界面發生折射時，波的哪項特性不會受到影響？",
+    "options": [
+      "波長",
+      "波速",
+      "頻率",
+      "傳播方向"
+    ],
+    "correct": 2,
+    "explanation": "折射會改變波長、波速和路徑，但頻率保持不變，因為它僅取決於波源。"
+  },
+  {
+    "id": 224,
+    "type": "short",
+    "category": "波動",
+    "question": "在楊氏實驗中，雙縫間距為 $0.300\\text{ mm}$，屏幕距離為 $1.50\\text{ m}$，條紋寬度為 $3.00\\text{ mm}$。求波長 $\\lambda$。",
+    "correctAnswerValue": "600",
+    "correctUnit": "nm",
+    "explanation": "$w = \\lambda D / a \\Rightarrow \\lambda = aw/D = (0.300\\times 10^{-3} \\times 3.00\\times 10^{-3}) / 1.50 = 600\\text{ nm}$。"
+  },
+  {
+    "id": 225,
+    "type": "mcq",
+    "category": "波動",
+    "question": "光綫從玻璃（$n = 1.52$）射向空氣的界面時，發生全內反射的臨界角是多少？",
+    "options": [
+      "$32.1\\text{ }^{\\circ}$",
+      "$41.1\\text{ }^{\\circ}$",
+      "$48.8\\text{ }^{\\circ}$",
+      "$90.0\\text{ }^{\\circ}$"
+    ],
+    "correct": 1,
+    "explanation": "臨界角 $c = \\sin^{-1}(1/n) = \\sin^{-1}(1/1.52) \\approx 41.1^{\\circ}$。"
+  },
+  {
+    "id": 226,
+    "type": "short",
+    "category": "波動",
+    "question": "一根長度為 $0.800\\text{ m}$ 的弦兩端固定，並以第二諧音（第二諧振）振動。求其波長。",
+    "correctAnswerValue": "0.800",
+    "correctUnit": "m",
+    "explanation": "對於第二諧音，波長等於弦的長度，因此 $\\lambda = 0.800\\text{ m}$。"
+  },
+  {
+    "id": 227,
+    "type": "mcq",
+    "category": "波動",
+    "question": "哪一種類型的電磁輻射其典型波長範圍為 $400\\text{ nm}$ 至 $700\\text{ nm}$？",
+    "options": [
+      "紅外線",
+      "可見光",
+      "紫外線",
+      "X射綫"
+    ],
+    "correct": 1,
+    "explanation": "可見光光譜的範圍大約是從 $400\\text{ nm}$（紫光）到 $700\\text{ nm}$（紅光）。"
+  },
+  {
+    "id": 228,
+    "type": "short",
+    "category": "波動",
+    "question": "某繞射光柵每毫米有 $400\\text{ 條透光綫}$。求以微米為單位的光柵間距 $d$。",
+    "correctAnswerValue": "2.50",
+    "correctUnit": "um",
+    "explanation": "$d = 10^{-3}\\text{ m} / 400 = 2.50 \\times 10^{-6}\\text{ m} = 2.50\\text{ }\\mu\\text{m}$。"
+  },
+  {
+    "id": 229,
+    "type": "mcq",
+    "category": "波動",
+    "question": "當波遇到障礙物或狹縫時，會觀察到波的擴散（繞射）。這種現象在以下哪種情況下最為顯著？",
+    "options": [
+      "狹縫寬度遠大於波長",
+      "狹縫大小與波長相若",
+      "波長遠小於狹縫寬度",
+      "光強度極高"
+    ],
+    "correct": 1,
+    "explanation": "當狹縫或障礙物的寬度與波的波長相若時，繞射效應最為明顯。"
+  },
+  {
+    "id": 230,
+    "type": "short",
+    "category": "波動",
+    "question": "聲音在海水中的傳播速度為 $1530\\text{ m s}^{-1}$。某超聲波的波長為 $1.50\\text{ mm}$。求其頻率。",
+    "correctAnswerValue": "1.02",
+    "correctUnit": "MHz",
+    "explanation": "$f = v / \\lambda = 1530 / (1.50 \\times 10^{-3}\\text{ m}) = 1.02 \\times 10^6\\text{ Hz} = 1.02\\text{ MHz}$。"
+  },
+  {
+    "id": 231,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "兩條載有相同方向電流的平行導體將會：",
+    "options": [
+      "互相吸引",
+      "互相排斥",
+      "保持不受影響",
+      "劇烈振動"
+    ],
+    "correct": 0,
+    "explanation": "相同方向的電流產生的磁場會導致導體之間產生相互吸引力。"
+  },
+  {
+    "id": 232,
+    "type": "short",
+    "category": "電磁學",
+    "question": "一個大小為 $4.50\\text{ N}$ 的靜電力作用於一個 $1.50\\text{ }\\mu\\text{C}$ 的電荷上。求電場強度。",
+    "correctAnswerValue": "3.00e6",
+    "correctUnit": "V m-1",
+    "explanation": "$E = F/q = 4.50 / (1.50 \\times 10^{-6}) = 3.00 \\times 10^6\\text{ V m}^{-1}$。"
+  },
+  {
+    "id": 233,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "某降壓變壓器的原綫圈與副綫圈匝數比為 $20:1$。若輸入電壓為 $220\\text{ V}$，求輸出電壓。",
+    "options": [
+      "$11\\text{ V}$",
+      "$22\\text{ V}$",
+      "$44\\text{ V}$",
+      "$110\\text{ V}$"
+    ],
+    "correct": 0,
+    "explanation": "$V_s = V_p \\times (N_s/N_p) = 220 \\times (1/20) = 11\\text{ V}$。"
+  },
+  {
+    "id": 234,
+    "type": "short",
+    "category": "電磁學",
+    "question": "一根長度為 $0.400\\text{ m}$ 且載有 $5.00\\text{ A}$ 電流的導綫被放置在與 $0.300\\text{ T}$ 磁場垂直的方向上。求其所受的磁力。",
+    "correctAnswerValue": "0.600",
+    "correctUnit": "N",
+    "explanation": "$F = B I L = 0.300 \\times 5.00 \\times 0.400 = 0.600\\text{ N}$。"
+  },
+  {
+    "id": 235,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "將一個 $1500\\text{ W}$ 的加熱器連接到 $220\\text{ V}$ 的交流電主電路上。使用哪一個額定電流的熔斷器最為合適？",
+    "options": [
+      "$3\\text{ A}$",
+      "$5\\text{ A}$",
+      "$10\\text{ A}$",
+      "$13\\text{ A}$"
+    ],
+    "correct": 2,
+    "explanation": "電流 $I = P/V = 1500 / 220 \\approx 6.82\\text{ A}$。高於此電流的下一個標準安全額定值為 $10\\text{ A}$。"
+  },
+  {
+    "id": 236,
+    "type": "short",
+    "category": "電磁學",
+    "question": "求 $4.00\\text{ }\\Omega$、$6.00\\text{ }\\Omega$ 和 $12.0\\text{ }\\Omega$ 並聯電阻器的等效電阻。",
+    "correctAnswerValue": "2.00",
+    "correctUnit": "ohm",
+    "explanation": "$1/R = 1/4 + 1/6 + 1/12 = 6/12 = 1/2 \\Rightarrow R = 2.00\\text{ }\\Omega$。"
+  },
+  {
+    "id": 237,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "當把一塊磁鐵迅速推入一個閉合導綫圈時，會發生以下哪種情況？",
+    "options": [
+      "感應電流反抗（對抗）運動",
+      "感應電流協助運動",
+      "不產生感應電流",
+      "磁場崩潰"
+    ],
+    "correct": 0,
+    "explanation": "根據楞次定律，感應電流會產生一個反抗（對抗）變化的磁場，從而抗拒磁鐵的插入。"
+  },
+  {
+    "id": 238,
+    "type": "short",
+    "category": "電磁學",
+    "question": "一個大小為 $2.50\\text{ mC}$ 的電荷在 $80.0\\text{ V}$ 的電勢差下受加速。求其所獲得的動能。",
+    "correctAnswerValue": "0.200",
+    "correctUnit": "J",
+    "explanation": "$KE = qV = (2.50 \\times 10^{-3}) \\times 80.0 = 0.200\\text{ J}$。"
+  },
+  {
+    "id": 239,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "一個電子在一指向右方的磁場中向下運動。求其所受力的方向。",
+    "options": [
+      "進入紙面",
+      "離開紙面",
+      "向左",
+      "向右"
+    ],
+    "correct": 0,
+    "explanation": "利用弗萊明左手定則（磁場向右，由於電子向下運動，故電流方向向上）：所受力的方向為進入紙面。"
+  },
+  {
+    "id": 240,
+    "type": "short",
+    "category": "電磁學",
+    "question": "某家用加熱器使用 $220\\text{ V}$ 的電壓，其電阻為 $44.0\\text{ }\\Omega$。求其電功率。",
+    "correctAnswerValue": "1.10",
+    "correctUnit": "kW",
+    "explanation": "$P = V^2 / R = 220^2 / 44.0 = 1100\\text{ W} = 1.10\\text{ kW}$。"
+  },
+  {
+    "id": 241,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "某放射源衰變的半衰期為 $3.0\\text{ s}$。在 $15.0\\text{ s}$ 後還剩餘多少？",
+    "options": [
+      "$1/8$",
+      "$1/16$",
+      "$1/32$",
+      "$1/64$"
+    ],
+    "correct": 2,
+    "explanation": "半衰期的次數 $n = 15.0 / 3.0 = 5$。剩餘分數 $= (1/2)^5 = 1/32$。"
+  },
+  {
+    "id": 242,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "以原子質量單位（$1\\text{ u} = 1.66\\times 10^{-27}\\text{ kg}$）計算氦-4（Helium-4）核的質量，取三位有效數字。",
+    "correctAnswerValue": "4.00",
+    "correctUnit": "u",
+    "explanation": "$^{4}_{2}\\text{He}$ 的原子質量大約為 $4.00\\text{ u}$。"
+  },
+  {
+    "id": 243,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "在一項核反應中，記錄到 $2.0 \\times 10^{-28}\\text{ kg}$ 的質量虧損。求釋放出的能量。",
+    "options": [
+      "$1.8 \\times 10^{-11}\\text{ J}$",
+      "$6.0 \\times 10^{-20}\\text{ J}$",
+      "$1.8 \\times 10^{-12}\\text{ J}$",
+      "$6.0 \\times 10^{-21}\\text{ J}$"
+    ],
+    "correct": 0,
+    "explanation": "$E = \\Delta m c^2 = (2.0\\times 10^{-28}) \\times (3.00\\times 10^8)^2 = 1.8 \\times 10^{-11}\\text{ J}$。"
+  },
+  {
+    "id": 244,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "某同位素的半衰期為 $8.00\\text{ h}$，初始放射活度為 $400\\text{ Bq}$。求在 $24.0\\text{ h}$ 後的放射活度。",
+    "correctAnswerValue": "50.0",
+    "correctUnit": "Bq",
+    "explanation": "$n = 24.0/8.00 = 3$ 個半衰期。放射活度 $= 400 / 2^3 = 50.0\\text{ Bq}$。"
+  },
+  {
+    "id": 245,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "下列哪種材料在防護高強度 gamma 射綫（伽馬輻射）時最為有效？",
+    "options": [
+      "鋁箔",
+      "玻璃片",
+      "厚鉛塊",
+      "紙張"
+    ],
+    "correct": 2,
+    "explanation": "gamma 射綫具有極強的穿透力，需要使用鉛或混凝土等高密度、高原子序數的材料來進行防護。"
+  },
+  {
+    "id": 246,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "子核 $^{14}_{7}\\text{N}$ 是由 $^{14}_{6}\\text{C}$ 衰變而成的。請問當時釋放出了甚麼粒子？",
+    "correctAnswerValue": "beta-minus",
+    "correctUnit": "particle",
+    "explanation": "一個中子轉化為質子，使質量數保持不變，而原子序數 $Z$ 增加 1，同時釋放出負 beta 粒子（$\beta^-$ 粒子）。"
+  },
+  {
+    "id": 247,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "核電廠中控制棒的主要目的是：",
+    "options": [
+      "冷卻反應堆",
+      "吸收中子",
+      "使中子減速",
+      "圍阻輻射"
+    ],
+    "correct": 1,
+    "explanation": "控制棒通過吸收多餘的中子，來調節和控制裂變鏈式反應的速率。"
+  },
+  {
+    "id": 248,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "某放射性樣本在探測器上錄得的經校正計數率為 $120\\text{ cpm}$（每分鐘計數）。若將其校正為赫茲（Hertz）是多少？",
+    "correctAnswerValue": "2.00",
+    "correctUnit": "Hz",
+    "explanation": "以 Hz 為單位的計數率 $= \\text{每秒計數} = 120 / 60 = 2.00\\text{ Hz}$。"
+  },
+  {
+    "id": 249,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "當一個原子核發生 alpha 衰變時，其質子數 $Z$ 和質量數 $A$ 會如何變化？",
+    "options": [
+      "$Z$ 減少 2，$A$ 減少 4",
+      "$Z$ 減少 4，$A$ 減少 2",
+      "$Z$ 增加 1，$A$ 保持不變",
+      "兩者皆保持不變"
+    ],
+    "correct": 0,
+    "explanation": "alpha 衰變會釋放出 $^{4}_{2}\\text{He}$。因此，$Z$ 減少 2 且 $A$ 減少 4。"
+  },
+  {
+    "id": 250,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "氘 $^{2}_{1}\\text{H}$ 和氚 $^{3}_{1}\\text{H}$ 的核聚變會產生氦-4，還會產生甚麼其他粒子？",
+    "correctAnswerValue": "neutron",
+    "correctUnit": "particle",
+    "explanation": "$^{2}_{1}\\text{H} + ^{3}_{1}\\text{H} \\rightarrow ^{4}_{2}\\text{He} + ^{1}_{0}\\text{n}$。另一種粒子是中子。"
+  },
+  {
+    "id": 251,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "求將 $0.4\\text{ kg}$ 處於 $0\\text{ }^{\\circ}\\text{C}$ 的冰轉化為相同溫度下的水所需的熱能。（$L_f=3.34\\times 10^5\\text{ J kg}^{-1}$）",
+    "options": [
+      "$1.34 \\times 10^5\\text{ J}$",
+      "$2.68 \\times 10^5\\text{ J}$",
+      "$1.34 \\times 10^6\\text{ J}$",
+      "$2.68 \\times 10^6\\text{ J}$"
+    ],
+    "correct": 0,
+    "explanation": "$E = mL_f = 0.4 \\times 3.34\\times 10^5 = 1.336 \\times 10^5\\text{ J} \\approx 1.34 \\times 10^5\\text{ J}$。"
+  },
+  {
+    "id": 252,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "某氣缸在壓強為 $2.00 \\times 10^5\\text{ Pa}$ 時含有 $0.0200\\text{ m}^3$ 的氣體。在恆定溫度下將其壓縮至 $0.00500\\text{ m}^3$。求最終壓強。",
+    "correctAnswerValue": "8.00e5",
+    "correctUnit": "Pa",
+    "explanation": "波義耳定律：$P_1V_1 = P_2V_2 \\Rightarrow P_2 = (2.00\\times 10^5 \\times 0.0200) / 0.00500 = 8.00 \\times 10^5\\text{ Pa}$。"
+  },
+  {
+    "id": 253,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "將固定質量的氣體在 $300\\text{ K}$ 的狀態下於恆定壓強中加熱至 $450\\text{ K}$。求最終體積比 $V_2/V_1$。",
+    "options": [
+      "$1.20$",
+      "$1.33$",
+      "$1.50$",
+      "$2.25$"
+    ],
+    "correct": 2,
+    "explanation": "根據查理定律：$V_2/V_1 = T_2/T_1 = 450 / 300 = 1.50$。"
+  },
+  {
+    "id": 254,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "使用一個 $300\\text{ W}$ 的加熱器來熔化冰。在 $111\\text{ s}$ 內可以熔化多少克處於 $0\\text{ }^{\\circ}\\text{C}$ 的冰？（$L_f=3.34\\times 10^5$）",
+    "correctAnswerValue": "99.7",
+    "correctUnit": "g",
+    "explanation": "$Pt = mL_f \\Rightarrow m = (300 \\times 111) / (3.34\\times 10^5) \\approx 0.0997\\text{ kg} = 99.7\\text{ g}$。"
+  },
+  {
+    "id": 255,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "下列哪一項所含有的熱能（內能）與一個處於 $50\\text{ }^{\\circ}\\text{C}$ 的銅杯相同？",
+    "options": [
+      "僅取決於質量",
+      "取決於質量和熱容量",
+      "總熱能（內能）的概念",
+      "總是恆定不變"
+    ],
+    "correct": 1,
+    "explanation": "物體內部的熱能即為其內能，它是由物質的質量、比熱容量以及溫度共同決定的。"
+  },
+  {
+    "id": 256,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "將一個處於 $27.0\\text{ }^{\\circ}\\text{C}$ 的理想氣體加熱，使其分子的均方根速率加倍。求其新溫度。",
+    "correctAnswerValue": "927",
+    "correctUnit": "oC",
+    "explanation": "由於 $v_{rms} \\propto \\sqrt{T}$，分子的均方根速率加倍意味著絕對溫度增至四倍，即 $T_2 = 4 \\times 300\\text{ K} = 1200\\text{ K} = 927\\text{ }^{\\circ}\\text{C}$。"
+  },
+  {
+    "id": 257,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "下列哪一個溫度標度（溫標）是以絕對零度作為其理論上的最低點？",
+    "options": [
+      "攝氏度標",
+      "華氏度標",
+      "開氏度標（開氏溫標）",
+      "蘭金度標"
+    ],
+    "correct": 2,
+    "explanation": "開氏溫標（開氏度標）是一種以絕對零度作為起點的熱力學絕對溫度標度。"
+  },
+  {
+    "id": 258,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "將一個 $50.0\\text{ W}$ 的加熱器放入 $0.200\\text{ kg}$ 的油中。在 $600\\text{ s}$ 內溫度升高了 $15.0\\text{ K}$。求該油的比熱容量。",
+    "correctAnswerValue": "10000",
+    "correctUnit": "J kg-1 K-1",
+    "explanation": "$Pt = mc\\Delta T \\Rightarrow c = (50.0 \\times 600) / (0.200 \\times 15.0) = 10000\\text{ J kg}^{-1}\\text{ K}^{-1}$。"
+  },
+  {
+    "id": 259,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "在流動的流體中（例如受熱鍋中上升的溫水），最主要的熱傳遞機制是什麼？",
+    "options": [
+      "傳導",
+      "對流",
+      "輻射",
+      "蒸發"
+    ],
+    "correct": 1,
+    "explanation": "對流是指由於密度差異引起流體分子的整體運動，進而實現熱傳遞的機制。"
+  },
+  {
+    "id": 260,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "某氣缸內被困氣體的體積為 $0.0120\\text{ m}^3$，在 $300\\text{ K}$ 時的壓強為 $1.50 \\times 10^5\\text{ Pa}$。求氣體的摩爾數。",
+    "correctAnswerValue": "0.722",
+    "correctUnit": "mol",
+    "explanation": "$n = PV/RT = (1.50\\times 10^5 \\times 0.0120) / (8.31 \\times 300) \\approx 0.722\\text{ mol}$。"
+  },
+  {
+    "id": 261,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一輛汽車從靜止開始以 $2.5\\text{ m s}^{-2}$ 的加速度加速行駛了 $6\\text{ s}$。求其位移。",
+    "options": [
+      "$15\\text{ m}$",
+      "$30\\text{ m}$",
+      "$45\\text{ m}$",
+      "$90\\text{ m}$"
+    ],
+    "correct": 2,
+    "explanation": "利用公式 $s = ut + 0.5 at^2$，可得 $s = 0 + 0.5 \\times 2.5 \\times 36 = 45\\text{ m}$。"
+  },
+  {
+    "id": 262,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一個質量為 $0.150\\text{ kg}$ 的球以 $20.0\\text{ m s}^{-1}$ 的速度撞擊地面，並以 $15.0\\text{ m s}^{-1}$ 的速度反彈。求衝量的大小。",
+    "correctAnswerValue": "5.25",
+    "correctUnit": "N s",
+    "explanation": "取向上為正方向：$I = m(v - u) = 0.150 \\times (15.0 - (-20.0)) = 0.150 \\times 35.0 = 5.25\\text{ N s}$。"
+  },
+  {
+    "id": 263,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一個質量為 $5\\text{ kg}$ 的物體從 $20\\text{ m}$ 的高度落下。求它剛要撞擊地面時的速度。（$g=9.81$）",
+    "options": [
+      "$9.9\\text{ m s}^{-1}$",
+      "$14\\text{ m s}^{-1}$",
+      "$19.8\\text{ m s}^{-1}$",
+      "$28\\text{ m s}^{-1}$"
+    ],
+    "correct": 2,
+    "explanation": "$v = \\sqrt{2gh} = \\sqrt{2 \\times 9.81 \\times 20} \\approx 19.8\\text{ m s}^{-1}$。"
+  },
+  {
+    "id": 264,
+    "type": "short",
+    "category": "力和運動",
+    "question": "某滑梯與水平方向呈 $25.0\\text{ }^{\\circ}$ 角傾斜。求一個木塊在光滑滑梯上沿斜面下滑的加速度。（$g=9.81$）",
+    "correctAnswerValue": "4.15",
+    "correctUnit": "m s-2",
+    "explanation": "沿斜面向下的加速度為 $a = g\\sin\\theta = 9.81\\sin(25.0^{\\circ}) \\approx 4.15\\text{ m s}^{-2}$。"
+  },
+  {
+    "id": 265,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一個質量為 $0.2\\text{ kg}$ 的石頭在半徑為 $2\\text{ m}$ 的圓周上以 $4\\text{ m s}^{-1}$ 的速率旋轉。求弦中的張力。",
+    "options": [
+      "$0.8\\text{ N}$",
+      "$1.6\\text{ N}$",
+      "$3.2\\text{ N}$",
+      "$6.4\\text{ N}$"
+    ],
+    "correct": 1,
+    "explanation": "向心力 $F_c = mv^2/r = 0.2 \\times 16 / 2 = 1.6\\text{ N}$。"
+  },
+  {
+    "id": 266,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一輛質量為 $1200\\text{ kg}$ 的汽車煞車，在 $30.0\\text{ m}$ 的距離內由 $15.0\\text{ m s}^{-1}$ 的速度減速至靜止。求平均煞車力。",
+    "correctAnswerValue": "4500",
+    "correctUnit": "N",
+    "explanation": "功與能量關係：$F \\cdot s = 0.5 mv^2 \\Rightarrow F = (0.5 \\times 1200 \\times 225) / 30.0 = 4500\\text{ N}$。"
+  },
+  {
+    "id": 267,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "火箭燃燒燃料並向下噴出氣體，從而產生向上的推力。這最好用哪條定律來解釋？",
+    "options": [
+      "牛頓第一定律",
+      "牛頓第二定律",
+      "牛頓第三定律",
+      "牛頓冷卻定律"
+    ],
+    "correct": 2,
+    "explanation": "火箭受到的推力，是噴出的廢氣對火箭施加的等大且反向的反作用力。"
+  },
+  {
+    "id": 268,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一個質量為 $70.0\\text{ kg}$ 的體操運動員落到墊子上，在 $0.150\\text{ s}$ 內從 $6.00\\text{ m s}^{-1}$ 的速度停了下來。求平均法向力（正交力）。（$g=9.81$）",
+    "correctAnswerValue": "3490",
+    "correctUnit": "N",
+    "explanation": "$F_{mat} - mg = m(0-u)/t \\Rightarrow F_{mat} = m(g + u/t) = 70.0 \\times (9.81 + 6.00/0.150) = 70.0 \\times 49.81 \\approx 3490\\text{ N}$。"
+  },
+  {
+    "id": 269,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "如果拋體的水平速度加倍，它在平坦地面上的總飛行時間會如何變化？",
+    "options": [
+      "減半",
+      "加倍",
+      "保持不變",
+      "增至四倍"
+    ],
+    "correct": 2,
+    "explanation": "飛行時間完全取決於垂直運動分量（$t = 2u_y/g$），與水平速度無關。"
+  },
+  {
+    "id": 270,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一個大小為 $40.0\\text{ N}$ 的恆力將一個質量為 $10.0\\text{ kg}$ 的木塊沿著 $30.0\\text{ }^{\\circ}$ 的斜面向上拉引。求其加速度。（$g=9.81$）",
+    "correctAnswerValue": "0.905",
+    "correctUnit": "m s-2",
+    "explanation": "運動方程：$F - mg\\sin\\theta = ma \\Rightarrow a = 40.0/10.0 - 9.81\\sin(30.0^{\\circ}) = 4.00 - 4.905 = -0.905\\text{ m s}^{-2}$（在斜面上向上減速）。"
+  },
+  {
+    "id": 271,
+    "type": "mcq",
+    "category": "波動",
+    "question": "某波的週期為 $0.02\\text{ s}$，波長為 $4\\text{ m}$。求其波速。",
+    "options": [
+      "$0.08\\text{ m s}^{-1}$",
+      "$50\\text{ m s}^{-1}$",
+      "$100\\text{ m s}^{-1}$",
+      "$200\\text{ m s}^{-1}$"
+    ],
+    "correct": 3,
+    "explanation": "頻率 $f = 1/T = 50\\text{ Hz}$。波速 $v = f\\lambda = 50 \\times 4 = 200\\text{ m s}^{-1}$。"
+  },
+  {
+    "id": 272,
+    "type": "short",
+    "category": "波動",
+    "question": "一束光綫由空氣射入水中（$n = 1.33$）。空氣的折射率 $=1.00$。求該界面上的臨界角。",
+    "correctAnswerValue": "48.8",
+    "correctUnit": "oC",
+    "explanation": "臨界角 $c = \\sin^{-1}(1.00/1.33) \\approx 48.8^{\\circ}$。"
+  },
+  {
+    "id": 273,
+    "type": "mcq",
+    "category": "波動",
+    "question": "當聲波發生繞射（衍射）時，會發生以下哪種情況？",
+    "options": [
+      "波長發生改變",
+      "波頻率上升",
+      "波繞過障礙物彎曲前進",
+      "波速增加"
+    ],
+    "correct": 2,
+    "explanation": "繞射（衍射）是指波繞過障礙物彎曲並傳播的現象，在此過程中波速和波長保持不變。"
+  },
+  {
+    "id": 274,
+    "type": "short",
+    "category": "波動",
+    "question": "在楊氏實驗中，綠光的條紋寬度 $w = 2.00\\text{ mm}$。若將屏幕距離 $D$ 減半，求新的條紋寬度。",
+    "correctAnswerValue": "1.00",
+    "correctUnit": "mm",
+    "explanation": "由於 $w = \\lambda D / a$，故 $w \\propto D$。將 $D$ 減半會使條紋寬度減半至 $1.00\\text{ mm}$。"
+  },
+  {
+    "id": 275,
+    "type": "mcq",
+    "category": "波動",
+    "question": "一列橫波在導綫中傳播。相鄰的波峰與波谷之間的程差（路程差）為：",
+    "options": [
+      "$\\lambda/4$",
+      "$\\lambda/2$",
+      "$\\lambda$",
+      "$2\\lambda$"
+    ],
+    "correct": 1,
+    "explanation": "波峰與相鄰的波谷之間的相位差為 $180^{\\circ}$，這代表了 $0.5\\lambda$ 的程差（路程差）。"
+  },
+  {
+    "id": 276,
+    "type": "short",
+    "category": "波動",
+    "question": "某繞射光柵（衍射光柵）的光柵間距 $d = 2.00\\text{ }\\mu\\text{m}$。求波長 $\\lambda = 500\\text{ nm}$ 的光產生的第二級極大角。",
+    "correctAnswerValue": "30.0",
+    "correctUnit": "oC",
+    "explanation": "$d\\sin\\theta = m\\lambda \\Rightarrow 2.00\\times 10^{-6}\\sin\\theta = 2 \\times 500\\times 10^{-9} \\Rightarrow \\sin\\theta = 0.5 \\Rightarrow \\theta = 30.0^{\\circ}$。"
+  },
+  {
+    "id": 277,
+    "type": "mcq",
+    "category": "波動",
+    "question": "靜止的觀測者聽到正在接近的警報器聲音。相對於聲源，觀測者感知到的是：",
+    "options": [
+      "更高的速度",
+      "更低的頻率",
+      "更高的頻率",
+      "更大的波長"
+    ],
+    "correct": 2,
+    "explanation": "由於多普勒效應，接近的聲源會壓縮波陣面（波前），從而使觀測者感知到的頻率增高。"
+  },
+  {
+    "id": 278,
+    "type": "short",
+    "category": "波動",
+    "question": "某聲波從空氣（$v_a = 340$）傳入二氧化碳（$v_c = 260$）中。若頻率為 $680\\text{ Hz}$，求新的波長。",
+    "correctAnswerValue": "0.382",
+    "correctUnit": "m",
+    "explanation": "頻率保持不變：$f = 680\\text{ Hz}$。在二氧化碳中的波長為 $\\lambda = v/f = 260 / 680 \\approx 0.382\\text{ m}$。"
+  },
+  {
+    "id": 279,
+    "type": "mcq",
+    "category": "波動",
+    "question": "偏振濾光片可以阻擋某些波。下列哪種波「不能」被偏振？",
+    "options": [
+      "紅外綫",
+      "聲波",
+      "微波",
+      "X射綫"
+    ],
+    "correct": 1,
+    "explanation": "偏振是僅限於橫波才會發生的現象；而聲波是縱波。"
+  },
+  {
+    "id": 280,
+    "type": "short",
+    "category": "波動",
+    "question": "一根兩端固定的弦以 $40.0\\text{ Hz}$ 的基頻（基音頻率）振動。求其第二諧音（第二諧振）頻率。",
+    "correctAnswerValue": "80.0",
+    "correctUnit": "Hz",
+    "explanation": "受緊繃弦線中的諧音頻率為基頻的整數倍：$f_n = n \\cdot f_1$。因此，$f_2 = 2 \\times 40.0 = 80.0\\text{ Hz}$。"
+  },
+  {
+    "id": 281,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "三個完全相同的電阻器串聯連接，總電阻為 $30\\text{ }\\Omega$。若將它們並聯連接，其總電阻為：",
+    "options": [
+      "$3.33\\text{ }\\Omega$",
+      "$10\\text{ }\\Omega$",
+      "$30\\text{ }\\Omega$",
+      "$90\\text{ }\\Omega$"
+    ],
+    "correct": 0,
+    "explanation": "每個電阻器的電阻為 $R = 10\\text{ }\\Omega$。三個並聯時，$1/R_p = 3/10 \\Rightarrow R_p = 10/3 \\approx 3.33\\text{ }\\Omega$。"
+  },
+  {
+    "id": 282,
+    "type": "short",
+    "category": "電磁學",
+    "question": "一個大小為 $Q = 2.00\\text{ }\\mu\\text{C}$ 的點電荷在電場中受到的作用力為 $0.0500\\text{ N}$。求電場強度。",
+    "correctAnswerValue": "25000",
+    "correctUnit": "N C-1",
+    "explanation": "$E = F/Q = 0.0500 / (2.00 \\times 10^{-6}) = 25000\\text{ N C}^{-1}$。"
+  },
+  {
+    "id": 283,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "下列哪一項定律決定了運動導綫圈中電磁感應的方向？",
+    "options": [
+      "歐姆定律",
+      "楞次定律",
+      "庫侖定律",
+      "牛頓第三定律"
+    ],
+    "correct": 1,
+    "explanation": "楞次定律決定了感應電動勢的方向，該定律指出感應電動勢總是反抗（對抗）磁通量的變化。"
+  },
+  {
+    "id": 284,
+    "type": "short",
+    "category": "電磁學",
+    "question": "某一理想變壓器將 $12.0\\text{ V}$ 的電壓升壓至 $240\\text{ V}$。若副綫圈電流為 $0.150\\text{ A}$，求原綫圈電流。",
+    "correctAnswerValue": "3.00",
+    "correctUnit": "A",
+    "explanation": "$I_p V_p = I_s V_s \\Rightarrow I_p = (0.150 \\times 240) / 12.0 = 3.00\\text{ A}$。"
+  },
+  {
+    "id": 285,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "將一個 $20\\text{ }\\Omega$ 的電阻器連接到 $12\\text{ V}$ 的電池上。求耗散的熱功率。",
+    "options": [
+      "$1.44\\text{ W}$",
+      "$7.2\\text{ W}$",
+      "$14.4\\text{ W}$",
+      "$28.8\\text{ W}$"
+    ],
+    "correct": 1,
+    "explanation": "$P = V^2/R = 12^2 / 20 = 144 / 20 = 7.2\\text{ W}$。"
+  },
+  {
+    "id": 286,
+    "type": "short",
+    "category": "電磁學",
+    "question": "計算在真空中相距 $0.150\\text{ m}$ 的 $2.00\\text{ }\\mu\\text{C}$ 與 $3.00\\text{ }\\mu\\text{C}$ 電荷之間的相互作用力。（$k=8.99\\times 10^9$）",
+    "correctAnswerValue": "2.40",
+    "correctUnit": "N",
+    "explanation": "$F = kq_1q_2/r^2 = (8.99 \\times 10^9 \\times 6.00 \\times 10^{-12}) / 0.150^2 = 0.05394 / 0.0225 \\approx 2.40\\text{ N}$。"
+  },
+  {
+    "id": 287,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "一根長度為 $L$ 的金屬棒以速度 $v$ 與磁場垂直的方向運動。其感應電勢差為：",
+    "options": [
+      "$B/vL$",
+      "$BL/v$",
+      "$BLv$",
+      "$Bv/L$"
+    ],
+    "correct": 2,
+    "explanation": "導體垂直切割磁力綫運動時產生的感應電動勢由公式 $V = BLv$ 給出。"
+  },
+  {
+    "id": 288,
+    "type": "short",
+    "category": "電磁學",
+    "question": "一根直導綫載有 $8.00\\text{ A}$ 的電流水平向北流動。求在該導綫正上方垂直距離 $0.0400\\text{ m}$ 處的磁場。",
+    "correctAnswerValue": "4.00e-5",
+    "correctUnit": "T",
+    "explanation": "$B = \\mu_0 I / (2\\pi r) = (4\\pi \\times 10^{-7} \\times 8.00) / (2\\pi \\times 0.0400) = 4.00 \\times 10^{-5}\\text{ T}$。"
+  },
+  {
+    "id": 289,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "如果銅綫的橫截面半徑加倍，其電阻會減小到原來的幾分之幾？",
+    "options": [
+      "$2$",
+      "$4$",
+      "$8$",
+      "$16$"
+    ],
+    "correct": 1,
+    "explanation": "$R = \\rho L/A = \\rho L/(\\pi r^2)$。半徑 $r$ 加倍會使橫截面積增至四倍，從而使電阻 $R$ 減小到原來的四分之一（減小因子為 4）。"
+  },
+  {
+    "id": 290,
+    "type": "short",
+    "category": "電磁學",
+    "question": "某電器在 $220\\text{ V}$ 電壓下工作 $8.00\\text{ 小時}$，消耗了 $4.40\\text{ kW h}$（度）的能量。求通過的電流。",
+    "correctAnswerValue": "2.50",
+    "correctUnit": "A",
+    "explanation": "功率 $P = 4.40\\text{ kW h} / 8.00\\text{ h} = 0.550\\text{ kW} = 550\\text{ W}$。電流 $I = P/V = 550 / 220 = 2.50\\text{ A}$。"
+  },
+  {
+    "id": 291,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "某放射性原子核發射出一個負 beta 粒子（$\beta^-$ 粒子）。其質子數 $Z$ 和質量數 $A$ 會如何變化？",
+    "options": [
+      "$Z$ 增加 1，$A$ 保持不變",
+      "$Z$ 減少 1，$A$ 保持不變",
+      "$Z$ 保持不變，$A$ 減少 1",
+      "兩者皆保持不變"
+    ],
+    "correct": 0,
+    "explanation": "負 beta 衰變會將一個中子轉化為質子，使質子數 $Z$ 增加 1，而質量數保持不變。"
+  },
+  {
+    "id": 292,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "某一反應的質量虧損為 $1.20 \\times 10^{-29}\\text{ kg}$。求釋放出的能量（以焦耳為單位）。",
+    "correctAnswerValue": "1.08e-12",
+    "correctUnit": "J",
+    "explanation": "$E = \\Delta m c^2 = (1.20 \\times 10^{-29}) \\times (3.00 \\times 10^8)^2 = 1.08 \\times 10^{-12}\\text{ J}$。"
+  },
+  {
+    "id": 293,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "某放射性同位素的半衰期為 $10\\text{ 天}$。在 $30\\text{ 天}$ 後，初始樣本中已衰變的分數是多少？",
+    "options": [
+      "$1/8$",
+      "$1/4$",
+      "$3/4$",
+      "$7/8$"
+    ],
+    "correct": 3,
+    "explanation": "$n = 30/10 = 3$ 個半衰期。剩餘的分數 $= 1/8$，因此已衰變的分數 $= 1 - 1/8 = 7/8$。"
+  },
+  {
+    "id": 294,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "某 alpha 放射源的初始放射活度為 $1000\\text{ Bq}$。在 $18.0\\text{ s}$ 後，放射活度變為 $125\\text{ Bq}$。求其半衰期。",
+    "correctAnswerValue": "6.00",
+    "correctUnit": "s",
+    "explanation": "$1000/125 = 8 = 2^3$，這意味著剛好經歷了 3 個半衰期。半衰期 $= 18.0 / 3 = 6.00\\text{ s}$。"
+  },
+  {
+    "id": 295,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "關於三種輻射的靜電電離能力（電離本領），下列哪項是正確的？",
+    "options": [
+      "Alpha > Beta > Gamma",
+      "Gamma > Beta > Alpha",
+      "Beta > Alpha > Gamma",
+      "Alpha > Gamma > Beta"
+    ],
+    "correct": 0,
+    "explanation": "Alpha 粒子擁有最大的電荷量（$+2e$）和質量，與 beta 和 gamma 相比，其電離能力（電離本領）極強。"
+  },
+  {
+    "id": 296,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "不穩定同位素碳-14（$^{14}_{6}\\text{C}$）的原子核中含有多少個質子？",
+    "correctAnswerValue": "6.00",
+    "correctUnit": "protons",
+    "explanation": "下方的原子序數為 6，這表示碳原子核內部的質子數。"
+  },
+  {
+    "id": 297,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "在核聚變中，需要下列哪種條件來克服原子核之間的靜電排斥力？",
+    "options": [
+      "超低壓強",
+      "極高的溫度",
+      "強磁力減速劑",
+      "重中子源"
+    ],
+    "correct": 1,
+    "explanation": "熱能必須高達極限（數百萬開爾文），才能克服庫侖勢壘並讓原子核接近。"
+  },
+  {
+    "id": 298,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "環境本底的經校正計數率為 $15.0\\text{ cpm}$（每分鐘計數）。錄得的總計數率為 $95.0\\text{ cpm}$。求樣本的經校正計數率。",
+    "correctAnswerValue": "80.0",
+    "correctUnit": "cpm",
+    "explanation": "經校正計數率 = 測量計數率 - 本底計數率 = 95.0 - 15.0 = 80.0 cpm。"
+  },
+  {
+    "id": 299,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "哪種元素通常在商業核裂變反應堆中被用作固體燃料？",
+    "options": [
+      "碳-12",
+      "鈾-235",
+      "氡-222",
+      "氫-1"
+    ],
+    "correct": 1,
+    "explanation": "鈾-235 是大多數商業熱核裂變發電廠中使用的主要易裂變燃料。"
+  },
+  {
+    "id": 300,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "完成方程：$^{14}_{7}\\text{N} + ^{4}_{2}\\text{He} \\rightarrow ^{17}_{8}\\text{O} + X$。求 $X$ 的原子序數。",
+    "correctAnswerValue": "1.00",
+    "correctUnit": "protons",
+    "explanation": "根據電荷守恆定律：$7 + 2 = 8 + Z_x \\Rightarrow Z_x = 1$。因此該粒子為質子（$^{1}_{1}\\text{H}$）。"
+  },
+  {
+    "id": 301,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "一個 $60\\text{ W}$ 的電加熱器為 $0.5\\text{ kg}$ 的油加熱。若油在 $400\\text{ s}$ 內溫度上升了 $12\\text{ K}$，求油的比熱容量。",
+    "options": [
+      "$4.0 \\times 10^2\\text{ J kg}^{-1}\\text{ K}^{-1}$",
+      "$2.0 \\times 10^3\\text{ J kg}^{-1}\\text{ K}^{-1}$",
+      "$4.0 \\times 10^3\\text{ J kg}^{-1}\\text{ K}^{-1}$",
+      "$8.0 \\times 10^3\\text{ J kg}^{-1}\\text{ K}^{-1}$"
+    ],
+    "correct": 1,
+    "explanation": "利用公式 $Pt = mc\\Delta T$，比熱容量 $c = Pt / (m\\Delta T) = (60 \\times 400) / (0.5 \\times 12) = 4000\\text{ J kg}^{-1}\\text{ K}^{-1}$。"
+  },
+  {
+    "id": 302,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "某氣體在等容（體積不變）狀態下，於 $27.0\\text{ }^{\\circ}\\text{C}$ 時的壓強為 $1.00 \\times 10^5\\text{ Pa}$。求該氣體在 $127\\text{ }^{\\circ}\\text{C}$ 時的壓強。",
+    "correctAnswerValue": "1.33e5",
+    "correctUnit": "Pa",
+    "explanation": "根據壓強定律：$P_1/T_1 = P_2/T_2 \\Rightarrow P_2 = 1.00\\times 10^5 \\times (400 / 300) \\approx 1.33 \\times 10^5\\text{ Pa}$。"
+  },
+  {
+    "id": 303,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "若固定質量的氣體其體積減半，且絕對溫度加倍，則新的壓強是初始壓強的多少倍？",
+    "options": [
+      "$1$",
+      "$2$",
+      "$4$",
+      "$8$"
+    ],
+    "correct": 2,
+    "explanation": "$PV/T = C \\Rightarrow P_2 = P_1 (V_1/V_2) (T_2/T_1) = P_1 \\times 2 \\times 2 = 4P_1$。"
+  },
+  {
+    "id": 304,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "將 $1.50\\text{ kg}$ 的水從 $20.0\\text{ }^{\\circ}\\text{C}$ 加熱到沸點需要多少能量？（$c=4200$）",
+    "correctAnswerValue": "504",
+    "correctUnit": "kJ",
+    "explanation": "$Q = mc\\Delta T = 1.50 \\times 4200 \\times 80.0 = 504000\\text{ J} = 504\\text{ kJ}$。"
+  },
+  {
+    "id": 305,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "固體在恆溫熔化過程中，固體所吸收的能量主要用於：",
+    "options": [
+      "增加分子的動能",
+      "克服分子之間的勢能鍵（交互作用鍵）",
+      "減小自由分子的速度",
+      "對周圍器壁產生壓強"
+    ],
+    "correct": 1,
+    "explanation": "熔化是在恆溫（動能不變）下發生的，因此能量被用於破壞分子間的鍵結（交互作用鍵）。"
+  },
+  {
+    "id": 306,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "計算在壓強為 $1.00\\times 10^5\\text{ Pa}$ 且密度為 $1.20\\text{ kg m}^{-3}$ 的氣體分子均方根速率。",
+    "correctAnswerValue": "500",
+    "correctUnit": "m s-1",
+    "explanation": "利用公式 $P = 1/3 \\rho v_{rms}^2$，可得 $v_{rms} = \\sqrt{3P/\\rho} = \\sqrt{3 \\times 10^5 / 1.20} = 500\\text{ m s}^{-1}$。"
+  },
+  {
+    "id": 307,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "下列哪一個過程「不涉及」流體介質的整體流動（集體流動）？",
+    "options": [
+      "傳導",
+      "對流",
+      "陸風",
+      "暖洋流"
+    ],
+    "correct": 0,
+    "explanation": "傳導是熱量通過分子的振動和碰撞進行傳遞的過程，並不涉及物質整體的物理搬運（流動）。"
+  },
+  {
+    "id": 308,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "$0.0500\\text{ kg}$、 $100\\text{ }^{\\circ}\\text{C}$ 的水蒸氣凝聚成同溫度的沸水。求釋放的熱量。（$L_v=2.26\\times 10^6$）",
+    "correctAnswerValue": "113",
+    "correctUnit": "kJ",
+    "explanation": "$Q = mL_v = 0.0500 \\times 2.26\\times 10^6 = 113000\\text{ J} = 113\\text{ kJ}$。"
+  },
+  {
+    "id": 309,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "在什麼理論條件下，理想氣體的體積被假設為零？",
+    "options": [
+      "$-273.15\\text{ }^{\\circ}\\text{C}$",
+      "$0\\text{ }^{\\circ}\\text{C}$",
+      "$100\\text{ }^{\\circ}\\text{C}$",
+      "$-459.67\\text{ }^{\\circ}\\text{C}$"
+    ],
+    "correct": 0,
+    "explanation": "絕對零度（$0\\text{ K} = -273.15\\text{ }^{\\circ}\\text{C}$）是理想氣體體積為零的理論極限。"
+  },
+  {
+    "id": 310,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "求在 $300\\text{ K}$ 下，儲存於 $0.0300\\text{ m}^3$ 氣缸內的 $1.50\\text{ 摩爾}$ 氣體的壓強。",
+    "correctAnswerValue": "1.25e5",
+    "correctUnit": "Pa",
+    "explanation": "利用公式 $PV = nRT \\Rightarrow P = nRT/V = (1.50 \\times 8.31 \\times 300) / 0.0300 = 124650 \\approx 1.25 \\times 10^5\\text{ Pa}$。"
+  },
+  {
+    "id": 311,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一顆石頭從懸崖下落。在剛好經歷了 $4\\text{ s}$ 後，它的位移是多少？（$g=9.81\\text{ m s}^{-2}$）",
+    "options": [
+      "$19.6\\text{ m}$",
+      "$39.2\\text{ m}$",
+      "$78.5\\text{ m}$",
+      "$157\\text{ m}$"
+    ],
+    "correct": 2,
+    "explanation": "$s = ut + 0.5 gt^2 = 0 + 0.5 \\times 9.81 \\times 16 = 78.48 \\approx 78.5\\text{ m}$。"
+  },
+  {
+    "id": 312,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一個恆力 $F = 25.0\\text{ N}$ 作用於一個初始靜止、質量為 $5.00\\text{ kg}$ 的木塊上，歷時 $3.00\\text{ s}$。求其最終動量。",
+    "correctAnswerValue": "75.0",
+    "correctUnit": "kg m s-1",
+    "explanation": "衝量 $J = F \\cdot t = 25.0 \\times 3.00 = 75.0\\text{ N s} = \\Delta p$。因此最終動量為 $75.0\\text{ kg m s}^{-1}$。"
+  },
+  {
+    "id": 313,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一拋體以 $15\\text{ m s}^{-1}$ 的速度水平拋出。求其在 $2\\text{ s}$ 後的水平位移。",
+    "options": [
+      "$7.5\\text{ m}$",
+      "$15\\text{ m}$",
+      "$30\\text{ m}$",
+      "$60\\text{ m}$"
+    ],
+    "correct": 2,
+    "explanation": "水平運動為勻速（等速）運動，因此水平位移為 $s_x = v_x \\cdot t = 15 \\times 2 = 30\\text{ m}$。"
+  },
+  {
+    "id": 314,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一輛 $1500\\text{ kg}$ 的汽車以 $12.0\\text{ m s}^{-1}$ 的速度繞行半徑為 $80.0\\text{ m}$ 的圓形彎道。求向心力。",
+    "correctAnswerValue": "2700",
+    "correctUnit": "N",
+    "explanation": "$F_c = mv^2 / r = 1500 \\times 12.0^2 / 80.0 = 1500 \\times 1.8 = 2700\\text{ N}$。"
+  },
+  {
+    "id": 315,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一個質量為 $m$ 的木塊沿著粗糙斜面以勻速（等速）下滑。該木塊所受的淨力（合力）是多少？",
+    "options": [
+      "$mg$",
+      "$mg \\sin\\theta$",
+      "$mg \\cos\\theta$",
+      "零"
+    ],
+    "correct": 3,
+    "explanation": "由於速度恆定，加速度為零。根據牛頓第一定律，淨力（合力）必須為零。"
+  },
+  {
+    "id": 316,
+    "type": "short",
+    "category": "力和運動",
+    "question": "起重機以 $2.50\\text{ m s}^{-1}$ 的勻速（等速）垂直吊起 $300\\text{ kg}$ 的負載。求其有用輸出功率。（$g=9.81$）",
+    "correctAnswerValue": "7.36",
+    "correctUnit": "kW",
+    "explanation": "$P = Fv = mgv = 300 \\times 9.81 \\times 2.50 = 7357.5\\text{ W} \\approx 7.36\\text{ kW}$。"
+  },
+  {
+    "id": 317,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一個以 $10\\text{ m s}^{-1}$ 運動的 $2\\text{ kg}$ 木塊發生迎頭碰撞，並以 $5\\text{ m s}^{-1}$ 的速度反彈。求所損失的彈性動能。",
+    "options": [
+      "沒有損失",
+      "$25\\text{ J}$",
+      "$75\\text{ J}$",
+      "$100\\text{ J}$"
+    ],
+    "correct": 2,
+    "explanation": "$KE_1 = 0.5 \\times 2 \\times 100 = 100\\text{ J}$。$KE_2 = 0.5 \\times 2 \\times 25 = 25\\text{ J}$。損失的動能 $= 100 - 25 = 75\\text{ J}$。"
+  },
+  {
+    "id": 318,
+    "type": "short",
+    "category": "力和運動",
+    "question": "某一彈簧的彈簧常數（彈性係數）為 $250\\text{ N m}^{-1}$。若要儲存 $5.00\\text{ J}$ 的彈性勢能，需要多少伸長量？",
+    "correctAnswerValue": "0.200",
+    "correctUnit": "m",
+    "explanation": "$E = 0.5 k x^2 \\Rightarrow 5.00 = 125 x^2 \\Rightarrow x^2 = 0.0400 \\Rightarrow x = 0.200\\text{ m}$。"
+  },
+  {
+    "id": 319,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "進行勻速圓周運動（等速圓周運動）的物體一直在經歷加速度。這是因為下列哪項發生了變化？",
+    "options": [
+      "角大小",
+      "僅速度（速率）",
+      "速度的方向",
+      "向心大小"
+    ],
+    "correct": 2,
+    "explanation": "速度是一個向量。在圓周運動中速率保持恆定，意味著其方向在不斷改變，從而產生非零的加速度。"
+  },
+  {
+    "id": 320,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一個 $8.00\\text{ kg}$ 的木塊放置在斜面上（$\\\\sin\\\\theta = 0.600$）。求沿斜面向下的重力分力。（$g=9.81$）",
+    "correctAnswerValue": "47.1",
+    "correctUnit": "N",
+    "explanation": "$F_{parallel} = mg\\sin\\theta = 8.00 \\times 9.81 \\times 0.600 = 47.088 \\approx 47.1\\text{ N}$。"
+  },
+{
+  "id": 321,
+  "type": "mcq",
+  "category": "波動",
+  "question": "一列駐波在兩端固定的受拉弦綫上形成。下列哪些敘述是正確的？\n(1) 弦綫上所有振動的質點皆以相同的頻率振動。\n(2) 位於兩個相鄰波節之間的所有質點皆同相振動。\n(3) 波節是具有最大位移的位置。",
+  "options": [
+    "只有 (1)",
+    "只有 (2)",
+    "只有 (1) 和 (2)",
+    "(1)、(2) 和 (3)"
+  ],
+  "correct": 2,
+  "explanation": "敘述 (1) 正確，因為駐波的所有部分皆以相同的頻率一同振盪。敘述 (2) 正確，因為位於單個波腹（即兩個相鄰波節之間的區域）內的所有質點會同時達到其位移極值並同時通過其平衡位置，這意味著它們處於同相狀態。敘述 (3) 錯誤，因為波節是零位移的點（永久保持靜止）。"
+},
+  {
+    "id": 322,
+    "type": "short",
+    "category": "波動",
+    "question": "聲音在空氣中的速度為 $340\\text{ m s}^{-1}$。求在 $170\\text{ Hz}$ 下相鄰波節與波腹之間的距離。",
+    "correctAnswerValue": "0.500",
+    "correctUnit": "m",
+    "explanation": "$\\lambda = v/f = 340/170 = 2.00\\text{ m}$。相鄰波節與波腹之間的距離為 $\\lambda/4 = 0.500\\text{ m}$。"
+  },
+  {
+    "id": 323,
+    "type": "mcq",
+    "category": "波動",
+    "question": "下列哪項描述了光綫從光密介質進入光疏介質時的行為？",
+    "options": [
+      "偏向法綫折射",
+      "偏離法綫折射",
+      "速度減小",
+      "臨界角減小"
+    ],
+    "correct": 1,
+    "explanation": "當光綫進入光疏介質時，其速度會增加，且會偏離法綫折射。"
+  },
+  {
+    "id": 324,
+    "type": "short",
+    "category": "波動",
+    "question": "在空氣中波長為 $650\\text{ nm}$ 的紅光，求其在水（$n = 1.33$）中的等效波長。",
+    "correctAnswerValue": "489",
+    "correctUnit": "nm",
+    "explanation": "介質中的波長為 $\\lambda_m = \\lambda_0 / n = 650 / 1.33 \\approx 488.7 \\approx 489\\text{ nm}$。"
+  },
+  {
+    "id": 325,
+    "type": "mcq",
+    "category": "波動",
+    "question": "在楊氏雙縫實驗中，若雙縫間距 $a$ 減半，條紋寬度 $w$ 將會：",
+    "options": [
+      "減半",
+      "加倍",
+      "保持不變",
+      "增至四倍"
+    ],
+    "correct": 1,
+    "explanation": "由於 $w = \\lambda D / a$，條紋寬度與 $a$ 成反比。將 $a$ 減半會使 $w$ 加倍。"
+  },
+  {
+    "id": 326,
+    "type": "short",
+    "category": "波動",
+    "question": "聲級計量得某聲音的聲級（聲強度級）為 $80.0\\text{ dB}$。求該聲音的聲強度。（$I_0=1.00\\times 10^{-12}$）",
+    "correctAnswerValue": "1.00e-4",
+    "correctUnit": "W m-2",
+    "explanation": "$80.0 = 10 \\log_{10}(I / 10^{-12}) \\Rightarrow 8 = \\log_{10}(I / 10^{-12}) \\Rightarrow I = 1.00 \\times 10^{-4}\\text{ W m}^{-2}$。"
+  },
+  {
+    "id": 327,
+    "type": "mcq",
+    "category": "波動",
+    "question": "哪種電磁波被廣泛應用於雷達通訊和蜂窩數據網絡（流動數據網絡）？",
+    "options": [
+      "紅外綫",
+      "微波",
+      "紫外線",
+      "X射綫"
+    ],
+    "correct": 1,
+    "explanation": "微波非常適合用於點對點衛星通訊、雷達系統以及蜂窩（流動）網絡。"
+  },
+  {
+    "id": 328,
+    "type": "short",
+    "category": "波動",
+    "question": "某繞射光柵（衍射光柵）的光柵間距 $d = 1.67\\text{ }\\mu\\text{m}$。求波長 $\\lambda = 600\\text{ nm}$ 的光可能產生的最大級數。",
+    "correctAnswerValue": "2.00",
+    "correctUnit": "order",
+    "explanation": "$m_{max} = d / \\lambda = 1.67\\times 10^{-6} / (600\\times 10^{-9}) \\approx 2.78$。最大的整數級數為 $2$。"
+  },
+  {
+    "id": 329,
+    "type": "mcq",
+    "category": "波動",
+    "question": "哪種波的現象描述了兩列相干波列重疊，從而形成加強區和減弱（消減）區的現象？",
+    "options": [
+      "折射",
+      "偏振",
+      "干涉",
+      "色散"
+    ],
+    "correct": 2,
+    "explanation": "干涉是指重疊的相干波相結合，從而產生相長（建設性）或相消（破壞性）圖樣的現象。"
+  },
+  {
+  "id": 330,
+  "type": "short",
+  "category": "波動",
+  "question": "某一閉口風琴管的長度為 $0.500\\text{ m}$。若聲音在空氣中的速度為 $340\\text{ m s}^{-1}$，求該管的基頻。",
+  "correctAnswerValue": "170",
+  "correctUnit": "Hz",
+  "explanation": "對於閉管的基頻諧振模式（基音模式），管長對應於四分之一波長：$L = \\frac{\\lambda}{4} \\Rightarrow \\lambda = 4L = 4 \\times 0.500 = 2.00\\text{ m}$。利用波動方程 $v = f\\lambda$，可求得基頻為：$f = \\frac{v}{\\lambda} = \\frac{340}{2.00} = 170\\text{ Hz}$。"
+},
+  {
+    "id": 331,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "將一個圓形導綫圈放置在勻強磁場中。當發生以下哪種情況時，綫圈中會產生感應電動勢？",
+    "options": [
+      "綫圈的形狀發生扭曲（形變）",
+      "綫圈以恆定速度平行於磁場方向運動",
+      "綫圈在恆定磁場中保持靜止",
+      "綫圈平行於磁力綫方向旋轉"
+    ],
+    "correct": 0,
+    "explanation": "使綫圈形狀扭曲（形變）會改變其橫截面積，從而改變磁通量聯動（磁通匝數），進而感應出電動勢。"
+  },
+  {
+    "id": 332,
+    "type": "short",
+    "category": "電磁學",
+    "question": "某電池的電動勢為 $12.0\\text{ V}$，內阻為 $1.00\\text{ }\\Omega$。若連接到一個 $5.00\\text{ }\\Omega$ 的外電阻上，求路端電壓（端電壓）。",
+    "correctAnswerValue": "10.0",
+    "correctUnit": "V",
+    "explanation": "$I = E / (R+r) = 12.0 / 6.00 = 2.00\\text{ A}$。路端電壓（端電壓） $V = I R = 2.00 \\times 5.00 = 10.0\\text{ V}$。"
+  },
+  {
+    "id": 333,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "兩個電荷量分別為 $+2\\text{ nC}$ 和 $-6\\text{ nC}$ 的帶電體互相接觸後再分開。求每個帶電體最終的電荷量。",
+    "options": [
+      "$-2\\text{ nC}$",
+      "$-4\\text{ nC}$",
+      "$-6\\text{ nC}$",
+      "$-8\\text{ nC}$"
+    ],
+    "correct": 0,
+    "explanation": "總電荷量為 $+2 - 6 = -4\\text{ nC}$。分開時，它們會平分電荷，因此每個帶電體各有 $-2\\text{ nC}$。"
+  },
+  {
+    "id": 334,
+    "type": "short",
+    "category": "電磁學",
+    "question": "一個圈數為 $500\\text{ 圈}$ 的螺綫管，其長度為 $0.200\\text{ m}$ 且通有 $4.00\\text{ A}$ 的電流。求其中心處的磁場。（$\\mu_0=4\\pi\\times 10^{-7}$）",
+    "correctAnswerValue": "0.0126",
+    "correctUnit": "T",
+    "explanation": "$B = \\mu_0 n I = \\mu_0 (N/L) I = (4\\pi \\times 10^{-7} \\times 500 \\times 4.00) / 0.200 \\approx 0.01256 \\approx 0.0126\\text{ T}$。"
+  },
+  {
+    "id": 335,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "將一根載流直導綫水平放置在垂直向下的磁場中。該導綫所受的磁場力（作用力）方向為：",
+    "options": [
+      "垂直向上",
+      "垂直向下",
+      "水平且垂直於導綫",
+      "零受力"
+    ],
+    "correct": 2,
+    "explanation": "根據弗萊明左手定則（佛萊明左手定則），磁場力的方向與電流方向及磁場方向皆互相垂直。"
+  },
+  {
+    "id": 336,
+    "type": "short",
+    "category": "電磁學",
+    "question": "某一理想變壓器的原綫圈圈數為 $800$，副綫圈圈數為 $200$。若副綫圈的功率為 $120\\text{ W}$，求原綫圈的功率。",
+    "correctAnswerValue": "120",
+    "correctUnit": "W",
+    "explanation": "對於理想變壓器而言，輸出功率是完全守恆的，這意味著原綫圈（初級）功率等於副綫圈（次級）功率。"
+  },
+  {
+    "id": 337,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "下列哪一種安全元件會在電流過大時切斷（斷開）電路？",
+    "options": [
+      "地綫",
+      "斷路器",
+      "伏特計",
+      "變壓器鐵芯"
+    ],
+    "correct": 1,
+    "explanation": "斷路器（或保險絲）的設計旨在當電流超過安全閾值時中斷電流流通。"
+  },
+  {
+    "id": 338,
+    "type": "short",
+    "category": "電磁學",
+    "question": "兩個電荷（$q_1 = 4.00\\text{ }\\mu\\text{C}$ 且 $q_2 = 1.00\\text{ }\\mu\\text{C}$）相距 $0.200\\text{ m}$。求它們之間的靜電力。",
+    "correctAnswerValue": "0.899",
+    "correctUnit": "N",
+    "explanation": "$F = kq_1q_2/r^2 = (8.99 \\times 10^9 \\times 4.00 \\times 10^{-12}) / 0.0400 = 0.899\\text{ N}$。"
+  },
+  {
+    "id": 339,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "在指向左方的磁場中，一個 alpha 粒子朝向紙面外運動。其受力方向為何？",
+    "options": [
+      "向上",
+      "向下",
+      "向右",
+      "進入紙面"
+    ],
+    "correct": 0,
+    "explanation": "應用弗萊明左手定則（佛萊明左手定則，磁場向左，電流向紙外）：初始磁場力方向指向正上方。"
+  },
+  {
+    "id": 340,
+    "type": "short",
+    "category": "電磁學",
+    "question": "某電焗爐（電烤箱）在 $220\\text{ V}$ 的供電下消耗 $3300\\text{ W}$ 的功率。求該焗爐的電阻。",
+    "correctAnswerValue": "14.7",
+    "correctUnit": "ohm",
+    "explanation": "$P = V^2 / R \\Rightarrow R = V^2 / P = 220^2 / 3300 = 48400 / 3300 \\approx 14.7\\text{ }\\Omega$。"
+  },
+  {
+    "id": 341,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "下列哪項分別正確代表了 alpha、beta 和 gamma 的相對質量？",
+    "options": [
+      "$4, 1/1840, 0$",
+      "$2, 1, 0$",
+      "$4, 2, 0$",
+      "$1, 1/1840, 0$"
+    ],
+    "correct": 0,
+    "explanation": "Alpha 粒子是氦原子核（質量 $\\approx 4\\text{ u}$），beta 粒子是電子（質量 $\\approx 1/1840\\text{ u}$），而 gamma 是光子（質量為零）。"
+  },
+  {
+    "id": 342,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "某放射性樣本的初始放射活度為 $500\\text{ Bq}$。若半衰期 $= 4.00\\text{ 天}$，求 $16.0\\text{ 天}$ 後的放射活度。",
+    "correctAnswerValue": "31.3",
+    "correctUnit": "Bq",
+    "explanation": "$n = 16.0/4.00 = 4$ 個半衰期。放射活度 $= 500 / 2^4 = 500 / 16 \\approx 31.3\\text{ Bq}$。"
+  },
+  {
+    "id": 343,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "在鈾-235 的核裂變中，是甚麼觸發了裂變過程？",
+    "options": [
+      "吸收了一個 alpha 粒子",
+      "吸收了一個熱中子（慢中子）",
+      "高能 gamma 光子的轟擊",
+      "庫侖核加熱"
+    ],
+    "correct": 1,
+    "explanation": "當 鈾-235 吸收了一個慢熱中子並變成不穩定的 鈾-236 時，便會引發核裂變。"
+  },
+  {
+    "id": 344,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "某反應堆芯釋放了 $9.00 \\times 10^{13}\\text{ J}$ 的能量。求其質量虧損（以克為單位）。",
+    "correctAnswerValue": "1.00",
+    "correctUnit": "g",
+    "explanation": "利用公式 $E = \\Delta m c^2 \\Rightarrow \\Delta m = E/c^2 = 9.00 \\times 10^{13} / (3.00 \\times 10^8)^2 = 1.00 \\times 10^{-3}\\text{ kg} = 1.00\\text{ g}$。"
+  },
+  {
+    "id": 345,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "某放射性樣本顯示其錄得的計數率為 $180\\text{ cpm}$（每分鐘計數），其中包含了 $30\\text{ cpm}$ 的環境本底計數率。求經校正計數率。",
+    "options": [
+      "$30\\text{ cpm}$",
+      "$150\\text{ cpm}$",
+      "$180\\text{ cpm}$",
+      "$210\\text{ cpm}$"
+    ],
+    "correct": 1,
+    "explanation": "經校正計數率 = 錄得計數率 - 本底計數率 = 180 - 30 = 150 cpm。"
+  },
+  {
+    "id": 346,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "子核 $^{210}_{84}\\text{Po}$ 是由哪種母核經 alpha 衰變後形成的？",
+    "correctAnswerValue": "214",
+    "correctUnit": "parent-mass",
+    "explanation": "Alpha 衰變會使質量數 $A$ 減少 4，原子序數 $Z$ 減少 2。因此母核的質量數必須為 $210+4 = 214$（即 $^{214}_{86}\\text{Rn}$）。"
+  },
+  {
+    "id": 347,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "在所有核衰變方程中，下列哪些物理量是守恆的？",
+    "options": [
+      "僅質量數",
+      "僅質子數",
+      "質量數與質子數皆守恆",
+      "質量數與質子數皆不守恆"
+    ],
+    "correct": 2,
+    "explanation": "在任何有效的核反應方程中，質子數（原子序數） $Z$ 的總和與質量數 $A$ 的總和皆保持守恆。"
+  },
+  {
+    "id": 348,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "某放射性樣本以衰變常數 $\\lambda = 0.0500\\text{ s}^{-1}$ 進行衰變。求其半衰期。",
+    "correctAnswerValue": "13.9",
+    "correctUnit": "s",
+    "explanation": "$t_{1/2} = \\ln(2) / \\lambda = 0.69315 / 0.0500 \\approx 13.9\\text{ s}$。"
+  },
+  {
+    "id": 349,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "核反應堆中的慢化劑（減速劑）必須由輕元素製成，這是因為：",
+    "options": [
+      "它們能高效地吸收中子",
+      "它們能引發彈性反衝從而使中子減速",
+      "它們能充當輻射屏蔽罩",
+      "它們在反應堆芯溫度下仍能保持固態"
+    ],
+    "correct": 1,
+    "explanation": "輕原子核（例如水中的氫或碳）能夠通過動能彈性碰撞使中子減速，且不會吸收中子。"
+  },
+  {
+    "id": 350,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "某放射性同位素的半衰期為 $5.00\\text{ s}$。若要使樣本減少 $99.0\\%$，需要多少個半衰期？",
+    "correctAnswerValue": "7.00",
+    "correctUnit": "half-lives",
+    "explanation": "剩餘的分數應 $< 1\\% = 0.01$。由於 $(1/2)^6 = 0.0156$，而 $(1/2)^7 = 0.0078$。因此，需要 $7$ 個半衰期。"
+  },
+{
+    "id": 351,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "將質量為 $0.5\\text{ kg}$ 且處於 $20\\text{ }^{\\circ}\\text{C}$ 的水加熱至 $80\\text{ }^{\\circ}\\text{C}$。求所需的能量。（$c=4200\\text{ J kg}^{-1}\\text{ K}^{-1}$）",
+    "options": [
+      "$1.26 \\times 10^4\\text{ J}$",
+      "$1.26 \\times 10^5\\text{ J}$",
+      "$2.52 \\times 10^5\\text{ J}$",
+      "$1.26 \\times 10^6\\text{ J}$"
+    ],
+    "correct": 1,
+    "explanation": "$Q = mc\\Delta T = 0.5 \\times 4200 \\times 60 = 126000\\text{ J} = 1.26 \\times 10^5\\text{ J}$。"
+  },
+  {
+    "id": 352,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "一個 $2.00\\text{ kW}$ 的電加熱器將 $100\\text{ }^{\\circ}\\text{C}$ 的沸水汽化為水蒸氣。求在 $452\\text{ s}$ 內汽化的水的質量。（$L_v=2.26\\times 10^6$）",
+    "correctAnswerValue": "0.400",
+    "correctUnit": "kg",
+    "explanation": "$Pt = mL_v \\Rightarrow m = (2000 \\times 452) / (2.26\\times 10^6) = 904000 / 2260000 = 0.400\\text{ kg}$。"
+  },
+  {
+    "id": 353,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "若氣體分子的絕對溫度增至三倍，則最終與初始的均方根速率之比是多少？",
+    "options": [
+      "$\\sqrt{3}$",
+      "$3$",
+      "$9$",
+      "$1/3$"
+    ],
+    "correct": 0,
+    "explanation": "速率 $v_{rms} \\propto \\sqrt{T}$，因此當 $T$ 增至三倍時，均方根速率會增加至原來的 $\\sqrt{3}$ 倍。"
+  },
+  {
+    "id": 354,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "某一理想氣體在 $300\\text{ K}$ 時佔有 $4.00\\text{ L}$ 的體積。若在等壓下將其加熱至 $450\\text{ K}$，求其新的體積。",
+    "correctAnswerValue": "6.00",
+    "correctUnit": "L",
+    "explanation": "根據查理定律：$V_1/T_1 = V_2/T_2 \\Rightarrow V_2 = 4.00 \\times (450/300) = 6.00\\text{ L}$。"
+  },
+  {
+    "id": 355,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "當固體 A 與固體 B 處於熱平衡狀態時，下列哪項物理量必須相同？",
+    "options": [
+      "比熱容量",
+      "總熱能",
+      "平均分子動能",
+      "狀態密度"
+    ],
+    "correct": 2,
+    "explanation": "熱平衡意味著兩者溫度相同，而溫度即代表相同的平均分子動能。"
+  },
+  {
+    "id": 356,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "氣缸內被困空氣的初始壓強為 $1.00 \\times 10^5\\text{ Pa}$，若在恆溫下將其體積壓縮至原來的 $1/4$，求其新的壓強。",
+    "correctAnswerValue": "4.00e5",
+    "correctUnit": "Pa",
+    "explanation": "根據波意耳定律：$P_1V_1 = P_2V_2 \\Rightarrow P_2 = 1.00\\times 10^5 \\times 4 = 4.00 \\times 10^5\\text{ Pa}$。"
+  },
+  {
+    "id": 357,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "為甚麼水的汽化潛熱顯著大於熔化潛熱？",
+    "options": [
+      "液體的密度較低",
+      "汽化需要將分子完全分離",
+      "熔化會破壞分子內的共價鍵",
+      "冰具有較大的比熱容量"
+    ],
+    "correct": 1,
+    "explanation": "汽化過程必須克服所有的分子間引力以將分子完全分離，因此與熔化相比，汽化需要作更多的功。"
+  },
+  {
+    "id": 358,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "求 $2.00\\text{ 摩爾}$ 的理想氣體在壓強為 $2.00 \\times 10^5\\text{ Pa}$ 且溫度為 $300\\text{ K}$ 時的體積。",
+    "correctAnswerValue": "0.0249",
+    "correctUnit": "m3",
+    "explanation": "$V = nRT/P = (2.00 \\times 8.31 \\times 300) / (2.00\\times 10^5) \\approx 0.02493 \\approx 0.0249\\text{ m}^3$。"
+  },
+  {
+    "id": 359,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "下列哪一項代表了使地球表面變暖的典型溫室效應機制？",
+    "options": [
+      "臭氧層吸收太陽紫外線",
+      "氣體阻截了地球表面的紅外綫再輻射",
+      "乾燥對流層中的對流",
+      "地熱能傳導至空氣中"
+    ],
+    "correct": 1,
+    "explanation": "溫室氣體會吸收地球重新放射的長波紅外綫，從而將能量阻截（鎖定）在大氣層中。"
+  },
+  {
+    "id": 360,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "一個 $400\\text{ W}$ 的爐具為 $1.50\\text{ kg}$ 的液體加熱了 $300\\text{ s}$。若液體溫度上升了 $20.0\\text{ K}$，求該液體的比熱容量。",
+    "correctAnswerValue": "4000",
+    "correctUnit": "J kg-1 K-1",
+    "explanation": "$Pt = mc\\Delta T \\Rightarrow c = (400 \\times 300) / (1.50 \\times 20.0) = 120000 / 30.0 = 4000\\text{ J kg}^{-1}\\text{ K}^{-1}$。"
+  },
+  {
+    "id": 361,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一粒球以 $30\\text{ m s}^{-1}$ 的速度被垂直向上拋出。在剛要落地前的一刻，其速度為：（$g=9.81$）",
+    "options": [
+      "$-30\\text{ m s}^{-1}$",
+      "$0\\text{ m s}^{-1}$",
+      "$-15\\text{ m s}^{-1}$",
+      "$-45\\text{ m s}^{-1}$"
+    ],
+    "correct": 0,
+    "explanation": "根據對稱垂直軌跡上的機械能守恆定律，最終撞擊地面的速度為 $-u = -30\\text{ m s}^{-1}$。"
+  },
+  {
+    "id": 362,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一個 $10.0\\text{ kg}$ 的小車在無摩擦的地板上以 $3.00\\text{ m s}^{-1}$ 的速度行駛。求其動能。",
+    "correctAnswerValue": "45.0",
+    "correctUnit": "J",
+    "explanation": "$KE = 0.5 mv^2 = 0.5 \\times 10.0 \\times 3.00^2 = 45.0\\text{ J}$。"
+  },
+  {
+    "id": 363,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一輛汽車從靜止開始加速，在 $50\\text{ m}$ 的距離內達到 $20\\text{ m s}^{-1}$ 的速度。求其加速度。",
+    "options": [
+      "$2\\text{ m s}^{-2}$",
+      "$4\\text{ m s}^{-2}$",
+      "$8\\text{ m s}^{-2}$",
+      "$10\\text{ m s}^{-2}$"
+    ],
+    "correct": 1,
+    "explanation": "$v^2 = u^2 + 2as \\Rightarrow 400 = 0 + 2a(50) \\Rightarrow 100a = 400 \\Rightarrow a = 4\\text{ m s}^{-2}$。"
+  },
+  {
+    "id": 364,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一粒石頭從 $80.0\\text{ m}$ 高的塔上以 $25.0\\text{ m s}^{-1}$ 的速度水平拋出。求其飛行時間。（$g=9.81$）",
+    "correctAnswerValue": "4.04",
+    "correctUnit": "s",
+    "explanation": "垂直方向：$s = 0.5 gt^2 \\Rightarrow t = \\sqrt{2s/g} = \\sqrt{160.0/9.81} \\approx 4.039 \\approx 4.04\\text{ s}$。"
+  },
+  {
+    "id": 365,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "若極限靜摩擦係數為 $0.50$，求木塊開始下滑前斜面的最大傾角。（$g=9.81$）",
+    "options": [
+      "$26.6\\text{ }^{\\circ}$",
+      "$30.0\\text{ }^{\\circ}$",
+      "$45.0\\text{ }^{\\circ}$",
+      "$60.0\\text{ }^{\\circ}$"
+    ],
+    "correct": 0,
+    "explanation": "當沿斜面向下的重力分力超過摩擦力時物體開始下滑：$mg\\sin\\theta = \\mu mg\\cos\\theta \\Rightarrow \\tan\\theta = \\mu = 0.50 \\Rightarrow \\theta \\approx 26.6^{\\circ}$。"
+  },
+  {
+    "id": 366,
+    "type": "short",
+    "category": "力和運動",
+    "question": "某人造衛星在半徑為 $8.00\\times 10^6\\text{ m}$ 的軌道上繞地球運行，其加速度為 $6.00\\text{ m s}^{-2}$。求其運行速率。",
+    "correctAnswerValue": "6930",
+    "correctUnit": "m s-1",
+    "explanation": "$a_c = v^2/r \\Rightarrow v = \\sqrt{a_c \\cdot r} = \\sqrt{6.00 \\times 8.00\\times 10^6} = \\sqrt{4.80\\times 10^7} \\approx 6928 \\approx 6930\\text{ m s}^{-1}$。"
+  },
+  {
+    "id": 367,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一個初始靜止、質量為 $3\\text{ kg}$ 的物體，受大小為 $12\\text{ N}$ 的外力作用了 $5\\text{ s}$。求其最終速度。",
+    "options": [
+      "$4\\text{ m s}^{-1}$",
+      "$10\\text{ m s}^{-1}$",
+      "$15\\text{ m s}^{-1}$",
+      "$20\\text{ m s}^{-1}$"
+    ],
+    "correct": 3,
+    "explanation": "$a = F/m = 12/3 = 4\\text{ m s}^{-2}$。$v = at = 4 \\times 5 = 20\\text{ m s}^{-1}$。"
+  },
+  {
+    "id": 368,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一粒以 $400\\text{ m s}^{-1}$ 運動的子彈（$20.0\\text{ g}$）嵌入一塊質量為 $1.98\\text{ kg}$ 的靜止木塊中。求兩者的共同速度。",
+    "correctAnswerValue": "4.00",
+    "correctUnit": "m s-1",
+    "explanation": "根據動量守恆定律：$m_1u_1 = (m_1+m_2)v \\Rightarrow 0.0200 \\times 400 = 2.00 v \\Rightarrow 8.00 = 2.00 v \\Rightarrow v = 4.00\\text{ m s}^{-1}$。"
+  },
+  {
+    "id": 369,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一個重 $200\\text{ N}$ 的物體由兩根對稱的弦綫支撐，每根弦綫與垂直方向的夾角皆為 $30\\text{ }^{\\circ}$。求弦綫的張力。",
+    "options": [
+      "$100\\text{ N}$",
+      "$115\\text{ N}$",
+      "$200\\text{ N}$",
+      "$231\\text{ N}$"
+    ],
+    "correct": 1,
+    "explanation": "垂直方向平衡：$2T\\cos(30^{\\circ}) = 200 \\Rightarrow T = 100 / \\cos(30^{\\circ}) \\approx 115\\text{ N}$。"
+  },
+  {
+    "id": 370,
+    "type": "short",
+    "category": "力和運動",
+    "question": "某引擎以 $30.0\\text{ kW}$ 的功率運作，使汽車保持在 $25.0\\text{ m s}^{-1}$ 的勻速（等速）行駛。求汽車所受到的阻力。",
+    "correctAnswerValue": "1200",
+    "correctUnit": "N",
+    "explanation": "$P = Fv \\Rightarrow F = P/v = 30000 / 25.0 = 1200\\text{ N}$。"
+  },
+  {
+    "id": 371,
+    "type": "mcq",
+    "category": "波動",
+    "question": "一列沿弦綫傳播的橫波，其頻率為 $5\\text{ Hz}$，波長為 $1.5\\text{ m}$。求其波速。",
+    "options": [
+      "$0.3\\text{ m s}^{-1}$",
+      "$3.3\\text{ m s}^{-1}$",
+      "$7.5\\text{ m s}^{-1}$",
+      "$15\\text{ m s}^{-1}$"
+    ],
+    "correct": 2,
+    "explanation": "$v = f\\lambda = 5 \\times 1.5 = 7.5\\text{ m s}^{-1}$。"
+  },
+  {
+    "id": 372,
+    "type": "short",
+    "category": "波動",
+    "question": "光綫從空氣射入塑料，入射角為 $60.0\\text{ }^{\\circ}$。若塑料的折射率 $n = 1.414$，求折射角。",
+    "correctAnswerValue": "37.8",
+    "correctUnit": "oC",
+    "explanation": "根據斯涅耳定律（折射定律）：$\\sin(60.0^{\\circ}) = 1.414 \\sin(r) \\Rightarrow \\sin(r) = 0.866 / 1.414 \\approx 0.6125 \\Rightarrow r \\approx 37.8^{\\circ}$。"
+  },
+  {
+    "id": 373,
+    "type": "mcq",
+    "category": "波動",
+    "question": "下列哪項正確描述了前進波（行波）與駐波之間的區別？",
+    "options": [
+      "前進波具有波節",
+      "駐波會傳遞能量",
+      "前進波會傳遞淨能量",
+      "駐波沒有相位改變"
+    ],
+    "correct": 2,
+    "explanation": "前進波在介質中傳播並傳遞能量，而駐波則是在空間中儲存能量。"
+  },
+  {
+    "id": 374,
+    "type": "short",
+    "category": "波動",
+    "question": "雙縫間距為 $0.200\\text{ mm}$，屏幕距離雙縫 $1.20\\text{ m}$。錄得條紋寬度 $w = 3.60\\text{ mm}$。求光的波長（以 nm 為單位）。",
+    "correctAnswerValue": "600",
+    "correctUnit": "nm",
+    "explanation": "$\\lambda = aw/D = (0.200 \\times 10^{-3} \\times 3.60 \\times 10^{-3}) / 1.20 = 6.00 \\times 10^{-7}\\text{ m} = 600\\text{ nm}$。"
+  },
+  {
+    "id": 375,
+    "type": "mcq",
+    "category": "波動",
+    "question": "當光綫從冕牌玻璃（$n=1.52$）射向水（$n=1.33$）的界面時，發生全內反射的臨界角是多少？",
+    "options": [
+      "$41.1\\text{ }^{\\circ}$",
+      "$48.8\\text{ }^{\\circ}$",
+      "$61.0\\text{ }^{\\circ}$",
+      "$90.0\\text{ }^{\\circ}$"
+    ],
+    "correct": 2,
+    "explanation": "臨界角 $c = \\sin^{-1}(n_2/n_1) = \\sin^{-1}(1.33/1.52) \\approx 61.0^{\\circ}$。"
+  },
+  {
+    "id": 376,
+    "type": "short",
+    "category": "波動",
+    "question": "一根兩端固定的受拉弦綫長度為 $1.20\\text{ m}$，波速 $v=120\\text{ m s}^{-1}$。求其第三諧音（第三諧振波）的頻率。",
+    "correctAnswerValue": "150",
+    "correctUnit": "Hz",
+    "explanation": "波長 $\\lambda_3 = 2L/3 = 2.40 / 3 = 0.800\\text{ m}$。頻率 $f_3 = v/\\lambda_3 = 120 / 0.800 = 150\\text{ Hz}$。"
+  },
+  {
+    "id": 377,
+    "type": "mcq",
+    "category": "波動",
+    "question": "關於聲波相對於風向傳播的描述，下列哪項是正確的？",
+    "options": [
+      "聲速不受影響",
+      "僅表觀頻率發生改變",
+      "聲速是聲波速度與風速的向量和",
+      "聲強度完全守恆"
+    ],
+    "correct": 2,
+    "explanation": "聲音是由介質（空氣）攜帶傳播的，因此聲波相對於地面的實際速度是風速與聲速的向量和。"
+  },
+  {
+    "id": 378,
+    "type": "short",
+    "category": "波動",
+    "question": "某調頻（FM）廣播電台在真空中發射的波長為 $3.00\\text{ m}$。求其傳輸頻率（以 MHz 為單位）。",
+    "correctAnswerValue": "100",
+    "correctUnit": "MHz",
+    "explanation": "$f = c/\\lambda = (3.00 \\times 10^8) / 3.00 = 1.00 \\times 10^8\\text{ Hz} = 100\\text{ MHz}$。"
+  },
+  {
+    "id": 379,
+    "type": "mcq",
+    "category": "波動",
+    "question": "寶麗來太陽眼鏡（偏振太陽眼鏡）利用了下列哪一種波的行為來減少眩光？",
+    "options": [
+      "折射",
+      "繞射",
+      "偏振",
+      "全內反射"
+    ],
+    "correct": 2,
+    "explanation": "寶麗來太陽眼鏡能阻截來自扁平表面所產生的水平偏振反射光（即眩光）。"
+  },
+  {
+    "id": 380,
+    "type": "short",
+    "category": "波動",
+    "question": "超聲波從組織中的目標物（波速 $v=1540\\text{ m s}^{-1}$）反射的回波在 $0.0400\\text{ s}$ 後返回探頭。求目標物的深度。",
+    "correctAnswerValue": "30.8",
+    "correctUnit": "m",
+    "explanation": "總傳播距離 $2d = vt \\Rightarrow d = vt/2 = (1540 \\times 0.0400) / 2 = 30.8\\text{ m}$。"
+  },
+{
+    "id": 381,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "兩根通有相反方向電流的平行導綫會互相排斥，這是因為它們的磁場：",
+    "options": [
+      "互相吸引",
+      "完全互相抵消",
+      "在兩導綫之間互相加強",
+      "僅在邊界處抵消"
+    ],
+    "correct": 2,
+    "explanation": "相反方向的電流會使兩導綫之間空間的磁場互相加強，從而增大磁壓強並將兩根導綫推開。"
+  },
+  {
+    "id": 382,
+    "type": "short",
+    "category": "電磁學",
+    "question": "一根直導綫的電阻為 $15.0\\text{ }\\Omega$，通過的電流為 $4.00\\text{ A}$。求消耗的功率。",
+    "correctAnswerValue": "240",
+    "correctUnit": "W",
+    "explanation": "$P = I^2R = 4.00^2 \\times 15.0 = 16.0 \\times 15.0 = 240\\text{ W}$。"
+  },
+  {
+    "id": 383,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "某變壓器的原綫圈（初級綫圈）匝數為 $200$，副綫圈（次級綫圈）匝數為 $1000$。若輸入電壓為 $12\\text{ V}$ 的交流電，求輸出電壓。",
+    "options": [
+      "$2.4\\text{ V}$",
+      "$12\\text{ V}$",
+      "$60\\text{ V}$",
+      "$120\\text{ V}$"
+    ],
+    "correct": 2,
+    "explanation": "$V_s = V_p (N_s/N_p) = 12 \\times (1000/200) = 12 \\times 5 = 60\\text{ V}$。"
+  },
+  {
+    "id": 384,
+    "type": "short",
+    "category": "電磁學",
+    "question": "在電路中，一個 $5.00\\text{ nC}$ 的電荷經歷了 $120\\text{ V}$ 的電勢差。求所作的功。",
+    "correctAnswerValue": "600",
+    "correctUnit": "nJ",
+    "explanation": "$W = qV = (5.00 \\times 10^{-9}) \\times 120 = 6.00 \\times 10^{-7}\\text{ J} = 600\\text{ nJ}$。"
+  },
+  {
+    "id": 385,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "一個質子在一個垂直向下指向的磁場中水平向右運動。此時其受力方向為：",
+    "options": [
+      "進入紙面",
+      "離開紙面",
+      "向上",
+      "向下"
+    ],
+    "correct": 1,
+    "explanation": "應用弗萊明左手定則（磁場向下，電流向右），可得出初始受力方向指向離開紙面的方向（垂直紙面向外）。"
+  },
+  {
+    "id": 386,
+    "type": "short",
+    "category": "電磁學",
+    "question": "兩個電荷（$q_1=q_2=2.00\\text{ }\\mu\\text{C}$）相距 $0.400\\text{ m}$。求它們在真空中的相互作用力。（$k=8.99\\times 10^9$）",
+    "correctAnswerValue": "0.225",
+    "correctUnit": "N",
+    "explanation": "$F = kq_1q_2/r^2 = (8.99 \\times 10^9 \\times 4.00 \\times 10^{-12}) / 0.160 = 0.03596 / 0.160 \\approx 0.225\\text{ N}$。"
+  },
+  {
+    "id": 387,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "下列哪一種電路元件是用來測量電阻器兩端的電勢差？",
+    "options": [
+      "串聯的安培計",
+      "並聯的伏特計",
+      "串聯的檢流計",
+      "並聯的保險絲"
+    ],
+    "correct": 1,
+    "explanation": "伏特計必須與元件並聯連接，才能測量該元件兩端的電壓降。"
+  },
+  {
+    "id": 388,
+    "type": "short",
+    "category": "電磁學",
+    "question": "一根長度為 $0.800\\text{ m}$ 的直導綫垂直於強度為 $0.250\\text{ T}$ 的磁場放置，受到的磁場力為 $0.400\\text{ N}$。求通過導綫的電流。",
+    "correctAnswerValue": "2.00",
+    "correctUnit": "A",
+    "explanation": "$F = B I L \\Rightarrow I = F / (B L) = 0.400 / (0.250 \\times 0.800) = 0.400 / 0.200 = 2.00\\text{ A}$。"
+  },
+  {
+    "id": 389,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "交流發電機產生交流電。若要將這台交流發電機改裝為直流發電機，我們應該使用：",
+    "options": [
+      "滑環",
+      "裂環換向器",
+      "軟鐵心",
+      "升壓綫圈"
+    ],
+    "correct": 1,
+    "explanation": "裂環換向器會在綫圈每轉動半周時改變輸出端的連接方向，從而將內部的交流電轉換為外部的直流電。"
+  },
+  {
+    "id": 390,
+    "type": "short",
+    "category": "電磁學",
+    "question": "求距離一根通有 $5.00\\text{ A}$ 電流的長直導綫 $0.0200\\text{ m}$ 處的磁場強度 $B$。（$\\mu_0=4\\pi\\times 10^{-7}$）",
+    "correctAnswerValue": "5.00e-5",
+    "correctUnit": "T",
+    "explanation": "$B = \\mu_0 I / (2\\pi r) = (4\\pi \\times 10^{-7} \\times 5.00) / (2\\pi \\times 0.0200) = 5.00 \\times 10^{-5}\\text{ T}$。"
+  },
+  {
+    "id": 391,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "某放射性同位素的半衰期為 $5\\text{ 天}$。在 $25\\text{ 天}$ 後，該樣本還剩下多少百分比？",
+    "options": [
+      "$1.56\\%$",
+      "$3.13\\%$",
+      "$6.25\\%$",
+      "$12.5\\%$"
+    ],
+    "correct": 1,
+    "explanation": "$n = 25/5 = 5$ 個半衰期。剩餘分數 $= (1/2)^5 = 1/32 \\approx 3.125 \\approx 3.13\\%$。"
+  },
+  {
+    "id": 392,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "當母核 $^{238}_{92}\\text{U}$ 發生 $\\alpha$ 衰變後，求子核的質量數 $A$。",
+    "correctAnswerValue": "234",
+    "correctUnit": "u",
+    "explanation": "$\\alpha$ 衰變會釋放出一個氦核 $^{4}_{2}\\text{He}$。因此質量數會減少 4（$238 \\rightarrow 234$）。"
+  },
+  {
+    "id": 393,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "哪種輻射的穿透能力最低，且能被一張紙阻擋？",
+    "options": [
+      "$\\alpha$ 輻射（阿爾法輻射）",
+      "$\\beta$ 輻射（貝塔輻射）",
+      "$\\gamma$ 輻射（伽馬輻射）",
+      "中子束"
+    ],
+    "correct": 0,
+    "explanation": "$\\alpha$ 粒子（阿爾法粒子）質量大、速度慢且帶有較多電荷，因此極易被薄紙吸收。"
+  },
+  {
+    "id": 394,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "某一核反應釋放出的能量為 $3.60 \\times 10^{-12}\\text{ J}$。求其質量虧損（以 kg 為單位）。",
+    "correctAnswerValue": "4.00e-29",
+    "correctUnit": "kg",
+    "explanation": "利用 $E = \\Delta m c^2 \\Rightarrow \\Delta m = E/c^2 = (3.60 \\times 10^{-12}) / (3.00 \\times 10^8)^2 = 4.00 \\times 10^{-29}\\text{ kg}$。"
+  },
+  {
+    "id": 395,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "在典型的核裂變反應堆中，慢化劑的主要功能是什麼？",
+    "options": [
+      "加速熱中子",
+      "使快中子減速",
+      "吸收熱中子",
+      "防止反應堆冷卻"
+    ],
+    "correct": 1,
+    "explanation": "慢化劑能將快中子減速至熱中子的速度（熱速率），從而增加進一步引發鈾-235裂變的概率。"
+  },
+  {
+    "id": 396,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "某一衰變半衰期為 $120\\text{ s}$ 的同位素，求其衰變常數 $\\lambda$。",
+    "correctAnswerValue": "0.00578",
+    "correctUnit": "s-1",
+    "explanation": "$\\lambda = \\ln(2) / t_{1/2} = 0.69315 / 120 \\approx 0.005776 \\approx 0.00578\\text{ s}^{-1}$。"
+  },
+  {
+    "id": 397,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "在核聚變（核融合）中，當氘和氚發生聚變時，除了氦-4之外還會釋放出什麼？",
+    "options": [
+      "質子",
+      "中子",
+      "$\\beta$ 粒子（貝塔粒子）",
+      "$\\gamma$ 射綫（伽馬射綫）"
+    ],
+    "correct": 1,
+    "explanation": "其聚變反應方程為 $^{2}_{1}\\text{H} + ^{3}_{1}\\text{H} \\rightarrow ^{4}_{2}\\text{He} + ^{1}_{0}\\text{n}$，過程中會釋放出一粒中子。"
+  },
+  {
+    "id": 398,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "某輻射源錄得的總計數率為 $240\\text{ cpm}$，其中包括 $20\\text{ cpm}$ 的本底計數率（背景計數率）。求經修正的計數率。",
+    "correctAnswerValue": "220",
+    "correctUnit": "cpm",
+    "explanation": "經修正的計數率 = 總計數率 - 本底計數率 = 240 - 20 = 220 cpm。"
+  },
+  {
+    "id": 399,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "下列哪項正確描述了原子核的結合能？",
+    "options": [
+      "將原子核分解為單個核子所需的能量",
+      "將電子束縛在原子軌道上的能量",
+      "逃逸的 $\\alpha$ 粒子（阿爾法粒子）的動能",
+      "質子之間的靜電勢能"
+    ],
+    "correct": 0,
+    "explanation": "結合能是指將原子核完全拆解為其組成的各個獨立自由質子和中子所需的能量。"
+  },
+  {
+    "id": 400,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "當母核 $^{234}_{90}\\text{Th}$ 發生 $\\beta^-$ 衰變（負貝塔衰變）後，求所形成的子核 $^{A}_{Z}\\text{Y}$ 的原子序數 $Z$。",
+    "correctAnswerValue": "91.0",
+    "correctUnit": "protons",
+    "explanation": "$\\beta^-$ 衰變會使原子序數 $Z$ 增加 1。因此，$Z = 90 + 1 = 91.0$。"
+  },
+  {
+    "id": 401,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "一個鋁杯（$0.15\\text{ kg}$）吸收了 $900\\text{ J}$ 的熱量。已知鋁的比熱容量為 $900\\text{ J kg}^{-1}\\text{ K}^{-1}$，求其溫度升幅。",
+    "options": [
+      "$1.5\\text{ K}$",
+      "$3.3\\text{ K}$",
+      "$6.7\\text{ K}$",
+      "$10\\text{ K}$"
+    ],
+    "correct": 2,
+    "explanation": "利用 $\\Delta T = Q / (mc) = 900 / (0.15 \\times 900) = 1 / 0.15 \\approx 6.67 \\approx 6.7\\text{ K}$。"
+  },
+  {
+    "id": 402,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "一個體積為 $3.00 \\times 10^{-3}\\text{ m}^3$ 的容器內盛有壓強為 $1.50\\times 10^5\\text{ Pa}$ 的氣體。若在等溫下將其體積壓縮至原來的 $1/3$，求其壓強。",
+    "correctAnswerValue": "4.50e5",
+    "correctUnit": "Pa",
+    "explanation": "$P_1V_1 = P_2V_2$。當體積減為原來的三分之一時，壓強會變為原來的三倍：$P_2 = 3 \\times 1.50 \\times 10^5 = 4.50 \\times 10^5\\text{ Pa}$。"
+  },
+  {
+    "id": 403,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "在等壓情況下，若理想氣體的絕對溫度增至兩倍，其密度會變為原來的多少倍？",
+    "options": [
+      "$0.5$",
+      "$1.0$",
+      "$2.0$",
+      "$4.0$"
+    ],
+    "correct": 0,
+    "explanation": "$PV = nRT \\Rightarrow V \\propto T$。絕對溫度 $T$ 加倍會使體積 $V$ 加倍。由於密度 $\\rho = m/V$，體積加倍會使密度 $\\rho$ 減半（即變為原來的 0.5 倍）。"
+  },
+  {
+    "id": 404,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "將 $0.150\\text{ kg}$ 處於 $0\\text{ }^{\\circ}\\text{C}$ 的冰熔化為 $0\\text{ }^{\\circ}\\text{C}$ 的水需要多少能量？（$L_f=3.34\\times 10^5$）",
+    "correctAnswerValue": "50.1",
+    "correctUnit": "kJ",
+    "explanation": "$Q = mL_f = 0.150 \\times 3.34\\times 10^5 = 50100\\text{ J} = 50.1\\text{ kJ}$。"
+  },
+  {
+    "id": 405,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "關於固定質量的理想氣體的內能，下列哪項是正確的？",
+    "options": [
+      "取決於分子勢能和分子動能",
+      "完全由分子勢能組成",
+      "完全由分子動能組成",
+      "與溫度完全無關"
+    ],
+    "correct": 2,
+    "explanation": "理想氣體分子之間沒有相互作用力（分子間力為零），因此其分子勢能為零。其內能完全由分子動能組成。"
+  },
+  {
+    "id": 406,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "一個 $600\\text{ W}$ 的爐具將 $0.250\\text{ kg}$ 處於 $100\\text{ }^{\\circ}\\text{C}$ 的水完全汽化為水蒸氣需要多少秒？（$L_v=2.26\\times 10^6$）",
+    "correctAnswerValue": "942",
+    "correctUnit": "s",
+    "explanation": "$Pt = mL_v \\Rightarrow t = (0.250 \\times 2.26\\times 10^6) / 600 = 565000 / 600 \\approx 941.67 \\approx 942\\text{ s}$。"
+  },
+  {
+    "id": 407,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "在相同的室溫 $15\\text{ }^{\\circ}\\text{C}$ 下，為甚麼金屬匙羹摸起來比木匙羹更冰涼？",
+    "options": [
+      "金屬的導熱能力（熱導率）較低",
+      "金屬的導熱能力（熱導率）較高",
+      "金屬具有較高的比熱容量",
+      "木匙羹正處於熱平衡狀態"
+    ],
+    "correct": 1,
+    "explanation": "金屬是良好的熱導體（導熱能力較高），能更迅速地將手上的熱量傳導出去，從而產生冰涼的感覺。"
+  },
+  {
+    "id": 408,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "某一體積為 $0.0400\\text{ m}^3$ 的容器內盛有 $2.50\\text{ 摩爾}$ 的氣體，其壓強為 $1.20\\times 10^5\\text{ Pa}$。求該氣體的絕對溫度。",
+    "correctAnswerValue": "231",
+    "correctUnit": "K",
+    "explanation": "$T = PV/nR = (1.20\\times 10^5 \\times 0.0400) / (2.50 \\times 8.31) = 4800 / 20.775 \\approx 231\\text{ K}$。"
+  },
+  {
+    "id": 409,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "在受熱表面上方的空氣中發生對流傳熱時，會出現以下哪種現象？",
+    "options": [
+      "冷空氣因膨脹而上升",
+      "熱空氣膨脹並上升",
+      "分子發生振動和碰撞",
+      "直接發射電磁波"
+    ],
+    "correct": 1,
+    "explanation": "受熱表面附近的空氣受熱膨脹，密度降低，因而產生浮力向上浮升，並將熱能帶走。"
+  },
+  {
+    "id": 410,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "一個加熱器在熔點下用時 $500\\text{ s}$ 熔化了 $0.400\\text{ kg}$ 的冰。求該加熱器的功率。（$L_f=3.34\\times 10^5$）",
+    "correctAnswerValue": "267",
+    "correctUnit": "W",
+    "explanation": "$Pt = mL_f \\Rightarrow P = (0.400 \\times 3.34\\times 10^5) / 500 = 133600 / 500 = 267.2 \\approx 267\\text{ W}$。"
+  },
+{
+    "id": 411,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一個質量為 $4\\text{ kg}$ 的物體受到 $20\\text{ N}$ 的恆力作用。求物體由靜止開始運動 $3\\text{ s}$ 內的位移。",
+    "options": [
+      "$15\\text{ m}$",
+      "$22.5\\text{ m}$",
+      "$45\\text{ m}$",
+      "$90\\text{ m}$"
+    ],
+    "correct": 1,
+    "explanation": "$a = F/m = 20/4 = 5\\text{ m s}^{-2}$。$s = ut + 0.5 at^2 = 0 + 0.5 \\times 5 \\times 9 = 22.5\\text{ m}$。"
+  },
+  {
+    "id": 412,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一頭質量為 $1200\\text{ kg}$ 的火箭，其引擎推力為 $18.0\\text{ kN}$。求其垂直向上的加速度。（$g=9.81$）",
+    "correctAnswerValue": "5.19",
+    "correctUnit": "m s-2",
+    "explanation": "$F_{net} = T - mg = ma \\Rightarrow a = T/m - g = 18000/1200 - 9.81 = 15.0 - 9.81 = 5.19\\text{ m s}^{-2}$。"
+  },
+  {
+    "id": 413,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一拋體以與水平方向成 $45\\text{ }^{\\circ}$ 的角及 $20\\text{ m s}^{-1}$ 的初速度發射。求其水平射程。（$g=9.81$）",
+    "options": [
+      "$10.2\\text{ m}$",
+      "$20.4\\text{ m}$",
+      "$40.8\\text{ m}$",
+      "$81.6\\text{ m}$"
+    ],
+    "correct": 2,
+    "explanation": "$R = (u^2\\sin(2\\theta))/g = (400 \\times 1) / 9.81 \\approx 40.8\\text{ m}$。"
+  },
+  {
+    "id": 414,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一根彈簧在 $30.0\\text{ N}$ 的負載下，產生了 $0.150\\text{ m}$ 的伸長量。求彈簧的勁度（剛度）。",
+    "correctAnswerValue": "200",
+    "correctUnit": "N m-1",
+    "explanation": "胡克定律：$F = kx \\Rightarrow k = F/x = 30.0 / 0.150 = 200\\text{ N m}^{-1}$。"
+  },
+  {
+    "id": 415,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一個 $1\\text{ kg}$ 的質量塊繫於一條長 $0.5\\text{ m}$ 的繩子上，並在垂直平面內作圓周運動。求它通過最高點（頂峰）時的最小速率。（$g=9.81$）",
+    "options": [
+      "$1.11\\text{ m s}^{-1}$",
+      "$2.21\\text{ m s}^{-1}$",
+      "$4.91\\text{ m s}^{-1}$",
+      "$9.81\\text{ m s}^{-1}$"
+    ],
+    "correct": 1,
+    "explanation": "在最高點時，最小張力為 $0$：$mg = mv^2/r \\Rightarrow v = \\sqrt{gr} = \\sqrt{9.81 \\times 0.5} \\approx 2.21\\text{ m s}^{-1}$。"
+  },
+  {
+    "id": 416,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一輛質量為 $1500\\text{ kg}$ 且以 $12.0\\text{ m s}^{-1}$ 行駛的貨車，在 $18.0\\text{ m}$ 的距離內被煞停。求平均煞車功率。",
+    "correctAnswerValue": "72.0",
+    "correctUnit": "kW",
+    "explanation": "煞停時間：$s = (u+v)/2 \\cdot t \\Rightarrow 18.0 = 6.00 t \\Rightarrow t = 3.00\\text{ s}$。功率 $P = \\Delta KE / t = (0.5\\times 1500\\times 144)/3 = 36000\\text{ W} = 36.0\\text{ kW}$……等一等，隨時間變化的平均功率是 $\\Delta KE / t = 36.0\\text{ kW}$。"
+  },
+  {
+    "id": 417,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一輛以速度 $v$ 運動、質量為 $m$ 的動力學手推車（滑車），與另一輛完全相同但靜止的手推車相撞並黏在一起。此時損失的彈性動能為：",
+    "options": [
+      "零",
+      "$25\\%$",
+      "$50\\%$",
+      "$75\\%$"
+    ],
+    "correct": 2,
+    "explanation": "共同速度為 $v/2$。初始動能 $KE = 0.5 mv^2$。最終動能 $KE = 0.5 (2m) (v/2)^2 = 0.25 mv^2$。故損失了 $50\\%$。"
+  },
+  {
+    "id": 418,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一個 $40.0\\text{ kg}$ 的物塊停在一個傾角為 $30.0\\text{ }^{\\circ}$ 的光滑斜面上。求保持物塊平衡時平行於斜面的作用力。（$g=9.81$）",
+    "correctAnswerValue": "196",
+    "correctUnit": "N",
+    "explanation": "$F = mg\\sin\\theta = 40.0 \\times 9.81 \\times 0.5 = 196.2 \\approx 196\\text{ N}$。"
+  },
+  {
+    "id": 419,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "根據牛頓運動第一定律，物體在以下哪種情況下會保持靜止狀態或勻速運動狀態？",
+    "options": [
+      "沒有單一外力作用於它",
+      "所受的合外力為零",
+      "外力作用方向與運動方向相同",
+      "物體表面完全沒有摩擦力"
+    ],
+    "correct": 1,
+    "explanation": "合外力為零意味着加速度為零，從而維持不變的勻速運動狀態。"
+  },
+  {
+    "id": 420,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一粒從高塔釋放（自由下落）的石頭擊中地面時的速度為 $28.0\\text{ m s}^{-1}$。求高塔的高度。（$g=9.81$）",
+    "correctAnswerValue": "40.0",
+    "correctUnit": "m",
+    "explanation": "$v^2 = u^2 + 2gs \\Rightarrow 28.0^2 = 2(9.81)s \\Rightarrow 784 = 19.62 s \\Rightarrow s \\approx 39.959 \\approx 40.0\\text{ m}$。"
+  },
+  {
+    "id": 421,
+    "type": "mcq",
+    "category": "波動",
+    "question": "某一聲波的波長為 $1.7\\text{ m}$，波速為 $340\\text{ m s}^{-1}$。求其頻率。",
+    "options": [
+      "$50\\text{ Hz}$",
+      "$100\\text{ Hz}$",
+      "$200\\text{ Hz}$",
+      "$578\\text{ Hz}$"
+    ],
+    "correct": 2,
+    "explanation": "$f = v/\\lambda = 340 / 1.7 = 200\\text{ Hz}$。"
+  },
+  {
+    "id": 422,
+    "type": "short",
+    "category": "波動",
+    "question": "一束光綫在玻璃（折射率 $n = 1.50$）中以 $45.0\\text{ }^{\\circ}$ 的入射角射向與空氣的交界面。此時能觀察到全內反射（全反射）嗎？",
+    "correctAnswerValue": "yes",
+    "correctUnit": "TIR-status",
+    "explanation": "臨界角 $c = \\sin^{-1}(1/1.50) \\approx 41.8^{\\circ}$。入射角 $45.0^{\\circ} > 41.8^{\\circ}$，因此能觀察到全內反射（填寫 'yes'）。"
+  },
+  {
+    "id": 423,
+    "type": "mcq",
+    "category": "波動",
+    "question": "下列哪項正確描述了波陣面在繞射（衍射）和折射時的行為差異？",
+    "options": [
+      "繞射會改變波的頻率",
+      "折射會保持波的傳播方向不變",
+      "折射會改變波速，而繞射則不會",
+      "繞射會改變波長"
+    ],
+    "correct": 2,
+    "explanation": "折射的定義是波跨越介質時波速發生改變。而繞射是在單一介質內發生（波速保持不變）。"
+  },
+  {
+    "id": 424,
+    "type": "short",
+    "category": "波動",
+    "question": "在楊氏雙縫實驗中，波長為 $640\\text{ nm}$ 的紅光產生的條紋寬度（條紋間距）為 $4.00\\text{ mm}$。求波長為 $480\\text{ nm}$ 的藍光所產生的條紋寬度。",
+    "correctAnswerValue": "3.00",
+    "correctUnit": "mm",
+    "explanation": "由於 $w \\propto \\lambda$，故 $w_{blue} = 4.00 \\times (480 / 640) = 3.00\\text{ mm}$。"
+  },
+  {
+    "id": 425,
+    "type": "mcq",
+    "category": "波動",
+    "question": "兩列振幅分別為 $3\\text{ cm}$ 和 $4\\text{ cm}$ 的波在某點發生相消干涉。求該點的最小振幅。",
+    "options": [
+      "$1\\text{ cm}$",
+      "$5\\text{ cm}$",
+      "$7\\text{ cm}$",
+      "$12\\text{ cm}$"
+    ],
+    "correct": 0,
+    "explanation": "相消干涉會導致振幅相減：$A_{min} = 4 - 3 = 1\\text{ cm}$。"
+  },
+  {
+    "id": 426,
+    "type": "short",
+    "category": "波動",
+    "question": "一根基頻為 $100\\text{ Hz}$ 的弦綫，在張力保持不變的情況下其長度被縮短為原來的 $1/4$。求新的基頻。",
+    "correctAnswerValue": "400",
+    "correctUnit": "Hz",
+    "explanation": "$f_1 = v / 2L$。如果長度 $L$ 變為四分之一，基頻 $f_1$ 就會增加到原來的 4 倍，即 $400\\text{ Hz}$。"
+  },
+  {
+    "id": 427,
+    "type": "mcq",
+    "category": "波動",
+    "question": "下列哪種電磁波通常用於醫療診斷中的骨骼掃描？",
+    "options": [
+      "紫外線",
+      "紅外線",
+      "X射綫（X光）",
+      "$\\gamma$ 射綫（伽馬射綫）"
+    ],
+    "correct": 2,
+    "explanation": "X射綫對肌肉組織有很強的穿透力，但會被骨骼吸收，因此非常適合用於骨骼的影像學診斷。"
+  },
+  {
+    "id": 428,
+    "type": "short",
+    "category": "波動",
+    "question": "某一光柵的光柵間距為 $2.50\\text{ }\\mu\\text{m}$。若入射光的波長為 $\\lambda = 500\\text{ nm}$，求其第二級最大值（二級明條紋）的衍射角。",
+    "correctAnswerValue": "23.6",
+    "correctUnit": "oC",
+    "explanation": "$d\\sin\\theta = m\\lambda \\Rightarrow 2.50\\times 10^{-6}\\sin\\theta = 2 \\times 500\\times 10^{-9} = 10^{-6} \\Rightarrow \\sin\\theta = 0.4 \\Rightarrow \\theta \\approx 23.6^{\\circ}$。"
+  },
+  {
+    "id": 429,
+    "type": "mcq",
+    "category": "波動",
+    "question": "駐波是由兩列沿相反方向傳播，且具有相同____的波疊加而形成的。",
+    "options": [
+      "單純振幅相同",
+      "振幅和頻率",
+      "單純波速相同",
+      "波長相同但波速不同"
+    ],
+    "correct": 1,
+    "explanation": "形成駐波需要兩列振幅、頻率和波長完全相同且傳播方向相反的波進行疊加。"
+  },
+  {
+    "id": 430,
+    "type": "short",
+    "category": "波動",
+    "question": "一個頻率為 $370\\text{ Hz}$ 的聲源以 $30.0\\text{ m s}^{-1}$ 的速度遠離觀測者。已知聲速 $v_{sound}=340\\text{ m s}^{-1}$，求觀測者聽到的視頻率（表觀頻率）。",
+    "correctAnswerValue": "340",
+    "correctUnit": "Hz",
+    "explanation": "多普勒效應：$f' = f [v / (v + v_s)] = 370 \\times [340 / (340 + 30.0)] = 370 \\times (340 / 370) = 340\\text{ Hz}$。"
+  },
+  {
+    "id": 431,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "一個載流導綫圈被水平懸掛。當施加一個垂直向上的磁場時，該綫圈會傾向於：",
+    "options": [
+      "完全氣化",
+      "減小半徑",
+      "增大半徑",
+      "保持靜止"
+    ],
+    "correct": 2,
+    "explanation": "根據磁壓強原理，綫圈上受到的磁場力指向外側，從而使該載流綫圈的半徑擴張（增大）。"
+  },
+  {
+    "id": 432,
+    "type": "short",
+    "category": "電磁學",
+    "question": "一個 $1200\\text{ W}$ 的電爐在 $240\\text{ V}$ 的電源電壓下運行。求其發熱元件的電阻。",
+    "correctAnswerValue": "48.0",
+    "correctUnit": "ohm",
+    "explanation": "$P = V^2 / R \\Rightarrow R = V^2 / P = 240^2 / 1200 = 57600 / 1200 = 48.0\\text{ }\\Omega$。"
+  },
+  {
+    "id": 433,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "一台理想變壓器將原綫圈（初級綫圈）的電流從 $0.2\\text{ A}$ 升流到副綫圈（次級綫圈）的 $2.0\\text{ A}$。則原綫圈與副綫圈的匝數比為：",
+    "options": [
+      "$1:10$",
+      "$10:1$",
+      "$1:100$",
+      "$100:1$"
+    ],
+    "correct": 1,
+    "explanation": "$I_s / I_p = N_p / N_s = 2.0 / 0.2 = 10$。匝數比為 $10:1$。"
+  },
+  {
+    "id": 434,
+    "type": "short",
+    "category": "電磁學",
+    "question": "一根直導綫通有 $12.0\\text{ A}$ 垂直向下的電流。求距離導綫 $0.0500\\text{ m}$ 處的磁場強度。（$\\mu_0=4\\pi\\times 10^{-7}$）",
+    "correctAnswerValue": "4.80e-5",
+    "correctUnit": "T",
+    "explanation": "$B = \\mu_0 I / (2\\pi r) = (4\\pi \\times 10^{-7} \\times 12.0) / (2\\pi \\times 0.0500) = 4.80 \\times 10^{-5}\\text{ T}$。"
+  },
+  {
+    "id": 435,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "一根長度為 $L$ 的導綫在強度為 $B$ 的磁場中通有電流 $I$。若導綫與磁場綫平行放置，其受到的磁場力是多少？",
+    "options": [
+      "$BIL$",
+      "$0.5BIL$",
+      "零",
+      "$BIL^2$"
+    ],
+    "correct": 2,
+    "explanation": "$F = BIL \\sin\\theta$。因為平行，所以 $\\theta = 0^{\\circ}$，得 $\\sin(0^{\\circ}) = 0$，磁場力為零。"
+  },
+  {
+    "id": 436,
+    "type": "short",
+    "category": "電磁學",
+    "question": "將一個 $3.00\\text{ }\\Omega$ 和一個 $6.00\\text{ }\\Omega$ 的並聯電阻組合，再與一個 $3.00\\text{ }\\Omega$ 的電阻串聯，求此時的等效電阻。",
+    "correctAnswerValue": "5.00",
+    "correctUnit": "ohm",
+    "explanation": "並聯等效電阻：$(3 \\times 6)/(3+6) = 18/9 = 2.00\\text{ }\\Omega$。總串聯電阻 $= 2.00 + 3.00 = 5.00\\text{ }\\Omega$。"
+  },
+  {
+    "id": 437,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "在家用電力變壓器中，厚鋼片鐵心（軟鐵心）的主要作用是什麼？",
+    "options": [
+      "防止觸電",
+      "降低副綫圈的電阻",
+      "使磁通量耦合最大化",
+      "冷卻變壓器綫圈"
+    ],
+    "correct": 2,
+    "explanation": "軟鐵/鋼心提供了低磁阻的磁路，能高效地將磁通量從原綫圈引導並耦合到副綫圈。"
+  },
+  {
+    "id": 438,
+    "type": "short",
+    "category": "電磁學",
+    "question": "一個電子受到 $8.00\\times 10^{-14}\\text{ N}$ 的靜電力作用。求該處的電場強度。",
+    "correctAnswerValue": "5.00e5",
+    "correctUnit": "V m-1",
+    "explanation": "$E = F/q = (8.00 \\times 10^{-14}) / (1.60 \\times 10^{-19}) = 5.00 \\times 10^5\\text{ V m}^{-1}$。"
+  },
+  {
+    "id": 439,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "一個帶正電的粒子（+q）在垂直穿入紙面的磁場中垂直向下運動。此時其受力方向指向：",
+    "options": [
+      "向右",
+      "向左",
+      "離開紙面",
+      "不受力"
+    ],
+    "correct": 0,
+    "explanation": "應用弗萊明左手定則（磁場指向紙內，電流向下），可知初始受力方向指向右側。"
+  },
+  {
+    "id": 440,
+    "type": "short",
+    "category": "電磁學",
+    "question": "一根地綫連接在電器的金屬外殼上。若活綫（火綫）不慎接觸到外殼，且外殼在 $220\\text{ V}$ 電壓路綫上的電阻為 $0.200\\text{ }\\Omega$，求此時通過的電流。",
+    "correctAnswerValue": "1100",
+    "correctUnit": "A",
+    "explanation": "$I = V / R = 220 / 0.200 = 1100\\text{ A}$（這種極大的電流能安全地令保險絲熔斷）。"
+  },
+{
+    "id": 441,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "某一放射性樣本的計數率為 $800\\text{ Bq}$，在 $16\\text{ 夭}$ 內跌至 $50\\text{ Bq}$。求其半衰期。",
+    "options": [
+      "$2\\text{ 天}$",
+      "$4\\text{ 天}$",
+      "$8\\text{ 天}$",
+      "$12\\text{ 天}$"
+    ],
+    "correct": 1,
+    "explanation": "$800/50 = 16 = 2^4$ 個半衰期。半衰期 $= 16 / 4 = 4\\text{ 天}$。"
+  },
+  {
+    "id": 442,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "$^{222}_{86}\\text{Rn}$ 經歷 $\\alpha$ 衰變（阿爾法衰變）後會形成子原子核。求該子原子核的原子序 $Z$。",
+    "correctAnswerValue": "84.0",
+    "correctUnit": "protons",
+    "explanation": "$\\alpha$ 衰變會釋放出氦原子核 $^{4}_{2}\\text{He}$。原子序會減少 2（$86 \\rightarrow 84$）。"
+  },
+{
+  "id": 443,
+  "type": "mcq",
+  "category": "放射現象和核能",
+  "question": "下列哪種核反應過程涉及不穩定原子核之內的一個中子轉化為一個質子，並放射出一個高速電子？",
+  "options": [
+    "$\\alpha$ 衰變（阿爾法衰變）",
+    "$\\beta$ 衰變（貝他衰變）",
+    "$\\gamma$ 衰變（伽馬衰變）",
+    "核裂變（核分裂）"
+  ],
+  "correct": 1,
+  "explanation": "在 $\\beta$ 衰變過程中，不穩定原子核內的一個中子會自發轉化為一個質子和一個電子。這個新產生的電子會立即從原子核內被放射出去，作為 $\\beta$ 粒子。"
+},
+  {
+    "id": 444,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "一個氦-4 原子核的質量虧損為 $5.00 \\times 10^{-29}\\text{ kg}$。求其結合能（以焦耳為單位）。",
+    "correctAnswerValue": "4.50e-12",
+    "correctUnit": "J",
+    "explanation": "$E_b = \\Delta m c^2 = (5.00 \\times 10^{-29}) \\times (3.00 \\times 10^8)^2 = 4.50 \\times 10^{-12}\\text{ J}$。"
+  },
+  {
+    "id": 445,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "關於以等效劑量衡量的生物輻射風險，下列哪項是正確的？",
+    "options": [
+      "等效劑量的單位是戈瑞 (Gray)",
+      "在體內時，$\\beta$ 輻射比 $\\alpha$ 輻射具有更強的游離（電離）能力",
+      "希沃特 (Sv) 是等效劑量的單位",
+      "以焦耳 (J) 為單位的吸收劑量即為希沃特 (Sv)"
+    ],
+    "correct": 2,
+    "explanation": "等效劑量考慮了不同輻射對生物造成的破壞程度，其計量單位為希沃特 (Sv)。"
+  },
+  {
+    "id": 446,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "補全以下 $\\alpha$ 衰變方程式的母元素：$X \\rightarrow ^{218}_{84}\\text{Po} + \\alpha$。求母元素 $X$ 的質量數。",
+    "correctAnswerValue": "222",
+    "correctUnit": "u",
+    "explanation": "釋放 $\\alpha$ 粒子會使母元素的質量數減少 4。因此母元素的質量數 $A = 218 + 4 = 222$。"
+  },
+  {
+    "id": 447,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "在核裂變鏈式反應中，如果增殖因子（倍增因子）$k$ 大於 1，則該反應處於什麼狀態？",
+    "options": [
+      "次臨界狀態",
+      "臨界狀態",
+      "超臨界狀態",
+      "已減速狀態"
+    ],
+    "correct": 2,
+    "explanation": "當 $k > 1$ 時，反應速率會呈指數級增長，這被稱為超臨界狀態（失控鏈式反應）。"
+  },
+  {
+    "id": 448,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "某一輻射源的衰變常數 $\\lambda = 3.50 \\times 10^{-4}\\text{ s}^{-1}$。求其半衰期。",
+    "correctAnswerValue": "1980",
+    "correctUnit": "s",
+    "explanation": "$t_{1/2} = \\ln(2) / \\lambda = 0.69315 / (3.50 \\times 10^{-4}) \\approx 1980\\text{ s}$。"
+  },
+  {
+    "id": 449,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "為什麼要在核裂變反應堆芯周圍建造厚重的混凝土安全殼（防護殼）？",
+    "options": [
+      "為了減慢熱中子的速度",
+      "為了阻止高壓蒸汽洩漏",
+      "為了吸收伽馬輻射並對外界作屏蔽防護",
+      "為了減速核燃料組件"
+    ],
+    "correct": 2,
+    "explanation": "厚重的鋼製與混凝土安全殼牆壁能有效吸收具有強穿透力的伽馬射綫和中子，從而保護運行人員。"
+  },
+  {
+    "id": 450,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "補全方程式：$^{2}_{1}\\text{H} + ^{2}_{1}\\text{H} \\rightarrow ^{3}_{2}\\text{He} + X$。求粒子 $X$ 的質量數。",
+    "correctAnswerValue": "1.00",
+    "correctUnit": "u",
+    "explanation": "根據質量守恆定律：$2 + 2 = 3 + A_x \\Rightarrow A_x = 1$。因此該粒子 $X$ 是一個中子（$^{1}_{0}\\text{n}$）。"
+  },
+  {
+    "id": 451,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "一個質量為 $2\\text{ kg}$ 的鐵塊，溫度從 $80\\text{ }^{\\circ}\\text{C}$ 下降到 $30\\text{ }^{\\circ}\\text{C}$。求其損失的能量。（已知鐵的比熱容 $c=450\\text{ J kg}^{-1}\\text{ K}^{-1}$）",
+    "options": [
+      "$4.5 \\times 10^4\\text{ J}$",
+      "$9.0 \\times 10^4\\text{ J}$",
+      "$4.5 \\times 10^5\\text{ J}$",
+      "$9.0 \\times 10^5\\text{ J}$"
+    ],
+    "correct": 0,
+    "explanation": "$Q = mc\\Delta T = 2 \\times 450 \\times 50 = 45000\\text{ J} = 4.5 \\times 10^4\\text{ J}$。"
+  },
+  {
+    "id": 452,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "利用一個功率為 $1.50\\text{ kW}$ 的加熱器來熔化冰塊。求熔化一塊位於 $0\\text{ }^{\\circ}\\text{C}$、質量為 $0.500\\text{ kg}$ 的冰塊需要多少秒？（已知冰的熔化顯熱 $L_f=3.34\\times 10^5\\text{ J kg}^{-1}$）",
+    "correctAnswerValue": "111",
+    "correctUnit": "s",
+    "explanation": "$Pt = mL_f \\Rightarrow t = (0.500 \\times 3.34\\times 10^5) / 1500 = 167000 / 1500 \\approx 111.3 \\approx 111\\text{ s}$。"
+  },
+  {
+    "id": 453,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "在下列哪種條件下，氣體分子的平均動能會保持不變？",
+    "options": [
+      "恆壓（等壓）",
+      "恆容（等容）",
+      "恆溫（等溫）",
+      "分子密度保持恆定"
+    ],
+    "correct": 2,
+    "explanation": "分子的平均動能與絕對溫度成正比；如果溫度 $T$ 保持恆定，則平均動能亦保持恆定。"
+  },
+  {
+    "id": 454,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "某一理想氣體在 $300\\text{ K}$ 時的體積 $V = 3.00 \\times 10^{-3}\\text{ m}^3$。若在恆壓情況下將其加熱至 $400\\text{ K}$，求其新的體積。",
+    "correctAnswerValue": "0.00400",
+    "correctUnit": "m3",
+    "explanation": "查理定律：$V_1/T_1 = V_2/T_2 \\Rightarrow V_2 = 3.00\\times 10^{-3} \\times (400/300) = 0.00400\\text{ m}^3$。"
+  },
+  {
+    "id": 455,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "在微觀尺度（分子層面）下，固體熔化時會發生以下哪種情況？",
+    "options": [
+      "分子速度劇烈加快",
+      "分子間的有序結構遭到破壞",
+      "吸收的潛熱增加了分子的動能",
+      "分子鍵的勢能（位能）下降"
+    ],
+    "correct": 1,
+    "explanation": "熔化會破壞分子間的鍵合，令晶體的有序結構遭到瓦解，在此期間分子的動能保持不變。"
+  },
+  {
+    "id": 456,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "某一處於 $1.50 \\times 10^5\\text{ Pa}$ 壓強下的氣體，在恆溫情況下被壓縮至原體積的 $1/3$。求其新的壓強。",
+    "correctAnswerValue": "4.50e5",
+    "correctUnit": "Pa",
+    "explanation": "波意耳定律：$P_1V_1 = P_2V_2$。體積變為三分之一，因此壓強變為原來的三倍：$P_2 = 3 \\times 1.50 \\times 10^5 = 4.50 \\times 10^5\\text{ Pa}$。"
+  },
+  {
+    "id": 457,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "就熱接觸而言，為什麼 $0\\text{ }^{\\circ}\\text{C}$ 的液態水比 $0\\text{ }^{\\circ}\\text{C}$ 的固態冰能提供更有效的冷卻效果？",
+    "options": [
+      "水的比熱容比冰高",
+      "液體能比固體形成更好的物理接觸面",
+      "冰具有熔化潛熱",
+      "水分子之間的碰撞速度較慢"
+    ],
+    "correct": 1,
+    "explanation": "液體能完美貼合固體表面的形狀，與固態冰塊相比，液體能確保極佳的表面熱接觸和熱傳導。"
+  },
+  {
+    "id": 458,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "求 $1.50\\text{ 摩爾 (moles)}$ 的理想氣體在壓強為 $1.50 \\times 10^5\\text{ Pa}$ 且溫度為 $350\\text{ K}$ 時的體積。（理想氣體常數 $R=8.31$）",
+    "correctAnswerValue": "0.0291",
+    "correctUnit": "m3",
+    "explanation": "$V = nRT/P = (1.50 \\times 8.31 \\times 350) / (1.50\\times 10^5) = 4362.75 / 150000 \\approx 0.0291\\text{ m}^3$。"
+  },
+  {
+    "id": 459,
+    "type": "mcq",
+    "category": "熱和氣體",
+    "question": "保溫瓶（真空瓶）具有鍍銀的雙層壁，這是為了解決哪種熱傳遞機制，從而將熱流失減至最低？",
+    "options": [
+      "傳導",
+      "對流",
+      "輻射",
+      "蒸發"
+    ],
+    "correct": 2,
+    "explanation": "鍍銀的反射面能將熱輻射反射回去，從而阻止因紅外綫輻射而造成的熱流失。"
+  },
+  {
+    "id": 460,
+    "type": "short",
+    "category": "熱和氣體",
+    "question": "利用一個 $300\\text{ W}$ 的加熱器為 $0.800\\text{ kg}$ 的液體加熱。液體溫度在 $64\\text{ s}$ 內上升了 $10.0\\text{ K}$。求該液體的比熱容。",
+    "correctAnswerValue": "2400",
+    "correctUnit": "J kg-1 K-1",
+    "explanation": "$Pt = mc\\Delta T \\Rightarrow c = (300 \\times 64) / (0.800 \\times 10.0) = 19200 / 8.00 = 2400\\text{ J kg}^{-1}\\text{ K}^{-1}$。"
+  },
+  {
+    "id": 461,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "子彈從槍中射出時，槍身會產生後座力。這主要可以用下列哪項守恆定律來解釋？",
+    "options": [
+      "動能守恆",
+      "機械勢能守恆",
+      "線動量守恆（動量守恆）",
+      "總角運動守恆"
+    ],
+    "correct": 2,
+    "explanation": "根據動量守恆定律，子彈向前的動量等於槍身向後的後座動量。"
+  },
+  {
+    "id": 462,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一個質量為 $4.00\\text{ kg}$ 的物塊在光滑地板上以 $5.00\\text{ m s}^{-1}$ 的速度滑行。求其動量。",
+    "correctAnswerValue": "20.0",
+    "correctUnit": "kg m s-1",
+    "explanation": "動量 $p = mv = 4.00 \\times 5.00 = 20.0\\text{ kg m s}^{-1}$。"
+  },
+  {
+    "id": 463,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一隻球從 $15\\text{ m}$ 的高處以 $10\\text{ m s}^{-1}$ 的初速度垂直向下拋出。求其著地時的碰撞速率。（$g=9.81$）",
+    "options": [
+      "$10\\text{ m s}^{-1}$",
+      "$15.0\\text{ m s}^{-1}$",
+      "$19.8\\text{ m s}^{-1}$",
+      "$39.4\\text{ m s}^{-1}$"
+    ],
+    "correct": 2,
+    "explanation": "$v^2 = u^2 + 2gs = 100 + 2(9.81)(15) = 100 + 294.3 = 394.3 \\Rightarrow v \\approx 19.85 \\approx 19.8\\text{ m s}^{-1}$。"
+  },
+  {
+    "id": 464,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一輛汽車在 $60.0\\text{ m}$ 的距離內，速度從 $10.0\\text{ m s}^{-1}$ 加速到 $20.0\\text{ m s}^{-1}$。求其加速度。",
+    "correctAnswerValue": "2.50",
+    "correctUnit": "m s-2",
+    "explanation": "$v^2 = u^2 + 2as \\Rightarrow 400 = 100 + 120 a \\Rightarrow 120a = 300 \\Rightarrow a = 2.50\\text{ m s}^{-2}$。"
+  },
+  {
+    "id": 465,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一輛質量為 $m$ 的汽車繞着彎道行駛，摩擦力使汽車保持在軌道上。若車速加倍，其所需的向心力會增加多少倍？",
+    "options": [
+      "$2$ 倍",
+      "$4$ 倍",
+      "$8$ 倍",
+      "$16$ 倍"
+    ],
+    "correct": 1,
+    "explanation": "$F_c = mv^2/r$。速度 $v$ 加倍會使所需的向心力變為原來的四倍。"
+  },
+  {
+    "id": 466,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一架質量為 $1200\\text{ kg}$ 的升降機以 $2.00\\text{ m s}^{-2}$ 的加速度垂直向上加速。求纜繩的張力。（$g=9.81$）",
+    "correctAnswerValue": "14200",
+    "correctUnit": "N",
+    "explanation": "$T - mg = ma \\Rightarrow T = m(g+a) = 1200 \\times (9.81 + 2.00) = 1200 \\times 11.81 = 14172 \\approx 14200\\text{ N}$。"
+  },
+  {
+    "id": 467,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一個外力作用於一個初始靜止的物體上。此時物體的動量隨時間的變化率正比於：",
+    "options": [
+      "總動能",
+      "所用時間的平方",
+      "施加的合外力",
+      "位移的大小"
+    ],
+    "correct": 2,
+    "explanation": "根據牛頓第二運動定律，動量的變化率直接等於物體所受到的合外力。"
+  },
+  {
+    "id": 468,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一粒質量為 $10.0\\text{ g}$ 的子彈以 $320\\text{ m s}^{-1}$ 的速度射入木塊，並在 $0.0800\\text{ s}$ 內停下。求平均阻力（煞停力）。",
+    "correctAnswerValue": "40.0",
+    "correctUnit": "N",
+    "explanation": "$F = \\Delta p / t = (0.0100 \\times 320) / 0.0800 = 3.20 / 0.0800 = 40.0\\text{ N}$。"
+  },
+  {
+    "id": 469,
+    "type": "mcq",
+    "category": "力和運動",
+    "question": "一個物塊在 $15\\text{ N}$ 的水平拉力作用下，在粗糙地板上以勻速（恆定速度）前進。求物塊受到的摩擦力。",
+    "options": [
+      "$0\\text{ N}$",
+      "$15\\text{ N}$",
+      "$30\\text{ N}$",
+      "無法確定"
+    ],
+    "correct": 1,
+    "explanation": "勻速運動意味着物體所受的合力為零。因此，摩擦力大小必須等於拉力，即 $15\\text{ N}$。"
+  },
+  {
+    "id": 470,
+    "type": "short",
+    "category": "力和運動",
+    "question": "一個質量為 $10.0\\text{ kg}$ 的物體從 $45.0\\text{ m}$ 的高處自由下落。求它剛要擊中地面時的速度。（$g=9.81$）",
+    "correctAnswerValue": "29.7",
+    "correctUnit": "m s-1",
+    "explanation": "$v = \\sqrt{2gh} = \\sqrt{2 \\times 9.81 \\times 45.0} = \\sqrt{882.9} \\approx 29.7\\text{ m s}^{-1}$。"
+  },
+{
+    "id": 471,
+    "type": "mcq",
+    "category": "波動",
+    "question": "某一週期性聲波的頻率為 $440\\text{ Hz}$，波長為 $0.8\\text{ m}$。求聲速。",
+    "options": [
+      "$110\\text{ m s}^{-1}$",
+      "$352\\text{ m s}^{-1}$",
+      "$550\\text{ m s}^{-1}$",
+      "$1100\\text{ m s}^{-1}$"
+    ],
+    "correct": 1,
+    "explanation": "$v = f\\lambda = 440 \\times 0.8 = 352\\text{ m s}^{-1}$。"
+  },
+  {
+    "id": 472,
+    "type": "short",
+    "category": "波動",
+    "question": "一束光線在玻璃（折射率 $n = 1.62$）中射向與水（折射率 $n = 1.33$）的交界面。求臨界角。",
+    "correctAnswerValue": "55.2",
+    "correctUnit": "oC",
+    "explanation": "臨界角 $c = \\sin^{-1}(1.33/1.62) \\approx \\sin^{-1}(0.821) \\approx 55.2^{\\circ}$。"
+  },
+  {
+    "id": 473,
+    "type": "mcq",
+    "category": "波動",
+    "question": "下列哪項正確描述了駐波的波節？",
+    "options": [
+      "位移最大的區域",
+      "位移為零的區域",
+      "聲能最高的區域",
+      "對稱的行進點"
+    ],
+    "correct": 1,
+    "explanation": "波節是駐波上因破壞性干涉而使位移保持為零的點。"
+  },
+  {
+    "id": 474,
+    "type": "short",
+    "category": "波動",
+    "question": "在楊氏雙縫實驗中，雙縫間距 $a = 0.400\\text{ mm}$，縫屏距離 $D = 2.00\\text{ m}$，條紋寬度 $w = 3.00\\text{ mm}$。求光的波長（以纳米為單位）。",
+    "correctAnswerValue": "600",
+    "correctUnit": "nm",
+    "explanation": "$\\lambda = aw/D = (0.400 \\times 10^{-3} \\times 3.00 \\times 10^{-3}) / 2.00 = 6.00 \\times 10^{-7}\\text{ m} = 600\\text{ nm}$。"
+  },
+  {
+    "id": 475,
+    "type": "mcq",
+    "category": "波動",
+    "question": "當聲波從空氣進入水中時，會發生以下哪種情況？",
+    "options": [
+      "波長減小",
+      "波的頻率上升",
+      "波速增加",
+      "偏振（極化）程度增加"
+    ],
+    "correct": 2,
+    "explanation": "聲音在水中的傳播速度比在空氣中快（約 $1500$ 對比 $340\\text{ m s}^{-1}$），因此其波速會增加。"
+  },
+  {
+    "id": 476,
+    "type": "short",
+    "category": "波動",
+    "question": "一個閉管風琴管的長度為 $0.850\\text{ m}$。求其基頻（已知聲速 $v=340\\text{ m s}^{-1}$）。",
+    "correctAnswerValue": "100",
+    "correctUnit": "Hz",
+    "explanation": "對於閉管的基頻（基音）：$\\lambda_1 = 4L = 3.40\\text{ m}$。頻率 $f_1 = v/\\lambda_1 = 340 / 3.40 = 100\\text{ Hz}$。"
+  },
+  {
+    "id": 477,
+    "type": "mcq",
+    "category": "波動",
+    "question": "物理治療師常用的紅外線熱療燈，主要利用了哪種電磁波？",
+    "options": [
+      "微波",
+      "紅外線",
+      "紫外線",
+      "$\\gamma$ 射線（伽馬射線）"
+    ],
+    "correct": 1,
+    "explanation": "紅外線輻射可以傳遞熱能，使皮膚分子振動從而溫熱痠痛的肌肉。"
+  },
+  {
+    "id": 478,
+    "type": "short",
+    "category": "波動",
+    "question": "某一繞射光柵（衍射光柵）的光柵刻線間距 $d = 2.00\\text{ }\\mu\\text{m}$。求當波長 $\\lambda = 500\\text{ nm}$ 時，第一級極大值的角度。",
+    "correctAnswerValue": "14.5",
+    "correctUnit": "oC",
+    "explanation": "$d\\sin\\theta = m\\lambda \\Rightarrow 2.00\\times 10^{-6}\\sin\\theta = 500\\times 10^{-9} = 0.5\\times 10^{-6} \\Rightarrow \\sin\\theta = 0.25 \\Rightarrow \\theta \\approx 14.5^{\\circ}$。"
+  },
+  {
+    "id": 479,
+    "type": "mcq",
+    "category": "波動",
+    "question": "下列哪種波的行為是橫向電磁波（橫波）所獨有的？",
+    "options": [
+      "繞射（衍射）",
+      "折射",
+      "偏振（極化）",
+      "干涉"
+    ],
+    "correct": 2,
+    "explanation": "只有具有橫向振動分量的波才能對其振動平面進行限制（即偏振）。"
+  },
+  {
+    "id": 480,
+    "type": "short",
+    "category": "波動",
+    "question": "一個聲源以 $20.0\\text{ m s}^{-1}$ 的速度向靜止的觀察者接近（已知聲速 $v_{sound}=340\\text{ m s}^{-1}$）。若聲源頻率為 $320\\text{ Hz}$，求視頻率（表觀頻率）。",
+    "correctAnswerValue": "340",
+    "correctUnit": "Hz",
+    "explanation": "多普勒效應：$f' = f [v / (v - v_s)] = 320 \\times [340 / (340 - 20.0)] = 320 \\times (340 / 320) = 340\\text{ Hz}$。"
+  },
+  {
+    "id": 481,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "將一根直導線置於磁場中。當通入電流時，在下列哪種情況下導線受到的磁場力最大？",
+    "options": [
+      "導線與磁場平行",
+      "導線與磁場垂直",
+      "電流大小減半",
+      "磁力線為零"
+    ],
+    "correct": 1,
+    "explanation": "由於 $F = BIL \\sin\\theta$，當 $\\theta = 90^{\\circ}$（即垂直，$\\sin(90^{\\circ}) = 1$）時，磁場力最大。"
+  },
+  {
+    "id": 482,
+    "type": "short",
+    "category": "電磁學",
+    "question": "一個電阻為 $22.0\\text{ }\\Omega$ 的電熱器連接到 $220\\text{ V}$ 的市電電源。求其電功率。",
+    "correctAnswerValue": "2.20",
+    "correctUnit": "kW",
+    "explanation": "$P = V^2 / R = 220^2 / 22.0 = 48400 / 22.0 = 2200\\text{ W} = 2.20\\text{ kW}$。"
+  },
+  {
+    "id": 483,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "發電廠中使用升壓變壓器的主要功能是什麼？",
+    "options": [
+      "增加輸電線路中的電流",
+      "增加輸電過程中的功率損耗",
+      "提高電壓並減小電流",
+      "降低鐵芯的感應率"
+    ],
+    "correct": 2,
+    "explanation": "提高輸電電壓可以減小所需的電流（$P=VI$），從而將輸電線因電阻引起的熱損耗（$I^2R$）減至最低。"
+  },
+  {
+    "id": 484,
+    "type": "short",
+    "category": "電磁學",
+    "question": "一根直導線水平通有 $10.0\\text{ A}$ 向南的電流。求距離導線 $0.0500\\text{ m}$ 處的磁場強度。（真空磁導率 $\\mu_0 = 4\\pi \\times 10^{-7}$）",
+    "correctAnswerValue": "4.00e-5",
+    "correctUnit": "T",
+    "explanation": "$B = \\mu_0 I / (2\\pi r) = (4\\pi \\times 10^{-7} \\times 10.0) / (2\\pi \\times 0.0500) = 4.00 \\times 10^{-5}\\text{ T}$。"
+  },
+  {
+    "id": 485,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "在真空中，一個點電荷 $+Q$ 產生的電勢。該電勢與下列哪項成正比？",
+    "options": [
+      "$Q^2$",
+      "$1/r$",
+      "$r^2$",
+      "$1/r^2$"
+    ],
+    "correct": 1,
+    "explanation": "點電荷產生的電勢公式為 $V = kQ/r$，這與 $1/r$ 直接成正比。"
+  },
+  {
+    "id": 486,
+    "type": "short",
+    "category": "電磁學",
+    "question": "求一個 $4.00\\text{ }\\Omega$ 和一個 $12.0\\text{ }\\Omega$ 的並聯電阻組合，再與一個 $7.00\\text{ }\\Omega$ 的電阻串聯後的等效電阻。",
+    "correctAnswerValue": "10.0",
+    "correctUnit": "ohm",
+    "explanation": "並聯等效電阻：$(4 \\times 12)/(4+12) = 48/16 = 3.00\\text{ }\\Omega$。總電阻 $= 3.00 + 7.00 = 10.0\\text{ }\\Omega$。"
+  },
+  {
+    "id": 487,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "變壓器中使用疊片鐵芯（渦流損耗小的鐵芯）的主要目的是什麼？",
+    "options": [
+      "防止觸電",
+      "減少因渦流引起的熱損耗",
+      "降低鐵芯的磁阻",
+      "增加初級線圈的電壓降"
+    ],
+    "correct": 1,
+    "explanation": "採用片狀疊加的結構可以阻止大塊鋼材中形成環流的渦流，從而將鐵芯的熱損耗減至最低。"
+  },
+  {
+    "id": 488,
+    "type": "short",
+    "category": "電磁學",
+    "question": "一根長度為 $0.500\\text{ m}$ 的直導線垂直於 $0.400\\text{ T}$ 的磁場放置，受到的磁場力為 $1.00\\text{ N}$。求導線中的電流。",
+    "correctAnswerValue": "5.00",
+    "correctUnit": "A",
+    "explanation": "$F = B I L \\Rightarrow I = F / (B L) = 1.00 / (0.400 \\times 0.500) = 1.00 / 0.200 = 5.00\\text{ A}$。"
+  },
+  {
+    "id": 489,
+    "type": "mcq",
+    "category": "電磁學",
+    "question": "一個帶正電的粒子（+q）在垂直穿出紙面的磁場中垂直向上運動。此時該粒子受到的磁場力方向指向：",
+    "options": [
+      "右方",
+      "左方",
+      "穿入紙面",
+      "不受力"
+    ],
+    "correct": 0,
+    "explanation": "應用弗萊明左手定則（磁場穿出紙面，電流向上）：初始受力方向指向右方。"
+  },
+  {
+    "id": 490,
+    "type": "short",
+    "category": "電磁學",
+    "question": "一根家用插頭導線的電阻為 $0.500\\text{ }\\Omega$。當它與 $220\\text{ V}$ 的線路發生短路時，求短路電流。",
+    "correctAnswerValue": "440",
+    "correctUnit": "A",
+    "explanation": "短路電流為 $I = V / R = 220 / 0.500 = 440\\text{ A}$。"
+  },
+  {
+    "id": 491,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "某一放射性樣本的經校正計數率為 $400\\text{ Bq}$，在 $12\\text{ 天}$ 內跌至 $100\\text{ Bq}$。求其半衰期。",
+    "options": [
+      "$2\\text{ 天}$",
+      "$4\\text{ 天}$",
+      "$6\\text{ 天}$",
+      "$8\\text{ 天}$"
+    ],
+    "correct": 2,
+    "explanation": "$400/100 = 4 = 2^2$ 個半衰期。半衰期 $= 12 / 2 = 6\\text{ 天}$。"
+  },
+  {
+    "id": 492,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "$^{234}_{90}\\text{Th}$ 經歷 $\\beta^-$ 衰變（負貝他衰變）後會形成子原子核。求該子原子核的原子序 $Z$。",
+    "correctAnswerValue": "91.0",
+    "correctUnit": "protons",
+    "explanation": "$\\beta^-$ 衰變會把一個中子轉化為質子，使原子序增加 1（$90 \\rightarrow 91$）。"
+  },
+  {
+    "id": 493,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "下列哪項具有最強的游離（電離）能力，且在誤食入體內時對內臟器官造成的破壞風險最高？",
+    "options": [
+      "$\\alpha$ 粒子（阿爾法粒子）",
+      "$\\beta$ 粒子（貝他粒子）",
+      "$\\gamma$ 射線（伽馬射線）",
+      "X射線"
+    ],
+    "correct": 0,
+    "explanation": "$\\alpha$ 粒子具有最大的質量和電荷（$+2e$），一旦進入生物體內，會對有機組織造成極為劇烈的游離（電離）破壞。"
+  },
+  {
+    "id": 494,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "某一核反應的質量虧損為 $8.00\\times 10^{-29}\\text{ kg}$。求釋放出的能量（以焦耳為單位）。",
+    "correctAnswerValue": "7.20e-12",
+    "correctUnit": "J",
+    "explanation": "$E_b = \\Delta m c^2 = (8.00 \\times 10^{-29}) \\times (3.00 \\times 10^8)^2 = 7.20 \\times 10^{-12}\\text{ J}$。"
+  },
+ {
+  "id": 495,
+  "type": "mcq",
+  "category": "放射現象和核能",
+  "question": "某一放射性同位素依據方程式 $N = N_0 (0.5)^{t / T}$ 進行衰變，其中 $T$ 為半衰期。若該樣本的放射性活度在 $18.0\\text{ 分鐘}$ 後跌至初始活度的 $12.5\\%$，求其半衰期 $T$。",
+  "options": [
+    "$4.50\\text{ 分鐘}$",
+    "$6.00\\text{ 分鐘}$",
+    "$9.00\\text{ 分鐘}$",
+    "$54.0\\text{ 分鐘}$"
+  ],
+  "correct": 1,
+  "explanation": "由於放射性活度與活性原子核的數目成正比，因此可得 $A = A_0 (0.5)^{t / T}$。已知活度跌至 $12.5\\%$，我們可以寫成：$0.125 = (0.5)^{18.0 / T} \\Rightarrow (0.5)^3 = (0.5)^{18.0 / T}$。對比指數項：$3 = 18.0 / T \\Rightarrow T = 6.00\\text{ 分鐘}$。"
+},
+  {
+    "id": 496,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "補全以下 $\\alpha$ 衰變方程式的母元素：$X \\rightarrow ^{214}_{82}\\text{Pb} + \\alpha$。求母元素 $X$ 的質量數。",
+    "correctAnswerValue": "218",
+    "correctUnit": "u",
+    "explanation": "釋放 $\\alpha$ 粒子會使母元素的質量數減少 4。因此母元素的質量數 $A = 214 + 4 = 218$。"
+  },
+  {
+    "id": 497,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "在超臨界裂變鏈式反應期間，能量釋放的速率可以用下列哪種函數來描述？",
+    "options": [
+      "線性增長",
+      "二次函數衰減",
+      "指數級增長",
+      "恆定的平台期"
+    ],
+    "correct": 2,
+    "explanation": "每一次核裂變產生的中子數都大於被吸收的中子數，從而導致失控的指數級級聯反應。"
+  },
+  {
+    "id": 498,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "某一輻射源的半衰期為 $400\\text{ s}$。求其衰變常數 $\\lambda$。",
+    "correctAnswerValue": "0.00173",
+    "correctUnit": "s-1",
+    "explanation": "$\\lambda = \\ln(2) / t_{1/2} = 0.69315 / 400 \\approx 0.001732 \\approx 0.00173\\text{ s}^{-1}$。"
+  },
+  {
+    "id": 499,
+    "type": "mcq",
+    "category": "放射現象和核能",
+    "question": "在高溫下進行重氫同位素的核聚變（核融合）過程中，會發生以下哪種情況？",
+    "options": [
+      "重原子核發生分裂",
+      "質子轉化為阿爾法中子",
+      "質量虧損直接轉化為結合能釋放",
+      "庫侖力自然地吸引原子核"
+    ],
+    "correct": 2,
+    "explanation": "聚變後的子核質量小於反應前母核的質量總和，其質量虧損會以產物動能的形式釋放出來。"
+  },
+  {
+    "id": 500,
+    "type": "short",
+    "category": "放射現象和核能",
+    "question": "補全方程式：$^{3}_{2}\\text{He} + ^{3}_{2}\\text{He} \\rightarrow ^{4}_{2}\\text{He} + 2X$。求粒子 $X$ 的質量數。",
+    "correctAnswerValue": "1.00",
+    "correctUnit": "u",
+    "explanation": "根據質量守恆定律：$3 + 3 = 4 + 2(A_x) \\Rightarrow 2A_x = 2 \\Rightarrow A_x = 1$。因此該粒子 $X$ 是一個質子（$^{1}_{1}\\text{H}$）。"
+  }]
