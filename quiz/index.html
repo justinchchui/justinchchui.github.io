@@ -121,7 +121,7 @@
                     <!-- Synthesizer Audio Toggle -->
                     <button id="toggleAudioBtn" class="bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white p-2.5 rounded-lg border border-slate-700 transition-all flex items-center justify-center shadow-md shrink-0" title="Toggle Sound Effects">
                         <svg id="soundOnIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M12 18.75V5.25L7.75 9.5H4.5v5h3.25L12 18.75z"></path></svg>
-                        <svg id="soundOffIcon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <svg id="soundOffIcon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                     </button>
                 </div>
             </div>
@@ -719,85 +719,6 @@
         let isAnswered = false;
         let audioMuted = SafeStorage.get('quiz_audio_muted', 'false') === 'true';
 
-        // --- Language UI Translator ---
-        function applyLanguagePack() {
-            const pack = translations[currentLang];
-            
-            // Translate all elements with data-i18n attribute
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (pack[key]) {
-                    el.textContent = pack[key];
-                }
-            });
-
-            // Translate specific complex elements
-            if (langBtnText) langBtnText.textContent = pack.langText;
-            if (shortAnswerInput) shortAnswerInput.placeholder = pack.placeholderInput;
-
-            // Re-render categories checklist to translate categories
-            populateCategories();
-            updateQuestionCountSliderLimits();
-            updateLiveHUD();
-            
-            // Refresh currently active question layout
-            if (currentQuestionsPool && currentQuestionsPool[currentQuestionIndex]) {
-                const activeQ = currentQuestionsPool[currentQuestionIndex];
-                if (currentCategoryText) {
-                    currentCategoryText.textContent = (currentLang === 'zh' ? (activeQ.categoryZh || activeQ.category) : (activeQ.categoryEn || activeQ.category)) || "GENERAL";
-                }
-                if (progressCounter) {
-                    progressCounter.textContent = `${pack.questionsOf} ${currentQuestionIndex + 1} ${pack.questionsJoin} ${currentQuestionsPool.length}`;
-                }
-                if (questionText) {
-                    questionText.textContent = currentLang === 'zh' ? (activeQ.questionZh || activeQ.question) : (activeQ.questionEn || activeQ.question);
-                }
-
-                // If currently multiple-choice choices are loaded
-                if (activeQ.type !== "short" && optionsContainer) {
-                    const opts = currentLang === 'zh' ? (activeQ.optionsZh || activeQ.options) : (activeQ.optionsEn || activeQ.options);
-                    const children = optionsContainer.children;
-                    for (let i = 0; i < children.length; i++) {
-                        const labelSpan = children[i].querySelector('span:first-child');
-                        if (labelSpan && opts[i]) {
-                            labelSpan.textContent = opts[i];
-                        }
-                    }
-                }
-                
-                // If answer is graded, update Right side explanation panel translation
-                if (isAnswered && panelDescription) {
-                    const feedbackTitle = panelTitle.textContent;
-                    // Auto recalculate translation status
-                    if (statusIconContainer.className.includes('bg-emerald')) {
-                        panelTitle.textContent = pack.correctCalculation || pack.correctResponse;
-                    } else if (statusIconContainer.className.includes('bg-amber')) {
-                        panelTitle.textContent = pack.unitIncorrect;
-                    } else if (feedbackTitle.includes('Both') || feedbackTitle.includes('兩者')) {
-                        panelTitle.textContent = pack.bothIncorrect;
-                    } else {
-                        panelTitle.textContent = pack.calcIncorrect || pack.incorrectChoice;
-                    }
-
-                    panelDescription.innerHTML = `
-                        <div class="mb-3 text-left bg-slate-950/40 p-2.5 rounded border border-slate-800">
-                            <span class="block text-[10px] text-slate-400 uppercase font-bold">${currentLang === 'zh' ? '標準目標：' : 'Standard Target:'}</span>
-                            <span class="text-white text-xs font-mono font-bold">${activeQ.correctAnswerValue || ''} ${activeQ.correctUnit || ''}</span>
-                        </div>
-                        <div class="text-left">
-                            <span class="block text-[10px] text-slate-400 uppercase font-bold mb-1">${currentLang === 'zh' ? '評分詳情：' : 'Marking Details:'}</span>
-                            <span class="text-slate-300 block text-xs leading-relaxed max-h-[160px] overflow-y-auto pr-1">${currentLang === 'zh' ? (activeQ.explanationZh || activeQ.explanation) : (activeQ.explanationEn || activeQ.explanation)}</span>
-                        </div>
-                    `;
-                } else if (panelTitle && panelDescription) {
-                    panelTitle.textContent = pack.awaitingResponse;
-                    panelDescription.textContent = activeQ.type === "short" ? pack.awaitingDesc : pack.awaitingEvalDesc;
-                }
-            }
-
-            triggerMathTypeset();
-        }
-
         // --- Setup Categories Checkbox List ---
         function populateCategories() {
             const categories = [...new Set(questionsList.map(q => q.categoryEn || q.category || "General"))];
@@ -860,6 +781,85 @@
             }
             
             questionCountDisplay.textContent = questionCountSlider.value;
+        }
+
+        // --- Language UI Translator ---
+        function applyLanguagePack() {
+            const pack = translations[currentLang];
+            
+            // Translate all elements with data-i18n attribute
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (pack[key]) {
+                    el.textContent = pack[key];
+                }
+            });
+
+            // Translate specific complex elements
+            if (langBtnText) langBtnText.textContent = pack.langText;
+            if (shortAnswerInput) shortAnswerInput.placeholder = pack.placeholderInput;
+
+            // Re-render categories checklist to translate categories
+            populateCategories();
+            updateQuestionCountSliderLimits();
+            updateLiveHUD();
+            
+            // Refresh currently active question layout
+            if (currentQuestionsPool && currentQuestionsPool[currentQuestionIndex]) {
+                const activeQ = currentQuestionsPool[currentQuestionIndex];
+                if (currentCategoryText) {
+                    currentCategoryText.textContent = (currentLang === 'zh' ? (activeQ.categoryZh || activeQ.category) : (activeQ.categoryEn || activeQ.category)) || "GENERAL";
+                }
+                if (progressCounter) {
+                    progressCounter.textContent = `${pack.questionsOf} ${currentQuestionIndex + 1} ${pack.questionsJoin} ${currentQuestionsPool.length}`;
+                }
+                if (questionText) {
+                    questionText.textContent = currentLang === 'zh' ? (activeQ.questionZh || activeQ.question) : (activeQ.questionEn || activeQ.question);
+                }
+
+                // If currently multiple-choice choices are loaded
+                if (activeQ.type !== "short" && optionsContainer) {
+                    const opts = currentLang === 'zh' ? (activeQ.optionsZh || activeQ.options) : (activeQ.optionsEn || activeQ.options);
+                    const children = optionsContainer.children;
+                    for (let i = 0; i < children.length; i++) {
+                        const labelSpan = children[i].querySelector('span:first-child');
+                        if (labelSpan && opts[i]) {
+                            labelSpan.textContent = opts[i];
+                        }
+                    }
+                }
+                
+                // If answer is graded, update Right side explanation panel translation
+                if (isAnswered && panelDescription) {
+                    const feedbackTitle = panelTitle.textContent;
+                    // Auto recalculate translation status
+                    if (statusIconContainer.className.includes('bg-emerald')) {
+                        panelTitle.textContent = pack.correctCalculation || pack.correctResponse;
+                    } else if (statusIconContainer.className.includes('bg-amber')) {
+                        panelTitle.textContent = pack.unitIncorrect;
+                    } else if (feedbackTitle.includes('Both') || feedbackTitle.includes('氣') || feedbackTitle.includes('兩者')) {
+                        panelTitle.textContent = pack.bothIncorrect;
+                    } else {
+                        panelTitle.textContent = pack.calcIncorrect || pack.incorrectChoice;
+                    }
+
+                    panelDescription.innerHTML = `
+                        <div class="mb-3 text-left bg-slate-950/40 p-2.5 rounded border border-slate-800">
+                            <span class="block text-[10px] text-slate-400 uppercase font-bold">${currentLang === 'zh' ? '標準目標：' : 'Standard Target:'}</span>
+                            <span class="text-white text-xs font-mono font-bold">${activeQ.correctAnswerValue || ''} ${activeQ.correctUnit || ''}</span>
+                        </div>
+                        <div class="text-left">
+                            <span class="block text-[10px] text-slate-400 uppercase font-bold mb-1">${currentLang === 'zh' ? '評分詳情：' : 'Marking Details:'}</span>
+                            <span class="text-slate-300 block text-xs leading-relaxed max-h-[160px] overflow-y-auto pr-1">${currentLang === 'zh' ? (activeQ.explanationZh || activeQ.explanation) : (activeQ.explanationEn || activeQ.explanation)}</span>
+                        </div>
+                    `;
+                } else if (panelTitle && panelDescription) {
+                    panelTitle.textContent = pack.awaitingResponse;
+                    panelDescription.textContent = activeQ.type === "short" ? pack.awaitingDesc : pack.awaitingEvalDesc;
+                }
+            }
+
+            triggerMathTypeset();
         }
 
         // --- Quiz Play Engine ---
@@ -1124,48 +1124,6 @@
             }
         }
 
-        // --- Custom Dialog Box Helper ---
-        function customAlert(title, message, type = 'info') {
-            return new Promise((resolve) => {
-                const modal = document.getElementById('customDialog');
-                const titleEl = document.getElementById('customDialogTitle');
-                const msgEl = document.getElementById('customDialogMsg');
-                const btnGroup = document.getElementById('customDialogBtnGroup');
-                const iconEl = document.getElementById('customDialogIcon');
-
-                if (!modal || !titleEl || !msgEl || !btnGroup || !iconEl) {
-                    resolve();
-                    return;
-                }
-
-                titleEl.textContent = title;
-                msgEl.textContent = message;
-
-                if (type === 'success') {
-                    iconEl.className = "w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto mb-4 border border-emerald-500/30";
-                    iconEl.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>`;
-                } else if (type === 'error') {
-                    iconEl.className = "w-12 h-12 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center mx-auto mb-4 border border-rose-500/30";
-                    iconEl.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>`;
-                } else {
-                    iconEl.className = "w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center mx-auto mb-4 border border-blue-500/30";
-                    iconEl.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
-                }
-
-                btnGroup.innerHTML = '';
-                const okBtn = document.createElement('button');
-                okBtn.className = "bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-6 rounded-lg text-xs transition-colors shadow-md";
-                okBtn.textContent = currentLang === 'zh' ? "確定" : "OK";
-                okBtn.onclick = () => {
-                    modal.classList.add('hidden');
-                    resolve();
-                };
-                btnGroup.appendChild(okBtn);
-
-                modal.classList.remove('hidden');
-            });
-        }
-
         // --- Start Initialization & Safe Element Querying ---
         window.onload = async () => {
             // Assign DOM Elements safely
@@ -1260,6 +1218,19 @@
                     startQuiz();
                 });
             }
+            
+            // --- Allow using enter to input short answer ---
+            if (shortAnswerInput) {
+                shortAnswerInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault(); // Prevents newline or default form behavior
+                        if (submitShortAnswerBtn && !submitShortAnswerBtn.classList.contains('hidden') && !isAnswered) {
+                            submitShortAnswerBtn.click();
+                        }
+                    }
+                });
+            }
+
             if (submitShortAnswerBtn) {
                 submitShortAnswerBtn.addEventListener('click', async () => {
                     if (isAnswered) return;
