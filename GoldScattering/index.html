@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rutherford Gold Foil Experiment Simulator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #0f172a;
+      color: #e2e8f0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    canvas {
+      background-color: #0b1329;
+      border-radius: 0.75rem;
+      box-shadow: inset 0 2px 8px 0 rgba(0, 0, 0, 0.4);
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    /* Custom range slider styling */
+    input[type=range] {
+      -webkit-appearance: none;
+      width: 100%;
+      background: transparent;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 18px;
+      width: 18px;
+      border-radius: 50%;
+      background: #f59e0b;
+      cursor: pointer;
+      margin-top: -7px;
+      box-shadow: 0 0 8px rgba(245, 158, 11, 0.6);
+    }
+    input[type=range]::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 4px;
+      cursor: pointer;
+      background: #334155;
+      border-radius: 2px;
+    }
+    /* Custom tab styling */
+    .btn-tab {
+      transition: all 0.2s ease-in-out;
+    }
+    .btn-tab.active {
+      background-color: #d97706;
+      color: #ffffff;
+      border-color: #f59e0b;
+      box-shadow: 0 0 12px rgba(217, 119, 6, 0.4);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center p-4 md:p-8">
+
+  <div class="max-w-6xl w-full">
+    <!-- Back Navigation -->
+    <div class="mb-2 md:mb-6">
+      <a href="../" class="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm font-bold bg-slate-800 py-2 px-4 rounded-lg border border-slate-700 shadow-md hover:bg-slate-700 w-max">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+        Back to Home
+      </a>
+    </div>
+
+    <header class="mb-8 text-center">
+      <div class="inline-block px-3 py-1 bg-amber-500/10 border border-amber-500/30 rounded-full text-amber-400 text-xs font-semibold uppercase tracking-wider mb-3">
+        Nuclear Physics & Atomic Structure
+      </div>
+      <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-3 tracking-tight">
+        Rutherford Gold Foil Experiment
+      </h1>
+      <p class="text-slate-400 max-w-3xl mx-auto text-sm md:text-base leading-relaxed">
+        Simulate the famous 1909 Geiger–Marsden experiment. Observe how high-velocity <span class="text-amber-400 font-semibold">alpha particles</span> interacting with a thin gold foil revealed the concentrated <span class="text-red-400 font-semibold">atomic nucleus</span> and reshaped our understanding of matter.
+      </p>
+    </header>
+
+    <div class="bg-slate-800 rounded-xl p-6 shadow-xl mb-8 border border-slate-700">
+      
+      <!-- Primary Controls Row -->
+      <div class="flex flex-col lg:flex-row items-center justify-between gap-6 mb-6 pb-6 border-b border-slate-700/80">
+        
+        <!-- Toggle Fire Button & View Switcher -->
+        <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto justify-center lg:justify-start">
+          <button id="toggleBeamBtn" class="bg-amber-600 hover:bg-amber-500 text-white px-6 py-2.5 rounded-lg font-bold transition-all shadow-lg shadow-amber-600/30 w-36 shrink-0 flex items-center justify-center gap-2">
+            <span id="beamStatusDot" class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span id="beamBtnText">Beam: ON</span>
+          </button>
+
+          <div class="flex bg-slate-900/80 p-1 rounded-lg border border-slate-700">
+            <button id="viewMacroBtn" class="btn-tab active text-xs md:text-sm font-semibold px-4 py-2 rounded-md border border-transparent">
+              Laboratory setup (Macro)
+            </button>
+            <button id="viewMicroBtn" class="btn-tab text-xs md:text-sm text-slate-400 font-semibold px-4 py-2 rounded-md border border-transparent">
+              Atomic View (Micro)
+            </button>
+          </div>
+        </div>
+
+        <!-- Model Switcher (Plum Pudding vs Rutherford) -->
+        <div class="flex items-center gap-3 bg-slate-900/60 p-2 px-4 rounded-xl border border-slate-700/60 w-full lg:w-auto justify-between">
+          <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Atomic Model:</span>
+          <div class="flex gap-2">
+            <button id="modelRutherfordBtn" class="bg-amber-500/20 text-amber-300 border border-amber-500/50 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors">
+              Rutherford Nucleus
+            </button>
+            <button id="modelThomsonBtn" class="bg-slate-800 text-slate-400 border border-slate-700 hover:text-slate-200 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors">
+              Thomson "Plum Pudding"
+            </button>
+          </div>
+        </div>
+
+        <!-- Reset Button -->
+        <button id="resetBtn" class="bg-slate-700 hover:bg-slate-600 text-white px-5 py-2.5 rounded-lg font-semibold transition-colors text-sm w-full lg:w-auto shrink-0 flex items-center justify-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+          Reset Statistics
+        </button>
+      </div>
+
+      <!-- Sliders and Options Row -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label for="particleRate" class="text-xs font-medium text-slate-300">Emission Rate (Particles/s)</label>
+            <span id="rateValue" class="text-xs text-amber-400 font-mono font-bold">15</span>
+          </div>
+          <input type="range" id="particleRate" min="1" max="50" value="15">
+        </div>
+
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label for="particleEnergy" class="text-xs font-medium text-slate-300">Alpha Velocity / Energy</label>
+            <span id="energyValue" class="text-xs text-amber-400 font-mono font-bold">5.0 MeV</span>
+          </div>
+          <input type="range" id="particleEnergy" min="2" max="10" step="0.5" value="5">
+        </div>
+
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label for="foilThickness" class="text-xs font-medium text-slate-300">Gold Foil Thickness</label>
+            <span id="thicknessValue" class="text-xs text-amber-400 font-mono font-bold">400 nm (3 layers)</span>
+          </div>
+          <input type="range" id="foilThickness" min="100" max="1000" step="100" value="400">
+        </div>
+
+        <div class="flex flex-col gap-2 bg-slate-900/40 p-3 rounded-lg border border-slate-700/50">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-medium text-slate-300">Show Trajectory Trails</span>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="toggleTrails" class="sr-only peer" checked>
+              <div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-600"></div>
+            </label>
+          </div>
+          <div class="flex items-center justify-between pt-1 border-t border-slate-700/50">
+            <span class="text-xs font-medium text-slate-300">Show Micro Force Vectors (<i>F</i>&#8407;)</span>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="toggleForces" class="sr-only peer" checked>
+              <div class="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-1/2 peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-red-500"></div>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Simulation Viewport -->
+    <div class="bg-slate-800 rounded-xl p-6 shadow-xl mb-8 border border-slate-700">
+      <div class="flex flex-col md:flex-row items-center justify-between mb-4 gap-2">
+        <div>
+          <h2 id="viewTitle" class="text-xl font-bold text-amber-300 flex items-center gap-2">
+            Top-Down Experimental Setup (Macro View)
+          </h2>
+          <p id="viewDescription" class="text-xs text-slate-400 mt-0.5">
+            Alpha particles emitted from lead housing pass through slit collimators, hitting the central thin gold foil target surrounded by a zinc sulfide detection ring.
+          </p>
+        </div>
+        <div id="modelBadge" class="px-3 py-1 rounded bg-amber-500/20 text-amber-300 text-xs font-semibold border border-amber-500/30 shrink-0">
+          Rutherford Model (Nucleus Radius ~ 10⁻¹⁴ m)
+        </div>
+      </div>
+
+      <div class="relative w-full aspect-[16/9] md:aspect-[21/9] rounded-lg overflow-hidden border-2 border-slate-700/80 bg-slate-950 shadow-inner">
+        <canvas id="simCanvas" width="1050" height="450"></canvas>
+
+        <!-- Overlay Legend on Canvas -->
+        <div class="absolute bottom-3 left-3 bg-slate-900/80 backdrop-blur-sm p-2.5 rounded-lg border border-slate-700 text-[11px] flex flex-wrap gap-4 text-slate-300">
+          <div class="flex items-center gap-1.5">
+            <span class="w-3 h-3 rounded-full bg-amber-400 inline-block shadow-[0_0_6px_rgba(251,191,36,0.8)]"></span>
+            <span>Alpha Particle (&alpha;²⁺)</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="w-3 h-3 rounded-full bg-red-500 inline-block shadow-[0_0_6px_rgba(239,68,68,0.8)]"></span>
+            <span>Gold Nucleus (+79e)</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="w-3 h-3 rounded-full bg-emerald-400 inline-block shadow-[0_0_6px_rgba(52,211,153,0.8)]"></span>
+            <span>ZnS Flash / Exit Detector</span>
+          </div>
+          <div id="microLegendForce" class="flex items-center gap-1.5 text-red-400">
+            <span class="w-3 h-0.5 bg-red-500 inline-block"></span>
+            <span>Repulsion Force <i>F</i>&#8407; &prop; 1/r²</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Statistics & Angle Distribution Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8">
+      <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700/80 text-center">
+        <div class="text-xs font-medium text-slate-400 mb-1">Total Particles</div>
+        <div id="statTotal" class="text-2xl font-black text-white font-mono">0</div>
+        <div class="text-[10px] text-slate-500 mt-1">100% of beam</div>
+      </div>
+
+      <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700/80 text-center">
+        <div class="text-xs font-medium text-emerald-400 mb-1">Undeflected (&lt;5°)</div>
+        <div id="statUndeflected" class="text-2xl font-black text-emerald-400 font-mono">0</div>
+        <div id="statUndeflectedPct" class="text-[10px] text-slate-400 mt-1">0.0%</div>
+      </div>
+
+      <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700/80 text-center">
+        <div class="text-xs font-medium text-blue-400 mb-1">Small Deflection (5°-45°)</div>
+        <div id="statSmall" class="text-2xl font-black text-blue-400 font-mono">0</div>
+        <div id="statSmallPct" class="text-[10px] text-slate-400 mt-1">0.0%</div>
+      </div>
+
+      <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700/80 text-center">
+        <div class="text-xs font-medium text-orange-400 mb-1">Large Deflection (45°-90°)</div>
+        <div id="statLarge" class="text-2xl font-black text-orange-400 font-mono">0</div>
+        <div id="statLargePct" class="text-[10px] text-slate-400 mt-1">0.0%</div>
+      </div>
+
+      <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700/80 text-center">
+        <div class="text-xs font-medium text-red-400 mb-1">Backscattered (&gt;90°)</div>
+        <div id="statBack" class="text-2xl font-black text-red-400 font-mono">0</div>
+        <div id="statBackPct" class="text-[10px] text-slate-400 mt-1">0.0%</div>
+      </div>
+    </div>
+
+    <!-- Educational Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-slate-300 mb-12">
+      <div class="bg-slate-800/60 p-5 rounded-xl border border-slate-700/60">
+        <h3 class="text-base font-bold text-white mb-2 flex items-center gap-2">
+          <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          Experimental Design
+        </h3>
+        <p class="text-slate-400 leading-relaxed text-xs md:text-sm">
+          A radioactive Radium source emitting positively charged alpha particles (He²⁺) was housed inside a heavy lead cavity with a narrow aperture. This produced a focused, straight beam aimed at an ultra-thin gold foil sheet (~400 nm thick, about 1000 atoms thick).
+        </p>
+      </div>
+
+      <div class="bg-slate-800/60 p-5 rounded-xl border border-slate-700/60">
+        <h3 class="text-base font-bold text-white mb-2 flex items-center gap-2">
+          <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          Thomson vs Rutherford
+        </h3>
+        <p class="text-slate-400 leading-relaxed text-xs md:text-sm">
+          In Thomson's <strong>Plum Pudding Model</strong>, positive charge was uniformly spread throughout the atom with negatively charged electrons embedded inside. Positively charged alpha particles are attracted to electrons and repelled by the positive sphere, resulting in nearly zero net deflection (&lt; 0.1°). Rutherford's <strong>Nuclear Model</strong> proved positive charge (+79e in gold) is concentrated in a tiny, dense nucleus, producing strong localized Coulomb forces.
+        </p>
+      </div>
+
+      <div class="bg-slate-800/60 p-5 rounded-xl border border-slate-700/60">
+        <h3 class="text-base font-bold text-white mb-2 flex items-center gap-2">
+          <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+          Coulomb Scattering Physics
+        </h3>
+        <p class="text-slate-400 leading-relaxed text-xs md:text-sm">
+          Deflection angle &theta; depends on the <strong>impact parameter b</strong> (perpendicular distance of approach to nucleus). Small b results in massive electrostatic repulsion F = k·(2e)·(79e)/r², creating hyperbolic scattering orbits and backscattering.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="w-full border-t border-slate-800 py-6 text-center text-xs text-slate-500 mt-auto">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-3">
+      <div>
+        © Rutherford Atomic Model Physics Simulation • Geiger–Marsden Experiment
+      </div>
+      <div class="flex gap-4">
+        <a href="../" class="hover:text-slate-300 transition-colors">Home</a>
+        <span class="text-slate-700">•</span>
+        <span class="text-slate-400">Interactive Canvas Simulation</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // --- Global Canvas & Simulation Configuration ---
+    const canvas = document.getElementById('simCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let isBeamActive = true;
+    let viewMode = 'macro'; // 'macro' or 'micro'
+    let atomicModel = 'rutherford'; // 'rutherford' or 'thomson'
+    let particleRate = 15; // particles per second
+    let particleEnergy = 5.0; // speed multiplier
+    let foilThickness = 400; // foil thickness in nm
+    let showTrails = true;
+    let showForces = true;
+
+    // Statistics Tracker
+    let stats = {
+      total: 0,
+      undeflected: 0, // < 5 deg
+      small: 0,       // 5 - 45 deg
+      large: 0,       // 45 - 90 deg
+      back: 0         // > 90 deg
+    };
+
+    // Arrays
+    let particles = [];
+    let scintillations = [];
+    let microGoldNuclei = [];
+
+    // UI Element References
+    const toggleBeamBtn = document.getElementById('toggleBeamBtn');
+    const beamStatusDot = document.getElementById('beamStatusDot');
+    const beamBtnText = document.getElementById('beamBtnText');
+    const viewMacroBtn = document.getElementById('viewMacroBtn');
+    const viewMicroBtn = document.getElementById('viewMicroBtn');
+    const modelRutherfordBtn = document.getElementById('modelRutherfordBtn');
+    const modelThomsonBtn = document.getElementById('modelThomsonBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const rateSlider = document.getElementById('particleRate');
+    const rateValue = document.getElementById('rateValue');
+    const energySlider = document.getElementById('particleEnergy');
+    const energyValue = document.getElementById('energyValue');
+    const thicknessSlider = document.getElementById('foilThickness');
+    const thicknessValue = document.getElementById('thicknessValue');
+    const toggleTrails = document.getElementById('toggleTrails');
+    const toggleForces = document.getElementById('toggleForces');
+
+    const viewTitle = document.getElementById('viewTitle');
+    const viewDescription = document.getElementById('viewDescription');
+    const modelBadge = document.getElementById('modelBadge');
+
+    function initMicroNuclei() {
+      microGoldNuclei = [];
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2;
+
+      // Number of atomic columns/layers depends on selected gold foil thickness
+      const cols = Math.max(1, Math.min(7, Math.round(foilThickness / 150)));
+      const rows = 3;
+      const spacingY = 135;
+      const spacingX = 110;
+
+      if (atomicModel === 'rutherford') {
+        for (let c = 0; c < cols; c++) {
+          for (let r = 0; r < rows; r++) {
+            // Stagger alternate rows to represent crystalline atomic structure
+            const xOffset = (r % 2 === 1) ? 20 : -20;
+            const nx = cx - ((cols - 1) * spacingX) / 2 + c * spacingX + xOffset;
+            const ny = cy - ((rows - 1) * spacingY) / 2 + r * spacingY;
+            microGoldNuclei.push({
+              x: nx,
+              y: ny,
+              radius: 6,
+              charge: 79,
+              type: 'rutherford'
+            });
+          }
+        }
+      } else {
+        // Thomson Model: Large diffuse positive spheres with embedded electrons
+        for (let c = 0; c < cols; c++) {
+          for (let r = 0; r < rows; r++) {
+            const nx = cx - ((cols - 1) * spacingX) / 2 + c * spacingX;
+            const ny = cy - ((rows - 1) * spacingY) / 2 + r * spacingY;
+            
+            let electrons = [];
+            for (let i = 0; i < 14; i++) {
+              let angle = Math.random() * Math.PI * 2;
+              let dist = Math.random() * 45;
+              electrons.push({
+                dx: Math.cos(angle) * dist,
+                dy: Math.sin(angle) * dist
+              });
+            }
+
+            microGoldNuclei.push({
+              x: nx,
+              y: ny,
+              radius: 55, // large diffuse positive sphere
+              charge: 79,
+              type: 'thomson',
+              electrons: electrons
+            });
+          }
+        }
+      }
+    }
+
+    class AlphaParticle {
+      constructor() {
+        this.reset();
+      }
+
+      reset() {
+        if (viewMode === 'macro') {
+          // Macro mode: Starts at radium block inside lead cavity (left side)
+          this.x = 80;
+          this.y = canvas.height / 2 + (Math.random() - 0.5) * 4;
+          this.vx = (particleEnergy * 1.2) + 2;
+          this.vy = (Math.random() - 0.5) * 0.1;
+          this.active = true;
+          this.hasDeflected = false;
+          this.hasEnteredRing = false;
+          this.trail = [];
+          this.initialAngle = Math.atan2(this.vy, this.vx);
+          this.fx = 0;
+          this.fy = 0;
+        } else {
+          // Micro mode: Fires from left edge across height
+          this.x = 20;
+          this.y = 25 + Math.random() * (canvas.height - 50);
+          this.vx = (particleEnergy * 0.8) + 3;
+          this.vy = 0;
+          this.active = true;
+          this.trail = [];
+          this.initialAngle = 0;
+          this.fx = 0;
+          this.fy = 0;
+        }
+      }
+
+      update() {
+        if (!this.active) return;
+
+        // Record trail
+        if (showTrails) {
+          this.trail.push({ x: this.x, y: this.y });
+          if (this.trail.length > 30) this.trail.shift();
+        }
+
+        if (viewMode === 'macro') {
+          this.updateMacro();
+        } else {
+          this.updateMicro();
+        }
+      }
+
+      updateMacro() {
+        const cx = canvas.width / 2;
+        const cy = canvas.height / 2;
+        const foilWidth = Math.max(4, (foilThickness / 400) * 8);
+        const thicknessFactor = foilThickness / 400;
+
+        // Interactive gold foil scattering at center
+        if (!this.hasDeflected && this.x >= cx - foilWidth / 2 && this.x <= cx + foilWidth / 2) {
+          this.hasDeflected = true;
+          let deflectAngle = 0;
+
+          if (atomicModel === 'rutherford') {
+            let rand = Math.random();
+            let deflectionChance = 0.012 * thicknessFactor;
+            if (rand > deflectionChance) {
+              deflectAngle = (Math.random() - 0.5) * (4 * Math.PI / 180);
+            } else if (rand > deflectionChance * 0.3) {
+              let sign = Math.random() < 0.5 ? -1 : 1;
+              deflectAngle = sign * (5 + Math.random() * 40) * (Math.PI / 180);
+            } else if (rand > deflectionChance * 0.1) {
+              let sign = Math.random() < 0.5 ? -1 : 1;
+              deflectAngle = sign * (45 + Math.random() * 45) * (Math.PI / 180);
+            } else {
+              let sign = Math.random() < 0.5 ? -1 : 1;
+              deflectAngle = sign * (95 + Math.random() * 70) * (Math.PI / 180);
+            }
+          } else {
+            deflectAngle = (Math.random() - 0.5) * (1.2 * thicknessFactor * Math.PI / 180);
+          }
+
+          let speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+          let currentAngle = Math.atan2(this.vy, this.vx);
+          let newAngle = currentAngle + deflectAngle;
+
+          this.vx = Math.cos(newAngle) * speed;
+          this.vy = Math.sin(newAngle) * speed;
+        }
+
+        this.x += this.vx;
+        this.y += this.vy;
+
+        const detectorRadius = 200;
+        const distFromCenter = Math.sqrt((this.x - cx) ** 2 + (this.y - cy) ** 2);
+
+        // Mark particle once inside screen chamber
+        if (distFromCenter < detectorRadius) {
+          this.hasEnteredRing = true;
+        }
+
+        // Trigger scintillation when particle crosses screen boundary outward
+        if (this.hasEnteredRing && distFromCenter >= detectorRadius) {
+          this.active = false;
+          let finalAngle = Math.atan2(this.vy, this.vx);
+          let totalDevDeg = Math.abs(finalAngle - this.initialAngle) * (180 / Math.PI);
+          totalDevDeg = totalDevDeg % 360;
+          if (totalDevDeg > 180) totalDevDeg = 360 - totalDevDeg;
+
+          recordStat(totalDevDeg);
+          scintillations.push({
+            x: this.x,
+            y: this.y,
+            life: 1.0
+          });
+        }
+      }
+
+      updateMicro() {
+        // Continuous 2D Electrostatic Coulomb Repulsion: F = k*q1*q2 / r^2
+        // Calibrated so alpha particles pass through the empty space between nuclei, deflecting only on close approach
+        const energyFactor = particleEnergy / 5.0; // Scaled by beam kinetic energy
+        const k = atomicModel === 'rutherford' ? 140 / energyFactor : 8;
+        this.fx = 0;
+        this.fy = 0;
+
+        for (let n of microGoldNuclei) {
+          let dx = this.x - n.x;
+          let dy = this.y - n.y;
+          let r2 = dx * dx + dy * dy;
+          let r = Math.sqrt(r2);
+
+          if (atomicModel === 'rutherford') {
+            let minR = 6; // Softening parameter for ultra-close impact
+            if (r < minR) r = minR;
+
+            let force = k / (r * r);
+            let ax = (dx / r) * force;
+            let ay = (dy / r) * force;
+
+            this.vx += ax;
+            this.vy += ay;
+            this.fx += ax * 16;
+            this.fy += ay * 16;
+          } else {
+            // Thomson Model: Diffuse positive sphere repulsion + Electron attraction
+            if (r < n.radius) {
+              // 1. Weak repulsive force from diffuse positive sphere background
+              let forcePos = k * (r / n.radius);
+              let axPos = (dx / r) * forcePos * 0.012;
+              let ayPos = (dy / r) * forcePos * 0.012;
+              this.vx += axPos;
+              this.vy += ayPos;
+              this.fx += axPos * 6;
+              this.fy += ayPos * 6;
+            }
+
+            // 2. Electrostatic ATTRACTION toward embedded negative electrons (q_alpha * q_electron < 0)
+            if (n.electrons) {
+              for (let el of n.electrons) {
+                let ex = n.x + el.dx;
+                let ey = n.y + el.dy;
+                let edx = ex - this.x; // Vector pointing TOWARD the electron
+                let edy = ey - this.y;
+                let er2 = edx * edx + edy * edy + 20; // Softening parameter
+                let er = Math.sqrt(er2);
+
+                // Attractive Coulomb force pulling alpha towards electron
+                let forceElec = (k * 0.15) / er2;
+                let axElec = (edx / er) * forceElec;
+                let ayElec = (edy / er) * forceElec;
+
+                this.vx += axElec;
+                this.vy += ayElec;
+                this.fx += axElec * 10;
+                this.fy += ayElec * 10;
+              }
+            }
+          }
+        }
+
+        this.x += this.vx;
+        this.y += this.vy;
+
+        // Exit canvas boundary check
+        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+          this.active = false;
+
+          let finalAngle = Math.atan2(this.vy, this.vx);
+          let devDeg = Math.abs(finalAngle) * (180 / Math.PI);
+          devDeg = devDeg % 360;
+          if (devDeg > 180) devDeg = 360 - devDeg;
+
+          recordStat(devDeg);
+
+          scintillations.push({
+            x: Math.max(5, Math.min(canvas.width - 5, this.x)),
+            y: Math.max(5, Math.min(canvas.height - 5, this.y)),
+            life: 0.9
+          });
+        }
+      }
+
+      draw() {
+        if (!this.active) return;
+
+        // Draw trajectory trail
+        if (showTrails && this.trail.length > 1) {
+          ctx.beginPath();
+          ctx.moveTo(this.trail[0].x, this.trail[0].y);
+          for (let i = 1; i < this.trail.length; i++) {
+            ctx.lineTo(this.trail[i].x, this.trail[i].y);
+          }
+          ctx.strokeStyle = 'rgba(245, 158, 11, 0.4)';
+          ctx.lineWidth = 1.8;
+          ctx.stroke();
+        }
+
+        // Draw Force Vector in Micro mode
+        if (viewMode === 'micro' && showForces && (Math.abs(this.fx) > 0.05 || Math.abs(this.fy) > 0.05)) {
+          ctx.beginPath();
+          ctx.moveTo(this.x, this.y);
+          ctx.lineTo(this.x + this.fx, this.y + this.fy);
+          ctx.strokeStyle = '#ef4444';
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.arc(this.x + this.fx, this.y + this.fy, 2, 0, Math.PI * 2);
+          ctx.fillStyle = '#f87171';
+          ctx.fill();
+        }
+
+        // Draw Alpha Particle (Golden core with glow)
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 3.5, 0, Math.PI * 2);
+        ctx.fillStyle = '#fbbf24';
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = '#f59e0b';
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+    }
+
+    function drawMacroView() {
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2;
+
+      // 1. Draw Zinc Sulfide Circular Detection Screen
+      const radius = 200;
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+      ctx.strokeStyle = '#334155';
+      ctx.lineWidth = 8;
+      ctx.stroke();
+
+      // Zinc Sulfide Inner Coating Glow Ring
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius - 4, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(52, 211, 153, 0.4)';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Detection Gap for entry beam (Left side)
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius + 1, (170 * Math.PI) / 180, (190 * Math.PI) / 180);
+      ctx.strokeStyle = '#0b1329';
+      ctx.lineWidth = 12;
+      ctx.stroke();
+
+      ctx.fillStyle = '#64748b';
+      ctx.font = '10px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('Zinc Sulfide (ZnS) Fluorescent Screen Ring', cx, cy - radius - 12);
+
+      // 2. Draw Radium Source Lead Block Housing (Left)
+      const leadX = 30;
+      const leadY = cy - 25;
+      ctx.fillStyle = '#334155';
+      ctx.fillRect(leadX, leadY, 50, 50);
+      ctx.strokeStyle = '#475569';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(leadX, leadY, 50, 50);
+
+      // Radium Cavity & Radiation Symbol Indicator
+      ctx.fillStyle = '#0f172a';
+      ctx.fillRect(leadX + 35, leadY + 20, 15, 10);
+      ctx.fillStyle = '#f59e0b';
+      ctx.beginPath();
+      ctx.arc(leadX + 22, leadY + 25, 6, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '9px sans-serif';
+      ctx.fillText('Radium Source', leadX + 25, leadY + 62);
+
+      // 3. Draw Slit Collimator Block
+      ctx.fillStyle = '#475569';
+      ctx.fillRect(115, cy - 35, 8, 26);
+      ctx.fillRect(115, cy + 9, 8, 26);
+
+      ctx.fillStyle = '#64748b';
+      ctx.fillText('Collimator Slit', 120, cy + 48);
+
+      // 4. Draw Central Thin Gold Foil Target
+      const visualFoilWidth = Math.max(3, (foilThickness / 400) * 6);
+      ctx.beginPath();
+      ctx.moveTo(cx, cy - 65);
+      ctx.lineTo(cx, cy + 65);
+      ctx.strokeStyle = '#fbbf24';
+      ctx.lineWidth = visualFoilWidth;
+      ctx.shadowBlur = 10;
+      ctx.shadowColor = '#f59e0b';
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+
+      ctx.fillStyle = '#fbbf24';
+      ctx.font = 'bold 11px sans-serif';
+      ctx.fillText('Thin Gold Foil Target', cx, cy + 82);
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '9px sans-serif';
+      ctx.fillText(`(~${foilThickness} nm thick)`, cx, cy + 95);
+      // 5. Draw Scintillation Flashes on ZnS Screen
+      for (let i = scintillations.length - 1; i >= 0; i--) {
+        let sc = scintillations[i];
+        ctx.beginPath();
+        ctx.arc(sc.x, sc.y, 4, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(52, 211, 153, ${sc.life})`;
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = '#34d399';
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        sc.life -= 0.025;
+        if (sc.life <= 0) {
+          scintillations.splice(i, 1);
+        }
+      }
+    }
+
+    function drawMicroView() {
+      // Grid structure
+      ctx.strokeStyle = 'rgba(51, 65, 85, 0.2)';
+      ctx.lineWidth = 1;
+      for (let x = 0; x < canvas.width; x += 50) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvas.height);
+        ctx.stroke();
+      }
+
+      // Micro Boundary Detector Bars
+      ctx.lineWidth = 4;
+      // Undeflected Zone
+      ctx.strokeStyle = 'rgba(52, 211, 153, 0.5)';
+      ctx.beginPath();
+      ctx.moveTo(canvas.width - 2, canvas.height / 2 - 60);
+      ctx.lineTo(canvas.width - 2, canvas.height / 2 + 60);
+      ctx.stroke();
+
+      // Small Deflection Zones
+      ctx.strokeStyle = 'rgba(96, 165, 250, 0.5)';
+      ctx.beginPath();
+      ctx.moveTo(canvas.width - 2, 0);
+      ctx.lineTo(canvas.width - 2, canvas.height / 2 - 60);
+      ctx.moveTo(canvas.width - 2, canvas.height / 2 + 60);
+      ctx.lineTo(canvas.width - 2, canvas.height);
+      ctx.stroke();
+
+      // Large Deflection Zones
+      ctx.strokeStyle = 'rgba(251, 146, 60, 0.5)';
+      ctx.beginPath();
+      ctx.moveTo(150, 2);
+      ctx.lineTo(canvas.width - 20, 2);
+      ctx.moveTo(150, canvas.height - 2);
+      ctx.lineTo(canvas.width - 20, canvas.height - 2);
+      ctx.stroke();
+
+      // Backscattered Zone
+      ctx.strokeStyle = 'rgba(239, 68, 68, 0.5)';
+      ctx.beginPath();
+      ctx.moveTo(2, 0);
+      ctx.lineTo(2, canvas.height);
+      ctx.stroke();
+
+      ctx.fillStyle = '#64748b';
+      ctx.font = '10px sans-serif';
+      ctx.textAlign = 'left';
+      ctx.fillText('Incoming Alpha Beam (b = impact parameter)', 25, 18);
+
+      if (microGoldNuclei.length > 0) {
+        const midY = microGoldNuclei[Math.floor(microGoldNuclei.length / 2)].y;
+        ctx.setLineDash([4, 4]);
+        ctx.strokeStyle = 'rgba(245, 158, 11, 0.3)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(0, midY);
+        ctx.lineTo(canvas.width, midY);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = '#f59e0b';
+        ctx.fillText('Central axis (b = 0)', 25, midY - 6);
+      }
+
+      // Draw Gold Nuclei / Plum Pudding Atoms
+      for (let n of microGoldNuclei) {
+        if (n.type === 'rutherford') {
+          // Equipotential Field Lines
+          const radii = [18, 35, 55];
+          const opacities = [0.18, 0.1, 0.05];
+          for (let i = 0; i < radii.length; i++) {
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, radii[i], 0, Math.PI * 2);
+            ctx.strokeStyle = `rgba(239, 68, 68, ${opacities[i]})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+
+          // Electron Cloud Circle Indicator
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, 55, 0, Math.PI * 2);
+          ctx.strokeStyle = 'rgba(251, 191, 36, 0.15)';
+          ctx.lineWidth = 1;
+          ctx.setLineDash([3, 3]);
+          ctx.stroke();
+          ctx.setLineDash([]);
+
+          // Dense Nucleus
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+          ctx.fillStyle = '#ef4444';
+          ctx.shadowBlur = 12;
+          ctx.shadowColor = '#dc2626';
+          ctx.fill();
+          ctx.shadowBlur = 0;
+
+          ctx.fillStyle = '#ffffff';
+          ctx.font = 'bold 8px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText('+79', n.x, n.y + 3);
+
+        } else {
+          // Thomson Model
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(239, 68, 68, 0.16)';
+          ctx.strokeStyle = 'rgba(239, 68, 68, 0.4)';
+          ctx.lineWidth = 1.5;
+          ctx.fill();
+          ctx.stroke();
+
+          for (let el of n.electrons) {
+            ctx.beginPath();
+            ctx.arc(n.x + el.dx, n.y + el.dy, 3, 0, Math.PI * 2);
+            ctx.fillStyle = '#38bdf8';
+            ctx.fill();
+          }
+
+          ctx.fillStyle = '#f87171';
+          ctx.font = '10px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText('Diffuse Positive Charge (+79e)', n.x, n.y - n.radius - 6);
+        }
+      }
+
+      // Exit scintillations in micro mode
+      for (let i = scintillations.length - 1; i >= 0; i--) {
+        let sc = scintillations[i];
+        ctx.beginPath();
+        ctx.arc(sc.x, sc.y, 4, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(52, 211, 153, ${sc.life})`;
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = '#34d399';
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        sc.life -= 0.03;
+        if (sc.life <= 0) {
+          scintillations.splice(i, 1);
+        }
+      }
+    }
+
+    // --- Statistics Helper ---
+    function recordStat(angleDeg) {
+      stats.total++;
+      if (angleDeg < 5) {
+        stats.undeflected++;
+      } else if (angleDeg < 45) {
+        stats.small++;
+      } else if (angleDeg < 90) {
+        stats.large++;
+      } else {
+        stats.back++;
+      }
+      updateStatUI();
+    }
+
+    function updateStatUI() {
+      statTotal.textContent = stats.total.toLocaleString();
+      
+      const calcPct = (val) => stats.total > 0 ? ((val / stats.total) * 100).toFixed(1) + '%' : '0.0%';
+
+      statUndeflected.textContent = stats.undeflected.toLocaleString();
+      statUndeflectedPct.textContent = calcPct(stats.undeflected);
+
+      statSmall.textContent = stats.small.toLocaleString();
+      statSmallPct.textContent = calcPct(stats.small);
+
+      statLarge.textContent = stats.large.toLocaleString();
+      statLargePct.textContent = calcPct(stats.large);
+
+      statBack.textContent = stats.back.toLocaleString();
+      statBackPct.textContent = calcPct(stats.back);
+    }
+
+    // --- Spawn Alpha Particles ---
+    let spawnTimer = 0;
+    function handleSpawning() {
+      if (!isBeamActive) return;
+
+      spawnTimer++;
+      const interval = Math.max(1, Math.floor(60 / particleRate));
+      if (spawnTimer % interval === 0) {
+        let p = particles.find(pt => !pt.active);
+        if (p) {
+          p.reset();
+        } else {
+          particles.push(new AlphaParticle());
+        }
+      }
+    }
+
+    toggleBeamBtn.addEventListener('click', () => {
+      isBeamActive = !isBeamActive;
+      if (isBeamActive) {
+        beamStatusDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse";
+        beamBtnText.textContent = "Beam: ON";
+        toggleBeamBtn.className = "bg-amber-600 hover:bg-amber-500 text-white px-6 py-2.5 rounded-lg font-bold transition-all shadow-lg shadow-amber-600/30 w-36 shrink-0 flex items-center justify-center gap-2";
+      } else {
+        beamStatusDot.className = "w-2.5 h-2.5 rounded-full bg-red-500";
+        beamBtnText.textContent = "Beam: OFF";
+        toggleBeamBtn.className = "bg-slate-700 hover:bg-slate-600 text-slate-300 px-6 py-2.5 rounded-lg font-bold transition-all w-36 shrink-0 flex items-center justify-center gap-2";
+      }
+    });
+
+    viewMacroBtn.addEventListener('click', () => {
+      viewMode = 'macro';
+      viewMacroBtn.classList.add('active');
+      viewMicroBtn.classList.remove('active');
+      viewTitle.textContent = "Top-Down Experimental Setup (Macro View)";
+      viewDescription.textContent = "Alpha particles emitted from lead housing pass through slit collimators, hitting the central thin gold foil target surrounded by a zinc sulfide detection ring.";
+      particles = [];
+      scintillations = [];
+    });
+
+    viewMicroBtn.addEventListener('click', () => {
+      viewMode = 'micro';
+      viewMicroBtn.classList.add('active');
+      viewMacroBtn.classList.remove('active');
+      viewTitle.textContent = "Atomic-Scale Physics Simulation (Micro View)";
+      viewDescription.textContent = "Alpha particles pass unimpeded through the vast empty space between gold nuclei. Only particles passing close to a nucleus experience Coulomb deflection.";
+      particles = [];
+      scintillations = [];
+      initMicroNuclei();
+    });
+
+    modelRutherfordBtn.addEventListener('click', () => {
+      atomicModel = 'rutherford';
+      modelRutherfordBtn.className = "bg-amber-500/20 text-amber-300 border border-amber-500/50 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors";
+      modelThomsonBtn.className = "bg-slate-800 text-slate-400 border border-slate-700 hover:text-slate-200 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors";
+      modelBadge.textContent = "Rutherford Model (Nucleus Radius ~ 10⁻¹⁴ m)";
+      modelBadge.className = "px-3 py-1 rounded bg-amber-500/20 text-amber-300 text-xs font-semibold border border-amber-500/30 shrink-0";
+      initMicroNuclei();
+      particles = [];
+    });
+
+    modelThomsonBtn.addEventListener('click', () => {
+      atomicModel = 'thomson';
+      modelThomsonBtn.className = "bg-amber-500/20 text-amber-300 border border-amber-500/50 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors";
+      modelRutherfordBtn.className = "bg-slate-800 text-slate-400 border border-slate-700 hover:text-slate-200 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors";
+      modelBadge.textContent = "Thomson Plum Pudding Model (Diffuse Charge)";
+      modelBadge.className = "px-3 py-1 rounded bg-blue-500/20 text-blue-300 text-xs font-semibold border border-blue-500/30 shrink-0";
+      initMicroNuclei();
+      particles = [];
+    });
+
+    rateSlider.addEventListener('input', (e) => {
+      particleRate = parseInt(e.target.value);
+      rateValue.textContent = particleRate;
+    });
+
+    energySlider.addEventListener('input', (e) => {
+      particleEnergy = parseFloat(e.target.value);
+      energyValue.textContent = particleEnergy.toFixed(1) + ' MeV';
+    });
+
+    thicknessSlider.addEventListener('input', (e) => {
+      foilThickness = parseInt(e.target.value);
+      const layers = Math.max(1, Math.round(foilThickness / 150));
+      thicknessValue.textContent = `${foilThickness} nm (${layers} ${layers === 1 ? 'layer' : 'layers'})`;
+      initMicroNuclei();
+    });
+
+    toggleTrails.addEventListener('change', (e) => {
+      showTrails = e.target.checked;
+    });
+
+    toggleForces.addEventListener('change', (e) => {
+      showForces = e.target.checked;
+    });
+
+    resetBtn.addEventListener('click', () => {
+      stats = { total: 0, undeflected: 0, small: 0, large: 0, back: 0 };
+      particles = [];
+      scintillations = [];
+      updateStatUI();
+    });
+
+    function animate() {
+      ctx.fillStyle = '#0b1329';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      if (viewMode === 'macro') {
+        drawMacroView();
+      } else {
+        drawMicroView();
+      }
+
+      handleSpawning();
+
+      for (let p of particles) {
+        p.update();
+        p.draw();
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    window.onload = () => {
+      initMicroNuclei();
+      updateStatUI();
+      animate();
+    };
+  </script>
+</body>
+</html>
