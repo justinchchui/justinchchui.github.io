@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rutherford vs. Bohr Atomic Physics Lab</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            overflow-x: hidden;
+        }
+        canvas {
+            background-color: #090d16;
+            border-radius: 0.75rem;
+            box-shadow: inset 0 2px 8px 0 rgba(0,0,0, 0.6);
+            touch-action: none;
+        }
+        /* Custom range slider styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 18px;
+            width: 18px;
+            border-radius: 50%;
+            background: #f43f5e;
+            cursor: pointer;
+            margin-top: -7px;
+            box-shadow: 0 0 10px rgba(244, 63, 94, 0.5);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #334155;
+            border-radius: 2px;
+        }
+        .math-font {
+            font-family: 'Times New Roman', Times, serif;
+            font-style: italic;
+        }
+        .spectral-bar {
+            background: linear-gradient(to right, 
+                #4c0519 0%, #701a75 15%, #3b82f6 35%, 
+                #10b981 50%, #eab308 65%, #ef4444 80%, #7f1d1d 100%);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center p-3 md:p-6">
+
+    <div class="max-w-7xl w-full flex-grow flex flex-col">
+        
+        <!-- Top Navigation -->
+        <div class="mb-4 flex justify-between items-center">
+            <a href="../" class="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-xs md:text-sm font-bold bg-slate-800 py-2 px-4 rounded-lg border border-slate-700 shadow-md hover:bg-slate-700">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Back to Home
+            </a>
+        </div>
+
+        <!-- Educational Header -->
+        <header class="mb-6 text-center">
+            <h1 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-2">
+                Rutherford vs. Bohr Atomic Simulator
+            </h1>
+            <p class="text-slate-400 max-w-3xl mx-auto text-xs md:text-base">
+                Discover why <span class="text-rose-400 font-semibold">Classical Electrodynamics</span> fails (orbital spiral collapse) and how <span class="text-sky-400 font-semibold">Niels Bohr's Quantized Orbits</span> & <span class="text-pink-400 font-semibold">de Broglie Matter Waves</span> explain atomic stability and hydrogen spectral lines.
+            </p>
+        </header>
+
+        <div class="bg-slate-800/90 rounded-2xl p-4 md:p-6 shadow-2xl mb-6 border border-slate-700/80 backdrop-blur">
+            
+            <!-- Global Control Toolbar -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-4 mb-6 bg-slate-900/80 p-4 rounded-xl border border-slate-700/60 items-center">
+                
+                <!-- Reset & Sound Controls -->
+                <div class="md:col-span-4 flex items-center gap-2">
+                    <button id="resetAllBtn" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white text-xs md:text-sm py-2.5 px-4 rounded-lg font-bold transition-all border border-slate-600 flex items-center justify-center gap-2">
+                        🔄 Reset Models
+                    </button>
+                    <button id="audioToggleBtn" class="bg-slate-700 hover:bg-slate-600 text-slate-300 text-xs md:text-sm py-2.5 px-3 rounded-lg font-semibold transition-colors border border-slate-600">
+                        🔊 Audio: ON
+                    </button>
+                </div>
+
+                <!-- Visual Feature Toggles -->
+                <div class="md:col-span-5 flex flex-wrap items-center justify-around bg-slate-800/60 p-2.5 rounded-lg border border-slate-700/40 text-xs font-medium text-slate-300 gap-2">
+                    <label class="inline-flex items-center gap-2 cursor-pointer hover:text-white transition-colors">
+                        <input type="checkbox" id="toggleDeBroglie" class="rounded bg-slate-900 border-slate-700 text-sky-500 focus:ring-0">
+                        <span>de Broglie Matter Waves (<span class="math-font">n&lambda;</span>)</span>
+                    </label>
+                    <label class="inline-flex items-center gap-2 cursor-pointer hover:text-white transition-colors">
+                        <input type="checkbox" id="toggleEnergyDiagram" checked class="rounded bg-slate-900 border-slate-700 text-sky-500 focus:ring-0">
+                        <span>Energy Ladder (<span class="math-font">E<sub>n</sub></span>)</span>
+                    </label>
+                </div>
+
+                <!-- Status Indicator -->
+                <div class="md:col-span-3 flex justify-end">
+                    <div id="statusBadge" class="w-full text-center text-xs font-semibold px-3 py-2 rounded-lg bg-slate-800 text-slate-300 border border-slate-700 truncate">
+                        Status: Ready for Experiment
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                
+                <!-- Rutherford Classical Model View -->
+                <div class="flex flex-col bg-slate-900/50 p-4 rounded-xl border border-slate-700/50">
+                    <div class="flex items-center justify-between mb-2">
+                        <h2 class="text-base md:text-lg font-bold text-rose-400 flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            1. Rutherford Classical Model (1911)
+                        </h2>
+                        <span class="text-[11px] px-2.5 py-1 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30 font-semibold">
+                            Fails Physics Laws!
+                        </span>
+                    </div>
+                    <p class="text-xs text-slate-400 mb-3 h-10 leading-tight">
+                        Classical Maxwell theory predicts that accelerating orbiting electrons constantly emit electromagnetic radiation, causing them to spiral down into the nucleus in less than 1 nanosecond!
+                    </p>
+                    
+                    <div class="relative w-full aspect-square rounded-lg overflow-hidden border border-slate-700 mb-3 bg-slate-950">
+                        <canvas id="canvasRutherford" class="w-full h-full block"></canvas>
+                    </div>
+
+                    <!-- Rutherford Interactive Controls -->
+                    <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 space-y-3">
+                        <div class="flex items-center gap-2">
+                            <button id="toggleCollapseBtn" class="flex-1 bg-rose-600 hover:bg-rose-500 text-white text-xs md:text-sm py-2 rounded-lg font-bold transition-all shadow-md shadow-rose-600/30">
+                                🌀 Start Classical Radiation Loss
+                            </button>
+                            <button id="resetRutherfordBtn" class="bg-slate-700 hover:bg-slate-600 text-white text-xs py-2 px-3 rounded-lg font-semibold transition-colors">
+                                Reset Orbit
+                            </button>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs text-slate-400 mb-1">
+                                <span>Electromagnetic Radiation Loss Speed (<span class="math-font">dE/dt</span>)</span>
+                                <span id="lossRateVal" class="text-rose-400 font-mono font-bold">1.0x</span>
+                            </div>
+                            <input type="range" id="lossRateSlider" min="0.2" max="3.0" step="0.2" value="1.0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bohr Quantized Model View -->
+                <div class="flex flex-col bg-slate-900/50 p-4 rounded-xl border border-slate-700/50">
+                    <div class="flex items-center justify-between mb-2">
+                        <h2 class="text-base md:text-lg font-bold text-sky-400 flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            2. Bohr Quantized Model (1913)
+                        </h2>
+                        <span class="text-[11px] px-2.5 py-1 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/30 font-semibold">
+                            Stable Quantum Orbits
+                        </span>
+                    </div>
+                    <p class="text-xs text-slate-400 mb-3 h-10 leading-tight">
+                        Electrons can only orbit in discrete, non-radiating "stationary states". Light is absorbed or emitted ONLY when an electron jumps between orbit levels (<span class="math-font">&Delta;E = h&nu;</span>).
+                    </p>
+                    
+                    <div class="relative w-full aspect-square rounded-lg overflow-hidden border border-slate-700 mb-3 bg-slate-950">
+                        <canvas id="canvasBohr" class="w-full h-full block cursor-pointer"></canvas>
+                    </div>
+
+                    <!-- Bohr Interactive Orbit Controls -->
+                    <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 space-y-2.5">
+                        <div class="flex items-center justify-between text-xs text-slate-300 font-medium">
+                            <span>Select Orbit Level (<span class="math-font">n</span>):</span>
+                            <span id="bohrEnergyReadout" class="text-sky-400 font-mono font-bold">n = 1 (-13.60 eV)</span>
+                        </div>
+                        <div class="grid grid-cols-5 gap-1.5">
+                            <button class="bohr-btn bg-sky-600 text-white text-xs py-1.5 rounded font-bold transition-all" data-n="1">n = 1</button>
+                            <button class="bohr-btn bg-slate-800 text-slate-300 text-xs py-1.5 rounded font-bold hover:bg-slate-700 transition-all" data-n="2">n = 2</button>
+                            <button class="bohr-btn bg-slate-800 text-slate-300 text-xs py-1.5 rounded font-bold hover:bg-slate-700 transition-all" data-n="3">n = 3</button>
+                            <button class="bohr-btn bg-slate-800 text-slate-300 text-xs py-1.5 rounded font-bold hover:bg-slate-700 transition-all" data-n="4">n = 4</button>
+                            <button class="bohr-btn bg-slate-800 text-slate-300 text-xs py-1.5 rounded font-bold hover:bg-slate-700 transition-all" data-n="5">n = 5</button>
+                        </div>
+                        
+                        <!-- Secondary School Key Spectral Transition Shortcuts -->
+                        <div class="pt-1">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-[11px] text-slate-400 font-semibold">Key Spectral Shortcuts:</span>
+                                <span class="text-[10px] text-slate-500 italic">(Requires electron at initial state)</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-1.5">
+                                <button id="presetBalmerAlpha" class="text-[11px] py-1 rounded font-semibold transition-all">
+                                    🔴 Balmer Red (3&rarr;2)
+                                </button>
+                                <button id="presetBalmerBeta" class="text-[11px] py-1 rounded font-semibold transition-all">
+                                    🔷 Balmer Cyan (4&rarr;2)
+                                </button>
+                                <button id="presetLymanAlpha" class="text-[11px] py-1 rounded font-semibold transition-all">
+                                    ⚡ Lyman &alpha; UV (2&rarr;1)
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-2 pt-1">
+                            <button id="absorbPhotonBtn" class="flex-1 bg-amber-600 hover:bg-amber-500 text-white text-xs py-1.5 rounded font-bold transition-colors shadow">
+                                ☀️ Absorb Energy (+1 Level)
+                            </button>
+                            <button id="emitPhotonBtn" class="flex-1 bg-purple-600 hover:bg-purple-500 text-white text-xs py-1.5 rounded font-bold transition-colors shadow">
+                                💥 Emit Photon (-1 Level)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-6 bg-slate-900/80 p-4 rounded-xl border border-slate-700/60">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2 gap-2">
+                    <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                        🌈 Hydrogen Emission / Absorption Spectrum
+                    </h3>
+                    <div class="flex items-center gap-3">
+                        <div class="text-xs text-slate-400 font-mono hidden sm:block">
+                            <span class="text-purple-400 font-semibold">Lyman (UV)</span> | 
+                            <span class="text-sky-400 font-semibold">Balmer (Visible)</span> | 
+                            <span class="text-rose-400 font-semibold">Paschen (IR)</span>
+                        </div>
+                        <button id="clearSpectrumBtn" class="bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-[11px] font-semibold py-1 px-2.5 rounded border border-slate-700 transition-colors">
+                            🗑️ Clear Spectrum
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Interactive Spectrum Bar -->
+                <div class="relative w-full h-10 rounded-lg overflow-hidden border border-slate-700 spectral-bar shadow-inner my-2 cursor-pointer" id="spectrumBarClickable">
+                    <div id="spectrumContainer" class="absolute inset-0 pointer-events-none"></div>
+                </div>
+
+                <div class="flex justify-between text-[10px] text-slate-400 font-mono">
+                    <span>91 nm (UV)</span>
+                    <span>122 nm</span>
+                    <span>380 nm</span>
+                    <span>486 nm</span>
+                    <span>656 nm (Visible Red)</span>
+                    <span>1282 nm</span>
+                    <span>1875 nm (IR)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Secondary School Student Guided Physics Worksheet -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-slate-300 mb-6">
+            
+            <!-- Quick Formula Reference -->
+            <div class="bg-slate-800/60 p-4 rounded-xl border border-slate-700/60 flex flex-col justify-between">
+                <div>
+                    <strong class="text-white block mb-2 font-semibold text-sm">Essential High School Formulas</strong>
+                    <div class="space-y-2 text-xs">
+                        <div class="p-2 bg-slate-900/80 rounded border border-slate-700/80">
+                            <span class="text-sky-400 font-semibold block mb-0.5">1. Bohr Energy Quantization:</span>
+                            <span class="math-font text-slate-200">E<sub>n</sub> = -13.6 eV / n<sup>2</sup></span>
+                        </div>
+                        <div class="p-2 bg-slate-900/80 rounded border border-slate-700/80">
+                            <span class="text-pink-400 font-semibold block mb-0.5">2. de Broglie Matter Waves:</span>
+                            <span class="math-font text-slate-200">2&pi;r = n &middot; &lambda;</span>
+                        </div>
+                        <div class="p-2 bg-slate-900/80 rounded border border-slate-700/80">
+                            <span class="text-amber-400 font-semibold block mb-0.5">3. Photon Energy & Wavelength:</span>
+                            <span class="math-font text-slate-200">&Delta;E = h&nu; = hc / &lambda; &approx; 1240 eV&middot;nm / &lambda;</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3 pt-3 border-t border-slate-700/60 text-xs text-slate-400">
+                    <span class="font-bold text-slate-300">Ground State:</span> <span class="math-font">n = 1</span> has lowest energy (<span class="math-font">-13.60 eV</span>).
+                </div>
+            </div>
+            
+            <!-- Student Guided Exploration Lab Questions -->
+            <div class="bg-slate-800/60 p-4 rounded-xl border border-slate-700/60 md:col-span-2 space-y-3 text-xs text-slate-300 leading-relaxed">
+                <strong class="text-white block text-sm font-semibold mb-1">Student Inquiry & Physics Challenges</strong>
+                
+                <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-700/50">
+                    <span class="text-amber-300 font-bold block mb-1">Challenge 1: Why doesn't Bohr's electron fall into the nucleus?</span>
+                    <p class="text-slate-300">
+                        Try turning on <strong>de Broglie Waves</strong> above. Notice that at <span class="math-font">n=1</span>, exactly ONE complete wave fits around the orbit. An electron cannot exist at <span class="math-font">n=0.5</span> because destructive interference would destroy the wave!
+                    </p>
+                </div>
+
+                <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-700/50">
+                    <span class="text-sky-300 font-bold block mb-1">Challenge 2: How is Balmer Red light emitted?</span>
+                    <p class="text-slate-300">
+                        Select orbit <span class="math-font">n=3</span> (or click <strong>Absorb Energy</strong> until <span class="math-font">n=3</span>). Notice the <strong>🔴 Balmer Red (3&rarr;2)</strong> button becomes active! Click it to observe the photon emission at <span class="math-font">656 nm</span>.
+                    </p>
+                </div>
+
+                <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-700/50">
+                    <span class="text-rose-300 font-bold block mb-1">Challenge 3: Why was Rutherford's model rejected?</span>
+                    <p class="text-slate-300">
+                        Press <strong>🌀 Start Classical Radiation Loss</strong>. Classical physics mandates that any accelerating charged particle continuously radiates energy. This would produce a continuous spectrum (rainbow of all wavelengths) rather than sharp spectral lines!
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-20 text-center text-slate-500 text-sm">
+            <p>Built for interactive science education.</p>
+            <p>Generated by Gemini Flash 3.6 | Prepared By Justin Chui.</p>
+        </footer>
+
+    </div>
+
+    <!-- JavaScript Physics Core Engine -->
+    <script>
+        // Physics & State Constants
+        const orbitEnergies = { 1: 13.60, 2: 3.40, 3: 1.51, 4: 0.85, 5: 0.54 };
+        const orbitRadii = { 1: 35, 2: 70, 3: 110, 4: 155, 5: 200 };
+
+        let soundEnabled = true;
+        let showDeBroglie = false;
+        let showEnergyDiagram = true;
+
+        // Web Audio API Sound Synthesizer
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        let audioCtx = null;
+
+        function playQuantumSound(freqHz) {
+            if (!soundEnabled) return;
+            try {
+                if (!audioCtx) audioCtx = new AudioCtx();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freqHz, audioCtx.currentTime);
+                
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.4);
+            } catch(e) {}
+        }
+
+        function getPhotonInfo(nStart, nEnd) {
+            const deltaE = Math.abs(orbitEnergies[nEnd] - orbitEnergies[nStart]);
+            const wavelength = Math.round(1239.84 / deltaE); // nm
+
+            let color = '#f0abfc';
+            let region = 'UV';
+            let audioPitch = 880;
+
+            if (wavelength < 380) {
+                region = 'Ultraviolet (Lyman Series)';
+                color = '#c084fc';
+                audioPitch = 1200;
+            } else if (wavelength >= 380 && wavelength < 450) {
+                region = 'Violet (Balmer Series)';
+                color = '#818cf8';
+                audioPitch = 950;
+            } else if (wavelength >= 450 && wavelength < 520) {
+                region = 'Cyan/Green (Balmer Series)';
+                color = '#38bdf8';
+                audioPitch = 750;
+            } else if (wavelength >= 520 && wavelength < 620) {
+                region = 'Yellow (Balmer Series)';
+                color = '#facc15';
+                audioPitch = 550;
+            } else if (wavelength >= 620 && wavelength < 750) {
+                region = 'Red (Balmer Series)';
+                color = '#ef4444';
+                audioPitch = 400;
+            } else {
+                region = 'Infrared (Paschen Series)';
+                color = '#f97316';
+                audioPitch = 250;
+            }
+
+            return { deltaE: deltaE.toFixed(2), wavelength, color, region, audioPitch };
+        }
+
+        class RutherfordSimulation {
+            constructor(canvasId) {
+                this.canvas = document.getElementById(canvasId);
+                this.ctx = this.canvas.getContext('2d');
+                this.dpr = window.devicePixelRatio || 1;
+
+                this.isCollapsing = false;
+                this.collapsed = false;
+                this.lossRate = 1.0;
+
+                this.radius = 180;
+                this.angle = 0;
+                this.trail = [];
+                this.emRipples = [];
+
+                this.resize();
+                this.init();
+            }
+
+            resize() {
+                const rect = this.canvas.getBoundingClientRect();
+                this.width = rect.width;
+                this.height = rect.height;
+                this.canvas.width = rect.width * this.dpr;
+                this.canvas.height = rect.height * this.dpr;
+                this.ctx.scale(this.dpr, this.dpr);
+            }
+
+            init() {
+                this.radius = Math.min(this.width, this.height) * 0.42;
+                this.angle = 0;
+                this.isCollapsing = false;
+                this.collapsed = false;
+                this.trail = [];
+                this.emRipples = [];
+            }
+
+            update() {
+                if (this.collapsed) return;
+
+                const centerX = this.width / 2;
+                const centerY = this.height / 2;
+
+                // Larmor Acceleration Frequency Scaling
+                let angVel = 0.04 + (200 / Math.max(10, this.radius)) * 0.02;
+                this.angle += angVel;
+
+                const curX = centerX + Math.cos(this.angle) * this.radius;
+                const curY = centerY + Math.sin(this.angle) * this.radius;
+
+                this.trail.push({ x: curX, y: curY });
+                if (this.trail.length > 140) this.trail.shift();
+
+                if (this.isCollapsing) {
+                    this.radius -= 0.5 * this.lossRate;
+
+                    if (Math.random() < 0.4) {
+                        this.emRipples.push({
+                            x: curX, y: curY, r: 2, maxR: 35, alpha: 0.9
+                        });
+                    }
+
+                    if (this.radius <= 10) {
+                        this.radius = 0;
+                        this.collapsed = true;
+                        this.isCollapsing = false;
+                        updateStatus("Rutherford Atom Collapsed into Nucleus!", "rose");
+                        playQuantumSound(150);
+                    }
+                }
+
+                for (let i = this.emRipples.length - 1; i >= 0; i--) {
+                    let rip = this.emRipples[i];
+                    rip.r += 1.5;
+                    rip.alpha -= 0.025;
+                    if (rip.alpha <= 0) this.emRipples.splice(i, 1);
+                }
+            }
+
+            draw() {
+                const centerX = this.width / 2;
+                const centerY = this.height / 2;
+
+                this.ctx.clearRect(0, 0, this.width, this.height);
+
+                // Nucleus Glow
+                this.ctx.beginPath();
+                this.ctx.arc(centerX, centerY, 12, 0, Math.PI * 2);
+                this.ctx.fillStyle = '#f43f5e';
+                this.ctx.shadowBlur = this.collapsed ? 35 : 12;
+                this.ctx.shadowColor = '#f43f5e';
+                this.ctx.fill();
+                this.ctx.shadowBlur = 0;
+
+                this.ctx.fillStyle = '#ffffff';
+                this.ctx.font = 'bold 10px sans-serif';
+                this.ctx.textAlign = 'center';
+                this.ctx.textBaseline = 'middle';
+                this.ctx.fillText('+Ze', centerX, centerY);
+
+                // EM Wave Ripples
+                for (let rip of this.emRipples) {
+                    this.ctx.beginPath();
+                    this.ctx.arc(rip.x, rip.y, rip.r, 0, Math.PI * 2);
+                    this.ctx.strokeStyle = `rgba(244, 63, 94, ${rip.alpha})`;
+                    this.ctx.lineWidth = 1.5;
+                    this.ctx.stroke();
+                }
+
+                // Spiral Trail
+                if (this.trail.length > 1) {
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(this.trail[0].x, this.trail[0].y);
+                    for (let i = 1; i < this.trail.length; i++) {
+                        this.ctx.lineTo(this.trail[i].x, this.trail[i].y);
+                    }
+                    this.ctx.strokeStyle = this.isCollapsing ? 'rgba(251, 113, 133, 0.7)' : 'rgba(148, 163, 184, 0.3)';
+                    this.ctx.lineWidth = 1.5;
+                    this.ctx.stroke();
+                }
+
+                // Orbiting Electron
+                if (!this.collapsed) {
+                    const elX = centerX + Math.cos(this.angle) * this.radius;
+                    const elY = centerY + Math.sin(this.angle) * this.radius;
+
+                    this.ctx.beginPath();
+                    this.ctx.arc(elX, elY, 6, 0, Math.PI * 2);
+                    this.ctx.fillStyle = '#38bdf8';
+                    this.ctx.shadowBlur = 10;
+                    this.ctx.shadowColor = '#38bdf8';
+                    this.ctx.fill();
+                    this.ctx.shadowBlur = 0;
+                }
+            }
+        }
+
+        class BohrSimulation {
+            constructor(canvasId) {
+                this.canvas = document.getElementById(canvasId);
+                this.ctx = this.canvas.getContext('2d');
+                this.dpr = window.devicePixelRatio || 1;
+
+                this.currentN = 1;
+                this.angle = 0;
+                this.wavePhase = 0;
+
+                this.incomingPhoton = null;
+                this.outgoingPhoton = null;
+
+                this.resize();
+                this.init();
+            }
+
+            resize() {
+                const rect = this.canvas.getBoundingClientRect();
+                this.width = rect.width;
+                this.height = rect.height;
+                this.canvas.width = rect.width * this.dpr;
+                this.canvas.height = rect.height * this.dpr;
+                this.ctx.scale(this.dpr, this.dpr);
+            }
+
+            init() {
+                this.currentN = 1;
+                this.angle = 0;
+                this.wavePhase = 0;
+                this.incomingPhoton = null;
+                this.outgoingPhoton = null;
+                updateBohrUI(1);
+            }
+
+            requestTransition(targetN) {
+                if (targetN === this.currentN || this.incomingPhoton) return;
+
+                const startN = this.currentN;
+                const info = getPhotonInfo(startN, targetN);
+
+                if (targetN > startN) {
+                    // Absorption
+                    const centerX = this.width / 2;
+                    const centerY = this.height / 2;
+                    const elX = centerX + Math.cos(this.angle) * orbitRadii[startN];
+                    const elY = centerY + Math.sin(this.angle) * orbitRadii[startN];
+
+                    const spawnAngle = Math.atan2(elY - centerY, elX - centerX) + Math.PI;
+                    const startX = centerX + Math.cos(spawnAngle) * 220;
+                    const startY = centerY + Math.sin(spawnAngle) * 220;
+
+                    this.incomingPhoton = {
+                        x: startX, y: startY, startX, startY, targetN, startN, info, progress: 0
+                    };
+                    updateStatus(`Incoming Photon (${info.deltaE} eV, ${info.wavelength} nm)...`, "amber");
+                } else {
+                    // Emission
+                    this.currentN = targetN;
+                    updateBohrUI(targetN);
+
+                    const centerX = this.width / 2;
+                    const centerY = this.height / 2;
+                    this.outgoingPhoton = {
+                        x: centerX + Math.cos(this.angle) * orbitRadii[targetN],
+                        y: centerY + Math.sin(this.angle) * orbitRadii[targetN],
+                        angle: this.angle, dist: 0, info
+                    };
+
+                    spawnSpectrumMarker(info, 'emission', `n=${startN} → n=${targetN}`);
+                    playQuantumSound(info.audioPitch);
+                    updateStatus(`Quantum Leap n=${startN} → n=${targetN}! Emitted ${info.wavelength} nm Photon (${info.region})`, "purple");
+                }
+            }
+
+            update() {
+                this.angle += 0.03 / Math.sqrt(this.currentN);
+                this.wavePhase += 0.1;
+
+                if (this.incomingPhoton) {
+                    this.incomingPhoton.progress += 0.03;
+                    const centerX = this.width / 2;
+                    const centerY = this.height / 2;
+                    const elX = centerX + Math.cos(this.angle) * orbitRadii[this.currentN];
+                    const elY = centerY + Math.sin(this.angle) * orbitRadii[this.currentN];
+
+                    this.incomingPhoton.x = this.incomingPhoton.startX + (elX - this.incomingPhoton.startX) * this.incomingPhoton.progress;
+                    this.incomingPhoton.y = this.incomingPhoton.startY + (elY - this.incomingPhoton.startY) * this.incomingPhoton.progress;
+
+                    if (this.incomingPhoton.progress >= 1.0) {
+                        const targetN = this.incomingPhoton.targetN;
+                        const startN = this.incomingPhoton.startN;
+                        const info = this.incomingPhoton.info;
+                        this.incomingPhoton = null;
+                        this.currentN = targetN;
+                        updateBohrUI(targetN);
+
+                        spawnSpectrumMarker(info, 'absorption', `n=${startN} → n=${targetN}`);
+                        playQuantumSound(info.audioPitch);
+                        updateStatus(`Photon Absorbed! Electron Leapt to n=${targetN} (+${info.deltaE} eV, ${info.wavelength} nm)`, "emerald");
+                    }
+                }
+
+                if (this.outgoingPhoton) {
+                    this.outgoingPhoton.dist += 4;
+                    const centerX = this.width / 2;
+                    const centerY = this.height / 2;
+                    const r = orbitRadii[this.currentN] + this.outgoingPhoton.dist;
+                    this.outgoingPhoton.x = centerX + Math.cos(this.outgoingPhoton.angle) * r;
+                    this.outgoingPhoton.y = centerY + Math.sin(this.outgoingPhoton.angle) * r;
+
+                    if (r > 260) this.outgoingPhoton = null;
+                }
+            }
+
+            draw() {
+                const centerX = this.width / 2;
+                const centerY = this.height / 2;
+
+                this.ctx.clearRect(0, 0, this.width, this.height);
+
+                // Draw Orbits
+                for (let n = 1; n <= 5; n++) {
+                    const r = orbitRadii[n];
+                    this.ctx.beginPath();
+                    this.ctx.arc(centerX, centerY, r, 0, Math.PI * 2);
+                    
+                    if (n === this.currentN) {
+                        this.ctx.strokeStyle = 'rgba(56, 189, 248, 0.7)';
+                        this.ctx.lineWidth = 2;
+                    } else {
+                        this.ctx.strokeStyle = 'rgba(51, 65, 85, 0.5)';
+                        this.ctx.lineWidth = 1;
+                    }
+                    this.ctx.stroke();
+
+                    // de Broglie Standing Wave Overlay (2*pi*r = n*lambda)
+                    if (showDeBroglie && n === this.currentN) {
+                        this.ctx.beginPath();
+                        const waveAmplitude = 6;
+                        const numWaves = n; // Exactly n wavelengths fit the circumference
+                        for (let a = 0; a <= Math.PI * 2 + 0.05; a += 0.02) {
+                            let dr = Math.sin(a * numWaves + this.wavePhase) * waveAmplitude;
+                            let wx = centerX + Math.cos(a) * (r + dr);
+                            let wy = centerY + Math.sin(a) * (r + dr);
+                            if (a === 0) this.ctx.moveTo(wx, wy);
+                            else this.ctx.lineTo(wx, wy);
+                        }
+                        this.ctx.strokeStyle = 'rgba(236, 72, 153, 0.85)';
+                        this.ctx.lineWidth = 2;
+                        this.ctx.stroke();
+                    }
+
+                    // Orbit Label
+                    this.ctx.fillStyle = n === this.currentN ? '#38bdf8' : '#64748b';
+                    this.ctx.font = '10px sans-serif';
+                    this.ctx.fillText(`n=${n}`, centerX + r + 4, centerY - 2);
+                }
+
+                // Nucleus
+                this.ctx.beginPath();
+                this.ctx.arc(centerX, centerY, 10, 0, Math.PI * 2);
+                this.ctx.fillStyle = '#f43f5e';
+                this.ctx.shadowBlur = 10;
+                this.ctx.shadowColor = '#f43f5e';
+                this.ctx.fill();
+                this.ctx.shadowBlur = 0;
+
+                this.ctx.fillStyle = '#fff';
+                this.ctx.font = 'bold 9px sans-serif';
+                this.ctx.textAlign = 'center';
+                this.ctx.textBaseline = 'middle';
+                this.ctx.fillText('+e', centerX, centerY);
+
+                // Electron
+                const elX = centerX + Math.cos(this.angle) * orbitRadii[this.currentN];
+                const elY = centerY + Math.sin(this.angle) * orbitRadii[this.currentN];
+
+                this.ctx.beginPath();
+                this.ctx.arc(elX, elY, 6, 0, Math.PI * 2);
+                this.ctx.fillStyle = '#38bdf8';
+                this.ctx.shadowBlur = 12;
+                this.ctx.shadowColor = '#38bdf8';
+                this.ctx.fill();
+                this.ctx.shadowBlur = 0;
+
+                // Energy Ladder Overlay
+                if (showEnergyDiagram) {
+                    this.drawEnergyLadder();
+                }
+
+                // Photons
+                if (this.incomingPhoton) this.drawPhoton(this.incomingPhoton.x, this.incomingPhoton.y, this.incomingPhoton.info);
+                if (this.outgoingPhoton) this.drawPhoton(this.outgoingPhoton.x, this.outgoingPhoton.y, this.outgoingPhoton.info);
+            }
+
+            drawEnergyLadder() {
+                const lX = 15;
+                const lY = 20;
+                const lW = 55;
+                const lH = 120;
+
+                this.ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
+                this.ctx.fillRect(lX, lY, lW, lH);
+                this.ctx.strokeStyle = '#334155';
+                this.ctx.strokeRect(lX, lY, lW, lH);
+
+                for (let n = 1; n <= 5; n++) {
+                    let normY = (lY + lH - 10) - ((orbitEnergies[1] - orbitEnergies[n]) / orbitEnergies[1]) * (lH - 20);
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(lX + 5, normY);
+                    this.ctx.lineTo(lX + lW - 5, normY);
+                    this.ctx.strokeStyle = (n === this.currentN) ? '#38bdf8' : '#475569';
+                    this.ctx.lineWidth = (n === this.currentN) ? 2 : 1;
+                    this.ctx.stroke();
+
+                    if (n === this.currentN) {
+                        this.ctx.beginPath();
+                        this.ctx.arc(lX + lW / 2, normY, 4, 0, Math.PI * 2);
+                        this.ctx.fillStyle = '#38bdf8';
+                        this.ctx.fill();
+                    }
+                }
+            }
+
+            drawPhoton(x, y, info) {
+                this.ctx.save();
+                this.ctx.translate(x, y);
+
+                this.ctx.beginPath();
+                this.ctx.arc(0, 0, 8, 0, Math.PI * 2);
+                this.ctx.fillStyle = info.color;
+                this.ctx.shadowBlur = 10;
+                this.ctx.shadowColor = info.color;
+                this.ctx.fill();
+
+                this.ctx.fillStyle = '#fff';
+                this.ctx.font = 'bold 9px sans-serif';
+                this.ctx.textAlign = 'center';
+                this.ctx.fillText(`${info.wavelength}nm`, 0, -12);
+
+                this.ctx.restore();
+            }
+        }
+
+        let simRutherford, simBohr;
+
+        function updateBohrUI(n) {
+            document.querySelectorAll('.bohr-btn').forEach(btn => {
+                const btnN = parseInt(btn.getAttribute('data-n'));
+                if (btnN === n) {
+                    btn.className = "bohr-btn bg-sky-600 text-white text-xs py-1.5 rounded font-bold transition-all shadow-md shadow-sky-600/30";
+                } else {
+                    btn.className = "bohr-btn bg-slate-800 text-slate-300 text-xs py-1.5 rounded font-bold hover:bg-slate-700 transition-all";
+                }
+            });
+
+            const e = orbitEnergies[n];
+            document.getElementById('bohrEnergyReadout').innerText = `n = ${n} (-${e.toFixed(2)} eV)`;
+
+            // Dynamically enable/disable shortcut buttons depending on current level n
+            const btnBalmerAlpha = document.getElementById('presetBalmerAlpha');
+            const btnBalmerBeta = document.getElementById('presetBalmerBeta');
+            const btnLymanAlpha = document.getElementById('presetLymanAlpha');
+
+            if (btnBalmerAlpha) {
+                const isAlphaValid = (n === 3);
+                btnBalmerAlpha.disabled = !isAlphaValid;
+                btnBalmerAlpha.className = isAlphaValid
+                    ? "bg-rose-900/60 hover:bg-rose-800/80 text-rose-200 border border-rose-500/80 text-[11px] py-1 rounded font-semibold transition-all shadow-md cursor-pointer"
+                    : "bg-slate-900/40 text-slate-600 border border-slate-800/80 text-[11px] py-1 rounded font-semibold transition-all opacity-40 cursor-not-allowed";
+            }
+
+            if (btnBalmerBeta) {
+                const isBetaValid = (n === 4);
+                btnBalmerBeta.disabled = !isBetaValid;
+                btnBalmerBeta.className = isBetaValid
+                    ? "bg-sky-900/60 hover:bg-sky-800/80 text-sky-200 border border-sky-500/80 text-[11px] py-1 rounded font-semibold transition-all shadow-md cursor-pointer"
+                    : "bg-slate-900/40 text-slate-600 border border-slate-800/80 text-[11px] py-1 rounded font-semibold transition-all opacity-40 cursor-not-allowed";
+            }
+
+            if (btnLymanAlpha) {
+                const isLymanValid = (n === 2);
+                btnLymanAlpha.disabled = !isLymanValid;
+                btnLymanAlpha.className = isLymanValid
+                    ? "bg-purple-900/60 hover:bg-purple-800/80 text-purple-200 border border-purple-500/80 text-[11px] py-1 rounded font-semibold transition-all shadow-md cursor-pointer"
+                    : "bg-slate-900/40 text-slate-600 border border-slate-800/80 text-[11px] py-1 rounded font-semibold transition-all opacity-40 cursor-not-allowed";
+            }
+        }
+
+        function updateStatus(text, theme = "slate") {
+            const badge = document.getElementById('statusBadge');
+            badge.innerText = `Status: ${text}`;
+            badge.className = `w-full text-center text-xs font-semibold px-3 py-2 rounded-lg border transition-all ${
+                theme === 'rose' ? 'bg-rose-500/20 text-rose-300 border-rose-500/40' :
+                theme === 'amber' ? 'bg-amber-500/20 text-amber-300 border-amber-500/40' :
+                theme === 'purple' ? 'bg-purple-500/20 text-purple-300 border-purple-500/40' :
+                theme === 'emerald' ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' :
+                'bg-slate-800 text-slate-300 border-slate-700'
+            }`;
+        }
+
+        function spawnSpectrumMarker(info, type = 'emission', transitionText = '') {
+            const container = document.getElementById('spectrumContainer');
+            if (!container) return;
+
+            const wl = info.wavelength;
+            
+            // Map 90nm..1900nm onto 0%..100%
+            let percent = ((wl - 90) / (1900 - 90)) * 100;
+            percent = Math.max(2, Math.min(98, percent));
+
+            const line = document.createElement('div');
+            line.className = 'absolute top-0 bottom-0 pointer-events-auto transition-all group';
+            line.style.left = `${percent}%`;
+
+            if (type === 'emission') {
+                line.style.width = '3px';
+                line.style.backgroundColor = info.color;
+                line.style.boxShadow = `0 0 10px ${info.color}, 0 0 3px #ffffff`;
+                line.style.zIndex = '10';
+            } else {
+                line.style.width = '3px';
+                line.style.backgroundColor = '#000000';
+                line.style.borderLeft = `1px solid ${info.color}`;
+                line.style.borderRight = `1px solid ${info.color}`;
+                line.style.boxShadow = `0 0 6px ${info.color}`;
+                line.style.zIndex = '11';
+            }
+
+            const label = document.createElement('div');
+            label.className = 'absolute bottom-full mb-1 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-[10px] font-mono py-0.5 px-1.5 rounded border border-slate-700 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-20 shadow-lg';
+            const icon = type === 'emission' ? '💥 Emission' : '☀️ Absorption';
+            label.innerText = `${icon} (${transitionText}): ${wl} nm [${info.deltaE} eV]`;
+            line.appendChild(label);
+
+            container.appendChild(line);
+        }
+
+        window.addEventListener('load', () => {
+            simRutherford = new RutherfordSimulation('canvasRutherford');
+            simBohr = new BohrSimulation('canvasBohr');
+
+            // Global Control Listeners
+            document.getElementById('resetAllBtn').addEventListener('click', () => {
+                simRutherford.init();
+                simBohr.init();
+                updateStatus("Simulations Reset to Initial States", "slate");
+            });
+
+            const audioToggleBtn = document.getElementById('audioToggleBtn');
+            audioToggleBtn.addEventListener('click', () => {
+                soundEnabled = !soundEnabled;
+                audioToggleBtn.innerText = soundEnabled ? "🔊 Audio: ON" : "🔇 Audio: OFF";
+                audioToggleBtn.className = soundEnabled 
+                    ? "bg-slate-700 hover:bg-slate-600 text-slate-300 text-xs md:text-sm py-2.5 px-3 rounded-lg font-semibold transition-colors border border-slate-600"
+                    : "bg-slate-800 text-slate-500 text-xs md:text-sm py-2.5 px-3 rounded-lg font-semibold transition-colors border border-slate-800";
+            });
+
+            document.getElementById('toggleDeBroglie').addEventListener('change', (e) => {
+                showDeBroglie = e.target.checked;
+            });
+
+            document.getElementById('toggleEnergyDiagram').addEventListener('change', (e) => {
+                showEnergyDiagram = e.target.checked;
+            });
+
+            // Rutherford Control Listeners
+            document.getElementById('toggleCollapseBtn').addEventListener('click', () => {
+                if (simRutherford.collapsed) {
+                    simRutherford.init();
+                }
+                simRutherford.isCollapsing = !simRutherford.isCollapsing;
+                if (simRutherford.isCollapsing) {
+                    updateStatus("Classical Spiral Radiation Collapse Active!", "rose");
+                }
+            });
+
+            document.getElementById('resetRutherfordBtn').addEventListener('click', () => {
+                simRutherford.init();
+                updateStatus("Rutherford Orbit Reset", "slate");
+            });
+
+            const lossRateSlider = document.getElementById('lossRateSlider');
+            lossRateSlider.addEventListener('input', (e) => {
+                simRutherford.lossRate = parseFloat(e.target.value);
+                document.getElementById('lossRateVal').innerText = `${simRutherford.lossRate.toFixed(1)}x`;
+            });
+
+            // Bohr Control Listeners
+            document.querySelectorAll('.bohr-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const targetN = parseInt(btn.getAttribute('data-n'));
+                    simBohr.requestTransition(targetN);
+                });
+            });
+
+            document.getElementById('absorbPhotonBtn').addEventListener('click', () => {
+                if (simBohr.currentN < 5) {
+                    simBohr.requestTransition(simBohr.currentN + 1);
+                } else {
+                    updateStatus("Already at Maximum Orbit Level n=5!", "amber");
+                }
+            });
+
+            document.getElementById('emitPhotonBtn').addEventListener('click', () => {
+                if (simBohr.currentN > 1) {
+                    simBohr.requestTransition(simBohr.currentN - 1);
+                } else {
+                    updateStatus("Already in Ground State n=1!", "amber");
+                }
+            });
+
+            // Spectral Preset Shortcuts
+            document.getElementById('presetBalmerAlpha').addEventListener('click', () => {
+                if (simBohr.currentN === 3) simBohr.requestTransition(2);
+            });
+
+            document.getElementById('presetBalmerBeta').addEventListener('click', () => {
+                if (simBohr.currentN === 4) simBohr.requestTransition(2);
+            });
+
+            document.getElementById('presetLymanAlpha').addEventListener('click', () => {
+                if (simBohr.currentN === 2) simBohr.requestTransition(1);
+            });
+
+            const clearBtn = document.getElementById('clearSpectrumBtn');
+            if (clearBtn) {
+                clearBtn.addEventListener('click', () => {
+                    const container = document.getElementById('spectrumContainer');
+                    if (container) container.innerHTML = '';
+                    updateStatus("Spectrum Cleared", "slate");
+                });
+            }
+
+            window.addEventListener('resize', () => {
+                simRutherford.resize();
+                simRutherford.init();
+                simBohr.resize();
+                simBohr.init();
+            });
+
+            // Main Animation Loop
+            function animate() {
+                simRutherford.update();
+                simRutherford.draw();
+
+                simBohr.update();
+                simBohr.draw();
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        });
+    </script>
+</body>
+</html>
