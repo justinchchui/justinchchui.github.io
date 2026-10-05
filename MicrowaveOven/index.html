@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microwave Oven Standing Wave & Hotspot Simulator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- KaTeX CSS & JS for LaTeX Math Rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        canvas {
+            background-color: #1e293b;
+            border-radius: 0.5rem;
+            box-shadow: inset 0 2px 8px 0 rgb(0 0 0 / 0.6);
+            width: 100%;
+            height: auto;
+            touch-action: none;
+        }
+        /* Custom range slider styling matching theme */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #06b6d4;
+            cursor: pointer;
+            margin-top: -8px;
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.6);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #475569;
+            border-radius: 2px;
+        }
+        .pulse-glow-red {
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+        }
+        .pulse-glow-green {
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center p-4 md:p-8">
+
+    <div class="max-w-6xl w-full">
+        <!-- Back Navigation -->
+        <div class="mb-2 md:mb-6">
+            <a href="../" class="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-xs md:text-sm font-bold bg-slate-800 py-2 px-4 rounded-lg border border-slate-700 shadow-md hover:bg-slate-700">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Back to Home
+            </a>
+        </div>
+
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">Microwave Standing Wave & Hotspot Simulator</h1>
+            <p class="text-slate-400 max-w-3xl mx-auto text-sm md:text-base">
+                Observe how reflected microwaves form a <span class="text-cyan-400 font-semibold">sinusoidal standing wave</span> inside the cavity. Polar <span class="text-blue-400 font-semibold">water dipoles</span> rotate rapidly at field antinodes, colliding with the <span class="text-amber-200 font-semibold">food matrix</span> to generate heat. Turn the turntable <span class="text-amber-400 font-semibold">OFF</span> to see extreme localized hotspots!
+            </p>
+        </header>
+
+        <!-- Control Panel -->
+        <div class="bg-slate-800 rounded-xl p-6 shadow-xl mb-8 border border-slate-700">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mb-6 items-center">
+                
+                <!-- Main Power Button -->
+                <div>
+                    <button id="toggleMicrowaveBtn" class="bg-red-600 hover:bg-red-500 text-white px-4 py-3 rounded-lg font-bold transition-all shadow-lg w-full flex items-center justify-center gap-2 text-sm">
+                        <span id="powerDot" class="w-3 h-3 rounded-full bg-red-200 animate-pulse"></span>
+                        <span id="powerBtnText">Microwave: OFF</span>
+                    </button>
+                </div>
+
+                <!-- Turntable Toggle Button -->
+                <div>
+                    <button id="toggleTurntableBtn" class="bg-slate-700 hover:bg-slate-600 text-amber-300 px-4 py-3 rounded-lg font-bold transition-colors w-full text-sm border border-slate-600 flex items-center justify-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                        <span id="turntableBtnText">Turntable: OFF</span>
+                    </button>
+                </div>
+
+                <!-- Fast Forward Speed Button -->
+                <div>
+                    <button id="toggleSpeedBtn" class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-3 py-3 rounded-lg font-bold transition-colors w-full text-xs border border-slate-600 flex items-center justify-center gap-2">
+                        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        <span id="speedBtnText">Speed: 1x</span>
+                    </button>
+                </div>
+
+                <!-- Wave Overlay Toggle Button -->
+                <div>
+                    <button id="toggleWaveOverlayBtn" class="bg-cyan-700 hover:bg-cyan-600 text-white px-3 py-3 rounded-lg font-bold transition-colors w-full text-xs border border-cyan-500 flex items-center justify-center gap-2">
+                        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M3 12c0 0 2.5-4 4.5-4s3.5 4 5.5 4 4.5-4 6.5-4"></path></svg>
+                        <span id="waveOverlayBtnText">Wave Overlay: ON</span>
+                    </button>
+                </div>
+
+                <!-- Standing Wave Mode Selector (Low, Medium, High complete standing wave loops) -->
+                <div class="bg-slate-900/70 p-2.5 rounded-lg border border-slate-700/80">
+                    <div class="flex justify-between items-center text-xs mb-1.5 px-0.5">
+                        <span class="font-bold text-cyan-300">Standing Wave Mode</span>
+                        <span id="modeDisplay" class="font-mono text-cyan-400 font-bold text-[11px]">Medium (5 Loops)</span>
+                    </div>
+                    <div class="grid grid-cols-3 gap-1">
+                        <button id="modeLowBtn" class="mode-btn bg-slate-700 hover:bg-slate-600 text-slate-300 py-1.5 px-1 rounded font-bold text-[11px] transition-all border border-slate-600">
+                            Low (3)
+                        </button>
+                        <button id="modeMedBtn" class="mode-btn bg-cyan-600 hover:bg-cyan-500 text-white py-1.5 px-1 rounded font-bold text-[11px] transition-all border border-cyan-400 shadow-md">
+                            Med (5)
+                        </button>
+                        <button id="modeHighBtn" class="mode-btn bg-slate-700 hover:bg-slate-600 text-slate-300 py-1.5 px-1 rounded font-bold text-[11px] transition-all border border-slate-600">
+                            High (8)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- View Mode & Reset Controls -->
+                <div class="flex items-center gap-2">
+                    <button id="toggleViewBtn" class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-3 py-3 rounded-lg font-bold transition-colors w-1/2 text-xs border border-slate-600">
+                        View: Both
+                    </button>
+                    <button id="resetBtn" class="bg-slate-700 hover:bg-slate-600 text-white px-3 py-3 rounded-lg font-bold transition-colors w-1/2 text-xs border border-slate-600">
+                        Reset Food
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dynamic Hotspot Alert Banner -->
+            <div id="hotspotBanner" class="mb-4 p-3 rounded-lg bg-amber-950/60 border border-amber-600/60 text-amber-200 text-xs md:text-sm flex items-center justify-between transition-all">
+                <div class="flex items-center gap-2">
+                    <span class="text-base">⚠️</span>
+                    <span id="bannerText"><strong>Turntable is OFF:</strong> Food remains stationary under the standing wave. Intense hotspots will form at Antinodes!</span>
+                </div>
+                <span id="hotspotBadge" class="bg-amber-600 text-black text-[10px] uppercase font-bold px-2 py-0.5 rounded shrink-0">Hotspots Active</span>
+            </div>
+
+            <!-- Simulation Canvas Container -->
+            <div class="relative w-full aspect-[2/1] rounded-lg overflow-hidden border-2 border-slate-600 bg-slate-900 shadow-2xl">
+                <canvas id="microwaveCanvas" width="900" height="450"></canvas>
+                
+                <!-- Standing Wave E-Field Flash Overlay -->
+                <div id="fieldIndicator" class="absolute inset-0 bg-cyan-500/5 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
+                <!-- Live Metrics Overlay Badge -->
+                <div class="absolute top-3 left-3 bg-slate-900/85 backdrop-blur-md px-3 py-2 rounded-lg border border-slate-700 text-xs font-mono text-slate-300 pointer-events-none flex flex-wrap items-center gap-4 shadow-lg">
+                    <div>Nodes ($E=0$): <span id="nodeCount" class="text-cyan-400 font-bold">5</span></div>
+                    <div>Hotspots (Antinodes): <span id="antinodeCount" class="text-red-400 font-bold">4</span></div>
+                    <div>Avg Temp: <span id="avgTemp" class="text-yellow-400 font-bold">20.0 °C</span></div>
+                    <div>Max Temp: <span id="maxTemp" class="text-red-500 font-bold">20.0 °C</span></div>
+                </div>
+
+                <!-- Standing Wave Legend Overlay -->
+                <div id="waveLegend" class="absolute top-3 right-3 bg-slate-900/85 backdrop-blur-md px-3 py-1.5 rounded-lg border border-slate-700 text-[11px] font-sans text-slate-300 pointer-events-none hidden sm:block transition-opacity duration-300">
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-0.5 bg-cyan-400 shadow-[0_0_8px_#22d3ee]"></span>
+                        <span>Standing Wave $E(x,t) = E_0 \sin(kx) \cos(\omega t)$</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Educational Information & Legend Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-slate-300">
+            
+            <!-- Legend Card -->
+            <div class="bg-slate-800/50 p-4 rounded-lg border border-slate-700/50">
+                <strong class="text-white block mb-2 font-bold text-base">Visual Legend</strong>
+                
+                <div class="mb-3">
+                    <span class="text-xs text-slate-400 block mb-1">Food Temperature Spectrum</span>
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-blue-500 inline-block"></span>
+                        <span class="text-xs">Cold (20°C)</span>
+                        <span class="w-3 h-3 rounded-full bg-yellow-400 inline-block ml-1"></span>
+                        <span class="text-xs">Warm (60°C)</span>
+                        <span class="w-3 h-3 rounded-full bg-red-500 inline-block ml-1"></span>
+                        <span class="text-xs">Hot (100°C+)</span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <span class="text-xs text-slate-400 block mb-1">Molecules in Food</span>
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="w-4 h-4 rounded-full bg-blue-500 flex items-center justify-center relative shrink-0">
+                            <div class="absolute w-1.5 h-1.5 bg-white rounded-full top-0 right-0 transform translate-x-1/2 -translate-y-1/2"></div>
+                            <div class="absolute w-1.5 h-1.5 bg-white rounded-full bottom-0 right-0 transform translate-x-1/2 translate-y-1/2"></div>
+                        </div>
+                        <span class="text-xs"><strong class="text-blue-300">Water Dipole ($\text{H}_2\text{O}$)</strong>: Rotates back & forth with $E(x,t)$ field</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-4 h-4 rounded-full bg-slate-500 shrink-0"></div>
+                        <span class="text-xs"><strong class="text-slate-300">Food Base Atom</strong>: Inert lattice, heated via collisions with water</span>
+                    </div>
+                </div>
+
+                <div>
+                    <span class="text-xs text-slate-400 block mb-1">Standing Wave Fields</span>
+                    <div class="flex items-center gap-3 text-xs">
+                        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-cyan-400"></span> Node ($E=0$)</span>
+                        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-red-500"></span> Antinode ($|E| = \text{Max}$)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Physics Mechanics Card -->
+            <div class="bg-slate-800/50 p-4 rounded-lg border border-slate-700/50 md:col-span-2 flex flex-col justify-between">
+                <div>
+                    <strong class="text-white block mb-2 font-bold text-base">Why Do Hotspots Form Without a Turntable?</strong>
+                    <p class="mb-2 text-xs md:text-sm text-slate-300 leading-relaxed">
+                        1. <strong>Sinusoidal Standing Waves:</strong> Microwave radiation reflects off the metallic interior cavity walls, creating a standing wave pattern: $E(x, t) = E_0 \sin(k x) \cos(\omega t)$.
+                    </p>
+                    <p class="mb-2 text-xs md:text-sm text-slate-300 leading-relaxed">
+                        2. <strong>Antinodes vs. Nodes:</strong> At wave <strong>Antinodes</strong> ($|\sin(kx)| = 1$), the electric field oscillates at maximum amplitude, exerting intense torque $\vec{\tau} = \vec{p} \times \vec{E}$ on polar water molecules. At wave <strong>Nodes</strong> ($\sin(kx) = 0$), $E = 0$, so zero dielectric heating occurs!
+                    </p>
+                    <p class="mb-2 text-xs md:text-sm text-slate-300 leading-relaxed">
+                        3. <strong>Collisional Thermal Transfer:</strong> Rotating water molecules violently collide with neighboring non-polar food molecules, converting rotational friction into thermal lattice vibrations.
+                    </p>
+                    <p class="text-xs text-amber-300 bg-amber-950/40 p-2.5 rounded-lg border border-amber-800/50 mt-2">
+                        💡 <strong>Key Takeaway:</strong> When the <strong>Turntable is OFF</strong>, food at antinodes burns while food at nodes stays ice cold. Turning the <strong>Turntable ON</strong> spins the turntable along its axis, rotating food through high and low field zones to produce an evenly cooked meal!
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-20 text-center text-slate-500 text-sm">
+            <p>Built for interactive science education.</p>
+            <p>Generated by Gemini Pro 3.0 | Prepared By Justin Chui.</p>
+        </footer>
+    </div>
+
+    <!-- Simulation Physics & Rendering Engine -->
+    <script>
+        const canvas = document.getElementById('microwaveCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // State variables
+        let isMicrowaveOn = false;
+        let isTurntableOn = false;
+        let showSineWave = true;
+        let isFastForward = false;
+        let simTime = 0;
+        let turntableAngle = 0;
+        let viewMode = 'both'; // 'both', 'molecules', 'thermal'
+
+        // UI Controls
+        const toggleMicrowaveBtn = document.getElementById('toggleMicrowaveBtn');
+        const powerBtnText = document.getElementById('powerBtnText');
+        const powerDot = document.getElementById('powerDot');
+        const toggleTurntableBtn = document.getElementById('toggleTurntableBtn');
+        const turntableBtnText = document.getElementById('turntableBtnText');
+        const toggleSpeedBtn = document.getElementById('toggleSpeedBtn');
+        const speedBtnText = document.getElementById('speedBtnText');
+        const toggleWaveOverlayBtn = document.getElementById('toggleWaveOverlayBtn');
+        const waveOverlayBtnText = document.getElementById('waveOverlayBtnText');
+        const waveLegend = document.getElementById('waveLegend');
+        const modeLowBtn = document.getElementById('modeLowBtn');
+        const modeMedBtn = document.getElementById('modeMedBtn');
+        const modeHighBtn = document.getElementById('modeHighBtn');
+        const modeDisplay = document.getElementById('modeDisplay');
+        const toggleViewBtn = document.getElementById('toggleViewBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const fieldIndicator = document.getElementById('fieldIndicator');
+        
+        const nodeCountEl = document.getElementById('nodeCount');
+        const antinodeCountEl = document.getElementById('antinodeCount');
+        const avgTempEl = document.getElementById('avgTemp');
+        const maxTempEl = document.getElementById('maxTemp');
+        
+        const hotspotBanner = document.getElementById('hotspotBanner');
+        const bannerText = document.getElementById('bannerText');
+        const hotspotBadge = document.getElementById('hotspotBadge');
+
+        // Standing Wave Modes with complete standing wave loops fitting cavity width L = 900px
+        const WAVE_MODES = {
+            low: { name: 'Low (3 Loops)', loops: 3 },
+            med: { name: 'Medium (5 Loops)', loops: 5 },
+            high: { name: 'High (8 Loops)', loops: 8 }
+        };
+        let currentModeKey = 'med';
+
+        // Simulation parameters
+        const BASE_TEMP = 20; // Ambient 20°C
+        const MAX_TEMP = 120; // Maximum simulation temp
+        const COLS = 26;
+        const ROWS = 13;
+        const SPACING = 22;
+        const ATOM_RADIUS = 6.5;
+        const CONDUCTION_RATE = 0.003; // Thermal conduction between adjacent food cells
+        const COOLING_RATE = 0.002;  // Ambient dissipation rate
+
+        let molecules = [];
+
+        function getTemperatureColor(temp, alpha = 1.0) {
+            let t = Math.max(0, Math.min(1, (temp - BASE_TEMP) / (MAX_TEMP - BASE_TEMP)));
+            let r, g, b;
+            
+            if (t < 0.5) {
+                // Cold blue (59, 130, 246) -> Warm yellow (250, 204, 21)
+                let factor = t * 2;
+                r = Math.floor(59 + (250 - 59) * factor);
+                g = Math.floor(130 + (204 - 130) * factor);
+                b = Math.floor(246 + (21 - 246) * factor);
+            } else {
+                // Warm yellow (250, 204, 21) -> Hot red/magenta (239, 68, 68)
+                let factor = (t - 0.5) * 2;
+                r = Math.floor(250 + (239 - 250) * factor);
+                g = Math.floor(204 + (68 - 204) * factor);
+                b = Math.floor(21 + (68 - 21) * factor);
+            }
+            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        }
+
+        class Molecule {
+            constructor(c, r, relativeX, relativeY, isWater) {
+                this.col = c;
+                this.row = r;
+                this.relX = relativeX; // Position relative to turntable plate center
+                this.relY = relativeY;
+                this.x = 0; // World canvas coordinate
+                this.y = 0;
+                this.isWater = isWater;
+                this.temp = BASE_TEMP;
+                
+                this.angle = Math.random() * Math.PI * 2;
+                this.angularVelocity = 0;
+                this.neighbors = [];
+            }
+
+            updatePosition(centerX, centerY, rotationAngle) {
+                // Perspective transformation for spinning oval turntable along its vertical axis
+                const cosA = Math.cos(rotationAngle);
+                const sinA = Math.sin(rotationAngle);
+                
+                // Elliptical perspective aspect ratio (Semi-minor 165 / Semi-major 330)
+                const aspect = 165 / 330;
+                
+                // Unscale Y to circular space, apply rotation, and rescale back to oval space
+                const circularY = this.relY / aspect;
+                const rotX = this.relX * cosA - circularY * sinA;
+                const rotY = this.relX * sinA + circularY * cosA;
+
+                this.x = centerX + rotX;
+                this.y = centerY + rotY * aspect;
+            }
+
+            updatePhysics(eFieldAtLoc) {
+                if (isMicrowaveOn && this.isWater) {
+                    // Polar dipole torque alignment force
+                    let targetAngle = eFieldAtLoc > 0 ? Math.PI / 2 : -Math.PI / 2;
+                    let fieldMagnitude = Math.abs(eFieldAtLoc);
+
+                    let diff = targetAngle - this.angle;
+                    while (diff > Math.PI) diff -= Math.PI * 2;
+                    while (diff < -Math.PI) diff += Math.PI * 2;
+
+                    // Torque proportional to electric field magnitude at this x location
+                    let torque = diff * fieldMagnitude * 0.55;
+                    
+                    // Thermal noise jitter
+                    torque += (Math.random() - 0.5) * (this.temp / MAX_TEMP) * 0.25;
+
+                    this.angularVelocity += torque;
+                    this.angularVelocity *= 0.72; // Rotational friction damping
+
+                    // Speed limit
+                    this.angularVelocity = Math.max(-2.8, Math.min(2.8, this.angularVelocity));
+                    this.angle += this.angularVelocity;
+
+                    // Dielectric dissipation: convert rotational kinetic friction into thermal energy
+                    let heating = Math.abs(this.angularVelocity) * 0.45 * fieldMagnitude;
+                    this.temp += heating;
+                }
+
+                // Thermal Conduction with spatial neighbors (lattice heat transfer)
+                let conductionLossGain = 0;
+                for (let n of this.neighbors) {
+                    conductionLossGain += (n.temp - this.temp) * CONDUCTION_RATE;
+                }
+                this.temp += conductionLossGain;
+
+                // Ambient thermal dissipation into air
+                if (this.temp > BASE_TEMP) {
+                    this.temp -= COOLING_RATE * (1 + (this.temp - BASE_TEMP) / 40);
+                }
+                this.temp = Math.max(BASE_TEMP, Math.min(MAX_TEMP + 30, this.temp));
+            }
+
+            draw() {
+                let color = getTemperatureColor(this.temp);
+
+                // Thermal vibration displacement jitter
+                let thermalJitter = ((this.temp - BASE_TEMP) / (MAX_TEMP - BASE_TEMP)) * 2.2;
+                let drawX = this.x + (Math.random() - 0.5) * thermalJitter;
+                let drawY = this.y + (Math.random() - 0.5) * thermalJitter;
+
+                // Thermal Heatmap Aura overlay
+                if (viewMode === 'thermal' || viewMode === 'both') {
+                    let heatRatio = (this.temp - BASE_TEMP) / (MAX_TEMP - BASE_TEMP);
+                    if (heatRatio > 0.05) {
+                        ctx.beginPath();
+                        ctx.arc(drawX, drawY, ATOM_RADIUS * (1.8 + heatRatio * 1.5), 0, Math.PI * 2);
+                        ctx.fillStyle = getTemperatureColor(this.temp, 0.25 + heatRatio * 0.35);
+                        ctx.fill();
+                    }
+                }
+
+                if (viewMode === 'thermal') return; // Skip drawing atom details in pure thermal view
+
+                if (this.isWater) {
+                    // Draw Water Molecule (H2O Dipole)
+                    ctx.save();
+                    ctx.translate(drawX, drawY);
+                    ctx.rotate(this.angle);
+
+                    // Oxygen atom center
+                    ctx.beginPath();
+                    ctx.arc(0, 0, ATOM_RADIUS, 0, Math.PI * 2);
+                    ctx.fillStyle = color;
+                    ctx.fill();
+
+                    // Hydrogen atoms ("ears")
+                    ctx.fillStyle = '#f8fafc';
+                    ctx.beginPath();
+                    ctx.arc(ATOM_RADIUS - 1, ATOM_RADIUS * 0.55, ATOM_RADIUS * 0.45, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    ctx.beginPath();
+                    ctx.arc(ATOM_RADIUS - 1, -ATOM_RADIUS * 0.55, ATOM_RADIUS * 0.45, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // Specular highlight
+                    ctx.beginPath();
+                    ctx.arc(-2, -2, 1.8, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(255,255,255,0.45)';
+                    ctx.fill();
+
+                    ctx.restore();
+                } else {
+                    // Draw Non-polar Food Matrix Atom
+                    ctx.beginPath();
+                    ctx.arc(drawX, drawY, ATOM_RADIUS, 0, Math.PI * 2);
+                    ctx.fillStyle = color;
+                    ctx.fill();
+
+                    ctx.strokeStyle = 'rgba(0, 0, 0, 0.35)';
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+
+                    // Specular highlight
+                    ctx.beginPath();
+                    ctx.arc(drawX - 2, drawY - 2, 1.8, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(255,255,255,0.25)';
+                    ctx.fill();
+                }
+            }
+        }
+
+        function initFoodGrid() {
+            molecules = [];
+            const centerRelX = ((COLS - 1) * SPACING) / 2;
+            const centerRelY = ((ROWS - 1) * SPACING) / 2;
+
+            for (let r = 0; r < ROWS; r++) {
+                for (let c = 0; c < COLS; c++) {
+                    let rx = c * SPACING - centerRelX;
+                    let ry = r * SPACING - centerRelY;
+
+                    // Elliptical dish geometry check
+                    let normX = rx / (centerRelX + 12);
+                    let normY = ry / (centerRelY + 12);
+                    if (normX * normX + normY * normY <= 1.0) {
+                        // ~45% Water dipole concentration
+                        let isWater = Math.random() < 0.45;
+                        molecules.push(new Molecule(c, r, rx, ry, isWater));
+                    }
+                }
+            }
+
+            // Assign spatial conduction neighbors
+            for (let m of molecules) {
+                m.neighbors = molecules.filter(other => {
+                    if (m === other) return false;
+                    let dx = m.relX - other.relX;
+                    let dy = m.relY - other.relY;
+                    let dist = Math.sqrt(dx * dx + dy * dy);
+                    return dist <= SPACING * 1.3;
+                });
+            }
+        }
+
+        function getStandingWaveParams() {
+            const cavityWidth = canvas.width;
+            const mode = WAVE_MODES[currentModeKey];
+            const n = mode.loops;
+            // k * L = n * pi ensures zero nodes at both boundary cavity walls (x = 0 and x = L)
+            const k = (n * Math.PI) / cavityWidth; 
+            const omega = n * 0.035; // Temporal oscillation frequency
+            return { k, omega, cavityWidth, loops: n };
+        }
+
+        function updateWaveStats() {
+            const { loops } = getStandingWaveParams();
+            let antinodes = loops;
+            let nodes = loops + 1; // Includes boundary wall zero nodes
+            
+            nodeCountEl.textContent = nodes;
+            antinodeCountEl.textContent = antinodes;
+        }
+
+        function setWaveMode(key) {
+            currentModeKey = key;
+            const mode = WAVE_MODES[key];
+            
+            const btnMap = [
+                { btn: modeLowBtn, isSel: key === 'low' },
+                { btn: modeMedBtn, isSel: key === 'med' },
+                { btn: modeHighBtn, isSel: key === 'high' }
+            ];
+
+            btnMap.forEach(({ btn, isSel }) => {
+                if (!btn) return;
+                if (isSel) {
+                    btn.className = 'mode-btn bg-cyan-600 hover:bg-cyan-500 text-white py-1.5 px-1 rounded font-bold text-[11px] transition-all border border-cyan-400 shadow-md';
+                } else {
+                    btn.className = 'mode-btn bg-slate-700 hover:bg-slate-600 text-slate-300 py-1.5 px-1 rounded font-bold text-[11px] transition-all border border-slate-600';
+                }
+            });
+
+            if (modeDisplay) {
+                modeDisplay.textContent = mode.name;
+            }
+
+            updateWaveStats();
+        }
+
+        function updateWaveStats() {
+            const { k, cavityWidth } = getStandingWaveParams();
+            let nodes = Math.floor((k * cavityWidth) / Math.PI);
+            let antinodes = nodes > 0 ? nodes - 1 : 1;
+            
+            nodeCountEl.textContent = nodes;
+            antinodeCountEl.textContent = antinodes;
+        }
+
+        function drawCavityAndTurntable() {
+            const width = canvas.width;
+            const height = canvas.height;
+
+            // Cavity metallic frame border
+            ctx.strokeStyle = '#334155';
+            ctx.lineWidth = 10;
+            ctx.strokeRect(5, 5, width - 10, height - 10);
+
+            // Draw Oval Turntable Plate Dish and render spinning platter markings along its central axis
+            const plateCenterX = width / 2;
+            const plateCenterY = height / 2;
+            const rx = 330;
+            const ry = 165;
+            const aspect = ry / rx;
+
+            ctx.save();
+            
+            // Turntable Base Shadow
+            ctx.beginPath();
+            ctx.ellipse(plateCenterX, plateCenterY + 6, rx + 4, ry + 3, 0, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(2, 6, 23, 0.7)';
+            ctx.fill();
+
+            // Glass Platter Main Dish
+            ctx.beginPath();
+            ctx.ellipse(plateCenterX, plateCenterY, rx, ry, 0, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.75)';
+            ctx.fill();
+            ctx.strokeStyle = isTurntableOn ? '#0284c7' : '#475569';
+            ctx.lineWidth = 3.5;
+            ctx.stroke();
+
+            // Rotating Spokes & Glass Markings on the Turntable Surface (Spins with turntableAngle)
+            const numSpokes = 12;
+            ctx.strokeStyle = isTurntableOn ? 'rgba(56, 189, 248, 0.35)' : 'rgba(148, 163, 184, 0.15)';
+            ctx.lineWidth = 1.5;
+
+            for (let i = 0; i < numSpokes; i++) {
+                let angle = turntableAngle + (i * Math.PI * 2 / numSpokes);
+                let cosA = Math.cos(angle);
+                let sinA = Math.sin(angle);
+                
+                // Radial lines along perspective elliptical platter surface
+                let x1 = plateCenterX + (rx * 0.22) * cosA;
+                let y1 = plateCenterY + (rx * 0.22) * sinA * aspect;
+                let x2 = plateCenterX + (rx * 0.95) * cosA;
+                let y2 = plateCenterY + (rx * 0.95) * sinA * aspect;
+
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.stroke();
+
+                // Platter rim notch ticks that spin along the axis
+                if (i % 2 === 0) {
+                    ctx.beginPath();
+                    ctx.arc(x2, y2, 3, 0, Math.PI * 2);
+                    ctx.fillStyle = isTurntableOn ? 'rgba(56, 189, 248, 0.7)' : 'rgba(100, 116, 139, 0.4)';
+                    ctx.fill();
+                }
+            }
+
+            // Inner Concentric Glass Ring
+            ctx.beginPath();
+            ctx.ellipse(plateCenterX, plateCenterY, rx * 0.38, ry * 0.38, 0, 0, Math.PI * 2);
+            ctx.strokeStyle = isTurntableOn ? 'rgba(56, 189, 248, 0.25)' : 'rgba(148, 163, 184, 0.12)';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            // Center Rotation Pin Axis
+            ctx.beginPath();
+            ctx.arc(plateCenterX, plateCenterY, 5, 0, Math.PI * 2);
+            ctx.fillStyle = isTurntableOn ? '#38bdf8' : '#64748b';
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        function drawStandingWaveOverlay() {
+            const width = canvas.width;
+            const height = canvas.height;
+            const { k, omega } = getStandingWaveParams();
+
+            let waveTimeFactor = isMicrowaveOn ? Math.cos(simTime * omega) : 0;
+            const centerY = height / 2;
+            const amplitude = height * 0.38;
+
+            // Draw Static Sinusoidal Wave Envelope
+            ctx.beginPath();
+            ctx.setLineDash([4, 4]);
+            ctx.strokeStyle = 'rgba(56, 189, 248, 0.3)';
+            ctx.lineWidth = 1.5;
+
+            // Upper Envelope
+            for (let x = 0; x <= width; x += 4) {
+                let envY = Math.sin(k * x) * amplitude;
+                if (x === 0) ctx.moveTo(x, centerY + envY);
+                else ctx.lineTo(x, centerY + envY);
+            }
+            ctx.stroke();
+
+            // Lower Envelope
+            ctx.beginPath();
+            for (let x = 0; x <= width; x += 4) {
+                let envY = -Math.sin(k * x) * amplitude;
+                if (x === 0) ctx.moveTo(x, centerY + envY);
+                else ctx.lineTo(x, centerY + envY);
+            }
+            ctx.stroke();
+            ctx.setLineDash([]); // Reset dash
+
+            // Draw Active Oscillating Sinusoidal Electric Field Lines E(x,t)
+            if (isMicrowaveOn) {
+                ctx.save();
+                ctx.shadowBlur = 12;
+                ctx.shadowColor = '#06b6d4';
+                
+                for (let layer = -1; layer <= 1; layer++) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = layer === 0 ? 'rgba(34, 211, 238, 0.95)' : 'rgba(14, 165, 233, 0.45)';
+                    ctx.lineWidth = layer === 0 ? 3.5 : 2;
+
+                    let layerOffsetY = layer * 10;
+
+                    for (let x = 0; x <= width; x += 3) {
+                        let eVal = Math.sin(k * x) * waveTimeFactor;
+                        let waveY = centerY + layerOffsetY + eVal * amplitude;
+                        if (x === 0) ctx.moveTo(x, waveY);
+                        else ctx.lineTo(x, waveY);
+                    }
+                    ctx.stroke();
+                }
+                ctx.restore();
+
+                // Draw Vertical Node & Antinode Field Markers
+                for (let x = 0; x <= width; x += 3) {
+                    let sinVal = Math.sin(k * x);
+                    if (Math.abs(sinVal) > 0.985) { // Antinodes
+                        ctx.fillStyle = 'rgba(239, 68, 68, 0.6)';
+                        ctx.beginPath();
+                        ctx.arc(x, 22, 4.5, 0, Math.PI * 2);
+                        ctx.fill();
+                        ctx.beginPath();
+                        ctx.arc(x, height - 22, 4.5, 0, Math.PI * 2);
+                        ctx.fill();
+                    } else if (Math.abs(sinVal) < 0.035) { // Nodes
+                        ctx.fillStyle = 'rgba(6, 182, 212, 0.6)';
+                        ctx.beginPath();
+                        ctx.arc(x, 22, 3.5, 0, Math.PI * 2);
+                        ctx.fill();
+                        ctx.beginPath();
+                        ctx.arc(x, height - 22, 3.5, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const steps = isFastForward ? 2 : 1;
+            const { k, omega } = getStandingWaveParams();
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+
+            for (let step = 0; step < steps; step++) {
+                if (isMicrowaveOn) {
+                    simTime += 1;
+                }
+
+                if (isTurntableOn) {
+                    turntableAngle += 0.008; // Continuous rotation of the turntable dish along its axis
+                }
+
+                let waveTimeFactor = isMicrowaveOn ? Math.cos(simTime * omega) : 0;
+
+                for (let m of molecules) {
+                    m.updatePosition(centerX, centerY, turntableAngle);
+
+                    // Local E-field at molecule's current world x position
+                    let localEField = Math.sin(k * m.x) * waveTimeFactor;
+                    m.updatePhysics(localEField);
+                }
+            }
+
+            // 1. Draw Cavity Base & Turntable Platter
+            drawCavityAndTurntable();
+
+            let totalTemp = 0;
+            let maxTemp = BASE_TEMP;
+
+            // 2. Render Food Molecules
+            for (let m of molecules) {
+                m.draw();
+
+                totalTemp += m.temp;
+                if (m.temp > maxTemp) maxTemp = m.temp;
+            }
+
+            // 3. Render Standing Wave OVERLAY above turntable & food molecules when toggled ON
+            if (showSineWave) {
+                drawStandingWaveOverlay();
+            }
+
+            // Update UI metrics
+            if (molecules.length > 0) {
+                let avg = totalTemp / molecules.length;
+                avgTempEl.textContent = avg.toFixed(1) + ' °C';
+                maxTempEl.textContent = maxTemp.toFixed(1) + ' °C';
+            }
+
+            requestAnimationFrame(animate);
+        }
+        toggleSpeedBtn.addEventListener('click', () => {
+            isFastForward = !isFastForward;
+            if (isFastForward) {
+                speedBtnText.textContent = 'Speed: 2x ⏩';
+                toggleSpeedBtn.classList.remove('bg-slate-700', 'text-slate-200', 'border-slate-600');
+                toggleSpeedBtn.classList.add('bg-amber-600', 'text-white', 'border-amber-400');
+            } else {
+                speedBtnText.textContent = 'Speed: 1x';
+                toggleSpeedBtn.classList.remove('bg-amber-600', 'text-white', 'border-amber-400');
+                toggleSpeedBtn.classList.add('bg-slate-700', 'text-slate-200', 'border-slate-600');
+            }
+        });
+
+        toggleMicrowaveBtn.addEventListener('click', () => {
+            isMicrowaveOn = !isMicrowaveOn;
+            if (isMicrowaveOn) {
+                powerBtnText.textContent = 'Microwave: ON';
+                toggleMicrowaveBtn.classList.remove('bg-red-600', 'hover:bg-red-500');
+                toggleMicrowaveBtn.classList.add('bg-emerald-600', 'hover:bg-emerald-500', 'pulse-glow-green');
+                powerDot.classList.remove('bg-red-200');
+                powerDot.classList.add('bg-emerald-200');
+                fieldIndicator.classList.remove('opacity-0');
+            } else {
+                powerBtnText.textContent = 'Microwave: OFF';
+                toggleMicrowaveBtn.classList.remove('bg-emerald-600', 'hover:bg-emerald-500', 'pulse-glow-green');
+                toggleMicrowaveBtn.classList.add('bg-red-600', 'hover:bg-red-500');
+                powerDot.classList.remove('bg-emerald-200');
+                powerDot.classList.add('bg-red-200');
+                fieldIndicator.classList.add('opacity-0');
+            }
+        });
+
+        toggleTurntableBtn.addEventListener('click', () => {
+            isTurntableOn = !isTurntableOn;
+            if (isTurntableOn) {
+                turntableBtnText.textContent = 'Turntable: ON';
+                toggleTurntableBtn.classList.remove('bg-slate-700', 'text-amber-300', 'border-slate-600');
+                toggleTurntableBtn.classList.add('bg-cyan-700', 'text-white', 'border-cyan-500');
+
+                // Update Banner text for Turntable ON
+                hotspotBanner.classList.remove('bg-amber-950/60', 'border-amber-600/60', 'text-amber-200');
+                hotspotBanner.classList.add('bg-cyan-950/60', 'border-cyan-600/60', 'text-cyan-200');
+                bannerText.innerHTML = '<strong>Turntable is ON:</strong> The turntable spins along its axis! Food rotates continuously through field nodes and antinodes for uniform heating.';
+                hotspotBadge.textContent = 'Uniform Heating';
+                hotspotBadge.classList.remove('bg-amber-600', 'text-black');
+                hotspotBadge.classList.add('bg-cyan-500', 'text-black');
+            } else {
+                turntableBtnText.textContent = 'Turntable: OFF';
+                toggleTurntableBtn.classList.remove('bg-cyan-700', 'text-white', 'border-cyan-500');
+                toggleTurntableBtn.classList.add('bg-slate-700', 'text-amber-300', 'border-slate-600');
+
+                // Update Banner text for Turntable OFF
+                hotspotBanner.classList.remove('bg-cyan-950/60', 'border-cyan-600/60', 'text-cyan-200');
+                hotspotBanner.classList.add('bg-amber-950/60', 'border-amber-600/60', 'text-amber-200');
+                bannerText.innerHTML = '<strong>Turntable is OFF:</strong> Food remains stationary under the standing wave. Intense hotspots will form at Antinodes!';
+                hotspotBadge.textContent = 'Hotspots Active';
+                hotspotBadge.classList.remove('bg-cyan-500', 'text-black');
+                hotspotBadge.classList.add('bg-amber-600', 'text-black');
+            }
+        });
+
+        toggleWaveOverlayBtn.addEventListener('click', () => {
+            showSineWave = !showSineWave;
+            if (showSineWave) {
+                waveOverlayBtnText.textContent = 'Wave Overlay: ON';
+                toggleWaveOverlayBtn.classList.remove('bg-slate-700', 'text-slate-300', 'border-slate-600');
+                toggleWaveOverlayBtn.classList.add('bg-cyan-700', 'text-white', 'border-cyan-500');
+                if (waveLegend) waveLegend.style.opacity = '1';
+            } else {
+                waveOverlayBtnText.textContent = 'Wave Overlay: OFF';
+                toggleWaveOverlayBtn.classList.remove('bg-cyan-700', 'text-white', 'border-cyan-500');
+                toggleWaveOverlayBtn.classList.add('bg-slate-700', 'text-slate-300', 'border-slate-600');
+                if (waveLegend) waveLegend.style.opacity = '0';
+            }
+        });
+
+        if (modeLowBtn) modeLowBtn.addEventListener('click', () => setWaveMode('low'));
+        if (modeMedBtn) modeMedBtn.addEventListener('click', () => setWaveMode('med'));
+        if (modeHighBtn) modeHighBtn.addEventListener('click', () => setWaveMode('high'));
+
+        toggleViewBtn.addEventListener('click', () => {
+            if (viewMode === 'both') {
+                viewMode = 'molecules';
+                toggleViewBtn.textContent = 'View: Molecules';
+            } else if (viewMode === 'molecules') {
+                viewMode = 'thermal';
+                toggleViewBtn.textContent = 'View: Heatmap';
+            } else {
+                viewMode = 'both';
+                toggleViewBtn.textContent = 'View: Both';
+            }
+        });
+
+        resetBtn.addEventListener('click', () => {
+            initFoodGrid();
+            simTime = 0;
+            turntableAngle = 0;
+            if (isMicrowaveOn) {
+                toggleMicrowaveBtn.click();
+            }
+        });
+
+        window.onload = () => {
+            if (typeof renderMathInElement === 'function') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ],
+                    throwOnError: false
+                });
+            }
+            initFoodGrid();
+            setWaveMode('med');
+            animate();
+        };
+    </script>
+</body>
+</html>
