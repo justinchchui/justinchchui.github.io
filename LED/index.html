@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HKDSE Physics: Semiconductors, P-N Junction & LEDs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        canvas {
+            background-color: #1e293b;
+            border-radius: 0.5rem;
+            box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.2);
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        /* Custom range slider styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 18px;
+            width: 18px;
+            border-radius: 50%;
+            background: #38bdf8;
+            cursor: pointer;
+            margin-top: -7px;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #475569;
+            border-radius: 2px;
+        }
+        .tab-active {
+            border-bottom: 3px solid #38bdf8;
+            color: #38bdf8;
+            font-weight: 700;
+        }
+        .glow-cyan {
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.25);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center p-3 md:p-8">
+
+    <div class="max-w-6xl w-full">
+        <!-- Back Navigation -->
+        <div class="mb-3 md:mb-6">
+            <a href="../" class="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-xs md:text-sm font-bold bg-slate-800 py-2 px-4 rounded-lg border border-slate-700 shadow-md hover:bg-slate-700">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Back to Home
+            </a>
+        </div>
+
+        <!-- Header -->
+        <header class="mb-6 text-center">
+            <div class="inline-block px-3 py-1 bg-sky-500/10 text-sky-400 text-xs rounded-full font-semibold border border-sky-500/20 mb-2">
+                HKDSE Physics Interactive Module
+            </div>
+            <h1 class="text-2xl md:text-4xl font-extrabold text-white mb-2">
+                How LEDs Work: From Silicon to Light
+            </h1>
+            <p class="text-slate-400 max-w-3xl mx-auto text-sm md:text-base">
+                An intuitive visual guide for HKDSE students exploring 
+                <span class="text-emerald-400 font-semibold">Semiconductor Doping</span>, 
+                <span class="text-sky-400 font-semibold">P-N Junction Formation</span>, 
+                and <span class="text-amber-400 font-semibold">Light Emission (LEDs)</span>.
+            </p>
+        </header>
+
+        <!-- Main Navigation Tabs -->
+        <div class="flex border-b border-slate-700 mb-6 gap-2 md:gap-8 justify-center text-xs md:text-base">
+            <button id="tab1" onclick="switchTab(1)" class="tab-active py-3 px-2 md:px-4 transition-all focus:outline-none flex items-center gap-1 md:gap-2">
+                <span>1. Silicon & Doping</span>
+            </button>
+            <button id="tab2" onclick="switchTab(2)" class="text-slate-400 hover:text-slate-200 py-3 px-2 md:px-4 transition-all focus:outline-none flex items-center gap-1 md:gap-2">
+                <span>2. P-N Junction & Depletion</span>
+            </button>
+            <button id="tab3" onclick="switchTab(3)" class="text-slate-400 hover:text-slate-200 py-3 px-2 md:px-4 transition-all focus:outline-none flex items-center gap-1 md:gap-2">
+                <span>3. LED & Biasing</span>
+            </button>
+        </div>
+
+        <!-- SECTION 1: DOPING SIMULATION -->
+        <div id="section1" class="space-y-6">
+            <div class="bg-slate-800 rounded-xl p-4 md:p-6 shadow-xl border border-slate-700 glow-cyan">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
+                    <div>
+                        <h2 class="text-lg md:text-xl font-bold text-sky-400">Atomic Lattice Doping Simulator</h2>
+                        <p class="text-xs md:text-sm text-slate-400">Silicon has 4 valence electrons. See what happens when we introduce Boron (Group III) or Phosphorus (Group V).</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 w-full md:w-auto">
+                        <button onclick="setMaterial('intrinsic')" id="btnIntrinsic" class="px-3 py-1.5 rounded-lg text-xs md:text-sm font-semibold bg-slate-700 text-white border border-slate-600 hover:bg-slate-600 transition-all flex-1 md:flex-none">Pure Silicon</button>
+                        <button onclick="setMaterial('p-type')" id="btnPtype" class="px-3 py-1.5 rounded-lg text-xs md:text-sm font-semibold bg-rose-900/60 text-rose-300 border border-rose-700/60 hover:bg-rose-800/80 transition-all flex-1 md:flex-none">Dope Boron (P-Type)</button>
+                        <button onclick="setMaterial('n-type')" id="btnNtype" class="px-3 py-1.5 rounded-lg text-xs md:text-sm font-semibold bg-blue-900/60 text-blue-300 border border-blue-700/60 hover:bg-blue-800/80 transition-all flex-1 md:flex-none">Dope Phosphorus (N-Type)</button>
+                    </div>
+                </div>
+
+                <div class="relative aspect-[16/9] md:aspect-[2/1] w-full max-h-[420px] rounded-lg overflow-hidden border border-slate-700">
+                    <canvas id="canvasDoping" width="1102" height="420"></canvas>
+                </div>
+
+                <div id="dopingDescription" class="mt-4 p-4 rounded-lg bg-slate-900/70 border border-slate-700 text-xs md:text-sm leading-relaxed">
+                    <!-- Dynamic Text via JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 2: P-N JUNCTION & DEPLETION REGION -->
+        <div id="section2" class="space-y-6 hidden">
+            <div class="bg-slate-800 rounded-xl p-4 md:p-6 shadow-xl border border-slate-700 glow-cyan">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
+                    <div>
+                        <h2 class="text-lg md:text-xl font-bold text-sky-400">Diffusion & Depletion Zone Formation</h2>
+                        <p class="text-xs md:text-sm text-slate-400">Observe how free electrons and holes diffuse, recombine, and build up an internal electric field ($E_{int}$).</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button id="btnCombine" onclick="formJunction()" class="bg-sky-600 hover:bg-sky-500 text-white px-4 py-2 rounded-lg text-xs md:text-sm font-bold transition-all shadow-md">
+                            Join P & N Semiconductors
+                        </button>
+                        <button onclick="resetJunction()" class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-4 py-2 rounded-lg text-xs md:text-sm font-bold transition-all">
+                            Reset
+                        </button>
+                    </div>
+                </div>
+
+                <div class="relative aspect-[16/9] md:aspect-[2/1] w-full max-h-[420px] rounded-lg overflow-hidden border border-slate-700">
+                    <canvas id="canvasJunction" width="800" height="400"></canvas>
+                </div>
+
+                <!-- Live Physics Stats -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4 text-center text-xs md:text-sm">
+                    <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-700">
+                        <span class="text-slate-400 block">Diffused Electrons</span>
+                        <span id="diffCount" class="text-sky-400 font-bold text-base">0</span>
+                    </div>
+                    <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-700">
+                        <span class="text-slate-400 block">Depletion Width</span>
+                        <span id="depletionWidthText" class="text-amber-400 font-bold text-base">0 nm</span>
+                    </div>
+                    <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-700">
+                        <span class="text-slate-400 block">Internal E-Field</span>
+                        <span id="eFieldText" class="text-emerald-400 font-bold text-base">0 V/m</span>
+                    </div>
+                    <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-700">
+                        <span class="text-slate-400 block">Barrier Potential</span>
+                        <span id="barrierVolts" class="text-purple-400 font-bold text-base">0.0 V</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 3: LED & EXTERNAL BIAS -->
+        <div id="section3" class="space-y-6 hidden">
+            <div class="bg-slate-800 rounded-xl p-4 md:p-6 shadow-xl border border-slate-700 glow-cyan">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
+                    <div>
+                        <h2 class="text-lg md:text-xl font-bold text-sky-400">LED Circuit & Photon Emission</h2>
+                        <p class="text-xs md:text-sm text-slate-400">Apply forward bias to shrink the barrier and force continuous electron-hole recombination!</p>
+                    </div>
+                    <div class="flex items-center gap-3 bg-slate-900/80 p-2 rounded-lg border border-slate-700 w-full md:w-auto">
+                        <label for="ledColorSelect" class="text-xs text-slate-300 font-semibold">LED Bandgap Color:</label>
+                        <select id="ledColorSelect" onchange="changeLedColor(this.value)" class="bg-slate-800 text-xs md:text-sm text-white px-2 py-1 rounded border border-slate-600 focus:outline-none">
+                            <option value="red">Red (1.8 eV)</option>
+                            <option value="green">Green (2.2 eV)</option>
+                            <option value="blue">Blue (3.0 eV)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Voltage Control Panel -->
+                <div class="bg-slate-900/60 p-4 rounded-lg border border-slate-700 mb-4 flex flex-col md:flex-row items-center gap-4">
+                    <div class="w-full md:w-1/3 text-center md:text-left">
+                        <span class="text-xs text-slate-400 block">External Voltage ($V_{ext}$)</span>
+                        <span id="voltageDisplay" class="text-xl font-black text-amber-400">0.0 V (No Bias)</span>
+                    </div>
+                    <div class="w-full md:w-2/3 flex items-center gap-3">
+                        <span class="text-xs text-rose-400 font-bold shrink-0">-2.0 V (Reverse)</span>
+                        <input type="range" id="voltageSlider" min="-2.0" max="3.0" step="0.1" value="0.0" oninput="updateBias(this.value)">
+                        <span class="text-xs text-emerald-400 font-bold shrink-0">+3.0 V (Forward)</span>
+                    </div>
+                </div>
+
+                <div class="relative aspect-[16/9] md:aspect-[2/1] w-full max-h-[420px] rounded-lg overflow-hidden border border-slate-700">
+                    <canvas id="canvasLED" width="800" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- EXPLANATION & LEGEND PANEL -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-slate-300 mt-6">
+            <div class="bg-slate-800/60 p-4 rounded-xl border border-slate-700/60">
+                <strong class="text-white block mb-2 text-base font-bold flex items-center gap-2">
+                    <svg class="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    Particle Legend
+                </strong>
+                <ul class="space-y-2 text-xs md:text-sm">
+                    <li class="flex items-center gap-2">
+                        <span class="inline-block w-3.5 h-3.5 rounded-full bg-sky-400 shadow-[0_0_8px_#38bdf8]"></span>
+                        <span><strong>Free Electron</strong> ($e^-$): Mobile negative charge</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="inline-block w-3.5 h-3.5 rounded-full border-2 border-rose-400 bg-transparent shadow-[0_0_8px_#fb7185]"></span>
+                        <span><strong>Hole</strong> ($h^+$): Absence of electron (mobile positive)</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="inline-block w-3.5 h-3.5 rounded-sm bg-blue-600/80 border border-blue-400 text-[9px] text-center text-white leading-none font-bold flex items-center justify-center">+</span>
+                        <span><strong>Donor Ion</strong> ($P^+$): Fixed positive charge</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="inline-block w-3.5 h-3.5 rounded-sm bg-rose-600/80 border border-rose-400 text-[9px] text-center text-white leading-none font-bold flex items-center justify-center">-</span>
+                        <span><strong>Acceptor Ion</strong> ($B^-$): Fixed negative charge</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="inline-block w-3 h-3 rotate-45 bg-amber-300 shadow-[0_0_8px_#fde047]"></span>
+                        <span><strong>Photon</strong>: Energy released during recombination</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="explanationBox" class="bg-slate-800/60 p-4 rounded-xl border border-slate-700/60 md:col-span-2 text-xs md:text-sm leading-relaxed space-y-2">
+                <strong class="text-white block text-base font-bold text-sky-300">HKDSE Exam Key Takeaways:</strong>
+                <p>• <strong>Semiconductors:</strong> Silicon has 4 valence electrons forming covalent bonds. Doping with Group V (Phosphorus) introduces <em>free electrons</em> (N-type). Doping with Group III (Boron) introduces <em>holes</em> (P-type).</p>
+                <p>• <strong>P-N Junction & Depletion:</strong> When joined, electrons & holes diffuse across the interface and recombine. This leaves behind uncompensated immobile ions ($P^+$ on N-side, $B^-$ on P-side), establishing an internal electric field that halts further diffusion.</p>
+                <p>• <strong>LED Operation:</strong> Under <strong>Forward Bias</strong> (P connected to +, N to -), the external electric field cancels the internal field, narrowing the depletion region. Driven electrons and holes continuously cross the junction and recombine, releasing potential energy as <strong>photons ($E = hf$)</strong>!</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-16 text-center text-slate-500 text-sm">
+            <p>Built for interactive science education.</p>
+            <p>Generated by Gemini Pro 3.0 | Prepared By Justin Chui.</p>
+        </footer>
+    </div>
+
+    <!-- SIMULATION SCRIPT -->
+    <script>
+        // --- Navigation Tabs ---
+        let currentTab = 1;
+        function switchTab(tabNum) {
+            currentTab = tabNum;
+            for (let i = 1; i <= 3; i++) {
+                const sec = document.getElementById(`section${i}`);
+                const tab = document.getElementById(`tab${i}`);
+                if (i === tabNum) {
+                    sec.classList.remove('hidden');
+                    tab.classList.add('tab-active');
+                    tab.classList.remove('text-slate-400');
+                } else {
+                    sec.classList.add('hidden');
+                    tab.classList.remove('tab-active');
+                    tab.classList.add('text-slate-400');
+                }
+            }
+            // Trigger redraws / re-inits
+            if (tabNum === 1) resetDopingState();
+            if (tabNum === 2) resetJunction();
+            if (tabNum === 3) updateBias(document.getElementById('voltageSlider').value);
+        }
+
+        // ==========================================
+        // SECTION 1: DOPING SIMULATION LOGIC
+        // ==========================================
+        const canvasDoping = document.getElementById('canvasDoping');
+        const ctxDoping = canvasDoping.getContext('2d');
+        let currentMaterial = 'intrinsic';
+        let dopingAnimId = null;
+
+        // Dynamic State for Doping Lattice Sites & Carrier Swaps
+        let latticeSites = []; // Array of discrete bond sites across the silicon lattice
+        let activeHoleSiteIndex = -1; // Pointer to the single site containing the Hole (P-type)
+        let activeFreeElectron = null; // Separate free electron object for N-type
+        let animationProgress = 1.0;
+        let lastHopTime = 0;
+
+        let swapStartPos = { x: 0, y: 0 };
+        let swapTargetPos = { x: 0, y: 0 };
+        let swappingElectronSiteIdx = -1;
+
+        function initLatticeValenceBonds() {
+            latticeSites = [];
+            const rows = 3;
+            const cols = 5;
+            const w = canvasDoping.width || 800;
+            const h = canvasDoping.height || 400;
+            const xSpacing = w / (cols + 1);
+            const ySpacing = h / (rows + 1);
+
+            // Populate discrete bond sites with exactly 1 electron per bond location
+            for (let r = 1; r <= rows; r++) {
+                for (let c = 1; c <= cols; c++) {
+                    const x = c * xSpacing;
+                    const y = r * ySpacing;
+
+                    // Horizontal bonds
+                    if (c < cols) {
+                        latticeSites.push({
+                            x: x + xSpacing * 0.5, y: y - 8,
+                            row: r, col: c, bondType: 'h'
+                        });
+                        latticeSites.push({
+                            x: x + xSpacing * 0.5, y: y + 8,
+                            row: r, col: c, bondType: 'h'
+                        });
+                    }
+                    // Vertical bonds
+                    if (r < rows) {
+                        latticeSites.push({
+                            x: x - 8, y: y + ySpacing * 0.5,
+                            row: r, col: c, bondType: 'v'
+                        });
+                        latticeSites.push({
+                            x: x + 8, y: y + ySpacing * 0.5,
+                            row: r, col: c, bondType: 'v'
+                        });
+                    }
+                }
+            }
+        }
+
+        function resetDopingState() {
+            initLatticeValenceBonds();
+            lastHopTime = 0;
+            animationProgress = 1.0;
+            swappingElectronSiteIdx = -1;
+
+            if (currentMaterial === 'p-type') {
+                // Designate a central Boron bond site to be a Hole (completely empty of electrons)
+                const targetIdx = latticeSites.findIndex(s => s.row === 2 && s.col === 2 && s.bondType === 'h' && s.y < 200);
+                activeHoleSiteIndex = targetIdx !== -1 ? targetIdx : 0;
+                activeFreeElectron = null;
+            } else if (currentMaterial === 'n-type') {
+                activeHoleSiteIndex = -1;
+                const w = canvasDoping.width || 800;
+                const h = canvasDoping.height || 400;
+                const xSpacing = w / 6;
+                const ySpacing = h / 4;
+                activeFreeElectron = {
+                    x: 3 * xSpacing + 25,
+                    y: 2 * ySpacing - 20,
+                    targetX: 3 * xSpacing + 25,
+                    targetY: 2 * ySpacing - 20,
+                    vx: 1.2,
+                    vy: -0.8
+                };
+            } else {
+                activeHoleSiteIndex = -1;
+                activeFreeElectron = null;
+            }
+
+            drawDoping();
+        }
+
+        function setMaterial(mat) {
+            currentMaterial = mat;
+            
+            // Button visual toggles
+            document.getElementById('btnIntrinsic').className = mat === 'intrinsic' ? 
+                'px-3 py-1.5 rounded-lg text-xs md:text-sm font-semibold bg-sky-600 text-white shadow-md' : 
+                'px-3 py-1.5 rounded-lg text-xs md:text-sm font-semibold bg-slate-700 text-slate-300 hover:bg-slate-600';
+            document.getElementById('btnPtype').className = mat === 'p-type' ? 
+                'px-3 py-1.5 rounded-lg text-xs md:text-sm font-semibold bg-rose-600 text-white shadow-md' : 
+                'px-3 py-1.5 rounded-lg text-xs md:text-sm font-semibold bg-rose-900/60 text-rose-300 border border-rose-700/60 hover:bg-rose-800';
+            document.getElementById('btnNtype').className = mat === 'n-type' ? 
+                'px-3 py-1.5 rounded-lg text-xs md:text-sm font-semibold bg-blue-600 text-white shadow-md' : 
+                'px-3 py-1.5 rounded-lg text-xs md:text-sm font-semibold bg-blue-900/60 text-blue-300 border border-blue-700/60 hover:bg-blue-800';
+
+            const desc = document.getElementById('dopingDescription');
+            if (mat === 'intrinsic') {
+                desc.innerHTML = `<strong class="text-white block mb-1">Pure Silicon Crystal (Intrinsic)</strong>
+                Every Silicon atom has <strong>4 valence electrons</strong> and forms perfect covalent bonds with 4 neighboring Si atoms. With no free charge carriers available at room temperature, pure silicon is a poor electrical conductor.`;
+            } else if (mat === 'p-type') {
+                desc.innerHTML = `<strong class="text-rose-400 block mb-1">P-Type Semiconductor (Boron Doped - Hole Hopping)</strong>
+                Boron (Group III) leaves a vacant spot or <strong>hole ($h^+$)</strong>. Watch how <strong>neighboring valence electrons jump into the hole</strong> along curved arc paths. As the electron fills the vacant spot, the hole moves to where that electron came from—guaranteeing no overlapping dots!`;
+            } else if (mat === 'n-type') {
+                desc.innerHTML = `<strong class="text-sky-400 block mb-1">N-Type Semiconductor (Phosphorus Doped - Free & Bonded Electron Swapping)</strong>
+                Phosphorus (Group V) provides a mobile 5th valence electron ($e^-$). Watch as the free electron collides with a valence electron in a covalent bond, <strong>swapping places with it</strong> and knocking the bonded electron into motion!`;
+            }
+
+            resetDopingState();
+        }
+
+        function updateDopingHopping(timestamp) {
+            if (currentTab !== 1) return;
+
+            // Handle P-type hole swapping animation
+            if (currentMaterial === 'p-type') {
+                if (animationProgress < 1.0) {
+                    animationProgress += 0.04;
+                    if (animationProgress >= 1.0) {
+                        animationProgress = 1.0;
+                        // Swap complete: Hole pointer transfers to the site vacated by the jumping electron
+                        if (swappingElectronSiteIdx !== -1) {
+                            activeHoleSiteIndex = swappingElectronSiteIdx;
+                            swappingElectronSiteIdx = -1;
+                        }
+                    }
+                    return;
+                }
+
+                // Periodically trigger a new neighboring electron jumping into the hole
+                if (!lastHopTime) lastHopTime = timestamp;
+                if (timestamp - lastHopTime > 1100) {
+                    lastHopTime = timestamp;
+
+                    if (activeHoleSiteIndex !== -1) {
+                        const holeSite = latticeSites[activeHoleSiteIndex];
+                        // Find adjacent electron sites
+                        const candidates = [];
+                        latticeSites.forEach((site, idx) => {
+                            if (idx !== activeHoleSiteIndex) {
+                                const dist = Math.hypot(site.x - holeSite.x, site.y - holeSite.y);
+                                if (dist > 15 && dist < 140) {
+                                    candidates.push(idx);
+                                }
+                            }
+                        });
+
+                        if (candidates.length > 0) {
+                            swappingElectronSiteIdx = candidates[Math.floor(Math.random() * candidates.length)];
+                            const electronSite = latticeSites[swappingElectronSiteIdx];
+                            
+                            swapStartPos = { x: electronSite.x, y: electronSite.y };
+                            swapTargetPos = { x: holeSite.x, y: holeSite.y };
+                            animationProgress = 0.0;
+                        }
+                    }
+                }
+            } else if (currentMaterial === 'n-type' && activeFreeElectron) {
+                // Handle N-type free electron motion and collision-swapping with bonded valence electrons
+                const w = canvasDoping.width || 800;
+                const h = canvasDoping.height || 400;
+
+                if (animationProgress < 1.0) {
+                    // Currently executing a swap animation between free e- and bonded e-
+                    animationProgress += 0.05;
+                    if (animationProgress >= 1.0) {
+                        animationProgress = 1.0;
+                        swappingElectronSiteIdx = -1;
+                    }
+                    return;
+                }
+
+                // Move free electron
+                activeFreeElectron.x += activeFreeElectron.vx;
+                activeFreeElectron.y += activeFreeElectron.vy;
+
+                // Bounce off boundaries
+                if (activeFreeElectron.x < 40 || activeFreeElectron.x > w - 40) activeFreeElectron.vx *= -1;
+                if (activeFreeElectron.y < 40 || activeFreeElectron.y > h - 40) activeFreeElectron.vy *= -1;
+
+                // Check for collision with any bonded valence electron site
+                for (let i = 0; i < latticeSites.length; i++) {
+                    const site = latticeSites[i];
+                    const dist = Math.hypot(activeFreeElectron.x - site.x, activeFreeElectron.y - site.y);
+
+                    // When free electron hits a bonded site (<14px)
+                    if (dist < 14) {
+                        swappingElectronSiteIdx = i;
+                        swapStartPos = { x: site.x, y: site.y };
+
+                        // Free electron gets captured in this bond site, knocking bonded electron free!
+                        // New velocity for the newly freed electron (scatter direction)
+                        const angle = Math.atan2(activeFreeElectron.vy, activeFreeElectron.vx) + (Math.random() - 0.5) * 1.2;
+                        const speed = 1.8;
+                        activeFreeElectron.vx = Math.cos(angle) * speed;
+                        activeFreeElectron.vy = Math.sin(angle) * speed;
+
+                        // Target position for newly freed electron to travel to
+                        activeFreeElectron.x = site.x;
+                        activeFreeElectron.y = site.y;
+                        animationProgress = 0.0;
+                        break;
+                    }
+                }
+            }
+        }
+
+        function drawDoping(timestamp = 0) {
+            updateDopingHopping(timestamp);
+
+            const w = canvasDoping.width;
+            const h = canvasDoping.height;
+            ctxDoping.clearRect(0, 0, w, h);
+
+            const rows = 3;
+            const cols = 5;
+            const xSpacing = w / (cols + 1);
+            const ySpacing = h / (rows + 1);
+
+            // 1. Draw Lattice Bonds
+            ctxDoping.strokeStyle = '#334155';
+            ctxDoping.lineWidth = 3;
+
+            for (let r = 1; r <= rows; r++) {
+                for (let c = 1; c <= cols; c++) {
+                    const x = c * xSpacing;
+                    const y = r * ySpacing;
+
+                    if (c < cols) {
+                        ctxDoping.beginPath();
+                        ctxDoping.moveTo(x, y);
+                        ctxDoping.lineTo((c + 1) * xSpacing, y);
+                        ctxDoping.stroke();
+                    }
+                    if (r < rows) {
+                        ctxDoping.beginPath();
+                        ctxDoping.moveTo(x, y);
+                        ctxDoping.lineTo(x, (r + 1) * ySpacing);
+                        ctxDoping.stroke();
+                    }
+                }
+            }
+
+            // 2. Draw Valence Electrons and Hole
+            latticeSites.forEach((site, idx) => {
+                if (currentMaterial === 'p-type' && idx === activeHoleSiteIndex) {
+                    // HOLE SITE: Draw ONLY the hole ring! No gray electron exists here.
+                    ctxDoping.beginPath();
+                    ctxDoping.arc(site.x, site.y, 8, 0, Math.PI * 2);
+                    ctxDoping.strokeStyle = '#fb7185';
+                    ctxDoping.lineWidth = 2.5;
+                    ctxDoping.fillStyle = '#0f172a';
+                    ctxDoping.fill();
+                    ctxDoping.stroke();
+
+                    ctxDoping.fillStyle = '#fb7185';
+                    ctxDoping.font = 'bold 12px sans-serif';
+                    ctxDoping.textAlign = 'center';
+                    ctxDoping.fillText('Hole (h+)', site.x, site.y - 13);
+                } else if (currentMaterial === 'p-type' && idx === swappingElectronSiteIdx && animationProgress < 1.0) {
+                    // ELECTRON IN TRANSIT: Draw moving electron along arc path
+                    const p = animationProgress;
+                    const dx = swapTargetPos.x - swapStartPos.x;
+                    const dy = swapTargetPos.y - swapStartPos.y;
+                    const dist = Math.hypot(dx, dy) || 1;
+                    const perpX = -dy / dist;
+                    const perpY = dx / dist;
+
+                    const arcOffset = Math.sin(p * Math.PI) * 16;
+                    const curX = (swapStartPos.x + dx * p) + perpX * arcOffset;
+                    const curY = (swapStartPos.y + dy * p) + perpY * arcOffset;
+
+                    ctxDoping.beginPath();
+                    ctxDoping.arc(curX, curY, 4, 0, Math.PI * 2);
+                    ctxDoping.fillStyle = '#cbd5e1';
+                    ctxDoping.fill();
+                } else if (currentMaterial === 'n-type' && idx === swappingElectronSiteIdx && animationProgress < 1.0) {
+                    // N-TYPE SWAP: Flash site momentarily as incoming free electron locks in
+                    ctxDoping.beginPath();
+                    ctxDoping.arc(site.x, site.y, 4.5, 0, Math.PI * 2);
+                    ctxDoping.fillStyle = '#38bdf8';
+                    ctxDoping.fill();
+                } else {
+                    // Standard Bonded Valence Electron
+                    ctxDoping.beginPath();
+                    ctxDoping.arc(site.x, site.y, 3.5, 0, Math.PI * 2);
+                    ctxDoping.fillStyle = '#94a3b8';
+                    ctxDoping.fill();
+                }
+            });
+
+            // 3. Draw Mobile Free Electron (N-type)
+            if (currentMaterial === 'n-type' && activeFreeElectron) {
+                ctxDoping.beginPath();
+                ctxDoping.arc(activeFreeElectron.x, activeFreeElectron.y, 6.5, 0, Math.PI * 2);
+                ctxDoping.fillStyle = '#38bdf8';
+                ctxDoping.shadowColor = '#38bdf8';
+                ctxDoping.shadowBlur = 10;
+                ctxDoping.fill();
+                ctxDoping.shadowBlur = 0;
+
+                ctxDoping.fillStyle = '#38bdf8';
+                ctxDoping.font = 'bold 12px sans-serif';
+                ctxDoping.textAlign = 'center';
+                ctxDoping.fillText('Free e-', activeFreeElectron.x, activeFreeElectron.y - 12);
+            }
+
+            // 4. Draw Silicon / Dopant Atoms
+            for (let r = 1; r <= rows; r++) {
+                for (let c = 1; c <= cols; c++) {
+                    const x = c * xSpacing;
+                    const y = r * ySpacing;
+                    let isDopant = (r === 2 && c === 2);
+
+                    ctxDoping.beginPath();
+                    ctxDoping.arc(x, y, 16, 0, Math.PI * 2);
+
+                    if (isDopant && currentMaterial === 'intrinsic') {
+                        ctxDoping.fillStyle = '#334155';
+                        ctxDoping.fill();
+                        ctxDoping.strokeStyle = '#38bdf8';
+                        ctxDoping.lineWidth = 2;
+                        ctxDoping.stroke();
+
+                        ctxDoping.fillStyle = '#38bdf8';
+                        ctxDoping.font = 'bold 13px sans-serif';
+                        ctxDoping.textAlign = 'center';
+                        ctxDoping.textBaseline = 'middle';
+                        ctxDoping.fillText('Si (IV)', x, y);
+
+                    } else if (isDopant && currentMaterial === 'p-type') {
+                        ctxDoping.fillStyle = '#be123c';
+                        ctxDoping.shadowColor = '#f43f5e';
+                        ctxDoping.shadowBlur = 10;
+                        ctxDoping.fill();
+                        ctxDoping.shadowBlur = 0;
+                        ctxDoping.fillStyle = '#ffffff';
+                        ctxDoping.font = 'bold 13px sans-serif';
+                        ctxDoping.textAlign = 'center';
+                        ctxDoping.textBaseline = 'middle';
+                        ctxDoping.fillText('B (III)', x, y);
+
+                    } else if (isDopant && currentMaterial === 'n-type') {
+                        ctxDoping.fillStyle = '#1d4ed8';
+                        ctxDoping.shadowColor = '#3b82f6';
+                        ctxDoping.shadowBlur = 10;
+                        ctxDoping.fill();
+                        ctxDoping.shadowBlur = 0;
+                        ctxDoping.fillStyle = '#ffffff';
+                        ctxDoping.font = 'bold 13px sans-serif';
+                        ctxDoping.textAlign = 'center';
+                        ctxDoping.textBaseline = 'middle';
+                        ctxDoping.fillText('P (V)', x, y);
+
+                    } else {
+                        ctxDoping.fillStyle = '#334155';
+                        ctxDoping.fill();
+                        ctxDoping.strokeStyle = '#475569';
+                        ctxDoping.lineWidth = 1.5;
+                        ctxDoping.stroke();
+
+                        ctxDoping.fillStyle = '#cbd5e1';
+                        ctxDoping.font = 'bold 13px sans-serif';
+                        ctxDoping.textAlign = 'center';
+                        ctxDoping.textBaseline = 'middle';
+                        ctxDoping.fillText('Si (IV)', x, y);
+                    }
+                }
+            }
+
+            if (currentTab === 1) {
+                dopingAnimId = requestAnimationFrame(drawDoping);
+            }
+        }
+
+        // ==========================================
+        // SECTION 2: P-N JUNCTION & DEPLETION LOGIC
+        // ==========================================
+        const canvasJunction = document.getElementById('canvasJunction');
+        const ctxJunction = canvasJunction.getContext('2d');
+
+        let particles = [];
+        let fixedIons = [];
+        let isJunctionFormed = false;
+        let diffCount = 0;
+        let depletionWidth = 0;
+        let animIdJunction = null;
+
+        class Particle {
+            constructor(x, y, type) {
+                this.x = x;
+                this.y = y;
+                this.type = type; // 'electron' or 'hole'
+                this.vx = (Math.random() - 0.5) * 1.2;
+                this.vy = (Math.random() - 0.5) * 1.2;
+                this.recombined = false;
+            }
+
+            update(width, height) {
+                if (this.recombined) return;
+
+                // Thermal diffusion movement
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Bound inside respective sides if NOT joined
+                const midX = width / 2;
+                if (!isJunctionFormed) {
+                    if (this.type === 'hole' && this.x > midX - 15) {
+                        this.x = midX - 15;
+                        this.vx *= -1;
+                    }
+                    if (this.type === 'electron' && this.x < midX + 15) {
+                        this.x = midX + 15;
+                        this.vx *= -1;
+                    }
+                } else {
+                    // Internal Electric field opposing diffusion across junction
+                    if (depletionWidth > 0) {
+                        const depLeft = midX - depletionWidth / 2;
+                        const depRight = midX + depletionWidth / 2;
+
+                        if (this.x >= depLeft && this.x <= depRight) {
+                            // E-field points from N (right) to P (left)
+                            // Holes (pos) pushed LEFT, Electrons (neg) pushed RIGHT
+                            const eForce = 0.08 * (depletionWidth / 120);
+                            if (this.type === 'hole') this.vx -= eForce;
+                            if (this.type === 'electron') this.vx += eForce;
+                        }
+                    }
+                }
+
+                // Bounce off boundaries
+                if (this.x < 20 || this.x > width - 20) this.vx *= -1;
+                if (this.y < 40 || this.y > height - 40) this.vy *= -1;
+            }
+
+            draw(ctx) {
+                if (this.recombined) return;
+
+                ctx.beginPath();
+                if (this.type === 'electron') {
+                    ctx.arc(this.x, this.y, 4.5, 0, Math.PI * 2);
+                    ctx.fillStyle = '#38bdf8';
+                    ctx.shadowColor = '#38bdf8';
+                    ctx.shadowBlur = 6;
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                } else {
+                    ctx.arc(this.x, this.y, 5, 0, Math.PI * 2);
+                    ctx.strokeStyle = '#fb7185';
+                    ctx.lineWidth = 2;
+                    ctx.fillStyle = '#0f172a';
+                    ctx.fill();
+                    ctx.stroke();
+                }
+            }
+        }
+
+        function initJunctionParticles() {
+            particles = [];
+            fixedIons = [];
+            isJunctionFormed = false;
+            diffCount = 0;
+            depletionWidth = 0;
+
+            const w = canvasJunction.width;
+            const h = canvasJunction.height;
+
+            // Generate P-type holes (Left) and N-type electrons (Right)
+            // Leave an initial gap around the center line before joining
+            const gap = 30; // Physical gap between P & N materials prior to combination
+            for (let i = 0; i < 45; i++) {
+                particles.push(new Particle(30 + Math.random() * (w / 2 - 30 - gap), 50 + Math.random() * (h - 100), 'hole'));
+                particles.push(new Particle(w / 2 + gap + Math.random() * (w / 2 - 30 - gap), 50 + Math.random() * (h - 100), 'electron'));
+            }
+
+            updateJunctionStats();
+        }
+
+        function formJunction() {
+            if (isJunctionFormed) return;
+            isJunctionFormed = true;
+        }
+
+        function resetJunction() {
+            initJunctionParticles();
+        }
+
+        function updateJunctionStats() {
+            document.getElementById('diffCount').textContent = diffCount;
+            document.getElementById('depletionWidthText').textContent = Math.round(depletionWidth) + " nm";
+            const eField = (depletionWidth * 1.8).toFixed(0);
+            document.getElementById('eFieldText').textContent = eField + " kV/cm";
+            document.getElementById('barrierVolts').textContent = (depletionWidth * 0.0065).toFixed(2) + " V";
+        }
+
+        function animateJunction() {
+            if (currentTab !== 2) {
+                animIdJunction = requestAnimationFrame(animateJunction);
+                return;
+            }
+
+            const w = canvasJunction.width;
+            const h = canvasJunction.height;
+            const midX = w / 2;
+            const initialGap = 20;
+
+            ctxJunction.clearRect(0, 0, w, h);
+
+            // Draw P and N background regions (show visual separation gap if not joined yet)
+            if (!isJunctionFormed) {
+                ctxJunction.fillStyle = 'rgba(225, 29, 72, 0.08)';
+                ctxJunction.fillRect(0, 0, midX - initialGap, h);
+                ctxJunction.fillStyle = 'rgba(37, 99, 235, 0.08)';
+                ctxJunction.fillRect(midX + initialGap, 0, midX - initialGap, h);
+
+                // Material boundary edges before contact
+                ctxJunction.strokeStyle = 'rgba(244, 63, 94, 0.5)';
+                ctxJunction.lineWidth = 2;
+                ctxJunction.strokeRect(0, 0, midX - initialGap, h);
+
+                ctxJunction.strokeStyle = 'rgba(59, 130, 246, 0.5)';
+                ctxJunction.strokeRect(midX + initialGap, 0, midX - initialGap, h);
+            } else {
+                ctxJunction.fillStyle = 'rgba(225, 29, 72, 0.08)';
+                ctxJunction.fillRect(0, 0, midX, h);
+                ctxJunction.fillStyle = 'rgba(37, 99, 235, 0.08)';
+                ctxJunction.fillRect(midX, 0, midX, h);
+            }
+
+            // Draw Region Labels (Adjusted position and alignment to avoid overlap)
+            ctxJunction.font = 'bold 16px sans-serif';
+            ctxJunction.fillStyle = '#f43f5e';
+            ctxJunction.textAlign = 'left';
+            ctxJunction.fillText('P-Type Region (Holes)', 20, 30);
+
+            ctxJunction.fillStyle = '#3b82f6';
+            ctxJunction.textAlign = 'right';
+            ctxJunction.fillText('N-Type Region (Electrons)', w - 20, 30);
+
+            // Recombination Logic upon diffusion
+            if (isJunctionFormed) {
+                const activeHoles = particles.filter(p => p.type === 'hole' && !p.recombined);
+                const activeElectrons = particles.filter(p => p.type === 'electron' && !p.recombined);
+
+                for (let hP of activeHoles) {
+                    for (let eP of activeElectrons) {
+                        const dx = hP.x - eP.x;
+                        const dy = hP.y - eP.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+
+                        if (dist < 12) {
+                            // Recombine!
+                            hP.recombined = true;
+                            eP.recombined = true;
+                            diffCount++;
+
+                            // Expose fixed ions at junction boundaries
+                            depletionWidth = Math.min(180, depletionWidth + 6);
+
+                            // Add Fixed Ions
+                            fixedIons.push({
+                                x: midX - depletionWidth / 2 + Math.random() * 6,
+                                y: (hP.y + eP.y) / 2,
+                                type: 'acceptor' // Negative ion on P side
+                            });
+                            fixedIons.push({
+                                x: midX + depletionWidth / 2 - Math.random() * 6,
+                                y: (hP.y + eP.y) / 2,
+                                type: 'donor' // Positive ion on N side
+                            });
+
+                            updateJunctionStats();
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // Draw Depletion Zone Overlay
+            if (depletionWidth > 0) {
+                const depLeft = midX - depletionWidth / 2;
+                ctxJunction.fillStyle = 'rgba(234, 179, 8, 0.12)';
+                ctxJunction.fillRect(depLeft, 0, depletionWidth, h);
+
+                ctxJunction.strokeStyle = 'rgba(234, 179, 8, 0.6)';
+                ctxJunction.setLineDash([4, 4]);
+                ctxJunction.strokeRect(depLeft, 0, depletionWidth, h);
+                ctxJunction.setLineDash([]);
+
+                // Draw Internal E-Field Arrow
+                ctxJunction.fillStyle = '#facc15';
+                ctxJunction.font = 'bold 12px sans-serif';
+                ctxJunction.textAlign = 'center';
+                ctxJunction.fillText('Depletion Layer (No free carriers)', midX, h - 20);
+
+                // E-field arrow pointing right to left (N to P)
+                ctxJunction.strokeStyle = '#34d399';
+                ctxJunction.lineWidth = 2;
+                ctxJunction.beginPath();
+                ctxJunction.moveTo(midX + depletionWidth / 2 - 10, h / 2);
+                ctxJunction.lineTo(midX - depletionWidth / 2 + 10, h / 2);
+                ctxJunction.stroke();
+
+                // Arrow head
+                ctxJunction.beginPath();
+                ctxJunction.fillStyle = '#34d399';
+                ctxJunction.moveTo(midX - depletionWidth / 2 + 10, h / 2 - 5);
+                ctxJunction.lineTo(midX - depletionWidth / 2, h / 2);
+                ctxJunction.lineTo(midX - depletionWidth / 2 + 10, h / 2 + 5);
+                ctxJunction.fill();
+
+                ctxJunction.fillText('E_internal', midX, h / 2 - 8);
+            } else if (isJunctionFormed) {
+                // Junction dividing line
+                ctxJunction.strokeStyle = '#64748b';
+                ctxJunction.lineWidth = 2;
+                ctxJunction.beginPath();
+                ctxJunction.moveTo(midX, 0);
+                ctxJunction.lineTo(midX, h);
+                ctxJunction.stroke();
+            }
+
+            // Draw Fixed Ions in Depletion Zone
+            for (let ion of fixedIons) {
+                ctxJunction.beginPath();
+                ctxJunction.arc(ion.x, ion.y, 9, 0, Math.PI * 2);
+                if (ion.type === 'acceptor') {
+                    ctxJunction.fillStyle = 'rgba(225, 29, 72, 0.7)';
+                    ctxJunction.fill();
+                    ctxJunction.fillStyle = '#ffffff';
+                    ctxJunction.font = 'bold 11px sans-serif';
+                    ctxJunction.textAlign = 'center';
+                    ctxJunction.textBaseline = 'middle';
+                    ctxJunction.fillText('-', ion.x, ion.y);
+                } else {
+                    ctxJunction.fillStyle = 'rgba(37, 99, 235, 0.7)';
+                    ctxJunction.fill();
+                    ctxJunction.fillStyle = '#ffffff';
+                    ctxJunction.font = 'bold 11px sans-serif';
+                    ctxJunction.textAlign = 'center';
+                    ctxJunction.textBaseline = 'middle';
+                    ctxJunction.fillText('+', ion.x, ion.y);
+                }
+            }
+
+            // Update & Draw Mobile Particles
+            for (let p of particles) {
+                p.update(w, h);
+                p.draw(ctxJunction);
+            }
+
+            animIdJunction = requestAnimationFrame(animateJunction);
+        }
+
+        // ==========================================
+        // SECTION 3: LED & EXTERNAL BIAS SIMULATION
+        // ==========================================
+        const canvasLED = document.getElementById('canvasLED');
+        const ctxLED = canvasLED.getContext('2d');
+
+        let biasVoltage = 0.0;
+        let ledColor = 'red'; // 'red', 'green', 'blue'
+        let ledParticles = [];
+        let photons = [];
+        let animIdLED = null;
+
+        function changeLedColor(color) {
+            ledColor = color;
+        }
+
+        function updateBias(val) {
+            biasVoltage = parseFloat(val);
+            const disp = document.getElementById('voltageDisplay');
+            if (biasVoltage > 0) {
+                disp.textContent = `+${biasVoltage.toFixed(1)} V (Forward Bias)`;
+                disp.className = "text-xl font-black text-emerald-400";
+            } else if (biasVoltage < 0) {
+                disp.textContent = `${biasVoltage.toFixed(1)} V (Reverse Bias)`;
+                disp.className = "text-xl font-black text-rose-400";
+            } else {
+                disp.textContent = `0.0 V (No Bias)`;
+                disp.className = "text-xl font-black text-amber-400";
+            }
+        }
+
+        class LEDParticle {
+            constructor(x, y, type) {
+                this.x = x;
+                this.y = y;
+                this.type = type;
+            }
+
+            update(w, h, currentDepletionWidth) {
+                const midX = w / 2;
+                const speed = 1.2 + Math.max(0, biasVoltage) * 1.5;
+
+                if (biasVoltage > 0.5) {
+                    // Forward bias drives holes right and electrons left into junction
+                    if (this.type === 'hole') {
+                        this.x += speed * 0.8;
+                        if (this.x > midX + 20) this.x = 40 + Math.random() * 40; // recycle
+                    } else {
+                        this.x -= speed * 0.8;
+                        if (this.x < midX - 20) this.x = w - 40 - Math.random() * 40; // recycle
+                    }
+                } else if (biasVoltage < -0.2) {
+                    // Reverse bias pulls carriers AWAY from junction
+                    if (this.type === 'hole') {
+                        if (this.x > 30) this.x -= 1.5;
+                    } else {
+                        if (this.x < w - 30) this.x += 1.5;
+                    }
+                } else {
+                    // Random thermal wiggle
+                    this.x += (Math.random() - 0.5) * 0.8;
+                }
+
+                this.y += (Math.random() - 0.5) * 0.8;
+                if (this.y < 60) this.y = 60;
+                if (this.y > h - 60) this.y = h - 60;
+            }
+
+            draw(ctx) {
+                ctx.beginPath();
+                if (this.type === 'electron') {
+                    ctx.arc(this.x, this.y, 4.5, 0, Math.PI * 2);
+                    ctx.fillStyle = '#38bdf8';
+                    ctx.shadowColor = '#38bdf8';
+                    ctx.shadowBlur = 4;
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                } else {
+                    ctx.arc(this.x, this.y, 5, 0, Math.PI * 2);
+                    ctx.strokeStyle = '#fb7185';
+                    ctx.lineWidth = 2;
+                    ctx.fillStyle = '#0f172a';
+                    ctx.fill();
+                    ctx.stroke();
+                }
+            }
+        }
+
+        class Photon {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.angle = -Math.PI / 2 + (Math.random() - 0.5) * 1.2; // radiating upwards
+                this.speed = 3.5;
+                this.life = 1.0;
+            }
+
+            update() {
+                this.x += Math.cos(this.angle) * this.speed;
+                this.y += Math.sin(this.angle) * this.speed;
+                this.life -= 0.02;
+            }
+
+            draw(ctx) {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle);
+
+                ctx.beginPath();
+                let strokeColor = '#ef4444';
+                if (this.color === 'green') strokeColor = '#22c55e';
+                if (this.color === 'blue') strokeColor = '#3b82f6';
+
+                ctx.strokeStyle = strokeColor;
+                ctx.lineWidth = 2;
+                ctx.globalAlpha = Math.max(0, this.life);
+
+                // Wave packet shape
+                ctx.beginPath();
+                for (let i = -10; i <= 10; i++) {
+                    const waveY = Math.sin(i * 0.8) * 4;
+                    if (i === -10) ctx.moveTo(i, waveY);
+                    else ctx.lineTo(i, waveY);
+                }
+                ctx.stroke();
+                ctx.restore();
+            }
+        }
+
+        function initLedParticles() {
+            ledParticles = [];
+            photons = [];
+            const w = canvasLED.width;
+            const h = canvasLED.height;
+
+            for (let i = 0; i < 35; i++) {
+                ledParticles.push(new LEDParticle(40 + Math.random() * (w / 2 - 80), 60 + Math.random() * (h - 120), 'hole'));
+                ledParticles.push(new LEDParticle(w / 2 + 40 + Math.random() * (w / 2 - 80), 60 + Math.random() * (h - 120), 'electron'));
+            }
+        }
+
+        function animateLED() {
+            if (currentTab !== 3) {
+                animIdLED = requestAnimationFrame(animateLED);
+                return;
+            }
+
+            const w = canvasLED.width;
+            const h = canvasLED.height;
+            const midX = w / 2;
+
+            ctxLED.clearRect(0, 0, w, h);
+
+            // Compute Depletion Region Width based on Bias Voltage
+            // Base equilibrium width = 90
+            let currentDepWidth = 90 - (biasVoltage * 35);
+            currentDepWidth = Math.max(8, Math.min(170, currentDepWidth));
+
+            // Draw Background Semiconductor Regions
+            ctxLED.fillStyle = 'rgba(225, 29, 72, 0.08)';
+            ctxLED.fillRect(0, 0, midX, h);
+            ctxLED.fillStyle = 'rgba(37, 99, 235, 0.08)';
+            ctxLED.fillRect(midX, 0, midX, h);
+
+            // Draw External Circuit wires & Battery representation
+            ctxLED.strokeStyle = biasVoltage > 0 ? '#10b981' : (biasVoltage < 0 ? '#f43f5e' : '#64748b');
+            ctxLED.lineWidth = 3;
+
+            // Top battery connection loop
+            ctxLED.beginPath();
+            ctxLED.moveTo(80, 40); ctxLED.lineTo(80, 20); ctxLED.lineTo(w - 80, 20); ctxLED.lineTo(w - 80, 40);
+            ctxLED.stroke();
+
+            // Terminal Polarity Markers directly at top contacts
+            ctxLED.font = 'bold 16px sans-serif';
+            ctxLED.textAlign = 'center';
+            if (biasVoltage > 0) {
+                // Forward Bias: Left terminal (+), Right terminal (-)
+                ctxLED.fillStyle = '#10b981';
+                ctxLED.fillText('(+) Positive Terminal', 130, 15);
+                ctxLED.fillText('(-) Negative Terminal', w - 130, 15);
+
+                ctxLED.fillStyle = '#34d399';
+                ctxLED.beginPath(); ctxLED.arc(80, 20, 12, 0, Math.PI * 2); ctxLED.fill();
+                ctxLED.fillStyle = '#0f172a'; ctxLED.fillText('+', 80, 25);
+
+                ctxLED.fillStyle = '#f87171';
+                ctxLED.beginPath(); ctxLED.arc(w - 80, 20, 12, 0, Math.PI * 2); ctxLED.fill();
+                ctxLED.fillStyle = '#0f172a'; ctxLED.fillText('-', w - 80, 24);
+            } else if (biasVoltage < 0) {
+                // Reverse Bias: Left terminal (-), Right terminal (+)
+                ctxLED.fillStyle = '#f43f5e';
+                ctxLED.fillText('(-) Negative Terminal', 130, 15);
+                ctxLED.fillText('(+) Positive Terminal', w - 130, 15);
+
+                ctxLED.fillStyle = '#f87171';
+                ctxLED.beginPath(); ctxLED.arc(80, 20, 12, 0, Math.PI * 2); ctxLED.fill();
+                ctxLED.fillStyle = '#0f172a'; ctxLED.fillText('-', 80, 24);
+
+                ctxLED.fillStyle = '#34d399';
+                ctxLED.beginPath(); ctxLED.arc(w - 80, 20, 12, 0, Math.PI * 2); ctxLED.fill();
+                ctxLED.fillStyle = '#0f172a'; ctxLED.fillText('+', w - 80, 25);
+            } else {
+                ctxLED.fillStyle = '#94a3b8';
+                ctxLED.fillText('No Supply Connected', midX, 15);
+            }
+
+            // Battery Symbol at center top
+            ctxLED.fillStyle = '#0f172a';
+            ctxLED.fillRect(midX - 50, 8, 100, 26);
+            ctxLED.strokeStyle = '#475569';
+            ctxLED.lineWidth = 1;
+            ctxLED.strokeRect(midX - 50, 8, 100, 26);
+            ctxLED.font = 'bold 12px sans-serif';
+            ctxLED.textAlign = 'center';
+
+            if (biasVoltage > 0) {
+                ctxLED.fillStyle = '#10b981';
+                ctxLED.fillText(`Forward Bias`, midX, 25);
+            } else if (biasVoltage < 0) {
+                ctxLED.fillStyle = '#f43f5e';
+                ctxLED.fillText(`Reverse Bias`, midX, 25);
+            } else {
+                ctxLED.fillStyle = '#94a3b8';
+                ctxLED.fillText(`Open Circuit`, midX, 25);
+            }
+
+            // Depletion Zone Rendering
+            const depLeft = midX - currentDepWidth / 2;
+            ctxLED.fillStyle = 'rgba(234, 179, 8, 0.12)';
+            ctxLED.fillRect(depLeft, 40, currentDepWidth, h - 80);
+            ctxLED.strokeStyle = 'rgba(234, 179, 8, 0.6)';
+            ctxLED.strokeRect(depLeft, 40, currentDepWidth, h - 80);
+
+            // Depletion Label
+            ctxLED.fillStyle = '#facc15';
+            ctxLED.font = 'bold 11px sans-serif';
+            ctxLED.fillText(`Depletion Region (${Math.round(currentDepWidth)} nm)`, midX, h - 25);
+
+            // Recombination & Light Generation in Forward Bias
+            // Threshold voltage dependent on bandgap energy color
+            let vThreshold = 1.2;
+            if (ledColor === 'green') vThreshold = 1.8;
+            if (ledColor === 'blue') vThreshold = 2.4;
+
+            if (biasVoltage >= vThreshold) {
+                // Continuous photon spawning at junction center
+                if (Math.random() < (biasVoltage * 0.4)) {
+                    photons.push(new Photon(midX + (Math.random() - 0.5) * 20, h / 2 + (Math.random() - 0.5) * 60, ledColor));
+                }
+
+                // Junction Glow Effect
+                let glowColor = 'rgba(239, 68, 68, ';
+                if (ledColor === 'green') glowColor = 'rgba(34, 197, 94, ';
+                if (ledColor === 'blue') glowColor = 'rgba(59, 130, 246, ';
+
+                const gradient = ctxLED.createRadialGradient(midX, h / 2, 5, midX, h / 2, 120);
+                gradient.addColorStop(0, glowColor + '0.5)');
+                gradient.addColorStop(1, glowColor + '0)');
+                ctxLED.fillStyle = gradient;
+                ctxLED.fillRect(0, 0, w, h);
+            }
+
+            // Update & Draw Photons
+            for (let i = photons.length - 1; i >= 0; i--) {
+                photons[i].update();
+                photons[i].draw(ctxLED);
+                if (photons[i].life <= 0) photons.splice(i, 1);
+            }
+
+            // Update & Draw Carriers
+            for (let p of ledParticles) {
+                p.update(w, h, currentDepWidth);
+                p.draw(ctxLED);
+            }
+
+            animIdLED = requestAnimationFrame(animateLED);
+        }
+
+        // Initialize simulations on window load
+        window.onload = () => {
+            setMaterial('intrinsic');
+            initJunctionParticles();
+            initLedParticles();
+
+            // Start animation loops
+            animateJunction();
+            animateLED();
+        };
+    </script>
+</body>
+</html>
